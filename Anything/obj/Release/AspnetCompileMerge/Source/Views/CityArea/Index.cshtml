@@ -1,0 +1,55 @@
+﻿<style type="text/css">
+    #area option{
+    display:none;
+    }
+</style>
+<div id="TaiwanDropDownList">
+
+    @Html.DropDownList("City", (SelectList)ViewBag.City, null, new { id = "City" })
+    <select id="area">
+
+        @{
+            foreach (var item in (List<Anything.Models.Area_TW>)ViewBag.Area)
+            {
+                <option data-cid="@item.CID" value="@item.ID">@item.Area</option>
+            }
+        }
+    </select>
+    <input type="hidden" id="SelectCity" name="SelectCity" />
+    <input type="hidden" id="SelectArea" name="SelectArea" />
+</div>
+<script type="text/javascript">
+    jQuery(function () {
+        var tw = "#TaiwanDropDownList";
+        var city = $("#City", tw);
+        var area = $("#area", tw);
+        var SelectCity = $("#SelectCity", tw);
+        var SelectArea = $("#SelectArea", tw);
+        city.on("change", function () {
+            var self = $(this);
+            var SelectValue = self.val();
+            var SelectText = self.find(":selected").text().trim();
+            SelectArea.val('');
+            area.find("option").hide();
+            if (SelectValue != "") {
+                SelectCity.val(SelectText);
+                area.find("option[data-cid='" + SelectValue + "']").show();
+            }
+
+            if (SelectValue == "0") {
+                SelectCity.val('');
+                SelectArea.val('');
+            }
+        });
+
+        area.on("change", function () {
+            var self = $(this);
+            var SelectValue = self.val();
+            var SelectText = self.find(":selected").text().trim();
+            area.find("option").hide();
+            if (SelectValue != "") {
+                SelectArea.val(SelectText);
+            }
+        });
+    })
+</script>

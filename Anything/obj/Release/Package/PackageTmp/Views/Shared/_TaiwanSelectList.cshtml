@@ -1,0 +1,84 @@
+﻿@{
+    var CurrentCity = 0;
+    if (ViewBag.CurrentCity != null)
+    {
+        CurrentCity = (int)ViewBag.CurrentCity;
+    }
+    var City = new Anything.Helper.Caches().TWCity;
+    ViewBag.Area = new Anything.Helper.Caches().TWArea;
+    SelectList selectList = new SelectList(City, "ID", "City", CurrentCity);
+    
+    ViewBag.City = selectList;
+    
+}
+<style type="text/css">
+    #area option {
+        display: none;
+    }
+</style>
+<div id="TaiwanDropDownList">
+
+    @Html.DropDownList("City",null,new {id="City"})
+    <select id="area" name="Area">
+
+        @{
+            foreach (var item in (List<Anything.Models.Area_TW>)ViewBag.Area)
+            {
+                if (ViewBag.CurrentArea != null && (int)ViewBag.CurrentArea == item.ID)
+                {
+                    <option data-cid="@item.CID" selected="selected" value="@item.ID">@item.Area</option>
+                }
+                else
+                {
+                    <option data-cid="@item.CID" value="@item.ID">@item.Area</option>
+                }           
+            }
+        }
+    </select>
+    <input type="hidden" id="SelectCity" name="SelectCity" />
+    <input type="hidden" id="SelectArea" name="SelectArea" />
+</div>
+<script type="text/javascript">
+    jQuery(function () {
+        var tw = "#TaiwanDropDownList";
+        var city = $("#City", tw);
+        var area = $("#area", tw);
+        var SelectCity = $("#SelectCity", tw);
+        var SelectArea = $("#SelectArea", tw);
+
+        var text = city.find(":selected").val().trim();
+        
+        if (text != "") {
+            area.find("option[data-cid='" + text + "']").show();
+        }
+
+        city.on("change", function () {
+            var self = $(this);
+            var SelectValue = self.val();
+            var SelectText = self.find(":selected").text().trim();
+            SelectArea.val('');
+            area.val(0);
+            area.find("option").hide();
+            if (SelectValue != "") {
+                SelectCity.val(SelectText);
+                area.find("option[data-cid='" + SelectValue + "']").show();
+            }
+
+            if (SelectValue == "0") {
+                SelectCity.val('');
+                SelectArea.val('');
+            }
+        });
+
+        area.on("change", function () {
+            var self = $(this);
+            var SelectValue = self.val();
+            var SelectText = self.find(":selected").text().trim();
+            area.find("option").hide();
+            if (SelectValue != "") {
+                SelectArea.val(SelectText);
+            }
+        });
+    })
+</script>
+

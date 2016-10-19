@@ -1,0 +1,40 @@
+﻿@*<div class="form-group">
+    <ul>
+        <li class="input-group">
+            <span class="input-group-addon">
+                <input type="checkbox" aria-label="...">
+            </span>
+            <label class ="form-control">aaaa</label>
+          
+        </li>
+    </ul>
+</div>*@
+
+<div class="navbar navbar-default left">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#left-navbar" aria-expanded="false">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>           
+        </div>
+        <div class="collapse navbar-collapse" id="left-navbar">
+            <ul class="nav navbar top-nav">
+                @if (ViewBag.Options != null)
+                {
+                    var options = (List<Anything.Models.ServiceOption>)ViewBag.Options;
+                    foreach (var item in options)
+                    {
+                        <li>
+                            <label><input value="@item.ID" class="chk-options" type="checkbox">@item.Text</label>
+                        </li>
+                    }
+                }
+
+            </ul>
+
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,185 @@
+﻿@model Anything.Models.AdManage
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm("Create", "AdManage", FormMethod.Post,
+                        new { enctype = "multipart/form-data" })) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>廣告管理</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @Html.HiddenFor(model => model.ID)
+
+        <div class="form-group">
+           
+            <label class="control-label col-md-2 col-sm-2">版型</label>
+            <div class="col-md-10">
+                @Html.DropDownList("PositionId", (SelectList)ViewBag.Position, "請選擇", new { @class = "form-control" })
+
+                @Html.ValidationMessageFor(model => model.Position, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+          
+            <label class="control-label col-md-2 col-sm-2">價格</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SalePrice, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SalePrice, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            
+            <label class="control-label col-md-2 col-sm-2">特價</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DiscountPrice, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DiscountPrice, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+           
+            <label class="control-label col-md-2 col-sm-2">可上傳圖片</label>
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.AllowImage)
+                    @Html.ValidationMessageFor(model => model.AllowImage, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+           
+            <label class="control-label col-md-2 col-sm-2">可加入文字</label>
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.AllowText)
+                    @Html.ValidationMessageFor(model => model.AllowText, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2 col-sm-2">圖片數量</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ImageLimit, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ImageLimit, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            
+            <label class="control-label col-md-2 col-sm-2">字數</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TextLimit, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TextLimit, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+           圖片寬度
+            <label class="control-label col-md-2 col-sm-2">介紹</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ImageWidth, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ImageWidth, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+           
+            <label class="control-label col-md-2 col-sm-2">圖片高度</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ImageHeight, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ImageHeight, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            
+            <label class="control-label col-md-2 col-sm-2">可售數量</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.MaxCount, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.MaxCount, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            
+            <label class="control-label col-md-2 col-sm-2">上架中</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Enabled, new { htmlAttributes = new { @class = "" } })
+                @Html.ValidationMessageFor(model => model.Enabled, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+           
+            <label class="control-label col-md-2 col-sm-2">停止販售</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SaleOff, new { htmlAttributes = new { @class = "" } })
+                @Html.ValidationMessageFor(model => model.SaleOff, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+           
+            <label class="control-label col-md-2 col-sm-2">圖片類型</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.AllowImageType, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.AllowImageType, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            
+            <label class="control-label col-md-2 col-sm-2">版型圖片上傳</label>
+            <div class="col-md-10">
+               <input type="file" id="file" name="file" />
+            </div>
+            <div class="col-md-10 col-sm-10" style="background-color:rgba(192,192,192,0.5);padding:5px 5px;margin-top:10px;">
+                <img class="img-rounded m-x-auto d-block" id="preview" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="確定" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+<script type="text/javascript">
+    jQuery(function () {
+        function preview(input) {
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#preview').attr('src', e.target.result);
+                    var KB = format_float(e.total / 1024, 2);
+                    $('.size').text("檔案大小：" + KB + " KB");
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("body").on("change", "#file", function () {
+            preview(this);
+        })
+    })
+</script>

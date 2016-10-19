@@ -1,0 +1,32 @@
+﻿@model IPagedList<Anything.Models.ServiceOption>
+
+<p>
+    @Html.ActionLink("Create New", "ServiceOptionCreate")
+</p>
+<table class="table">
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Text)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Enabled)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Created)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "ServiceOptionEdit", new { id = item.ID }) 
+                @*@Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })*@
+            </td>
+        </tr>
+    }
+
+</table>
+@Html.PagedListPager(Model, Page => Url.Action("ServiceOption", new { Page }))

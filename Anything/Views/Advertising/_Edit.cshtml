@@ -1,0 +1,98 @@
+﻿@model Anything.Models.AdOrder
+<div class="form-group">
+    @Html.LabelFor(model => model.BeginDate, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Model.BeginDate.ToShortDateString()
+
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Model.EndDate.ToShortDateString()
+
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.Position, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.Position, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.bought, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.bought, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+        @Html.ValidationMessageFor(model => model.bought, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+@{
+    if (Model.AllowImage)
+    {
+        <div class="form-group">
+            @Html.LabelFor(model => model.bought, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="col-md-12">
+                    <span class="control-label">@Model.ImageLimit <span>張</span></span>
+                    <span class="control-label"><span>長</span> @Model.ImageHeight </span>
+                    <span class="control-label"><span>寬</span> @Model.ImageWidth </span>
+                </div>
+                <div class="col-md-12">
+                    <input id="file" type="file" name="files" multiple />
+                    <div id="img-container">
+                        @{
+        if (ViewBag.Images != null)
+        {
+            foreach (var item in (List<Anything.Models.AdImage>)ViewBag.Images)
+            {
+                var base64 = Convert.ToBase64String(item.Image);
+                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                <div class="col-md-2 imagefile">
+                    <div class="thumbnail">
+                        <img class="img-responsive" src="@imgSrc" />
+
+                    </div>
+                    <i id="@item.Name" class="glyphicon glyphicon-remove-circle deleteicon"></i>
+                </div>
+            }
+        }
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+
+@{
+    if (Model.AllowText)
+    {
+        <div class="form-group">
+            @Html.LabelFor(model => model.bought, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="col-md-12">
+                    <label>@Model.TextLimit <span>字</span></label>
+                </div>
+                <div class="col-md-12">
+                    @Html.TextAreaFor(model => model.Text, new { @maxlength = Model.TextLimit })
+                </div>
+            </div>
+        </div>
+    }
+}
+
+
+
+<div class="form-group">
+    @Html.LabelFor(model => model.Href, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.Href, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.Href, "", new { @class = "text-danger" })
+    </div>
+</div>

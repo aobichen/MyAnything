@@ -1,0 +1,90 @@
+﻿@model IEnumerable<Anything.ViewModels.MyOrderOfHotel>
+
+<table class="table table-bordered table-striped table-hover table-condensed alert-warning">
+    <tr>
+        
+        <th>
+            入住日期
+        </th>
+        <th>
+            退房日期
+        </th>
+        <th>
+            民宿
+        </th>
+        <th>
+            房型
+        </th>
+        <th>
+           金額
+        </th>
+        <th>數量
+        </th>
+        <th>
+           總額
+        </th>
+        <th>
+            帳單狀態
+        </th>
+  
+        @*<th></th>*@
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.CheckInDate.ToShortDateString()
+            </td>
+            <td>
+                @item.CheckOutDate.ToShortDateString()
+               
+            </td>
+           
+            <td>
+                @item.HotelName
+            </td>
+            <td>
+                @item.RoomName
+            </td>
+            <td>
+                @item.Price
+            </td>
+            <td>
+                @item.Amount
+            </td>
+           
+            <td>
+                @item.Total
+            </td>
+            <td>
+                @switch (item.PayStatus)
+                {
+                    case "":
+                        <span>未完成</span>
+                        break;
+                    case "1":
+                    <span>訂單等待付款</span>
+                        break;
+                    case "2":
+                    <span>付款完成</span>
+                        break;
+                    case "v342":
+                    <span>逾期未付費-訂單無效</span>
+                      break;
+                }
+                
+            </td>
+            
+           
+           
+            @*<td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </td>*@
+        </tr>
+    }
+
+</table>
+

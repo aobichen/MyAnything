@@ -1,0 +1,12 @@
+﻿@model IEnumerable<Anything.Models.AdManage>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+   @Html.Partial("_List",(List<Anything.Models.AdManage>)ViewBag.Advertising)
+</p>
+

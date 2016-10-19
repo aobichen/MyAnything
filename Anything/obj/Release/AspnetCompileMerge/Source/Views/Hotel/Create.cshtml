@@ -1,0 +1,36 @@
+﻿@model Anything.ViewModels.HotelCreateViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+@Scripts.Render("~/Scripts/tinymce/tinymce.min.js");
+<script type="text/javascript">
+    tinymce.init({ selector: '#Information',height:"400" });
+</script>
+
+<style type="text/css">
+    textarea {
+        height:100px;
+        width:100%;
+    }
+
+   
+</style>
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    <div class="container">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="row">
+            <div class="col-md-10 col-sm-10 col-xs-12 col-center">
+                
+                    @Html.Partial("_Create", Model)
+                
+            </div>
+        </div>
+    </div>
+
+}
+

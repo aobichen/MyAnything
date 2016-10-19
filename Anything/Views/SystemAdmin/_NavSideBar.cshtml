@@ -1,0 +1,105 @@
+﻿<div id="sidebar" class="sidebar responsive">
+    <input type="hidden" id="nav-active" value="@ViewBag.active" />
+    <nav class="navbar navbar-default sidebar list" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-sidebar-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+
+                    <li id="Hotel">
+                        <a href="#">
+                            飯店管理
+                            <span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-home">
+                            </span>
+                        </a>
+                    </li>
+
+
+                    <li class="" id="Users">
+                        <a href="#">
+                            會員管理
+                            <span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user">
+                            </span>
+                        </a>
+                    </li>
+
+                    <li class="" id="Roles">
+                        <a href="#">
+                            權限管理
+                            <span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-bookmark">
+                            </span>
+                        </a>
+                    </li>
+
+                    <li class="" id="News">
+                        <a href="#">
+                            最新消息
+                            <span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-bullhorn">
+                            </span>
+                        </a>
+                    </li>
+
+                    <li class="" id="Service">
+                        <a href="#">
+                            服務項目
+                            <span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-glass">
+                            </span>
+                        </a>
+                    </li>
+
+                    <li class="" id="scenic">
+                        <a href="#">
+                            熱門景點
+                            <span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-fire">
+                            </span>
+                        </a>
+                    </li>
+                    <li class="" id="adver">
+                        <a href="#">
+                            廣告管理
+                            <span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-facetime-video">
+                            </span>
+                        </a>
+                    </li>
+                    <li class="" id="system">
+                        <a href="#">
+                            系統參數
+                            <span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-cog">
+                            </span>
+                        </a>
+                    </li>
+                    @*<li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Usuarios <span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a>
+                            <ul class="dropdown-menu forAnimate" role="menu">
+                                <li><a href="{{URL::to('createusuario')}}">Crear</a></li>
+                                <li><a href="#">Modificar</a></li>
+                                <li><a href="#">Reportar</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">Separated link</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">Informes</a></li>
+                            </ul>
+                        </li>*@
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+</div>
+<script>
+    jQuery(function () {
+        var active = $('#nav-active').val();
+        console.log(active);
+        console.log($('li[id=' + active + ']').length);
+        $('li', '.navbar-nav').removeClass('active');
+        $('li[id=' + active + ']').addClass('active');
+    })
+</script>

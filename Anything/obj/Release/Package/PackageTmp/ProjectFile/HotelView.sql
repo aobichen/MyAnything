@@ -1,0 +1,22 @@
+USE [Anything]
+GO
+
+/****** Object:  Table [dbo].[HotelView]    Script Date: 10/02/2016 20:11:03 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[HotelView](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[HotelId] [int] NULL,
+	[Created] [datetime] NULL,
+ CONSTRAINT [PK_HotelView] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+

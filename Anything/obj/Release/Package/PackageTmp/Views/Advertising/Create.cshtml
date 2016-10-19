@@ -1,0 +1,148 @@
+﻿@model Anything.Models.AdOrder
+
+@{
+    ViewBag.Title = "Order";
+}
+
+<h2>Order</h2>
+
+@using (Html.BeginForm("Create", "Advertising", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>AdOrder</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <input type="hidden" name="key" id="key" value="@((string)ViewBag.SessionKey)" />
+        @Html.HiddenFor(model => model.PositionId)
+        @Html.HiddenFor(model => model.AdId)
+        <div class="form-group">
+            @Html.LabelFor(model => model.BeginDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*@Html.EditorFor(model => model.BeginDate, new { htmlAttributes = new { @class = "form-control" } })*@
+                <input type="text" name="BeginDate" value="@Model.BeginDate.ToShortDateString()" readonly="readonly" style="border:none;" />
+                @Html.ValidationMessageFor(model => model.BeginDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="text" name="EndDate" value="@Model.EndDate.ToShortDateString()" readonly="readonly" style="border:none;" />
+                @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Position, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+
+                <input type="text" name="Position" value="@Model.Position" readonly="readonly" style="border:none;" />
+                @Html.ValidationMessageFor(model => model.Position, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.bought, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="text" name="bought" value="@Model.bought" readonly="readonly" style="border:none;" />
+                @Html.ValidationMessageFor(model => model.bought, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @{
+    if (Model.AllowImage)
+    {
+        <div class="form-group">
+            @Html.LabelFor(model => model.bought, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="col-md-12">
+                    <span class="control-label">@Model.ImageLimit <span>張</span></span>
+                    <span class="control-label"><span>長</span> @Model.ImageHeight </span>
+                    <span class="control-label"><span>寬</span> @Model.ImageWidth </span>
+                </div>
+                <div class="col-md-12">
+                    <input id="file" type="file" name="files" multiple />
+                    <div id="img-container">  </div>
+                </div>
+            </div>
+        </div>
+    }
+        }
+
+        @{
+    if (Model.AllowText)
+    {
+        <div class="form-group">
+            @Html.LabelFor(model => model.bought, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="col-md-12">
+                    <label>@Model.TextLimit <span>字</span></label>
+                </div>
+                <div class="col-md-12">
+                    @Html.TextAreaFor(model => model.Text, new { @maxlength = Model.TextLimit })
+                </div>
+            </div>
+        </div>
+    }
+        }
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Days, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="text" name="bought" value="@Model.Days" readonly="readonly" style="border:none;" />
+                @Html.ValidationMessageFor(model => model.Days, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Href, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Href, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Href, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        
+
+
+
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<script type="text/javascript">
+    jQuery(function () {
+        function preview(input) {
+
+            if (input.files && input.files[0]) {
+                var files = input.files;
+                for (var i = 0, f; f = files[i]; i++) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        var $div = $('<div></div>').addClass('col-md-3');
+                        var $image = $('<img></img>').addClass('img-responsive');
+                        $div.append($image);
+                        $image.attr('src', e.target.result);
+                        $('#img-container').append($div);
+                    }
+
+                    reader.readAsDataURL(f);
+                }
+            }
+        }
+
+        $("body").on("change", "#file", function () {
+
+            preview(this);
+        })
+    })
+</script>

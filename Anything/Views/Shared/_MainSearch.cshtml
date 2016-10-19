@@ -1,0 +1,76 @@
+﻿<div class="slider" style="height:300px">
+    <ul id="hero-gallery" class="cS-hidden">
+        <li data-thumb="Content/images/uploads/offical.jpg">
+            <img src="~/Content/images/uploads/offical.jpg" alt="" class="blur" />
+        </li>
+        @*<li data-thumb="images/uploads/slider.jpg">
+                <img src="images/uploads/slider.jpg" alt="" />
+            </li>
+            <li data-thumb="images/uploads/slider.jpg">
+                <img src="images/uploads/slider.jpg" alt="" />
+            </li>*@
+    </ul>
+</div>
+<div class="main-search">
+    <div class="wrap">
+        <form id="main-search" method="post" action="search_results.html">
+            <div class="row">
+                <!--column-->
+                
+                <!--//column-->
+
+                <div class="full-width">
+                    <!--form hotel-->
+                    
+                    <!--//form hotel-->
+                    <!--form self catering-->
+                    <div class="form row" id="form1">
+                        <!--column-->
+                        <div class="one-third">
+                            @*<h5><span>02</span> Where?</h5>*@
+                            <div class="row">
+                                <div class="f-item full-width">
+                                    <label for="destination2">地點</label>
+                                    <input type="text" placeholder="目的城市,景點,民宿" id="destination2" name="destination" />
+                                </div>
+                            </div>
+                        </div>
+                        <!--//column-->
+                        <!--column-->
+                        <div class="column two-third">
+                            @*<h5><span>03</span> When?</h5>*@
+                            <div class="row">
+                                <div class="f-item one-half datepicker">
+                                    <label for="datepicker1">住房日</label>
+                                    <div class="datepicker-wrap"><input type="text" placeholder="" id="datepicker4" name="datepicker4" value="@DateTime.Now.ToString("dd/MM/yyyy")" /></div>
+                                </div>
+                                <div class="f-item one-half datepicker">
+                                    <label for="datepicker2">退房日</label>
+                                    <div class="datepicker-wrap"><input type="text" placeholder="" id="datepicker5" name="datepicker5" value="@DateTime.Now.AddDays(1).ToString("dd/MM/yyyy")" /></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--//column-->
+                        <!--column-->
+                        
+                        <!--//column-->
+                    </div>
+                    <!--//form self catering-->
+                    <!--form flight-->
+                    
+                    <!--//form flight-->
+                    <!--form cruise-->
+                    
+                    <!--//form cruise-->
+                    <!--form flight+hotel-->
+                    
+                    <!--//form flight+hotel-->
+                    <!--form rent a car-->
+                    
+                    <!--//form rent a car-->
+                </div>
+                <input type="submit" value="搜尋" class="gradient-button search-submit" id="search-submit" />
+            </div>
+        </form>
+    </div>
+</div>

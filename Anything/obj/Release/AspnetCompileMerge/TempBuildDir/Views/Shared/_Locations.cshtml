@@ -1,0 +1,49 @@
+﻿
+@{
+    var Location = new Anything.Helper.Caches().TWLocation;
+    var CurrentLocation = string.Empty;
+    if (ViewBag.CurrentLocation != null)
+    {
+        CurrentLocation = (string)ViewBag.CurrentLocation;
+    }
+    SelectList selectList = new SelectList(Location, "Location", "Location", CurrentLocation);
+    ViewBag.Location = selectList;
+}
+<style type="text/css">
+    #area option {
+        display: none;
+    }
+</style>
+<div id="LocationDropDownList">
+
+    @Html.DropDownList("Location",null, new { id = "Location" })
+   
+    <input type="hidden" id="SelectLocation" name="SelectLocation" />
+   
+</div>
+<script type="text/javascript">
+    jQuery(function () {
+        var tw = "#LocationDropDownList";
+        var Location = $("#Location", tw);
+        
+        var SelectLocation = $("#SelectLocation", tw);
+       
+        Location.on("change", function () {
+            var self = $(this);
+            var SelectValue = self.val();
+            var SelectText = self.find(":selected").text().trim();
+            
+            area.find("option").hide();
+            if (SelectValue != "") {
+                SelectLocation.val(SelectText);
+            }
+
+            if (SelectValue == "0") {
+                SelectLocation.val('');
+            }
+        });
+
+        
+    })
+</script>
+

@@ -1,0 +1,137 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+}
+@*<script src="~/Content/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+<script src="~/Scripts/Base.js"></script>
+<link href="~/Content/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />*@
+
+
+<div class="wrap">
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="row">
+        <input id="hidenddate" type="hidden" value="@ViewBag.EndDate" />
+        @*<div class="container search-panel">
+           <input id="hidenddate" type="hidden" value="@ViewBag.EndDate" />
+                <div class="col-md-12">
+                    <div class="col-md-3 col-sm-3 col-xs-12 city-input">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-map-marker"></span>
+                            </span>
+                            @Html.DropDownList("City", null, new { @class = "form-control" })
+                        
+                        </div>
+                    </div>
+
+                    <div class="col-md-9 col-sm-9 col-xs-12 left">
+                        <div class="col-md-4 col-sm-4 col-xs-12 date-input">
+                            <div class="form-group">
+                                <div class='input-group date' id='datetimepicker-begin'>
+                                    <input type='text' id="begin-date" class="form-control" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12 date-input">
+                            <div class="form-group">
+                                <div class='input-group date' id='datetimepicker-end'>
+                                    <input type='text' id="end-date" class="form-control" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12 date-input">
+                            <button type="submit" class="btn btn-primary">GO!</button>
+                        </div>
+                    </div>
+                </div>
+            
+        </div>*@
+     
+        
+            
+            
+                    @Html.Partial("_HotelList")
+              
+           
+        
+    </div>
+}
+</div>
+
+<script type="text/javascript">
+    //jQuery(function () {
+    //    let _ = {
+    //        BeginDate: $("#begin-date"),
+    //        EndDate: $("#end-date"),
+    //        BeginDateInput: $("#begin-date"),
+    //        EndDateInput: $("#end-date"),
+    //        EndDate:$('#hidenddate').val(),
+    //        Now: new Now()
+    //    };
+
+        
+
+        
+        //$('#datetimepicker-end').datetimepicker({
+        //    format: 'yyyy-mm-dd',
+        //    autoclose: true,
+        //    minView: 2,
+        //    pickerPosition: 'bottom-left',
+        //    startDate: new Date(_.Now.next),
+        //    endDate: _.Now.maxdate
+        //});
+
+        //_.BeginDateInput.val(_.Now.date);
+
+        //   let next = new Date(_.BeginDateInput.val());
+        //   let nextdate = _.Now.getNextDay(next);
+        //   _.EndDateInput.val(nextdate);
+
+        //$('#datetimepicker-begin').datetimepicker({
+        //    format: 'yyyy-mm-dd',
+        //        autoclose: true,
+        //        minView: 2,
+        //        pickerPosition: 'bottom-left',
+        //        initialDate: new Date(),
+        //        todayBtn: true,
+        //        startDate: new Date(),
+        //        endDate: _.Now.maxdate
+        //}).on("changeDate", function (ev) {            
+        //        let next = new Date(_.BeginDateInput.val());
+        //        let nextdate = _.Now.getNextDay(next);
+           
+        //        _.EndDateInput.val(nextdate);
+        //        _.EndDate.datetimepicker("setStartDate", nextdate);
+        //    });
+        
+        
+        //_.BeginDateInput.attr("value", _.Now.date);
+        //_.BeginDate.datetimepicker({
+        //    format: 'yyyy-mm-dd',
+        //    autoclose: true,
+        //    minView: 2,
+        //    pickerPosition: 'bottom-right',
+        //    initialDate: new Date(),
+        //    todayBtn: true,
+        //    startDate: new Date(),
+        //    endDate: _.Now.maxdate
+        //}).on("changeDate", function (ev) {            
+        //    let next = new Date(_.BeginDateInput.val());
+        //    let nextdate = _.Now.getNextDay(next);
+           
+        //    _.EndDateInput.attr("value", nextdate);
+        //    _.EndDate.datetimepicker("setStartDate", nextdate);
+        //});
+
+        //_.EndDateInput.attr("value", '2016-10-10');
+        //_.EndDate.datetimepicker({ format: 'yyyy-mm-dd', autoclose: true, minView: 2, pickerPosition: 'bottom-right', startDate: new Date(_.Now.next), endDate: _.Now.maxdate });
+    //});
+</script>

@@ -1,0 +1,74 @@
+﻿@model IEnumerable<Anything.Models.OrderMaster>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+
+<div class="panel panel-default" style="font-size:0.6em;">
+    <div class="panel-heading">
+        注意事項
+    </div>
+
+    <div class="panel-body">
+        <ul>
+            <li>進退房時間以業者實際公布為主</li>
+        </ul>
+    </div>
+</div>
+
+<table class="table table-bordered">
+
+    @if (ViewBag.UserOrder != null)
+    {
+        var Order = (List<Anything.Models.OrderMaster>)ViewBag.UserOrder;
+        foreach (var item in Order)
+        {
+            <tr>
+                <td>
+                   @Anything.Helper.Helpers.Room.GetRoomName(item.RoomId)
+                </td>
+                <td>
+                   
+                    
+                    <span class="col-md-12">
+                        @item.CheckIn.ToString("yyyy/MM/dd 15:00")
+                    </span>
+                    <span class="col-md-12">
+                        @item.CheckOut.ToString("yyyy/MM/dd 12:00")
+                        </span>
+
+                   
+                </td>
+                <td>
+                    @Anything.Helper.Helpers.Room.GetRoomType(item.RoomId)
+                    
+                </td>
+                <td>
+                    @if (item.Status == "5")
+                    {
+                        <span>待付款</span>
+                        <a href="#">
+                            前往付款
+                        </a>
+                    }
+                    else if (item.Status == "6")
+                    {
+                        <span>訂房完成</span>
+                    }
+                </td>
+                <td>
+                    <a href="#">
+                        查看訂單
+                    </a>
+                </td>
+            </tr>
+        }
+    }
+</table>

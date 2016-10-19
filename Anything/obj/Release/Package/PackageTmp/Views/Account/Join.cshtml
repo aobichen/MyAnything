@@ -1,0 +1,85 @@
+﻿@model Anything.Models.RegisterViewModel
+@{
+    ViewBag.Title = "會員註冊";
+}
+<div class="container">
+    <h2>@ViewBag.Title.</h2>
+
+    @using (Html.BeginForm("Join", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary("", new { @class = "text-danger" })
+        <div class="col-lg-8 col-md-10 col-sm-10 col-sm-12 col-center">
+            <div class="panel panel-green">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        會員註冊
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+
+                        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            <span data-toggle="tooltip" data-placement="left" title="需有大小寫字母，數字和特殊字元">
+                                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                            </span>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Recommend, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.Recommend, new { @Value = ViewBag.Recommend, @class = "form-control", })
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel-footer light">
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10 col-right">
+                            <input type="submit" class="btn btn-dark" value="確定" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+<script type="text/javascript">
+
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+
+</script>
+
+}
+
+

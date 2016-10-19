@@ -1,0 +1,134 @@
+﻿<style type="text/css">
+    .deleteicon{
+        left:84%;
+        top:-2px;
+        z-index:100;
+        position:absolute;
+
+    }
+    .imagefile{
+        padding-top:5px;
+    }
+</style>
+<div id="ImageUploadDiv">
+    <div style="margin:5px">
+        <input type="file" name="files[]" id="fileupload" multiple />
+    </div>
+    <div id="imagePanel">
+        <div class="col-md-2 imagefile" id="ImageThumbnail" style="display:none">
+            <div class="thumbnail">
+                <img class="img-responsive" />
+                
+            </div>
+            <i class="glyphicon glyphicon-remove-circle deleteicon"></i>
+        </div>
+
+        @{
+            if (ViewBag.HotelImg != null)
+            {
+                foreach (var item in (List<Anything.Models.HotelImage>)ViewBag.HotelImg)
+                {
+                    <div class="col-md-2 imagefile">
+                        <div class="thumbnail">
+                            <img class="img-responsive" src="@item.Path" />
+                            
+                        </div>
+                        <i id="@item.Name" class="glyphicon glyphicon-remove-circle deleteicon"></i>
+                    </div>
+                }
+            }
+        }
+
+    </div>
+    <input type="hidden" name="imagekey" id="sessionkey" value="@ViewBag.SessionKey" />
+</div>
+<script type="text/javascript">
+    jQuery(function(){
+    var ImageUploadDiv = $("#ImageUploadDiv");
+    var fileUpload = ImageUploadDiv.find("#fileupload");
+   
+    fileUpload.on("change", function (e) {
+        if (!e.target.files) return;
+       
+        var files = e.target.files;
+
+        
+        var formData = new FormData();
+       
+        if (files.length > 0) {
+            for (var i = 0, max = files.length; i < max; i++) {
+                formData.append("files"+i, files[i]);
+            }
+
+            formData.append("key",$('#sessionkey').val());
+          
+            $.ajax({
+                type: "POST",
+                url: '/HotelImageUpload',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (xhr) {
+                    let d = JSON.parse(xhr.data);                    
+                    var div = $('#imagePanel');
+                    for (let i = 0, max = d.length; i < max; i++) {
+                       
+                        if ($(".deleteicon[id=" + d[i].Name + "]").length <= 0) {
+                            let temp = $("#ImageThumbnail").clone(true);
+                            temp.css({ "display": "block" });
+                            temp.find("img").attr("src", d[i].Path);
+                            temp.find(".deleteicon").attr("id", d[i].Name);
+
+                            div.append(temp);
+                        }
+                       
+                    }
+
+                    fileUpload.val('');
+                },
+                error: function (xhr) {
+                    console.log("ERROR");
+                }
+            });
+
+        }
+        
+        //e.stopPropagation();
+    });
+
+    $(".deleteicon").on("click", function () {
+        var self = $(this);
+        var selfid = $(this).attr("id");
+       
+        $.ajax({
+            type: "POST",
+            url: '/HotelImageDelete',
+            //data: selfid,
+            data: { name: selfid, key: $('#sessionkey').val() },
+            //ContentType: 'application/json;utf-8',
+            dataType: "json",
+            cache:false,
+            //contentType: false,
+            //processData: false,
+            success: function (xhr) {
+                console.log(xhr);
+               
+                if (xhr.success == true) {
+                   
+                    self.closest('.imagefile').remove();
+                }
+            },
+            error: function (xhr) {
+                console.log("ERROR");
+            }
+        });
+    });
+
+    })
+</script>
+
+@*@using (Html.BeginForm("HotelUpload", "Image", FormMethod.Post, new {id="aa", enctype = "multipart/form-data" }))
+{
+    <input type="file" name="FileName" id="file" />
+    <button type="submit">UPLOAD</button>
+}*@

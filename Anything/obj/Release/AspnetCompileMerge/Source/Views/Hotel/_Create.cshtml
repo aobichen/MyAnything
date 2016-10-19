@@ -1,0 +1,192 @@
+﻿@model Anything.ViewModels.HotelCreateViewModel
+<div class="form-horizontal">
+    <h4>HotelCreateViewModel</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="panel panel-deepgreen">
+        <div class="panel-heading">
+            <div class="panel-title">
+                飯店/民宿
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="form-group">
+
+                <label class="control-label col-md-2 col-sm-2">名稱</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+
+                <label class="control-label col-md-2 col-sm-2">地區</label>
+                <div class="col-md-10">
+                    @Html.Partial("_Locations")
+                    @Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+
+                <label class="control-label col-md-2 col-sm-2">縣市</label>
+                <div class="col-md-10">
+                    @Html.Partial("_TaiwanSelectList")
+                    @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(model => model.Area, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+
+                <label class="control-label col-md-2 col-sm-2">地址</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @placeholder = "高雄市苓雅區自強三路3號12樓", @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+
+                <label class="control-label col-md-2 col-sm-2">連絡電話</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Tel, new { htmlAttributes = new { @placeholder = "07-1234567", @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Tel, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-deepgreen">
+        <div class="panel-heading">
+            <div class="panel-title">
+                特色介紹
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="form-group">
+
+                <label class="control-label col-md-2 col-sm-2">網站連結</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.WebSite, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.WebSite, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2 col-sm-2">介紹</label>
+
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.Introduce, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Introduce, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2 col-sm-2">特色</label>
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.Feature, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Feature, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+ 
+    <div class="panel panel-deepgreen">
+        <div class="panel-heading">
+            <div class="panel-title">
+                飯店注意事項
+            </div>
+        </div>
+        <div class="panel-body">
+            @Html.TextAreaFor(model => model.Information, new { htmlAttributes = new { @class = "form-control infomation", @id = "Information" } })
+            @Html.ValidationMessageFor(model => model.Information, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    
+
+    <div class="form-group">
+        <label class="control-label col-md-2 col-sm-2">服務項目</label>
+        <div class="col-md-10 col-sm-10 options">
+            @{
+                if (ViewBag.ServiceOptions != null)
+                {
+                    foreach (var item in (List<Anything.Models.ServiceOption>)ViewBag.ServiceOptions)
+                    {
+                        <div class="col-md-2">
+                            <div class="checkbox">
+                                <label><input name="ServiceOptions" type="checkbox" value="@item.ID" />@item.Text</label>
+                            </div>
+
+
+                        </div>
+                    }
+                }
+            }
+
+
+            @Html.ValidationMessageFor(model => model.ServiceOptions, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2 col-sm-2">熱門景點</label>
+        <div class="col-md-10 col-sm-10">
+            @{
+                if (ViewBag.Scenics != null)
+                {
+                    foreach (var item in (List<Anything.Models.Scenic>)ViewBag.Scenics)
+                    {
+                        <div class="col-md-2 @item.City">
+                            <div class="checkbox">
+                                <label><input name="Scenics" type="checkbox" value="@item.ID" />@item.Name</label>
+                            </div>
+                        </div>
+                    }
+                }
+            }
+            @Html.ValidationMessageFor(model => model.Scenics, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2 col-sm-2">儲存後上架</label>
+        <div class="col-md-10">
+            <div class="checkbox">
+                @Html.EditorFor(model => model.Enabled)
+                @Html.ValidationMessageFor(model => model.Enabled, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        @*<label class="control-label col-md-2 col-sm-2">介紹圖片</label>*@
+        <div class="col-md-12">
+            
+            <div class="panel panel-deepgreen">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        環境照片
+                    </div>
+                     </div>
+                <div class="panel-body">
+                    @Html.Partial("_ImageUpload")
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="form-group">
+        <div class="col-md-12 col-right">
+            <input type="submit" value="確定" class="btn btn-primary" />
+        </div>
+    </div>
+</div>
+

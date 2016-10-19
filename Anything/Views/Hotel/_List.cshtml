@@ -1,0 +1,47 @@
+﻿
+@model IEnumerable<Anything.Models.Hotel>
+
+
+
+
+<table class="table table-bordered table-condensed table-hover table-striped alert-success">
+    <tr>
+        
+        <th>
+            名稱
+        </th>
+        <th>
+            地區
+        </th>
+  
+        <th>
+            啟用
+        </th>
+        
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Location)
+            </td>
+           
+            <td>
+                @Html.DisplayFor(modelItem => item.Enabled)
+            </td>
+           
+            <td>
+                @Html.ActionLink("編輯", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("新增房型", "Index", "Room", new { id = item.ID }, null)
+                
+            </td>
+        </tr>
+    }
+
+</table>

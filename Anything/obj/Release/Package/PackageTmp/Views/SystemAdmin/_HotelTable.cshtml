@@ -1,0 +1,184 @@
+﻿@model IPagedList<Anything.ViewModels.HotelsViewModel>
+
+
+<table class="table table-bordered table-condensed table-hover table-striped alert-success">
+    @*<tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UserId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Location)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.City)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Area)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WebSite)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Introduce)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Feature)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Information)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ServiceOptions)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Scenics)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Enabled)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Created)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Modified)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tel)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SaleOff)
+        </th>
+        <th></th>
+    </tr>*@
+    <tr>
+        <th>
+           民宿
+        </th>
+        <th>
+            營運中
+        </th>
+        <th>
+            地區
+        </th>
+    </tr>
+@foreach (var item in Model) {
+    <tr>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.ID)
+        </td>*@
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            
+            @if (item.SaleOff)
+            {
+                <input type="checkbox" data-id="@item.ID" class="chkSaleOff" checked="checked" />
+            }
+            else
+            {
+                <input class="chkSaleOff" data-id="@item.ID" type="checkbox" />
+            }
+
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Location)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.Location)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.City)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Area)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WebSite)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Introduce)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Feature)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Information)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ServiceOptions)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Scenics)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Enabled)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Created)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Modified)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tel)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SaleOff)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>*@
+    </tr>
+}
+
+</table>
+<script type="text/javascript">
+
+    function saleOff(id,checked) {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("UpdateSaleOff", "SystemAdmin")',
+            dataType: "json",
+            data: {
+                ID: id,
+                SaleOff: checked
+
+            },
+            success: function (data) {
+                console.log(data);
+            },
+            error: function (jqXHR) {
+                $('.chkSaleOff[data-id=' + id + ']').attr('checked',!checked);
+                alert("發生錯誤: " + jqXHR.status);
+            }
+        })
+    }
+
+    $('.chkSaleOff').on("change", function () {
+        
+        var $self = $(this);
+        var id = $self.attr('data-id');
+        var checked = $self.prop('checked');
+        if (!checked) {
+            if (confirm("確定要強制下架?")) {
+                saleOff(id,checked);
+            }
+        } else {
+            saleOff(id, checked);
+        }
+   
+    
+    })
+</script>

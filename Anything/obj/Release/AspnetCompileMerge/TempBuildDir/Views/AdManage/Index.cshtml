@@ -1,0 +1,73 @@
+﻿@model IEnumerable<Anything.Models.AdManage>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Position)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AllowImage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AllowText)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Enabled)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SaleOff)
+        </th>
+   
+        <th>
+            @Html.DisplayNameFor(model => model.Created)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Modified)
+        </th>
+       
+        
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>          
+            @Html.DisplayFor(modelItem => item.Position)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AllowImage)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AllowText)
+        </td>
+      
+        <td>
+            @Html.DisplayFor(modelItem => item.Enabled)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SaleOff)
+        </td>
+             
+        <td>
+            @Html.DisplayFor(modelItem => item.Modified)
+        </td>
+       
+        
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) 
+            @*|@Html.ActionLink("Details", "Details", new { id=item.ID }) |
+    @Html.ActionLink("Delete", "Delete", new { id=item.ID })*@
+        </td>
+    </tr>
+}
+
+</table>

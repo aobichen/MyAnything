@@ -1,0 +1,19 @@
+﻿@model IEnumerable<Anything.Models.OrderMaster>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2></h2>
+
+<div class="panel panel-green">
+    <div class="panel-heading">
+        <div class="panel-title">
+            我的訂單
+        </div>
+    </div>
+    <div class="panel-body">
+        @Html.Partial("_List", (List<Anything.ViewModels.MyOrderOfHotel>)ViewBag.OrderOfHotel)
+    </div>
+</div>
+

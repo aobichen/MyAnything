@@ -1,0 +1,75 @@
+﻿@model IEnumerable<Anything.Models.AdManage>
+
+<style type="text/css">
+    table thead tr th{
+        color:#aaaaaa;
+        font-style:normal;
+        font-weight:400
+    }
+</style>
+
+    @foreach (var item in Model)
+    {
+       
+            var base64 = Convert.ToBase64String(item.Image);
+            var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+        
+       <div class="panel-default">
+           
+            <div class="panel-body">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>
+                                廣告位置
+                            </th>
+                            <th>
+                                售價
+                            </th>
+                            <th>
+                                優惠價
+                            </th>
+                            <th>
+
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <strong>  @item.Position </strong>
+                            </td>
+                            <td>
+                                @item.SalePrice
+                            </td>
+                            <td>
+                                @item.DiscountPrice
+                            </td>
+                            <td>
+                            @if (User.IsInRole("Admin") || User.IsInRole("AdManager"))
+                            {
+                                <a class="btn btn-primary" href="@Url.Action("Create", new { id=item.ID })">
+                                    加入
+                                </a>
+                            }
+                            else
+                            {
+                                <a class="btn btn-primary" href="@Url.Action("Order", new { id=item.ID })">
+                                    購買
+                                </a>
+                            }
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="col-md-3 well">
+                    <img class="img-responsive img-thumbnail" src="@imgSrc" />
+                </div>
+                
+            </div>
+           
+       </div>
+    }
+
+

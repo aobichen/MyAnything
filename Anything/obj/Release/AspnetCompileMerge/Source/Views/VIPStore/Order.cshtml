@@ -1,0 +1,18 @@
+﻿@model Anything.ViewModels.VIPsViewModel
+
+@{
+    ViewBag.Title = "Order";
+}
+
+<h2>Order</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    @Html.Partial("_VIPOrder",Model)
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

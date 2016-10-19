@@ -1,0 +1,78 @@
+﻿@model IEnumerable<Anything.ViewModels.AdvImage>
+@{
+ 
+    var images = Model.ToList();
+}      
+<div class="col-md-12">
+    <div id="carousel-f0711360"  class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            @for (var i = 0; i < images.Count; i++)
+            {
+                if (i == 0)
+                {
+                    <li class="active" data-slide-to="@i" data-target="#carousel-f0711360">
+                    </li>
+                }
+                else
+                {
+                    <li data-slide-to="@i" data-target="#carousel-f0711360">
+                    </li>
+                }
+
+            }
+        </ol>
+        <div class="carousel-inner" role="listbox">
+            @for (var i = 0; i < images.Count; i++)
+            {
+
+
+                if (i == 0)
+                {
+
+                    <div class="item active">
+                        <a href="@images[i].Url">
+                            <img alt="Carousel Bootstrap First" src="@Url.Action("AdImage", "Home", new { id = images[i].ID })" />
+                            <div class="carousel-caption">
+                                <h4>
+                                    @images[i].Text
+                                </h4>
+
+                            </div>
+                        </a>
+                    </div>
+                }
+                else
+                {
+                    <div class="item">
+                        <a href="@images[i].Url">
+                            <img alt="Carousel Bootstrap Second" src="@Url.Action("AdImage", "Home", new { id = images[i].ID })" />
+                            <div class="carousel-caption">
+                                <h4>
+                                    @images[i].Text
+                                </h4>
+
+                            </div>
+                        </a>
+                    </div>
+
+                }
+
+            }
+
+        </div> <a class="left carousel-control" href="#carousel-f0711360" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+        <a class="right carousel-control" href="#carousel-f0711360" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+        </a>
+    </div>
+</div>
+<script>
+    $('.carousel-control.left').click(function () {
+        $('#carousel-f0711360').carousel('prev');
+    });
+
+    $('.carousel-control.right').click(function () {
+        $('#carousel-f0711360').carousel('next');
+    });
+</script>
