@@ -12,32 +12,14 @@ namespace Anything.Controllers
     public class BaseController : Controller
     {
         protected AnythingEntities _db;
-        public const double _AllPay = 3.5*0.01;
-        public  double _Bussiness = 5 * 100;
-        public  double _Platform = 5 * 100;
-        public double _ParentLine = 0;
+
+
         public BaseController()
             : base()
         {
             _db = new AnythingEntities();
 
-            //var bouns = _db.BonusSystem.FirstOrDefault();
-            //if (bouns == null)
-            //{
-            //    _Bussiness = 5 * 0.01;
-            //    _Platform = 2.5 * 0.01;
-            //    _ParentLine = 2.5 * 0.01;
-            //}
-            //else
-            //{
-            //    //交易時消費者獲得的紅利
-            //    _Bussiness = bouns.UserBonus;
-            //    //平台紅利
-            //    _Platform = bouns.ParentBonus / 2;
-            //    //上線的紅利 / 6
-            //    _ParentLine = bouns.ParentBonus / 2;
-            //}
-
+          
         }
 
         protected override void Initialize(System.Web.Routing.RequestContext requestContext)
@@ -48,6 +30,9 @@ namespace Anything.Controllers
                 string name = requestContext.HttpContext.User.Identity.Name;
                 UserId = requestContext.HttpContext.User.Identity.GetUserId<int>();
             }
+
+           
+            //Session["RecommendCode"] = System.Configuration.ConfigurationManager.AppSettings["OfficalRecommendCode"].ToString();
             
             if (requestContext.RouteData.Values["username"] != null)
             {
@@ -56,8 +41,11 @@ namespace Anything.Controllers
                 var user = Account_db.Users.Where(o => o.UserName == username).FirstOrDefault();
                 if (user != null)
                 {
-                    RecommendCode = user.UserCode;
-                    Session["RecommendCode"] = RecommendCode;
+                    Session["RecommendCode"] = user.UserCode;
+                }
+                else
+                {
+                    Session["RecommendCode"] = System.Configuration.ConfigurationManager.AppSettings["OfficalRecommendCode"].ToString();
                 }
             }
         }

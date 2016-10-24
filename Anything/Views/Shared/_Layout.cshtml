@@ -36,11 +36,11 @@
     {
         @Html.Partial("_MainSearch")
     }
-    <div class="main">
+    <main class="main" style="padding-bottom:0;">
         @RenderBody()
 
 
-    </div>
+    </main>
     @Html.Partial("_footer")
 
 
@@ -56,40 +56,30 @@
     <script type="text/javascript" src="~/Scripts/lightslider.min.js"></script>
     <script type="text/javascript" src="~/Scripts/scripts.js"></script>
     <script type="text/javascript">
-    (function ($) {
-        $(document).ready(function () {
+        (function ($) {
+            $(document).ready(function () {
+                $('.form').hide();
+                $('#form1').show();
+                $('.f-item:nth-child(1)').addClass('active');
+                $('.f-item:nth-child(1) span').addClass('checked');
 
-            $('.dropdown').on('show.bs.dropdown', function (e) {
-                $(this).find('.dropdown-menu').first().stop(true, true).slideDown();
+                $('#hero-gallery').lightSlider({
+                    gallery: true,
+                    item: 1,
+                    pager: false,
+                    gallery: false,
+                    slideMargin: 0,
+                    speed: 2000,
+                    pause: 6000,
+                    mode: 'fade',
+                    auto: true,
+                    loop: true,
+                    onSliderLoad: function () {
+                        $('#hero-gallery').removeClass('cS-hidden');
+                    }
+                });
             });
-
-            // ADD SLIDEUP ANIMATION TO DROPDOWN //
-            $('.dropdown').on('hide.bs.dropdown', function (e) {
-                $(this).find('.dropdown-menu').first().stop(true, true).slideUp();
-            });
-
-            $('.form').hide();
-            $('#form1').show();
-            $('.f-item:nth-child(1)').addClass('active');
-            $('.f-item:nth-child(1) span').addClass('checked');
-
-            $('#hero-gallery').lightSlider({
-                gallery: true,
-                item: 1,
-                pager: false,
-                gallery: false,
-                slideMargin: 0,
-                speed: 2000,
-                pause: 6000,
-                mode: 'fade',
-                auto: true,
-                loop: true,
-                onSliderLoad: function () {
-                    $('#hero-gallery').removeClass('cS-hidden');
-                }
-            });
-        });
-    })(jQuery);
+        })(jQuery);
     </script>
 
 </body>

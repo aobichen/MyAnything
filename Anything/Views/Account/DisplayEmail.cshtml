@@ -1,18 +1,30 @@
 ﻿@{
     ViewBag.Title = "註冊完成";
 }
-<h2>@ViewBag.Title.</h2>
-<p class="text-info">
-   郵件認證
-</p>
-<p class="text-danger">
-    <h3>註冊成功</h3>
-    <h4>請至註冊信箱收取認證信並完成認證</h4>
-    @*For DEMO only: You can click this link to confirm the email: <a href="@ViewBag.Link">link</a>
-    Please change this code to register an email service in IdentityConfig to send an email.*@
-</p>
-<p class="text-info">
-   
-    <span>注意信件可能被郵件系統歸納為垃圾郵件夾喔！</span>
-   
-</p>
+<div class="wrap">
+    <!--main content-->
+    <div class="content">
+        <section class="error">
+            <!--Error type-->
+            <div class="error-type">
+                <h1 class="fa fa-thumbs-o-up" style="margin:auto 0;"></h1>
+               
+            </div>
+            <!--//Error type-->
+            <!--Error content-->
+            <div class="error-content">
+                <h2>恭喜你已經完成註冊.</h2>
+                <h3>請到註冊信箱完成最後認證.</h3>
+                <ul>
+                    <li>若沒收到認證信，可能在垃圾信件夾中</li>
+                    @*<li> <a href="#">contact us</a> and we’ll fix it.</li>
+                    <li>If you’re not sure what you’re looking for, go back to <a href="#">homepage</a>.</li>*@
+                </ul>
+            </div>
+            <!--//Error content-->
+        </section>
+    </div>
+    <!--//main content-->
+</div>
+
+

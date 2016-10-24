@@ -39,7 +39,7 @@ namespace Anything.Controllers
             }
 
             ViewBag.HeadAd = hasImage;
-
+            var oo = _db.ServiceOption.Where(o => o.Show == true).ToList();
             ViewBag.Options = _db.ServiceOption.Where(o => o.Show == true).ToList();
             var City = new Caches().TWCity;
            

@@ -1,22 +1,16 @@
-﻿
+﻿<style>
+    .panel.collaspe{
+    margin-bottom:0;
+}
+</style>
     <div class="row">
-        <div class="one-fourth">
-            
-           <div class="dropdown">
-  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-    Dropdown
-    <span class="caret"></span>
-  </button>
-  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
-    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
-    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
-    <li role="presentation" class="divider"></li>
-    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
-  </ul>
-</div>
-            
-            </div>
+        
+            <aside class="one-fourth left-sidebar">
+                <article class="widget refine-search-results">
+                    @Html.Partial("_LeftSidebar")
+                    
+                </article>
+            </aside>
 
             <div class="three-fourth">
                 <!--top destinations-->
@@ -225,123 +219,12 @@
 
             </div>
             <!--//full-width-->
-
+        
         </div>
-
-
-
-
-
-            @*<div class="Home-Main">
-
-                    <div class="Body">
-                        @{
-                            var items = Hotels.HotelItems;
-                            foreach (var item in items)
-                            {
-
-                            <div class="row">
-
-                                <div class="col-md-12 panel panel-default hotel-item" data-options="@item.ServiceOptions">
-                                    <div class="panel-body">
-                                        <div class="col-md-3 col-sm-3 thumbnail">
-                                            @if (item.Images.Count > 0)
-                                        {
-                                        <img class="img-responsive hotel-image" alt="@item.Name" src="@Url.Action("Image", "Hotel", new { id= item.Images[0].ID })" />
-                                        }
-                                        else
-                                        {
-                                        <img class="img-responsive hotel-image" alt="@item.Name" src="~/Content/Pictures/EmptyImages.jpg" />
-                                        }
-                                        </div>
-
-                                        <div class="col-md-9 col-sm-9">
-
-                                            <div class="col-md-12">
-                                                <h4> <a href="@Url.Action("Detail", null, new { id=item.ID })">@item.Name</a> </h4>
-                                            </div>
-                                            <div class="col-md-12 col-sm-10 col-xs-12">
-                                                <article class="hotel-feature">
-                                                    @item.Feature
-                                                </article>
-                                            </div>
-                                            <span class="item-go-detail">
-                                                <a href="@Url.Action("Detail", null, new { id=item.ID })">
-                                                    <i class="glyphicon glyphicon-search"></i>
-                                                </a>
-                                                <i class="glyphicon glyphicon-credit-card"></i>
-                                                <br />
-                                                <span class="Price">
-                                                    <strong>
-                                                        <span>TWD:</span> <span>@item.SellPrice.ToString("#,##0")</span>
-                                                    </strong>
-                                                </span>
-                                            </span>
-
-                                        </div>
-
-                                    </div>
-                                    <div class="panel-footer item-footer">
-                                        <div class="col-md-6 col-sm-6 col-xs-6">
-                                            <span data-toggle="tooltip" data-placement="top" title="@item.WebSite">
-                                                <a class="weburl" target="_blank" href="@item.WebSite">
-                                                    <i class="fa fa-globe"></i>
-                                                </a>
-                                            </span>
-
-                                        </div>
-                                        <div class="col-md-6 col-sm-6 col-xs-6 text-right">
-                                            <span data-toggle="tooltip" data-placement="top" title="@item.Address">
-                                                <i class="glyphicon glyphicon-map-marker"></i>
-                                            </span>
-                                            <span data-toggle="tooltip" data-placement="top" title="@item.Tel">
-                                                <i class="fa fa-phone" aria-hidden="true"></i>
-                                            </span>
-                                            @{
-                                        if (Anything.Helper.Helpers.Hotel.HasWifi(item.ServiceOptions))
-                                            {
-                                                <span data-toggle="tooltip" data-placement="top" title="無線網路">
-                                                    <i class="fa fa-wifi" aria-hidden="true"></i>
-                                                </span>
-                                        }
-                                            }
-
-                                                @{
-                                                if (Anything.Helper.Helpers.Hotel.HasCarPark(item.ServiceOptions))
-                                                {
-                                                    <span data-toggle="tooltip" data-placement="top" title="停車場(位)">
-                                                        <i class="fa fa-car" aria-hidden="true"></i>
-                                                    </span>
-                                                }
-                                            }
-
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-
-                            }
-                        }
-                    </div>
-                </div>*@
-            @*}
-                }
-                else
-                {
-                    <div class="col-md-12">
-                        <p>
-                            沒有符合的資料
-                        </p>
-                    </div>
-                }*@
-
-
-            
 
             <script type="text/javascript">
                 jQuery(function () {
-
+                    $('.collapse').collapse();
                     $('.dropdown-toggle').on('show.bs.dropdown', function () {
                         $(this).children('.dropdown-menu').fadeIn(500);
                     });

@@ -10,11 +10,11 @@ namespace Anything
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-          //  routes.MapRoute(
-          //    name: "User",
-          //    url: "{username}'sAnything",
-          //    defaults: new { controller = "Anything", action = "Index", username = "" }
-          //);
+            routes.MapRoute(
+              name: "User",
+              url: "{username}'sAnything",
+              defaults: new { controller = "Anything", action = "Index", username = "" }
+          );
 
 
             routes.MapRoute(

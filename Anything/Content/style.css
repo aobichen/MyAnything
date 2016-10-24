@@ -1185,18 +1185,29 @@ ul.slimmenu li:hover a, ul.slimmenu li.current > a, ul.slimmenu li:hover a:hover
    color: rgba(255,255,255,.7)
 }
 
-.dropdown .dropdown-menu{
-    display: block;
-    opacity: 0;
 
-    -moz-transition:    all 1000ms ease;
-    -webkit-transition: all 1000ms ease;
-    -o-transition:      all 1000ms ease;
-    -ms-transition:     all 1000ms ease;
-    transition:         all 1000ms ease;
+
+.panel-redwine {
+    
+    border-color: #eed3d7;
 }
-.dropdown:hover .dropdown-menu {
-    display: block;
-    opacity: 1;
+
+.panel-redwine .panel-heading{
+    color:#fff;
+    background: #9F3535;
+    background: -moz-linear-gradient(top, #9F3535 0%, #BB3E3E 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#9F3535), color-stop(100%,#BB3E3E));
+    background: -webkit-linear-gradient(top, #9F3535 0%,#BB3E3E 100%);
+    background: -o-linear-gradient(top, #9F3535 0%,#BB3E3E 100%);
+    background: -ms-linear-gradient(top, #9F3535 0%,#BB3E3E 100%);
+    background: linear-gradient(to bottom, #9F3535 0%,#BB3E3E 100%);
+}
+.panel-redwine h5{
+    color:#fff;
+    padding:5px;
+}
+
+.profile-nav li{
+    text-align:center;
 }
 

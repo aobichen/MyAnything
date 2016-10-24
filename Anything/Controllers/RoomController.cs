@@ -78,18 +78,18 @@ namespace Anything.Controllers
                 return View();
             }
             var Now = DateTime.Now;
-            var bussinessbouns = 0;
-            var platformbouns = 0;
-            if (model.DiscountPrice == null)
-            {
-                bussinessbouns = int.Parse((double.Parse(model.SellPrice.ToString()) * _Bussiness).ToString());
-                platformbouns = int.Parse((double.Parse(model.SellPrice.ToString()) * _Platform).ToString());
-            }
-            else
-            {
-                bussinessbouns = int.Parse((double.Parse(model.DiscountPrice.ToString()) * _Bussiness).ToString());
-                platformbouns = int.Parse((double.Parse(model.DiscountPrice.ToString()) * _Platform).ToString());
-            }
+            //var bussinessbouns = 0;
+            //var platformbouns = 0;
+            //if (model.DiscountPrice == null)
+            //{
+            //    bussinessbouns = int.Parse((double.Parse(model.SellPrice.ToString()) * _Bussiness).ToString());
+            //    platformbouns = int.Parse((double.Parse(model.SellPrice.ToString()) * _Platform).ToString());
+            //}
+            //else
+            //{
+            //    bussinessbouns = int.Parse((double.Parse(model.DiscountPrice.ToString()) * _Bussiness).ToString());
+            //    platformbouns = int.Parse((double.Parse(model.DiscountPrice.ToString()) * _Platform).ToString());
+            //}
 
             if (ModelState.IsValid)
             {
@@ -97,8 +97,8 @@ namespace Anything.Controllers
                 {
                     Amount = model.Amount,
                     Bonus = model.Bonus,
-                  BussinessBonus = bussinessbouns,
-                  PlatformBonus = platformbouns,
+                  //BussinessBonus = bussinessbouns,
+                  //PlatformBonus = platformbouns,
                     HotelId = model.HotelId,
                     Created = Now,
                     DiscountPrice = model.DiscountPrice,
@@ -191,18 +191,18 @@ namespace Anything.Controllers
 
             }
 
-            var bussinessbouns = 0;
-            var platformbouns = 0;
-            if (model.DiscountPrice == null)
-            {
-                bussinessbouns = int.Parse((double.Parse(model.SellPrice.ToString()) * _Bussiness).ToString());
-                platformbouns = int.Parse((double.Parse(model.SellPrice.ToString()) * _Platform).ToString());
-            }
-            else
-            {
-                bussinessbouns = int.Parse((double.Parse(model.DiscountPrice.ToString()) * _Bussiness).ToString());
-                platformbouns = int.Parse((double.Parse(model.DiscountPrice.ToString()) * _Platform).ToString());
-            }
+            //var bussinessbouns = 0;
+            //var platformbouns = 0;
+            //if (model.DiscountPrice == null)
+            //{
+            //    bussinessbouns = int.Parse((double.Parse(model.SellPrice.ToString()) * _Bussiness).ToString());
+            //    platformbouns = int.Parse((double.Parse(model.SellPrice.ToString()) * _Platform).ToString());
+            //}
+            //else
+            //{
+            //    bussinessbouns = int.Parse((double.Parse(model.DiscountPrice.ToString()) * _Bussiness).ToString());
+            //    platformbouns = int.Parse((double.Parse(model.DiscountPrice.ToString()) * _Platform).ToString());
+            //}
 
             if (ModelState.IsValid)
             {
@@ -210,8 +210,8 @@ namespace Anything.Controllers
                 result.Information = model.Information;
                 result.Modified = DateTime.Now;
                 result.Name = model.Name;
-                result.BussinessBonus = bussinessbouns;
-                result.PlatformBonus = platformbouns;
+              //  result.BussinessBonus = bussinessbouns;
+               // result.PlatformBonus = platformbouns;
                // result.RoomImage = InsertRoomlImage;
                 result.SellPrice = model.SellPrice;
                 result.DiscountPrice = model.DiscountPrice;

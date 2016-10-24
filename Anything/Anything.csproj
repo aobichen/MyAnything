@@ -1046,6 +1046,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="images\ajax-loader.gif" />
     <Content Include="images\backgrounds\bedge_grunge.png" />
+    <Content Include="images\backgrounds\bg2.jpg" />
     <Content Include="images\backgrounds\dark_wood.png" />
     <Content Include="images\backgrounds\diamond_upholstery.png" />
     <Content Include="images\backgrounds\embossed_paper.png" />
@@ -1076,6 +1077,7 @@
     <Content Include="images\backgrounds\white_tiles.png" />
     <Content Include="images\backgrounds\wild_oliva.png" />
     <Content Include="images\backgrounds\wood_1.png" />
+    <Content Include="images\backgrounds\bg1.jpg" />
     <Content Include="images\favicon.ico" />
     <Content Include="images\ico\calendar.png" />
     <Content Include="images\ico\controls.png" />
@@ -1865,7 +1867,7 @@
     <Content Include="Views\Shared\_ImageUpload.cshtml" />
     <Content Include="Views\Room\Index.cshtml" />
     <Content Include="Views\Room\Create.cshtml" />
-    <Content Include="Views\Home\_HotelList.cshtml" />
+    <Content Include="Views\Shared\_List.cshtml" />
     <Content Include="Views\Home\Detail.cshtml" />
     <Content Include="Views\Room\_RoomImageUpload.cshtml" />
     <Content Include="Views\Room\Edit.cshtml" />
@@ -1914,6 +1916,7 @@
     <Content Include="Views\Shared\_HeadOfficalAd.cshtml" />
     <Content Include="Views\Shared\_MainSearch.cshtml" />
     <Content Include="Views\Shared\_Header.cshtml" />
+    <Content Include="Views\Shared\_LeftSidebar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

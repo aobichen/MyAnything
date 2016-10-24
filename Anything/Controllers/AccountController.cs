@@ -19,8 +19,10 @@ namespace Anything.Controllers
     [Authorize(Roles="Admin")]
     public class AccountController : BaseController
     {
+        private string OfficalRecommendCode { get; set; }
         public AccountController()
         {
+           OfficalRecommendCode =  System.Configuration.ConfigurationManager.AppSettings["OfficalRecommendCode"].ToString();
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
@@ -230,7 +232,8 @@ namespace Anything.Controllers
         public ActionResult Join()
         {
             AuthenticationManager.SignOut();
-            ViewBag.Recommend = Session["RecommendCode"] == null ? "" : Session["RecommendCode"].ToString();
+            var Recommend = Session["RecommendCode"] == null ? OfficalRecommendCode : Session["RecommendCode"].ToString();
+            ViewBag.Recommend = Recommend;
             return View();         
         }
 
@@ -242,8 +245,12 @@ namespace Anything.Controllers
         public async Task<ActionResult> Join(RegisterViewModel model)
         {
             AddRoles();
-            
-            ViewBag.Recommend = Session["RecommendCode"] == null ? "" : Session["RecommendCode"].ToString();
+            var Recommend = string.Empty;
+            if (string.IsNullOrEmpty(model.Recommend))
+            {
+                Recommend = OfficalRecommendCode;
+            }
+            model.Recommend = Recommend;
             model.UserCode = new Anything.Helper.BaseDLL().GetUserCode(model.UserName);
             model.UserType = "User";
             if (ModelState.IsValid)
@@ -279,7 +286,9 @@ namespace Anything.Controllers
         public ActionResult Register()
         {
             AuthenticationManager.SignOut();
-            ViewBag.Recommend = Session["RecommendCode"] == null ? "" : Session["RecommendCode"].ToString();
+            var Recommend = Session["RecommendCode"] == null ? OfficalRecommendCode : Session["RecommendCode"].ToString();
+          
+            ViewBag.Recommend = Recommend;
             return View();
         }
 
@@ -291,7 +300,22 @@ namespace Anything.Controllers
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
             AddRoles();
-            ViewBag.Recommend = Session["RecommendCode"] == null ? "" : Session["RecommendCode"].ToString();
+            var Recommend = string.Empty;
+            if (string.IsNullOrEmpty(model.Recommend))
+            {
+                Recommend = OfficalRecommendCode;
+            }
+            
+            if (Recommend != OfficalRecommendCode)
+            {
+                var user = Account_db.Users.Where(o => o.UserCode == Recommend).FirstOrDefault();
+                if (user != null && user.UserType.ToUpper() == "HOTEL")
+                {
+                    ModelState.AddModelError("","旅館推薦人必須為旅客身分");
+                    return View();
+                }
+            }
+            model.Recommend = Recommend;
             model.UserCode = new Anything.Helper.BaseDLL().GetUserCode(model.UserName);
             
             model.UserType = "Hotel";
