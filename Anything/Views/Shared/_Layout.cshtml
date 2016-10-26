@@ -42,45 +42,50 @@
 
     </main>
     @Html.Partial("_footer")
+    <div class="lightbox" style="display:none;">
+        @Html.Partial("_LoginLightbox", new Anything.Models.LoginViewModel())
+    </div>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+        <script type="text/javascript" src="~/Scripts/jquery-1.10.2.min.js"></script>
+        <script type="text/javascript" src="~/Scripts/jquery-ui.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+
+        <script type="text/javascript" src="~/Content/jquery-localize/dist/jquery.localize.min.js"></script>
+        <script type="text/javascript" src="~/Scripts/jquery.cookie.js"></script>
+        <script type="text/javascript" src="~/Scripts/jquery.uniform.min.js"></script>
+        <script type="text/javascript" src="~/Scripts/jquery.slimmenu.min.js"></script>
+        <script type="text/javascript" src="~/Scripts/lightslider.min.js"></script>
+        <script type="text/javascript" src="~/Scripts/scripts.js"></script>
+        <script type="text/javascript">
+            (function ($) {
+                $(document).ready(function () {
 
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-    <script type="text/javascript" src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script type="text/javascript" src="~/Scripts/jquery-ui.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 
-    <script type="text/javascript" src="~/Content/jquery-localize/dist/jquery.localize.min.js"></script>
-    <script type="text/javascript" src="~/Scripts/jquery.cookie.js"></script>
-    <script type="text/javascript" src="~/Scripts/jquery.uniform.min.js"></script>
-    <script type="text/javascript" src="~/Scripts/jquery.slimmenu.min.js"></script>
-    <script type="text/javascript" src="~/Scripts/lightslider.min.js"></script>
-    <script type="text/javascript" src="~/Scripts/scripts.js"></script>
-    <script type="text/javascript">
-        (function ($) {
-            $(document).ready(function () {
-                $('.form').hide();
-                $('#form1').show();
-                $('.f-item:nth-child(1)').addClass('active');
-                $('.f-item:nth-child(1) span').addClass('checked');
+                    $('.form').hide();
+                    $('#form1').show();
+                    //$('.f-item:nth-child(1)').addClass('active');
+                    //$('.f-item:nth-child(1) span').addClass('checked');
 
-                $('#hero-gallery').lightSlider({
-                    gallery: true,
-                    item: 1,
-                    pager: false,
-                    gallery: false,
-                    slideMargin: 0,
-                    speed: 2000,
-                    pause: 6000,
-                    mode: 'fade',
-                    auto: true,
-                    loop: true,
-                    onSliderLoad: function () {
-                        $('#hero-gallery').removeClass('cS-hidden');
-                    }
+                    $('#hero-gallery').lightSlider({
+                        gallery: true,
+                        item: 1,
+                        pager: false,
+                        gallery: false,
+                        slideMargin: 0,
+                        speed: 2000,
+                        pause: 6000,
+                        mode: 'fade',
+                        auto: true,
+                        loop: true,
+                        onSliderLoad: function () {
+                            $('#hero-gallery').removeClass('cS-hidden');
+                        }
+                    });
                 });
-            });
-        })(jQuery);
-    </script>
+            })(jQuery);
+        </script>
 
 </body>
 </html>

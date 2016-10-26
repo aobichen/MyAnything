@@ -16,7 +16,7 @@ using Anything.Helper;
 
 namespace Anything.Controllers
 {
-    [Authorize(Roles="Admin")]
+
     public class AccountController : BaseController
     {
         private string OfficalRecommendCode { get; set; }
@@ -62,6 +62,7 @@ namespace Anything.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            AuthenticationManager.SignOut();
             ViewBag.ReturnUrl = returnUrl;
            
             return View();
@@ -585,8 +586,8 @@ namespace Anything.Controllers
 
         //
         // POST: /Account/LogOff
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut();

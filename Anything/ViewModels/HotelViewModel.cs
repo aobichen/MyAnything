@@ -11,6 +11,14 @@ namespace Anything.ViewModels
 {
     public class HotelCreateViewModel
     {
+        public AnythingEntities db;
+
+        public HotelCreateViewModel(){
+            if (db == null)
+            {
+                db = new AnythingEntities();
+            }
+        }
         public int ID { get; set; }
        
         [Required]
@@ -41,12 +49,95 @@ namespace Anything.ViewModels
         public string Scenics { get; set; }
         public bool Enabled { get; set; }
 
+        public bool SaleOff { get; set; }
+        public string key { get; set; }
+
+        public int UserId { get; set; }
+
          [Required]
-        public string Tel { get; set; }     
+        public string Tel { get; set; }
+
+         public void Create()
+         {
+             var Now = DateTime.Now;
+             
+                 var Hotel = new Hotel();
+                 Hotel.Address = Address;
+                 Hotel.Area = Area;
+                 Hotel.City = City;
+                 Hotel.Created = Now;
+                 Hotel.Enabled = Enabled;
+                 Hotel.Feature = Feature;
+                 Hotel.HotelImage = HotelImages();
+                 Hotel.Information = Information;
+                 Hotel.Introduce = Introduce;
+                 Hotel.Location = Location;
+                 Hotel.Modified = Now;
+                 Hotel.Name = Name;
+                 Hotel.SaleOff = SaleOff;
+                 Hotel.Scenics = Scenics;
+                 Hotel.ServiceOptions = ServiceOptions;
+                 Hotel.Tel = Tel;
+                 Hotel.UserId = UserId;
+                 Hotel.WebSite = WebSite;
+                 db.SaveChanges();
+             
+         }
+
+         public void Edit()
+         {
+             var Hotel = db.Hotel.Find(ID);
+             var Now = DateTime.Now;
+             Hotel.Address = Address;
+             Hotel.Area = Area;
+             Hotel.City = City;
+             Hotel.Created = Now;
+             Hotel.Enabled = Enabled;
+             Hotel.Feature = Feature;
+             Hotel.HotelImage = HotelImages();
+             Hotel.Information = Information;
+             Hotel.Introduce = Introduce;
+             Hotel.Location = Location;
+             Hotel.Modified = Now;
+             Hotel.Name = Name;
+             Hotel.SaleOff = SaleOff;
+             Hotel.Scenics = Scenics;
+             Hotel.ServiceOptions = ServiceOptions;
+             Hotel.Tel = Tel;
+             Hotel.UserId = UserId;
+             Hotel.WebSite = WebSite;
+             db.SaveChanges();
+         }
+
+
+         private List<HotelImage> HotelImages()
+         {
+            var HotelImage = new List<HotelImage>();
+            
+            if (!string.IsNullOrEmpty(key))
+            {
+                HotelImage = (List<HotelImage>)HttpContext.Current.Session[key];
+
+                if (ID > 0)
+                {
+                    var Images = db.HotelImage.Where(o => o.HotelId == ID).Select(p => p.Name).ToList();
+
+                    HotelImage = HotelImage.Where(o => !Images.Contains(o.Name)).ToList();
+                }
+
+                for (var i = 0; i < HotelImage.Count; i++)
+                {
+                    HotelImage[i].Sort = i + 1;
+                    HotelImage[i].Enabled = true;
+                }              
+            }
+            return HotelImage;
+        }
         
     }
 
 
+    
 
 
     public class HotelsViewModel

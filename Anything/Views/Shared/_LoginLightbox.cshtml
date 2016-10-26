@@ -1,0 +1,59 @@
+﻿@model Anything.Models.LoginViewModel
+<style type="text/css">
+    .lb-wrap {
+        background: #5FC8C2 !important;
+    }
+</style>
+
+    <div class="lb-wrap">
+        <a href="#" class="close">x</a>
+        <div class="lb-content">
+            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "row"}))
+            {
+                @Html.AntiForgeryToken()
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <h3>登入</h3>
+        
+                <div class="f-item full-width">
+                    <label for="email">信箱</label>
+                    @Html.TextBoxFor(m => m.Email, new { @class = "" })
+                    
+                </div>
+                <div class="f-item full-width">
+                    <label for="password">密碼</label>
+                    @Html.PasswordFor(m => m.Password, new { @class = "" })
+                </div>
+
+    <div class="f-item full-width">
+        <label for="password">驗證碼</label>
+       
+           
+        
+            @Html.TextBoxFor(m => m.VerificationCode, new { @class = "" })
+    </div>
+    <div class="f-item full-width">
+        <img class="img-responsive img-rounded" src="@Url.Action("VerificationCode", "Account")" />
+    </div>
+
+                <div class="f-item checkbox full-width">
+                    @Html.CheckBoxFor(m => m.RememberMe)
+                    <label for="remember_me">記住我</label>
+                </div>
+                <div class="f-item full-width">
+                    <p>
+                        <a href="@Url.Action("ForgotPassowrd","Account")" title="Forgot password?">忘記密碼?</a><br />
+                        還沒註冊? <a href="@Url.Action("Join","Account")" title="Sign up">註冊</a>
+                    </p>
+                    <input type="submit" id="login" name="login" value="登入" class="gradient-button" />
+                </div>
+            }
+            
+        </div>
+    </div>
+
+<script type="text/javascript">
+    $('#btnlogin').on('click', function () {
+        $('.lightbox').show();
+    });
+</script>

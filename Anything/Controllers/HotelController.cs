@@ -129,18 +129,36 @@ namespace Anything.Controllers
         }
 
         [Authorize(Roles = "Hotel,Admin")]
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id=null)
         {
-            if (!User.Identity.IsAuthenticated || CurrentUser == null || CurrentUser.Id == 0)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-           
+
+
+            var result = new HotelCreateViewModel();
+
             var model = _db.Hotel.Where(o => o.ID == id).FirstOrDefault();
-            if (model == null)
+            if (id == null || model == null)
             {
-                return Redirect("Index");
+                result.Information = new HtmlContent("/Views/Hotel/InformationTemp.html").Text;
+                ViewBag.ServiceOptions = new ServiceOptionCheckbox().ConverToCheckbox(null);
+                ViewBag.Scenics = new ScenicsCheckbox().ConverToCheckbox(null);
+                ViewBag.SessionKey = Guid.NewGuid().GetHashCode().ToString("x");
+                result.Enabled = true;
+                return View(result);
             }
+
+            result.ID = model.ID;
+            result.Information = model.Information;
+            result.Introduce = model.Introduce;
+            result.Location = model.Location;
+            result.Name = model.Name;
+            result.Tel = model.Tel;
+            result.WebSite = model.WebSite;
+            result.Enabled = model.Enabled;
+            result.Feature = model.Feature;
+            result.Area = model.Area;
+            result.City = model.City;
+            result.Address = model.Address;
+            result.SaleOff = model.SaleOff;
 
             string[] chkoptions = null;
             if (!string.IsNullOrEmpty(model.ServiceOptions))
@@ -170,41 +188,42 @@ namespace Anything.Controllers
             var HotelImages = model.HotelImage.ToList();
             Session[SessionKey] = HotelImages;
             ViewBag.HotelImg = HotelImages;
-            return View(model);
+
+            
+
+            return View(result);
         }
 
         [Authorize(Roles = "Hotel,Admin")]
         [ValidateInput(false)]
         [HttpPost]
-        public ActionResult Edit(Hotel model)
+        public ActionResult Edit(HotelCreateViewModel model)
         {
-            if (!User.Identity.IsAuthenticated || CurrentUser == null || CurrentUser.Id == 0)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-
+            model.UserId = CurrentUser.Id;
             
 
-            var result = _db.Hotel.Find(model.ID);
+            //var result = _db.Hotel.Find(model.ID);
 
-            if (CurrentUser.Id != model.UserId || result.ID != model.ID)
-            {
-                return RedirectToAction("Index", "Home");
-            }
+            //if (CurrentUser.Id != model.UserId || result.ID != model.ID)
+            //{
+            //    return RedirectToAction("Index", "Home");
+            //}
 
-            if (result == null)
-            {
-                return Redirect("Index");
-            }
+            //if (result == null)
+            //{
+            //    return Redirect("Index");
+            //}
 
             if (model.City <= 0)
             {
                 ModelState.AddModelError("City", "城市為必填");
             }
+
             if (model.Area <= 0)
             {
                 ModelState.AddModelError("Area", "鄉鎮區為必填");
             }
+
             if (Request["ServiceOptions"] != null)
             {
                 model.ServiceOptions = Request["ServiceOptions"];
@@ -215,67 +234,26 @@ namespace Anything.Controllers
                 model.Scenics = Request["Scenics"];
             }
 
-            var InsertHotelImage = new List<HotelImage>();
-
-            if (Request["imagekey"] != null)
-            {
-                var HotelImages = (List<HotelImage>)Session[Request["imagekey"]];
-                Session[Request["imagekey"]] = HotelImages;
-                var ImgFromDb = _db.HotelImage.Where(o => o.HotelId == model.ID).ToList();
-                var NameOfImages = _db.HotelImage.Where(o => o.HotelId == model.ID).Select(x => x.Name).ToList();
-                var MaxSort = 0;
-                for (var i = 0; i < ImgFromDb.Count; i++)
-                {
-                    var sort = i + 1;
-                    ImgFromDb[i].Sort = sort;
-                    if (sort >= ImgFromDb.Count)
-                    {
-                        MaxSort = i + 1;
-                    }
-                }
-
-
-                InsertHotelImage = HotelImages.Where(o => !NameOfImages.Contains(o.Name)).ToList();
-                if (InsertHotelImage.Count > 0)
-                {
-                    for (var i = 0; i < InsertHotelImage.Count;i++ )
-                    {
-                        InsertHotelImage[i].Sort = MaxSort + (i+1);
-                    }
-                }
-            }
-
-            
-            
-            //model.Modified = DateTime.Now;
-
             if (ModelState.IsValid)
             {
-
-                result.Information = model.Information;
-                result.Introduce = model.Introduce;
-                result.Location = model.Location;
-                result.Modified = DateTime.Now;
-                result.Name = model.Name;
-                result.Scenics = model.Scenics;
-                result.ServiceOptions = model.ServiceOptions;
-                result.WebSite = model.WebSite;
-                result.Feature = model.Feature;
-                result.Address = model.Address;
-                result.Area = model.Area;
-                result.City = model.City;
-                result.Enabled = model.Enabled;
-                result.Tel = model.Tel;
-                //result.HotelImage = InsertHotelImage;
-                
-                _db.SaveChanges();
-
-                InsertHotelImage = InsertHotelImage.Select(c => { c.HotelId = model.ID; c.Enabled = true; return c; }).ToList();
-
-                new ImageHandle().CreateHotelImage(InsertHotelImage);
-                return RedirectToAction("Index");
+                if (model.ID == 0)
+                {
+                    model.Create();
+                    return View("Index");
+                }
+                else
+                {
+                    model.Edit();
+                    return RedirectToAction("Edit",model.ID);
+                }
+               
             }
-            return View();
+
+            var CheckboxForScenics = new ScenicsCheckbox().ConverToCheckbox(model.Scenics.Split(','));
+            ViewBag.Scenics = CheckboxForScenics;
+            var CheckboxForServiceoption = new ServiceOptionCheckbox().ConverToCheckbox(model.ServiceOptions.Split(','));
+            ViewBag.ServiceOptions = CheckboxForServiceoption;
+            return View(model.ID);
         }
 
 

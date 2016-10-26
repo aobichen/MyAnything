@@ -695,7 +695,6 @@ C:\Users\aobi\Downloads\MyAnything\Anything\bin\zh-Hant\Microsoft.Owin.Security.
 C:\Users\aobi\Downloads\MyAnything\Anything\obj\Debug\Anything.csprojResolveAssemblyReference.cache
 C:\Users\aobi\Downloads\MyAnything\Anything\obj\Debug\Anything.dll
 C:\Users\aobi\Downloads\MyAnything\Anything\obj\Debug\Anything.pdb
-C:\Users\aobi\Documents\SOHOProjects\MyAnything\Anything\bin\Anything.dll.config
 C:\Users\aobi\Documents\SOHOProjects\MyAnything\Anything\bin\Anything.dll
 C:\Users\aobi\Documents\SOHOProjects\MyAnything\Anything\bin\Anything.pdb
 C:\Users\aobi\Documents\SOHOProjects\MyAnything\Anything\bin\Antlr3.Runtime.dll
