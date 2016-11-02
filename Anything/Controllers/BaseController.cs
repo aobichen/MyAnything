@@ -11,13 +11,13 @@ namespace Anything.Controllers
 {
     public class BaseController : Controller
     {
-        protected AnythingEntities _db;
+        protected MyAnythingEntities _db;
 
 
         public BaseController()
             : base()
         {
-            _db = new AnythingEntities();
+            _db = new MyAnythingEntities();
 
           
         }

@@ -23,22 +23,22 @@ namespace Anything.Controllers
             ViewBag.HotelList = result;
 
 
-            var headad = _db.AdOrder.Where(o => o.Position == "首頁看板").ToList();
+            //var headad = _db.AdOrder.Where(o => o.Position == "首頁看板").ToList();
             
-            var hasImage = new List<AdvImage>();
-            foreach (var had in headad)
-            {
-                foreach(var img in had.AdImage){
-                    var image = new AdvImage();
-                    image.ID = img.ID;
-                    image.Image = img.Image;
-                    image.Text = had.Text;
-                    image.Url = had.Href;
-                    hasImage.Add(image);
-                }
-            }
+            //var hasImage = new List<AdvImage>();
+            //foreach (var had in headad)
+            //{
+            //    foreach(var img in had.AdImage){
+            //        var image = new AdvImage();
+            //        image.ID = img.ID;
+            //        image.Image = img.Image;
+            //        image.Text = had.Text;
+            //        image.Url = had.Href;
+            //        hasImage.Add(image);
+            //    }
+            //}
 
-            ViewBag.HeadAd = hasImage;
+           // ViewBag.HeadAd = hasImage;
             var oo = _db.ServiceOption.Where(o => o.Show == true).ToList();
             ViewBag.Options = _db.ServiceOption.Where(o => o.Show == true).ToList();
             var City = new Caches().TWCity;

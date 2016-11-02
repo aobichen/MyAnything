@@ -35,10 +35,10 @@ namespace Anything.Models
         public string ServiceOptions { get; set; }
         public string Scenics { get; set; }
         public bool Enabled { get; set; }
+        public bool SaleOff { get; set; }
         public System.DateTime Created { get; set; }
         public Nullable<System.DateTime> Modified { get; set; }
         public string Tel { get; set; }
-        public bool SaleOff { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HotelImage> HotelImage { get; set; }

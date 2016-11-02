@@ -14,12 +14,6 @@ namespace Anything.Models
     
     public partial class AdManage
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public AdManage()
-        {
-            this.AdOrder = new HashSet<AdOrder>();
-        }
-    
         public int ID { get; set; }
         public string Position { get; set; }
         public int PositionId { get; set; }
@@ -41,8 +35,5 @@ namespace Anything.Models
         public decimal SalePrice { get; set; }
         public Nullable<decimal> DiscountPrice { get; set; }
         public int Days { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AdOrder> AdOrder { get; set; }
     }
 }

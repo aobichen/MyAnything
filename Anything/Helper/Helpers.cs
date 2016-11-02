@@ -63,7 +63,7 @@ namespace Anything.Helper
         {                      
             public static string RoomType(string options)
             {
-                var _db = new AnythingEntities();
+                var _db = new MyAnythingEntities();
                
                 var op = options.Split(',');
                 var int_room = int.Parse(op[0]);
@@ -77,6 +77,23 @@ namespace Anything.Helper
             }
         }
 
-       
+        public class CityArea
+        {
+            //var _db = new AnythingEntities();
+            public static string GetCityName(int id)
+            {
+                var _db = new MyAnythingEntities();
+                var city = _db.City_TW.Find(id).City;
+                return city;
+            }
+
+            public static string GetCityArea(int city, int area)
+            {
+                var _db = new MyAnythingEntities();
+                var c = _db.City_TW.Find(city).City;
+                var a = _db.Area_TW.Find(area).Area;
+                return c + a;
+            }
+        }
     }
 }

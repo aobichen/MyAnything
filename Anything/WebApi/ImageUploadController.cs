@@ -18,11 +18,11 @@ namespace Anything.WebApi
     }
     public class ImageUploadController : ApiController
     {
-        private AnythingEntities db;
+        private MyAnythingEntities db;
         public ImageUploadController()
             : base()
         {
-            db = new AnythingEntities();
+            db = new MyAnythingEntities();
             UserFolder = System.Configuration.ConfigurationManager.AppSettings["UserFolder"];
         }
 
@@ -121,12 +121,12 @@ namespace Anything.WebApi
                 var file = HttpContext.Current.Request.Files[i];
                // var image = FileToByte(file);
                 var subName = Path.GetExtension(file.FileName);
-                var fileName = Guid.NewGuid().ToString();
+                var fileName = file.FileName;
                 var webPath = Path.Combine(FolderPath, fileName + ".jpg");
-                var path = Path.Combine(HttpContext.Current.Server.MapPath(FolderPath),fileName+".jpg");
-                file.SaveAs(path);
+                //var path = Path.Combine(HttpContext.Current.Server.MapPath(FolderPath),fileName+".jpg");
+                //file.SaveAs(path);
                 var image = FileToByte(file);
-                Images.Add(new HotelImage { Image = image, Name = fileName, Path = webPath, Sort = i+1 });
+                Images.Add(new HotelImage { Image = image, Name = fileName, Path = "", Sort = i+1 });
             }
 
             var Message = "完成上傳";
@@ -198,14 +198,15 @@ namespace Anything.WebApi
             for (int i = 0; i < HttpContext.Current.Request.Files.Count; i++)
             {
                 var file = HttpContext.Current.Request.Files[i];
-                // var image = FileToByte(file);
-                var subName = Path.GetExtension(file.FileName);
-                var fileName = Guid.NewGuid().ToString();
-                var webPath = Path.Combine(FolderPath, fileName + ".jpeg");
-                var path = Path.Combine(HttpContext.Current.Server.MapPath(FolderPath), fileName + ".jpeg");
-                file.SaveAs(path);
+                var fileName = file.FileName;
+                //// var image = FileToByte(file);
+                //var subName = Path.GetExtension(file.FileName);
+                //var fileName = Guid.NewGuid().ToString();
+                //var webPath = Path.Combine(FolderPath, fileName + ".jpeg");
+                //var path = Path.Combine(HttpContext.Current.Server.MapPath(FolderPath), fileName + ".jpeg");
+                //file.SaveAs(path);
                 var image = FileToByte(file);
-                Images.Add(new RoomImage { Image = image, Name = fileName, Path = webPath, Sort = i + 1 });
+                Images.Add(new RoomImage { Image = image, Name = fileName, Path = string.Empty, Sort = i + 1 });
             }
 
             var Message = "完成上傳";

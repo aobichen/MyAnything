@@ -780,3 +780,4 @@ C:\Users\aobi\Documents\SOHOProjects\MyAnything\Anything\bin\zh-Hant\Microsoft.O
 C:\Users\aobi\Documents\SOHOProjects\MyAnything\Anything\bin\zh-Hant\Microsoft.Owin.Security.MicrosoftAccount.resources.dll
 C:\Users\aobi\Documents\SOHOProjects\MyAnything\Anything\obj\Debug\Anything.dll
 C:\Users\aobi\Documents\SOHOProjects\MyAnything\Anything\obj\Debug\Anything.pdb
+C:\Users\aobi\Documents\SOHOProjects\MyAnything\Anything\bin\Anything.dll.config

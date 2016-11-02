@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Anything.Models.Room>
+
+<p>
+    @Html.ActionLink("Create New", "Create", new { id = (int)ViewBag.HotelId }, new { @class="btn btn-primary" })
+</p>
+<div class="full-width">
+    <table class="table">
+        <tr>
+
+            <th>
+                房型
+            </th>
+            <th>
+                售價
+            </th>
+            <th>
+                特價
+            </th>
+            <th>
+                房型
+            </th>
+            <th>
+                數量
+            </th>
+
+            <th>
+                服務中
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+    {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @item.SellPrice
+                </td>
+                <td>
+                    @item.DiscountPrice
+                </td>
+                <td>
+                    @Anything.Helper.Helpers.Room.RoomType(item.RoomBed)
+                </td>
+                <td>
+                    @item.Amount
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Enabled)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) 
+                   @Html.ActionLink("設定價格", "SetPrice", new { id = item.ID }) 
+                </td>
+            </tr>
+    }
+
+    </table>
+</div>

@@ -256,9 +256,6 @@
     <Compile Include="Models\Logs.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\MailServer.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Model1.Context.cs">
       <AutoGen>True</AutoGen>
@@ -318,6 +315,7 @@
     <Compile Include="WebApi\AllPayController.cs" />
     <Compile Include="WebApi\DefaultController.cs" />
     <Compile Include="WebApi\ImageUploadController.cs" />
+    <Compile Include="WebApi\RoomController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Admin\assets\chart-master\Chart.js" />
@@ -691,6 +689,8 @@
     <Content Include="Content\Admin\assets\morris.js-0.4.3\spec\vendor\raphael-2.1.0.min.js" />
     <Content Include="Content\Admin\assets\morris.js-0.4.3\spec\vendor\sinon-1.5.0.js" />
     <Content Include="Content\Admin\assets\morris.js-0.4.3\spec\vendor\sinon-chai-2.1.2.js" />
+    <Content Include="Content\Admin\css\bootstrap-switch.css" />
+    <Content Include="Content\Admin\css\bootstrap-switch.min.css" />
     <Content Include="Content\Admin\css\bootstrap-theme.css" />
     <Content Include="Content\Admin\css\bootstrap.min.css" />
     <Content Include="Content\Admin\css\elegant-icons-style.css" />
@@ -746,6 +746,7 @@
     <Content Include="Content\Admin\img\user22.png" />
     <Content Include="Content\Admin\js\additional-methods.min.js" />
     <Content Include="Content\Admin\js\bootstrap-switch.js" />
+    <Content Include="Content\Admin\js\bootstrap-switch.min.js" />
     <Content Include="Content\Admin\js\bootstrap-wysiwyg-custom.js" />
     <Content Include="Content\Admin\js\bootstrap-wysiwyg.js" />
     <Content Include="Content\Admin\js\bootstrap.js" />
@@ -859,21 +860,14 @@
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\fonts\lg.svg" />
-    <Content Include="Content\fullcalendar\CHANGELOG.txt" />
-    <Content Include="Content\fullcalendar\CONTRIBUTING.txt" />
-    <Content Include="Content\fullcalendar\demos\agenda-views.html" />
-    <Content Include="Content\fullcalendar\demos\background-events.html" />
-    <Content Include="Content\fullcalendar\demos\basic-views.html" />
-    <Content Include="Content\fullcalendar\demos\default.html" />
-    <Content Include="Content\fullcalendar\demos\external-dragging.html" />
-    <Content Include="Content\fullcalendar\demos\gcal.html" />
-    <Content Include="Content\fullcalendar\demos\json.html" />
-    <Content Include="Content\fullcalendar\demos\list-views.html" />
-    <Content Include="Content\fullcalendar\demos\locales.html" />
-    <Content Include="Content\fullcalendar\demos\selectable.html" />
-    <Content Include="Content\fullcalendar\demos\theme.html" />
-    <Content Include="Content\fullcalendar\demos\timezones.html" />
-    <Content Include="Content\fullcalendar\demos\week-numbers.html" />
+    <Content Include="Content\fullcalendar-3.0.1\fullcalendar.css" />
+    <Content Include="Content\fullcalendar-3.0.1\fullcalendar.js" />
+    <Content Include="Content\fullcalendar-3.0.1\fullcalendar.min.css" />
+    <Content Include="Content\fullcalendar-3.0.1\fullcalendar.min.js" />
+    <Content Include="Content\fullcalendar-3.0.1\fullcalendar.print.css" />
+    <Content Include="Content\fullcalendar-3.0.1\jquery-ui.min.js" />
+    <Content Include="Content\fullcalendar-3.0.1\jquery.min.js" />
+    <Content Include="Content\fullcalendar-3.0.1\moment.min.js" />
     <Content Include="Content\fullcalendar\fullcalendar.css" />
     <Content Include="Content\fullcalendar\fullcalendar.js" />
     <Content Include="Content\fullcalendar\fullcalendar.min.css" />
@@ -897,67 +891,7 @@
     <Content Include="Content\fullcalendar\lib\jquery-ui.min.js" />
     <Content Include="Content\fullcalendar\lib\jquery.min.js" />
     <Content Include="Content\fullcalendar\lib\moment.min.js" />
-    <Content Include="Content\fullcalendar\LICENSE.txt" />
     <Content Include="Content\fullcalendar\locale-all.js" />
-    <Content Include="Content\fullcalendar\locale\ar-ma.js" />
-    <Content Include="Content\fullcalendar\locale\ar-sa.js" />
-    <Content Include="Content\fullcalendar\locale\ar-tn.js" />
-    <Content Include="Content\fullcalendar\locale\ar.js" />
-    <Content Include="Content\fullcalendar\locale\bg.js" />
-    <Content Include="Content\fullcalendar\locale\ca.js" />
-    <Content Include="Content\fullcalendar\locale\cs.js" />
-    <Content Include="Content\fullcalendar\locale\da.js" />
-    <Content Include="Content\fullcalendar\locale\de-at.js" />
-    <Content Include="Content\fullcalendar\locale\de.js" />
-    <Content Include="Content\fullcalendar\locale\el.js" />
-    <Content Include="Content\fullcalendar\locale\en-au.js" />
-    <Content Include="Content\fullcalendar\locale\en-ca.js" />
-    <Content Include="Content\fullcalendar\locale\en-gb.js" />
-    <Content Include="Content\fullcalendar\locale\en-ie.js" />
-    <Content Include="Content\fullcalendar\locale\en-nz.js" />
-    <Content Include="Content\fullcalendar\locale\es-do.js" />
-    <Content Include="Content\fullcalendar\locale\es.js" />
-    <Content Include="Content\fullcalendar\locale\eu.js" />
-    <Content Include="Content\fullcalendar\locale\fa.js" />
-    <Content Include="Content\fullcalendar\locale\fi.js" />
-    <Content Include="Content\fullcalendar\locale\fr-ca.js" />
-    <Content Include="Content\fullcalendar\locale\fr-ch.js" />
-    <Content Include="Content\fullcalendar\locale\fr.js" />
-    <Content Include="Content\fullcalendar\locale\gl.js" />
-    <Content Include="Content\fullcalendar\locale\he.js" />
-    <Content Include="Content\fullcalendar\locale\hi.js" />
-    <Content Include="Content\fullcalendar\locale\hr.js" />
-    <Content Include="Content\fullcalendar\locale\hu.js" />
-    <Content Include="Content\fullcalendar\locale\id.js" />
-    <Content Include="Content\fullcalendar\locale\is.js" />
-    <Content Include="Content\fullcalendar\locale\it.js" />
-    <Content Include="Content\fullcalendar\locale\ja.js" />
-    <Content Include="Content\fullcalendar\locale\ko.js" />
-    <Content Include="Content\fullcalendar\locale\lb.js" />
-    <Content Include="Content\fullcalendar\locale\lt.js" />
-    <Content Include="Content\fullcalendar\locale\lv.js" />
-    <Content Include="Content\fullcalendar\locale\mk.js" />
-    <Content Include="Content\fullcalendar\locale\ms-my.js" />
-    <Content Include="Content\fullcalendar\locale\ms.js" />
-    <Content Include="Content\fullcalendar\locale\nb.js" />
-    <Content Include="Content\fullcalendar\locale\nl.js" />
-    <Content Include="Content\fullcalendar\locale\nn.js" />
-    <Content Include="Content\fullcalendar\locale\pl.js" />
-    <Content Include="Content\fullcalendar\locale\pt-br.js" />
-    <Content Include="Content\fullcalendar\locale\pt.js" />
-    <Content Include="Content\fullcalendar\locale\ro.js" />
-    <Content Include="Content\fullcalendar\locale\ru.js" />
-    <Content Include="Content\fullcalendar\locale\sk.js" />
-    <Content Include="Content\fullcalendar\locale\sl.js" />
-    <Content Include="Content\fullcalendar\locale\sr-cyrl.js" />
-    <Content Include="Content\fullcalendar\locale\sr.js" />
-    <Content Include="Content\fullcalendar\locale\sv.js" />
-    <Content Include="Content\fullcalendar\locale\th.js" />
-    <Content Include="Content\fullcalendar\locale\tr.js" />
-    <Content Include="Content\fullcalendar\locale\uk.js" />
-    <Content Include="Content\fullcalendar\locale\vi.js" />
-    <Content Include="Content\fullcalendar\locale\zh-cn.js" />
-    <Content Include="Content\fullcalendar\locale\zh-tw.js" />
     <Content Include="Content\images\ajax-loader.gif" />
     <Content Include="Content\images\backgrounds\bedge_grunge.png" />
     <Content Include="Content\images\backgrounds\dark_wood.png" />
@@ -1093,16 +1027,6 @@
     <Content Include="images\uploads\get_inspired.jpg" />
     <Content Include="images\uploads\img.jpg" />
     <Content Include="images\uploads\slider.jpg" />
-    <Content Include="Models\Model1.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model1.edmx</DependentUpon>
-      <LastGenOutput>Model1.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\Model1.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model1.edmx</DependentUpon>
-      <LastGenOutput>Model1.cs</LastGenOutput>
-    </Content>
     <Content Include="ProjectFile\AdImage.sql" />
     <Content Include="ProjectFile\AdManage.sql" />
     <Content Include="ProjectFile\AdOrder.sql" />
@@ -1126,13 +1050,6 @@
     <Content Include="Scripts\Base.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="Models\Model1.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\Model1.edmx.diagram">
-      <DependentUpon>Model1.edmx</DependentUpon>
-    </Content>
     <Content Include="Content\font-awesome-4.6.3\fonts\fontawesome-webfont.eot" />
     <Content Include="Content\font-awesome-4.6.3\fonts\fontawesome-webfont.ttf" />
     <Content Include="Content\font-awesome-4.6.3\fonts\fontawesome-webfont.woff" />
@@ -1167,10 +1084,6 @@
     <Content Include="Content\font-awesome-4.6.3\scss\_stacked.scss" />
     <Content Include="Content\font-awesome-4.6.3\scss\_variables.scss" />
     <Content Include="ProjectFile\金流手續費.docx" />
-    <Content Include="Content\fullcalendar\demos\json\events.json" />
-    <Content Include="Content\fullcalendar\demos\php\get-events.php" />
-    <Content Include="Content\fullcalendar\demos\php\get-timezones.php" />
-    <Content Include="Content\fullcalendar\demos\php\utils.php" />
     <Content Include="Content\fonts\lg.eot" />
     <Content Include="Content\fonts\lg.ttf" />
     <Content Include="Content\fonts\lg.woff" />
@@ -1298,6 +1211,23 @@
     <Content Include="Content\Admin\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\Admin\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\fonts\fontawesome-webfont.woff2" />
+    <EntityDeploy Include="Models\Model1.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Model1.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\Model1.edmx.diagram">
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\Model1.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.cs</LastGenOutput>
+    </Content>
     <None Include="Properties\PublishProfiles\MyAnything.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\infobox.js" />
@@ -1867,7 +1797,6 @@
     <Content Include="Views\Shared\_ImageUpload.cshtml" />
     <Content Include="Views\Room\Index.cshtml" />
     <Content Include="Views\Room\Create.cshtml" />
-    <Content Include="Views\Shared\_List.cshtml" />
     <Content Include="Views\Home\Detail.cshtml" />
     <Content Include="Views\Room\_RoomImageUpload.cshtml" />
     <Content Include="Views\Room\Edit.cshtml" />
@@ -1918,6 +1847,11 @@
     <Content Include="Views\Shared\_Header.cshtml" />
     <Content Include="Views\Shared\_LeftSidebar.cshtml" />
     <Content Include="Views\Shared\_LoginLightbox.cshtml" />
+    <Content Include="Views\Room\_List.cshtml" />
+    <Content Include="Views\Room\_Create.cshtml" />
+    <Content Include="Views\Home\_List.cshtml" />
+    <Content Include="Views\Room\_FullCalendar.cshtml" />
+    <Content Include="Views\Room\SetPrice.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

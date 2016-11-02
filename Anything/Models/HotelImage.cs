@@ -19,8 +19,8 @@ namespace Anything.Models
         public byte[] Image { get; set; }
         public bool Deleted { get; set; }
         public Nullable<int> Sort { get; set; }
-        public string Path { get; set; }
         public string Name { get; set; }
+        public string Path { get; set; }
         public Nullable<bool> Enabled { get; set; }
     
         public virtual Hotel Hotel { get; set; }

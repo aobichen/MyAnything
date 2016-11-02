@@ -10,10 +10,10 @@ namespace Anything.Helper
 {
     public class Caches
     {
-        protected AnythingEntities _db;
+        protected MyAnythingEntities _db;
         protected ObjectCache Cache;
        public Caches():base(){
-           _db = new AnythingEntities();
+           _db = new MyAnythingEntities();
            Cache = MemoryCache.Default;
         }
 

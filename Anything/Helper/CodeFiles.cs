@@ -9,9 +9,9 @@ namespace Anything.Helper
 {
     public class CodeFiles
     {
-        private AnythingEntities _db;
+        private MyAnythingEntities _db;
         public CodeFiles(){
-            _db = new AnythingEntities();
+            _db = new MyAnythingEntities();
         }
 
         public SelectList GetRoomsSelectList(string selected="0")

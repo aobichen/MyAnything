@@ -312,7 +312,7 @@ namespace Anything.Helper
 
                     }
 
-                    using (var db = new AnythingEntities())
+                    using (var db = new MyAnythingEntities())
                     {
                         var order = db.OrderMaster.Where(o => o.MerchantTradeNo == MerchantTradeNo).FirstOrDefault();
                         if (order != null)

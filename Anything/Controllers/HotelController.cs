@@ -3,11 +3,12 @@ using Anything.Models;
 using Anything.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-
+using System.Drawing;
 namespace Anything.Controllers
 {
     
@@ -31,10 +32,7 @@ namespace Anything.Controllers
         [Authorize(Roles = "Hotel,Admin")]
         public ActionResult Create()
         {
-            if (!User.Identity.IsAuthenticated || CurrentUser == null || CurrentUser.Id == 0)
-            {
-                return RedirectToAction("Index", "Home");
-            }
+            
 
             var City = new Caches().TWCity;
             ViewBag.Area = new Caches().TWArea;
@@ -53,80 +51,86 @@ namespace Anything.Controllers
             return View(model);
         }
 
-        [Authorize(Roles = "Hotel,Admin")]
-        [HttpPost]
-        public ActionResult Create(HotelCreateViewModel model)
-        {
-            if (model.City <= 0)
-            {
-                ModelState.AddModelError("City","城市為必填");
-            }
-            if (model.Area <= 0)
-            {
-                ModelState.AddModelError("Area", "鄉鎮區為必填");
-            }
-            if (Request["ServiceOptions"] != null)
-            {
-                model.ServiceOptions = Request["ServiceOptions"];
-            }
+        //[Authorize(Roles = "Hotel,Admin")]
+        //[HttpPost]
+        //public ActionResult Create(HotelCreateViewModel model)
+        //{
+        //    if (model.City <= 0)
+        //    {
+        //        ModelState.AddModelError("City","城市為必填");
+        //    }
+        //    if (model.Area <= 0)
+        //    {
+        //        ModelState.AddModelError("Area", "鄉鎮區為必填");
+        //    }
+        //    if (Request["ServiceOptions"] != null)
+        //    {
+        //        model.ServiceOptions = Request["ServiceOptions"];
+        //    }
 
-            if (Request["Scenics"] != null)
-            {
-                model.Scenics = Request["Scenics"];
-            }
+        //    if (Request["Scenics"] != null)
+        //    {
+        //        model.Scenics = Request["Scenics"];
+        //    }
 
-            var HotelImage = new List<HotelImage>();
-            if (Request["imagekey"] != null)
-            {
-                HotelImage = (List<HotelImage>)Session[Request["imagekey"]];
-                Session[Request["imagekey"]] = HotelImage;
-                for (var i=0;i<HotelImage.Count;i++)
-                {
-                    HotelImage[i].Sort = i+1;
-                    HotelImage[i].Enabled = true;
-                }
+        //    var HotelImage = new List<HotelImage>();
+        //    if (Request["imagekey"] != null)
+        //    {
+        //        HotelImage = (List<HotelImage>)Session[model.SessionKey];
+        //        Session[model.SessionKey] = HotelImage;
+        //        var UserFolder = System.Configuration.ConfigurationManager.AppSettings["UserFolder"];
+        //        for (var i=0;i<HotelImage.Count;i++)
+        //        {
+        //            var fileName = Guid.NewGuid().ToString();
+        //            var webPath = Path.Combine(UserFolder, fileName + ".jpg");
+        //            var path = Path.Combine(Server.MapPath(UserFolder), fileName + ".jpg");
+        //            MemoryStream ms = new MemoryStream(HotelImage[i].Image);
+        //            Image returnImage =System.Drawing.Image.FromStream(ms);
+        //            HotelImage[i].Sort = i+1;
+        //            HotelImage[i].Enabled = true;
+        //        }
 
-                ViewBag.HotelImg = HotelImage;
-            }
+        //        ViewBag.HotelImg = HotelImage;
+        //    }
            
-            if (ModelState.IsValid)
-            {
-                var Now = DateTime.Now;
-                var db_model = new Hotel() {
-                    Address = model.Address,
-                    City = model.City,
-                    Area = model.Area, 
-                    Created = Now, 
-                    Enabled = model.Enabled,
-                    Feature = model.Feature,
-                    Information = model.Information,
-                    Introduce = model.Introduce,
-                    Location = model.Location, 
-                    Name = model.Name, 
-                    ServiceOptions = model.ServiceOptions,
-                    Scenics = model.Scenics,
-                    UserId = CurrentUser.Id,
-                    WebSite = model.WebSite,
-                    Modified = Now,
-                    HotelImage = HotelImage,
-                    Tel=  model.Tel,
-                    SaleOff = true
-                };
-                _db.Hotel.Add(db_model);
-                _db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+        //    if (ModelState.IsValid)
+        //    {
+        //        var Now = DateTime.Now;
+        //        var db_model = new Hotel() {
+        //            Address = model.Address,
+        //            City = model.City,
+        //            Area = model.Area, 
+        //            Created = Now, 
+        //            Enabled = true,
+        //            Feature = model.Feature,
+        //            Information = model.Information,
+        //            Introduce = model.Introduce,
+        //            Location = model.Location, 
+        //            Name = model.Name, 
+        //            ServiceOptions = model.ServiceOptions,
+        //            Scenics = model.Scenics,
+        //            UserId = CurrentUser.Id,
+        //            WebSite = model.WebSite,
+        //            Modified = Now,
+        //            HotelImage = HotelImage,
+        //            Tel=  model.Tel,
+        //            SaleOff = true
+        //        };
+        //        _db.Hotel.Add(db_model);
+        //        _db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
 
-            var City = new Caches().TWCity;
-            ViewBag.Area = new Caches().TWArea;
-            SelectList selectList = new SelectList(City, "ID", "City", 0);
-            ViewBag.City = selectList;
-            ViewBag.Area = new Caches().TWArea;
-            ViewBag.ServiceOptions = _db.ServiceOption.Where(o => o.Enabled == true).ToList();
-            ViewBag.Scenics = _db.Scenic.Where(o => o.Enabled == true).ToList();
+        //    var City = new Caches().TWCity;
+        //    ViewBag.Area = new Caches().TWArea;
+        //    SelectList selectList = new SelectList(City, "ID", "City", 0);
+        //    ViewBag.City = selectList;
+        //    ViewBag.Area = new Caches().TWArea;
+        //    ViewBag.ServiceOptions = _db.ServiceOption.Where(o => o.Enabled == true).ToList();
+        //    ViewBag.Scenics = _db.Scenic.Where(o => o.Enabled == true).ToList();
 
-            return View();
-        }
+        //    return View();
+        //}
 
         [Authorize(Roles = "Hotel,Admin")]
         public ActionResult Edit(int? id=null)
@@ -143,6 +147,7 @@ namespace Anything.Controllers
                 ViewBag.Scenics = new ScenicsCheckbox().ConverToCheckbox(null);
                 ViewBag.SessionKey = Guid.NewGuid().GetHashCode().ToString("x");
                 result.Enabled = true;
+                result.SaleOff = true;
                 return View(result);
             }
 
@@ -159,7 +164,7 @@ namespace Anything.Controllers
             result.City = model.City;
             result.Address = model.Address;
             result.SaleOff = model.SaleOff;
-
+            result.Enabled = true;
             string[] chkoptions = null;
             if (!string.IsNullOrEmpty(model.ServiceOptions))
             {
@@ -202,17 +207,6 @@ namespace Anything.Controllers
             model.UserId = CurrentUser.Id;
             
 
-            //var result = _db.Hotel.Find(model.ID);
-
-            //if (CurrentUser.Id != model.UserId || result.ID != model.ID)
-            //{
-            //    return RedirectToAction("Index", "Home");
-            //}
-
-            //if (result == null)
-            //{
-            //    return Redirect("Index");
-            //}
 
             if (model.City <= 0)
             {
@@ -239,7 +233,7 @@ namespace Anything.Controllers
                 if (model.ID == 0)
                 {
                     model.Create();
-                    return View("Index");
+                    return RedirectToAction("Index");
                 }
                 else
                 {

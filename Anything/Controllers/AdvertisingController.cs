@@ -155,7 +155,7 @@ namespace Anything.Controllers
             if (User.IsInRole("Admin") || User.IsInRole("AdManager"))
             {
                 
-                var Status = "official";
+                //var Status = "official";
                 //var Advertising = _db.AdOrder.Where(o => o.Status == Status).ToList();
                 var Advertising = _db.AdOrder.ToList();
                 ViewBag.Advertising = Advertising;

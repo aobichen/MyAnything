@@ -15,12 +15,12 @@ namespace Anything.Models
     public partial class RoomPrice
     {
         public int ID { get; set; }
-        public int RoomId { get; set; }
+        public int ROOMID { get; set; }
         public decimal Price { get; set; }
-        public Nullable<decimal> SalePrice { get; set; }
+        public Nullable<decimal> Sell { get; set; }
         public System.DateTime Date { get; set; }
         public bool SaleOff { get; set; }
-        public int Amount { get; set; }
+        public int Quantity { get; set; }
     
         public virtual Room Room { get; set; }
     }

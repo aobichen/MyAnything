@@ -51,7 +51,7 @@ namespace Anything.ViewModels
         {
             string d = string.Empty;
             var code = "VIPDays";
-            using (var _db = new AnythingEntities())
+            using (var _db = new MyAnythingEntities())
             {
                 var m = _db.SysManage.Where(o => o.FieldCode == code).FirstOrDefault();
                 if (m != null)
@@ -64,8 +64,8 @@ namespace Anything.ViewModels
 
         private List<SelectListItem> GetHotels(){
             var selectlist = new List<SelectListItem>();
-           
-            using (var _db = new AnythingEntities())
+
+            using (var _db = new MyAnythingEntities())
             {
                 var hotels = _db.Hotel.Where(o => o.UserId == Id).ToList();
                 foreach (var h in hotels)

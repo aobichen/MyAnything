@@ -1,31 +1,8 @@
 ﻿@model IEnumerable<Anything.Models.Hotel>
 
-@{
-    ViewBag.Title = "Hotels";
-}
 
 
-<div class="full-width">
-    <div class="col-lg-offset-10">
-        <a class="btn btn-grassgreen" href="@Url.Action("Edit")">
-            新增
-        </a>
-    </div>
-</div>
-<div class="full-width">
-    <div class="col-lg-12">
-        <div class="panel panel-grassgreen">
-            <div class="panel-heading">
-                <div class="panel-title text-left">
-                    
-                        民宿
-                   
-                </div>
-            </div>
-            <div class="panel-body">
-                @Html.Partial("_List", Model)
-            </div>
-        </div>
-    </div>
 
+<div class="wrap">
+    @Html.Partial("_List", Model)
 </div>

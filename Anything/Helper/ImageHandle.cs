@@ -8,12 +8,12 @@ namespace Anything.Helper
 {
     public class ImageHandle
     {
-       protected AnythingEntities _db;
+        protected MyAnythingEntities _db;
 
        public ImageHandle()
             : base()
         {
-            _db = new AnythingEntities();
+            _db = new MyAnythingEntities();
         }
 
         public void CreateHotelImage(List<HotelImage> Images){

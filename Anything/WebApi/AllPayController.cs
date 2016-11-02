@@ -14,10 +14,10 @@ namespace Anything.WebApi
 {
     public class AllPayController : ApiController
     {
-        private AnythingEntities _db { get; set; }
+        private MyAnythingEntities _db { get; set; }
         public AllPayController()
         {
-            _db = new AnythingEntities();
+            _db = new MyAnythingEntities();
         }
 
         [Route("CreditFeed")]

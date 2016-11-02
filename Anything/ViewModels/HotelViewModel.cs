@@ -3,6 +3,7 @@ using Anything.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -11,12 +12,12 @@ namespace Anything.ViewModels
 {
     public class HotelCreateViewModel
     {
-        public AnythingEntities db;
+        public MyAnythingEntities db;
 
         public HotelCreateViewModel(){
             if (db == null)
             {
-                db = new AnythingEntities();
+                db = new MyAnythingEntities();
             }
         }
         public int ID { get; set; }
@@ -50,7 +51,7 @@ namespace Anything.ViewModels
         public bool Enabled { get; set; }
 
         public bool SaleOff { get; set; }
-        public string key { get; set; }
+        public string SessionKey { get; set; }
 
         public int UserId { get; set; }
 
@@ -66,7 +67,7 @@ namespace Anything.ViewModels
                  Hotel.Area = Area;
                  Hotel.City = City;
                  Hotel.Created = Now;
-                 Hotel.Enabled = Enabled;
+                 Hotel.Enabled = true;
                  Hotel.Feature = Feature;
                  Hotel.HotelImage = HotelImages();
                  Hotel.Information = Information;
@@ -80,6 +81,7 @@ namespace Anything.ViewModels
                  Hotel.Tel = Tel;
                  Hotel.UserId = UserId;
                  Hotel.WebSite = WebSite;
+                 db.Hotel.Add(Hotel);
                  db.SaveChanges();
              
          }
@@ -114,9 +116,9 @@ namespace Anything.ViewModels
          {
             var HotelImage = new List<HotelImage>();
             
-            if (!string.IsNullOrEmpty(key))
+            if (!string.IsNullOrEmpty(SessionKey))
             {
-                HotelImage = (List<HotelImage>)HttpContext.Current.Session[key];
+                HotelImage = (List<HotelImage>)HttpContext.Current.Session[SessionKey];
 
                 if (ID > 0)
                 {
@@ -125,10 +127,19 @@ namespace Anything.ViewModels
                     HotelImage = HotelImage.Where(o => !Images.Contains(o.Name)).ToList();
                 }
 
+                var UserFolder = System.Configuration.ConfigurationManager.AppSettings["UserFolder"];
+
                 for (var i = 0; i < HotelImage.Count; i++)
                 {
+                    var fileName = Guid.NewGuid().ToString();
+                   // var Extension = Path.GetExtension(fileName);
+                    var webPath = Path.Combine(UserFolder, fileName + ".jpg");
+                    var path = Path.Combine(HttpContext.Current.Server.MapPath(UserFolder), fileName + ".jpg");
+                    MemoryStream ms = new MemoryStream(HotelImage[i].Image);
+                    var returnImage = System.Drawing.Image.FromStream(ms);
                     HotelImage[i].Sort = i + 1;
                     HotelImage[i].Enabled = true;
+                    HotelImage[i].Path = path;
                 }              
             }
             return HotelImage;
@@ -192,8 +203,8 @@ namespace Anything.ViewModels
 
         public HotelListViewModel GetHotels(HomeSearchViewModel model=null)
         {
-            
-            var _db = new AnythingEntities();
+
+            var _db = new MyAnythingEntities();
             var take = 5;
             var r_result = new HotelListViewModel();
             if (model == null||model.City == 0)
@@ -295,7 +306,7 @@ namespace Anything.ViewModels
         {
             var items = new List<ServiceOption>();
             var checkbox = new List<ServiceOptionCheckbox>();
-            using(var db = new AnythingEntities())
+            using (var db = new MyAnythingEntities())
             {
                 items = db.ServiceOption.ToList();
             }
@@ -327,7 +338,7 @@ namespace Anything.ViewModels
         {
             var items = new List<Scenic>();
             var checkbox = new List<ScenicsCheckbox>();
-            using(var db = new AnythingEntities())
+            using (var db = new MyAnythingEntities())
             {
                 items = db.Scenic.ToList();
             }

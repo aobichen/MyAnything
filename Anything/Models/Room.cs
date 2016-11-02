@@ -40,10 +40,10 @@ namespace Anything.Models
         public Nullable<int> BussinessBonus { get; set; }
         public Nullable<int> PlatformBonus { get; set; }
     
+        public virtual Hotel Hotel { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RoomImage> RoomImage { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RoomPrice> RoomPrice { get; set; }
-        public virtual Hotel Hotel { get; set; }
     }
 }
