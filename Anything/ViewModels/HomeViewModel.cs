@@ -12,4 +12,6 @@ namespace Anything.ViewModels
 
         public int City { get; set; }
     }
+
+    
 }

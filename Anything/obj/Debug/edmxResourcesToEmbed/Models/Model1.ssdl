@@ -244,6 +244,7 @@
     <Property Name="RoomBed" Type="nvarchar" MaxLength="6" Nullable="false" />
     <Property Name="BussinessBonus" Type="int" />
     <Property Name="PlatformBonus" Type="int" />
+    <Property Name="Feature" Type="nvarchar" MaxLength="150" Nullable="false" />
   </EntityType>
   <EntityType Name="RoomImage">
     <Key>

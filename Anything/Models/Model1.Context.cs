@@ -39,7 +39,6 @@ namespace Anything.Models
         public virtual DbSet<Logs> Logs { get; set; }
         public virtual DbSet<News> News { get; set; }
         public virtual DbSet<OrderMaster> OrderMaster { get; set; }
-        public virtual DbSet<Room> Room { get; set; }
         public virtual DbSet<RoomImage> RoomImage { get; set; }
         public virtual DbSet<RoomPrice> RoomPrice { get; set; }
         public virtual DbSet<Scenic> Scenic { get; set; }
@@ -47,5 +46,6 @@ namespace Anything.Models
         public virtual DbSet<SysManage> SysManage { get; set; }
         public virtual DbSet<VIPOrder> VIPOrder { get; set; }
         public virtual DbSet<VIPs> VIPs { get; set; }
+        public virtual DbSet<Room> Room { get; set; }
     }
 }

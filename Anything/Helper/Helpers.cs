@@ -75,6 +75,8 @@ namespace Anything.Helper
                 return string.Format("{0}【{1}X{2}】", room, bed, amount);
 
             }
+
+           
         }
 
         public class CityArea

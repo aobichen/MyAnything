@@ -60,26 +60,55 @@ namespace Anything.Controllers
 
         public ActionResult Detail(int id)
         {
-            var model = _db.Hotel.Find(id);
-            var key = Guid.NewGuid().GetHashCode().ToString("x");
-            ViewBag.SessionKey = key;
-
-            var RoomSelectedAmount = new List<SelectedAmount>();
-            if (model !=null && model.Room !=null && model.Room.Count > 0)
-            {
-                foreach (var r in model.Room)
+            var model = _db.Hotel.Where(o => o.ID == id).Select(o =>
+                new HotelDetail
                 {
-                    var Order = _db.OrderMaster.GroupBy(o => o.ProductId == r.ID).Select(g => new { id = g.Key, total = g.Sum(i => i.Amount) }).FirstOrDefault();
-                    var Order_Amount = 0;
-                    if (Order != null)
-                    {
-                        Order_Amount = Order.total;
-                    }
-                    r.Amount = r.Amount - Order_Amount <= 0 ? 0 : r.Amount - Order_Amount;
-                    RoomSelectedAmount.Add(new SelectedAmount { Amount = 1, RoomId = r.ID });
-                }
-            }
-            Session[key] = RoomSelectedAmount;
+                    ID = o.ID,
+                    Address = o.Address,
+                    options = o.ServiceOptions,
+                    Images = o.HotelImage.ToList(),
+                    Name = o.Name,
+                    Feature = o.Feature
+
+                }).FirstOrDefault();
+
+            var Facilities = model.options.Split(',').Select(int.Parse).ToList();
+            model.Facilities = _db.ServiceOption.Where(o => Facilities.Contains(o.ID)).Select(p => p.Text).ToList();
+            model.Rooms = (from r in _db.Room
+                           join code in _db.CodeFile
+                               on r.Beds equals code.ID
+                               where r.HotelId == model.ID
+                           select new RoomModel
+                           {
+                               Bed = code.ItemDescription,
+                               Feature = r.Feature,
+                               Images = r.RoomImage.ToList(),
+                               Name = r.Name,
+                               Price = r.DiscountPrice.Value,
+                               Sell = r.SellPrice,
+                               Quantity = r.Amount,
+                               Type = r.Person.ToString()
+                           }).ToList();
+            //var model = _db.Hotel.Find(id);
+            //var key = Guid.NewGuid().GetHashCode().ToString("x");
+            //ViewBag.SessionKey = key;
+
+            //var RoomSelectedAmount = new List<SelectedAmount>();
+            //if (model !=null && model.Room !=null && model.Room.Count > 0)
+            //{
+            //    foreach (var r in model.Room)
+            //    {
+            //        var Order = _db.OrderMaster.GroupBy(o => o.ProductId == r.ID).Select(g => new { id = g.Key, total = g.Sum(i => i.Amount) }).FirstOrDefault();
+            //        var Order_Amount = 0;
+            //        if (Order != null)
+            //        {
+            //            Order_Amount = Order.total;
+            //        }
+            //        r.Amount = r.Amount - Order_Amount <= 0 ? 0 : r.Amount - Order_Amount;
+            //        RoomSelectedAmount.Add(new SelectedAmount { Amount = 1, RoomId = r.ID });
+            //    }
+            //}
+            //Session[key] = RoomSelectedAmount;
             return View(model);
         }
 

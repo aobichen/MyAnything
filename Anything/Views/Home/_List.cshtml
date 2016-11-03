@@ -27,15 +27,18 @@
                     {
                         <article class="one-third">
                            
-                            <figure><a href="hotel.html" title="">
-                                @if (item.Images.Count > 0) { 
-                                <img style="height:180px;" src="@Url.Action("Image","Hotel",new {id=item.Images[0].ID})" alt="" />
+                            <figure>
+                                <a href="@Url.Action("Detail", new { id= item.ID })" title="">
+                                @if (item.Images.Count > 0)
+                                {
+                                    <img style="height:180px;" src="@Url.Action("Image","Hotel",new {id=item.Images[0].ID})" alt="" />
                                 }
                                 else
                                 {
                                     <img style="height:180px;" src="~/images/uploads/img.jpg" />
                                 }
-                                    </a>
+                            </a>
+
                             </figure>
                             <div class="details">
                                 <h3>
@@ -56,7 +59,7 @@
                                     @item.Feature
                                     <a href="hotel.html">More info</a></p>
                                 </div>
-                                <a href="hotel.html" title="Book now" class="gradient-button">Book now</a>
+                                <a href="@Url.Action("Detail", new { id= item.ID })" title="Book now" class="gradient-button">Book now</a>
                             </div>
                         </article>
                     }

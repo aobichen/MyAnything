@@ -237,30 +237,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Room">
-      <EntityTypeMapping TypeName="MyAnythingModel.Room">
-        <MappingFragment StoreEntitySet="Room">
-          <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="HotelId" ColumnName="HotelId" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="SellPrice" ColumnName="SellPrice" />
-          <ScalarProperty Name="DiscountPrice" ColumnName="DiscountPrice" />
-          <ScalarProperty Name="Bonus" ColumnName="Bonus" />
-          <ScalarProperty Name="Amount" ColumnName="Amount" />
-          <ScalarProperty Name="Information" ColumnName="Information" />
-          <ScalarProperty Name="Enabled" ColumnName="Enabled" />
-          <ScalarProperty Name="Created" ColumnName="Created" />
-          <ScalarProperty Name="Creator" ColumnName="Creator" />
-          <ScalarProperty Name="Modified" ColumnName="Modified" />
-          <ScalarProperty Name="Person" ColumnName="Person" />
-          <ScalarProperty Name="Beds" ColumnName="Beds" />
-          <ScalarProperty Name="BedType" ColumnName="BedType" />
-          <ScalarProperty Name="RoomBed" ColumnName="RoomBed" />
-          <ScalarProperty Name="BussinessBonus" ColumnName="BussinessBonus" />
-          <ScalarProperty Name="PlatformBonus" ColumnName="PlatformBonus" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="RoomImage">
       <EntityTypeMapping TypeName="MyAnythingModel.RoomImage">
         <MappingFragment StoreEntitySet="RoomImage">
@@ -353,6 +329,31 @@
           <ScalarProperty Name="EndDate" ColumnName="EndDate" />
           <ScalarProperty Name="Days" ColumnName="Days" />
           <ScalarProperty Name="HotelId" ColumnName="HotelId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Room">
+      <EntityTypeMapping TypeName="MyAnythingModel.Room">
+        <MappingFragment StoreEntitySet="Room">
+          <ScalarProperty Name="Feature" ColumnName="Feature" />
+          <ScalarProperty Name="PlatformBonus" ColumnName="PlatformBonus" />
+          <ScalarProperty Name="BussinessBonus" ColumnName="BussinessBonus" />
+          <ScalarProperty Name="RoomBed" ColumnName="RoomBed" />
+          <ScalarProperty Name="BedType" ColumnName="BedType" />
+          <ScalarProperty Name="Beds" ColumnName="Beds" />
+          <ScalarProperty Name="Person" ColumnName="Person" />
+          <ScalarProperty Name="Modified" ColumnName="Modified" />
+          <ScalarProperty Name="Creator" ColumnName="Creator" />
+          <ScalarProperty Name="Created" ColumnName="Created" />
+          <ScalarProperty Name="Enabled" ColumnName="Enabled" />
+          <ScalarProperty Name="Information" ColumnName="Information" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="Bonus" ColumnName="Bonus" />
+          <ScalarProperty Name="DiscountPrice" ColumnName="DiscountPrice" />
+          <ScalarProperty Name="SellPrice" ColumnName="SellPrice" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="HotelId" ColumnName="HotelId" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

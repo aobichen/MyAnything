@@ -137,4 +137,19 @@ namespace Anything.ViewModels
             return RoomImage;
         }
     }
+
+    public class RoomModel
+    {
+        public string Name { get; set; }
+        public decimal Sell { get; set; }
+        public decimal Price { get; set; }
+        public string Feature { get; set; }
+
+        public string Type { get; set; }
+
+        public string Bed { get; set; }
+
+        public int Quantity { get; set; }
+        public List<RoomImage> Images { get; set; }
+    }
 }

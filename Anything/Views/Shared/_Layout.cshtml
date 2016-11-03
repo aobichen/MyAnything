@@ -10,11 +10,22 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
 
-    <link rel="stylesheet" href="~/Content/theme.css" />
-    <link href="~/Content/font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet" />
+    @*<link rel="stylesheet" href="~/Content/theme.css" />
+    <link href="~/Content/font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet" />*@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800|Roboto+Slab:400,700&subset=latin,latin-ext,greek-ext,greek,cyrillic,vietnamese,cyrillic-ext">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    
+        @*<script type="text/javascript" src="~/Scripts/jquery-1.10.2.min.js"></script>
+        <script type="text/javascript" src="~/Scripts/jquery-ui.min.js"></script>*@
+       
+    @*@Scripts.Render("~/Scripts/lightslider.min.js", 
+        "~/Content/jquery-localize/dist/jquery.localize.min.js",
+        "~/Scripts/jquery.cookie.js",
+        "~/Scripts/jquery.uniform.min.js",
+        "~/Scripts/jquery.slimmenu.min.js")
 
+       
+        <script type="text/javascript" src="~/Scripts/scripts.js"></script>*@
     <link rel="shortcut icon" href="images/favicon.ico" />
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -46,17 +57,7 @@
         @Html.Partial("_LoginLightbox", new Anything.Models.LoginViewModel())
     </div>
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-        <script type="text/javascript" src="~/Scripts/jquery-1.10.2.min.js"></script>
-        <script type="text/javascript" src="~/Scripts/jquery-ui.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-
-        <script type="text/javascript" src="~/Content/jquery-localize/dist/jquery.localize.min.js"></script>
-        <script type="text/javascript" src="~/Scripts/jquery.cookie.js"></script>
-        <script type="text/javascript" src="~/Scripts/jquery.uniform.min.js"></script>
-        <script type="text/javascript" src="~/Scripts/jquery.slimmenu.min.js"></script>
-        <script type="text/javascript" src="~/Scripts/lightslider.min.js"></script>
-        <script type="text/javascript" src="~/Scripts/scripts.js"></script>
+       
         <script type="text/javascript">
             (function ($) {
                 $(document).ready(function () {
@@ -86,6 +87,7 @@
                 });
             })(jQuery);
         </script>
+@Scripts.Render("~/Scripts/lightslider.min.js")
 
 </body>
 </html>

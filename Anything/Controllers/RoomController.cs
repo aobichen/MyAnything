@@ -101,6 +101,13 @@ namespace Anything.Controllers
 
         public ActionResult SetPrice(int id)
         {
+            var Room = _db.Room.Find(id);
+            if (Room == null || Room.Hotel.UserId != CurrentUser.Id)
+            {
+                return RedirectToAction("Login","Account");
+            }
+            ViewBag.RoomId = Room.ID;
+            ViewBag.Name = string.Format("{0}/{1}", Room.Hotel.Name,Room.Name); 
             return View();
         }
 

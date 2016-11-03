@@ -148,6 +148,19 @@ namespace Anything.ViewModels
     }
 
 
+    public class HotelDetail
+    {
+        public int ID { get; set; }
+        public string Name { get; set; }
+        public string Feature { get; set; }
+        public string Address { get; set; }
+
+        public string options { get; set; }
+        public List<string> Facilities { get; set; }
+        public List<HotelImage> Images { get; set; }
+
+        public List<RoomModel> Rooms { get; set; }
+    }
     
 
 

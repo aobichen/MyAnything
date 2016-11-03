@@ -1027,6 +1027,7 @@
     <Content Include="images\uploads\get_inspired.jpg" />
     <Content Include="images\uploads\img.jpg" />
     <Content Include="images\uploads\slider.jpg" />
+    <Content Include="index.html" />
     <Content Include="ProjectFile\AdImage.sql" />
     <Content Include="ProjectFile\AdManage.sql" />
     <Content Include="ProjectFile\AdOrder.sql" />
@@ -1852,6 +1853,8 @@
     <Content Include="Views\Home\_List.cshtml" />
     <Content Include="Views\Room\_FullCalendar.cshtml" />
     <Content Include="Views\Room\SetPrice.cshtml" />
+    <Content Include="Views\Home\_Detail.cshtml" />
+    <Content Include="Views\Shared\_RoomType.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

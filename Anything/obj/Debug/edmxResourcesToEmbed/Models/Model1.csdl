@@ -148,7 +148,7 @@
     <Property Name="Modified" Type="DateTime" Precision="3" />
     <Property Name="Tel" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="HotelImage" Relationship="Self.FK_HotelImage_Hotel" FromRole="Hotel" ToRole="HotelImage" />
-    <NavigationProperty Name="Room" Relationship="Self.FK_Room_Hotel" FromRole="Hotel" ToRole="Room" />
+    <NavigationProperty Name="Room" Relationship="MyAnythingModel.FK_Room_Hotel" FromRole="Hotel" ToRole="Room" />
   </EntityType>
   <EntityType Name="HotelImage">
     <Key>
@@ -229,32 +229,6 @@
     <Property Name="TradeStatus" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
     <Property Name="PaymentType" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
   </EntityType>
-  <EntityType Name="Room">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="HotelId" Type="Int32" Nullable="false" />
-    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="SellPrice" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
-    <Property Name="DiscountPrice" Type="Decimal" Precision="18" Scale="0" />
-    <Property Name="Bonus" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
-    <Property Name="Amount" Type="Int32" Nullable="false" />
-    <Property Name="Information" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
-    <Property Name="Enabled" Type="Boolean" Nullable="false" />
-    <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="Creator" Type="Int32" Nullable="false" />
-    <Property Name="Modified" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="Person" Type="Int32" Nullable="false" />
-    <Property Name="Beds" Type="Int32" Nullable="false" />
-    <Property Name="BedType" Type="String" MaxLength="2" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="RoomBed" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="BussinessBonus" Type="Int32" />
-    <Property Name="PlatformBonus" Type="Int32" />
-    <NavigationProperty Name="Hotel" Relationship="Self.FK_Room_Hotel" FromRole="Room" ToRole="Hotel" />
-    <NavigationProperty Name="RoomImage" Relationship="Self.FK_RoomImage_Room" FromRole="Room" ToRole="RoomImage" />
-    <NavigationProperty Name="RoomPrice" Relationship="Self.FK_RoomPrice_Room" FromRole="Room" ToRole="RoomPrice" />
-  </EntityType>
   <EntityType Name="RoomImage">
     <Key>
       <PropertyRef Name="ID" />
@@ -267,7 +241,7 @@
     <Property Name="Deleted" Type="Boolean" Nullable="false" />
     <Property Name="Sort" Type="Int32" Nullable="false" />
     <Property Name="Enabled" Type="Boolean" Nullable="false" />
-    <NavigationProperty Name="Room" Relationship="Self.FK_RoomImage_Room" FromRole="RoomImage" ToRole="Room" />
+    <NavigationProperty Name="Room" Relationship="MyAnythingModel.FK_RoomImage_Room" FromRole="RoomImage" ToRole="Room" />
   </EntityType>
   <EntityType Name="RoomPrice">
     <Key>
@@ -280,7 +254,7 @@
     <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
     <Property Name="SaleOff" Type="Boolean" Nullable="false" />
     <Property Name="Quantity" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="Room" Relationship="Self.FK_RoomPrice_Room" FromRole="RoomPrice" ToRole="Room" />
+    <NavigationProperty Name="Room" Relationship="MyAnythingModel.FK_RoomPrice_Room" FromRole="RoomPrice" ToRole="Room" />
   </EntityType>
   <EntityType Name="Scenic">
     <Key>
@@ -385,42 +359,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Room_Hotel">
-    <End Role="Hotel" Type="Self.Hotel" Multiplicity="1" />
-    <End Role="Room" Type="Self.Room" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Hotel">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="Room">
-        <PropertyRef Name="HotelId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_RoomImage_Room">
-    <End Role="Room" Type="Self.Room" Multiplicity="1" />
-    <End Role="RoomImage" Type="Self.RoomImage" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Room">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="RoomImage">
-        <PropertyRef Name="RoomId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_RoomPrice_Room">
-    <End Role="Room" Type="Self.Room" Multiplicity="1" />
-    <End Role="RoomPrice" Type="Self.RoomPrice" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Room">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="RoomPrice">
-        <PropertyRef Name="ROOMID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_VIPOrder_VIPs">
     <End Role="VIPs" Type="Self.VIPs" Multiplicity="1" />
     <End Role="VIPOrder" Type="Self.VIPOrder" Multiplicity="0..1" />
@@ -460,7 +398,6 @@
     <EntitySet Name="Logs" EntityType="Self.Logs" />
     <EntitySet Name="News" EntityType="Self.News" />
     <EntitySet Name="OrderMaster" EntityType="Self.OrderMaster" />
-    <EntitySet Name="Room" EntityType="Self.Room" />
     <EntitySet Name="RoomImage" EntityType="Self.RoomImage" />
     <EntitySet Name="RoomPrice" EntityType="Self.RoomPrice" />
     <EntitySet Name="Scenic" EntityType="Self.Scenic" />
@@ -480,18 +417,6 @@
       <End Role="Hotel" EntitySet="Hotel" />
       <End Role="HotelImage" EntitySet="HotelImage" />
     </AssociationSet>
-    <AssociationSet Name="FK_Room_Hotel" Association="Self.FK_Room_Hotel">
-      <End Role="Hotel" EntitySet="Hotel" />
-      <End Role="Room" EntitySet="Room" />
-    </AssociationSet>
-    <AssociationSet Name="FK_RoomImage_Room" Association="Self.FK_RoomImage_Room">
-      <End Role="Room" EntitySet="Room" />
-      <End Role="RoomImage" EntitySet="RoomImage" />
-    </AssociationSet>
-    <AssociationSet Name="FK_RoomPrice_Room" Association="Self.FK_RoomPrice_Room">
-      <End Role="Room" EntitySet="Room" />
-      <End Role="RoomPrice" EntitySet="RoomPrice" />
-    </AssociationSet>
     <AssociationSet Name="FK_VIPOrder_VIPs" Association="Self.FK_VIPOrder_VIPs">
       <End Role="VIPs" EntitySet="VIPs" />
       <End Role="VIPOrder" EntitySet="VIPOrder" />
@@ -500,5 +425,81 @@
       <End Role="VIPs" EntitySet="VIPs" />
       <End Role="VIPs1" EntitySet="VIPs" />
     </AssociationSet>
+    <EntitySet Name="Room" EntityType="MyAnythingModel.Room" />
+    <AssociationSet Name="FK_Room_Hotel" Association="MyAnythingModel.FK_Room_Hotel">
+      <End Role="Hotel" EntitySet="Hotel" />
+      <End Role="Room" EntitySet="Room" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RoomImage_Room" Association="MyAnythingModel.FK_RoomImage_Room">
+      <End Role="Room" EntitySet="Room" />
+      <End Role="RoomImage" EntitySet="RoomImage" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RoomPrice_Room" Association="MyAnythingModel.FK_RoomPrice_Room">
+      <End Role="Room" EntitySet="Room" />
+      <End Role="RoomPrice" EntitySet="RoomPrice" />
+    </AssociationSet>
   </EntityContainer>
+  <EntityType Name="Room">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="HotelId" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="SellPrice" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+    <Property Name="DiscountPrice" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="Bonus" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+    <Property Name="Amount" Type="Int32" Nullable="false" />
+    <Property Name="Information" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+    <Property Name="Enabled" Type="Boolean" Nullable="false" />
+    <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Creator" Type="Int32" Nullable="false" />
+    <Property Name="Modified" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Person" Type="Int32" Nullable="false" />
+    <Property Name="Beds" Type="Int32" Nullable="false" />
+    <Property Name="BedType" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="true" />
+    <Property Name="RoomBed" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="true" />
+    <Property Name="BussinessBonus" Type="Int32" />
+    <Property Name="PlatformBonus" Type="Int32" />
+    <Property Name="Feature" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Hotel" Relationship="MyAnythingModel.FK_Room_Hotel" FromRole="Room" ToRole="Hotel" />
+    <NavigationProperty Name="RoomImage" Relationship="MyAnythingModel.FK_RoomImage_Room" FromRole="Room" ToRole="RoomImage" />
+    <NavigationProperty Name="RoomPrice" Relationship="MyAnythingModel.FK_RoomPrice_Room" FromRole="Room" ToRole="RoomPrice" />
+  </EntityType>
+  <Association Name="FK_Room_Hotel">
+    <End Type="MyAnythingModel.Hotel" Role="Hotel" Multiplicity="1" />
+    <End Type="MyAnythingModel.Room" Role="Room" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hotel">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Room">
+        <PropertyRef Name="HotelId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RoomImage_Room">
+    <End Type="MyAnythingModel.Room" Role="Room" Multiplicity="1" />
+    <End Type="MyAnythingModel.RoomImage" Role="RoomImage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Room">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="RoomImage">
+        <PropertyRef Name="RoomId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RoomPrice_Room">
+    <End Type="MyAnythingModel.Room" Role="Room" Multiplicity="1" />
+    <End Type="MyAnythingModel.RoomPrice" Role="RoomPrice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Room">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="RoomPrice">
+        <PropertyRef Name="ROOMID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

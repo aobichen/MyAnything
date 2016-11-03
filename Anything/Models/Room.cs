@@ -39,6 +39,7 @@ namespace Anything.Models
         public string RoomBed { get; set; }
         public Nullable<int> BussinessBonus { get; set; }
         public Nullable<int> PlatformBonus { get; set; }
+        public string Feature { get; set; }
     
         public virtual Hotel Hotel { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
