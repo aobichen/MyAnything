@@ -1,215 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="AnythingModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-  <EntityType Name="ServiceOption">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Text" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="Enabled" Type="Boolean" Nullable="false" />
-    <Property Name="Created" Type="DateTime" Precision="3" />
-    <Property Name="Show" Type="Boolean" />
-  </EntityType>
-  <EntityContainer Name="AnythingEntities" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="ServiceOption" EntityType="Self.ServiceOption" />
-    <EntitySet Name="Area_TW" EntityType="AnythingModel.Area_TW" />
-    <EntitySet Name="City_TW" EntityType="AnythingModel.City_TW" />
-    <AssociationSet Name="FK__Area__CID__38996AB51" Association="AnythingModel.FK__Area__CID__38996AB51">
-      <End Role="City_TW" EntitySet="City_TW" />
-      <End Role="Area_TW" EntitySet="Area_TW" />
-    </AssociationSet>
-    <EntitySet Name="Scenic" EntityType="AnythingModel.Scenic" />
-    <EntitySet Name="HotelImage" EntityType="AnythingModel.HotelImage" />
-    <EntitySet Name="Room" EntityType="AnythingModel.Room" />
-    <EntitySet Name="RoomImage" EntityType="AnythingModel.RoomImage" />
-    <AssociationSet Name="FK_RoomImage_Room" Association="AnythingModel.FK_RoomImage_Room">
-      <End Role="Room" EntitySet="Room" />
-      <End Role="RoomImage" EntitySet="RoomImage" />
-    </AssociationSet>
-    <EntitySet Name="CodeFile" EntityType="AnythingModel.CodeFile" />
-    <EntitySet Name="AdImage" EntityType="AnythingModel.AdImage" />
-    <EntitySet Name="AdManage" EntityType="AnythingModel.AdManage" />
-    <EntitySet Name="AdOrder" EntityType="AnythingModel.AdOrder" />
-    <AssociationSet Name="FK_AdImage_AdOrder" Association="AnythingModel.FK_AdImage_AdOrder">
-      <End Role="AdOrder" EntitySet="AdOrder" />
-      <End Role="AdImage" EntitySet="AdImage" />
-    </AssociationSet>
-    <AssociationSet Name="FK_AdOrder_AdManage" Association="AnythingModel.FK_AdOrder_AdManage">
-      <End Role="AdManage" EntitySet="AdManage" />
-      <End Role="AdOrder" EntitySet="AdOrder" />
-    </AssociationSet>
-    <EntitySet Name="BonusSystem" EntityType="AnythingModel.BonusSystem" />
-    <EntitySet Name="HotelView" EntityType="AnythingModel.HotelView" />
-    <EntitySet Name="VIPOrder" EntityType="AnythingModel.VIPOrder" />
-    <EntitySet Name="VIPs" EntityType="AnythingModel.VIPs" />
-    <AssociationSet Name="FK_VIPOrder_VIPs" Association="AnythingModel.FK_VIPOrder_VIPs">
-      <End Role="VIPs" EntitySet="VIPs" />
-      <End Role="VIPOrder" EntitySet="VIPOrder" />
-    </AssociationSet>
-    <AssociationSet Name="FK_VIPs_VIPs" Association="AnythingModel.FK_VIPs_VIPs">
-      <End Role="VIPs" EntitySet="VIPs" />
-      <End Role="VIPs1" EntitySet="VIPs" />
-    </AssociationSet>
-    <EntitySet Name="News" EntityType="AnythingModel.News" />
-    <EntitySet Name="AllPayFeed" EntityType="AnythingModel.AllPayFeed" />
-    <EntitySet Name="RoomPrice" EntityType="AnythingModel.RoomPrice" />
-    <AssociationSet Name="FK_RoomPrice_Room" Association="AnythingModel.FK_RoomPrice_Room">
-      <End Role="Room" EntitySet="Room" />
-      <End Role="RoomPrice" EntitySet="RoomPrice" />
-    </AssociationSet>
-    <EntitySet Name="Logs" EntityType="AnythingModel.Logs" />
-    <EntitySet Name="MailServer" EntityType="AnythingModel.MailServer" />
-    <EntitySet Name="SysManage" EntityType="AnythingModel.SysManage" />
-    <EntitySet Name="Hotel" EntityType="AnythingModel.Hotel" />
-    <AssociationSet Name="FK_HotelImage_Hotel" Association="AnythingModel.FK_HotelImage_Hotel">
-      <End Role="Hotel" EntitySet="Hotel" />
-      <End Role="HotelImage" EntitySet="HotelImage" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Room_Hotel" Association="AnythingModel.FK_Room_Hotel">
-      <End Role="Hotel" EntitySet="Hotel" />
-      <End Role="Room" EntitySet="Room" />
-    </AssociationSet>
-    <EntitySet Name="OrderMaster" EntityType="AnythingModel.OrderMaster" />
-  </EntityContainer>
-  <EntityType Name="Area_TW">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" />
-    <Property Name="CID" Type="Int32" Nullable="false" />
-    <Property Name="Area" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="City_TW" Relationship="AnythingModel.FK__Area__CID__38996AB51" FromRole="Area_TW" ToRole="City_TW" />
-  </EntityType>
-  <EntityType Name="City_TW">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" />
-    <Property Name="City" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="Area_TW" Relationship="AnythingModel.FK__Area__CID__38996AB51" FromRole="City_TW" ToRole="Area_TW" />
-    <Property Name="Location" Type="Int32" />
-  </EntityType>
-  <Association Name="FK__Area__CID__38996AB51">
-    <End Type="AnythingModel.City_TW" Role="City_TW" Multiplicity="1" />
-    <End Type="AnythingModel.Area_TW" Role="Area_TW" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="City_TW">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="Area_TW">
-        <PropertyRef Name="CID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <EntityType Name="Scenic">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Description" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="Enabled" Type="Boolean" Nullable="false" />
-    <Property Name="City" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="CityId" Type="Int32" Nullable="false" />
-  </EntityType>
-  <EntityType Name="HotelImage">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="HotelId" Type="Int32" />
-    <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
-    <Property Name="Deleted" Type="Boolean" Nullable="false" />
-    <Property Name="Sort" Type="Int32" />
-    <Property Name="Path" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Enabled" Type="Boolean" />
-    <NavigationProperty Name="Hotel" Relationship="AnythingModel.FK_HotelImage_Hotel" FromRole="HotelImage" ToRole="Hotel" />
-  </EntityType>
-  <EntityType Name="Room">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="HotelId" Type="Int32" Nullable="false" />
-    <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-    <Property Name="SellPrice" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
-    <Property Name="DiscountPrice" Type="Decimal" Precision="18" Scale="0" />
-    <Property Name="Bonus" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
-    <Property Name="Amount" Type="Int32" Nullable="false" />
-    <Property Name="Information" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
-    <Property Name="Enabled" Type="Boolean" Nullable="false" />
-    <NavigationProperty Name="RoomImage" Relationship="AnythingModel.FK_RoomImage_Room" FromRole="Room" ToRole="RoomImage" />
-    <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="Creator" Type="Int32" Nullable="false" />
-    <Property Name="Modified" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="Person" Type="Int32" Nullable="false" />
-    <Property Name="Beds" Type="Int32" Nullable="false" />
-    <Property Name="BedType" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="true" />
-    <Property Name="RoomBed" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="true" />
-    <Property Name="BussinessBonus" Type="Int32" />
-    <Property Name="PlatformBonus" Type="Int32" />
-    <NavigationProperty Name="RoomPrice" Relationship="AnythingModel.FK_RoomPrice_Room" FromRole="Room" ToRole="RoomPrice" />
-    <NavigationProperty Name="Hotel" Relationship="AnythingModel.FK_Room_Hotel" FromRole="Room" ToRole="Hotel" />
-  </EntityType>
-  <EntityType Name="RoomImage">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="RoomId" Type="Int32" Nullable="false" />
-    <Property Name="Image" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
-    <Property Name="Path" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Deleted" Type="Boolean" Nullable="false" />
-    <NavigationProperty Name="Room" Relationship="AnythingModel.FK_RoomImage_Room" FromRole="RoomImage" ToRole="Room" />
-    <Property Name="Sort" Type="Int32" Nullable="false" />
-    <Property Name="Enabled" Type="Boolean" Nullable="false" />
-  </EntityType>
-  <Association Name="FK_RoomImage_Room">
-    <End Type="AnythingModel.Room" Role="Room" Multiplicity="1" />
-    <End Type="AnythingModel.RoomImage" Role="RoomImage" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Room">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="RoomImage">
-        <PropertyRef Name="RoomId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <EntityType Name="CodeFile">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="ItemDescription" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="ItemType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Remark" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-    <Property Name="ItemCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Enabled" Type="Boolean" Nullable="false" />
-    <Property Name="TypeText" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-  </EntityType>
+<Schema Namespace="MyAnythingModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityType Name="AdImage">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="AdId" Type="Int32" Nullable="false" />
-    <Property Name="Image" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+    <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
     <Property Name="Path" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Enabled" Type="Boolean" />
     <Property Name="ImageText" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="AdOrder" Relationship="AnythingModel.FK_AdImage_AdOrder" FromRole="AdImage" ToRole="AdOrder" />
+    <NavigationProperty Name="AdOrder" Relationship="Self.FK_AdImage_AdOrder" FromRole="AdImage" ToRole="AdOrder" />
   </EntityType>
   <EntityType Name="AdManage">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Position" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Position" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="PositionId" Type="Int32" Nullable="false" />
     <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
     <Property Name="AllowImage" Type="Boolean" Nullable="false" />
@@ -226,10 +35,9 @@
     <Property Name="Modify" Type="Int32" Nullable="false" />
     <Property Name="AllowImageType" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
     <Property Name="SaleOff" Type="Boolean" Nullable="false" />
-    <Property Name="SalePrice" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+    <Property Name="SalePrice" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
     <Property Name="DiscountPrice" Type="Decimal" Precision="18" Scale="0" />
     <Property Name="Days" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="AdOrder" Relationship="AnythingModel.FK_AdOrder_AdManage" FromRole="AdManage" ToRole="AdOrder" />
   </EntityType>
   <EntityType Name="AdOrder">
     <Key>
@@ -238,8 +46,8 @@
     <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="BeginDate" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="Position" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
-    <Property Name="bought" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+    <Property Name="Position" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="bought" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
     <Property Name="AllowImage" Type="Boolean" Nullable="false" />
     <Property Name="AllowText" Type="Boolean" Nullable="false" />
     <Property Name="ImageLimit" Type="Int32" />
@@ -257,122 +65,8 @@
     <Property Name="AdId" Type="Int32" Nullable="false" />
     <Property Name="PositionId" Type="Int32" Nullable="false" />
     <Property Name="Text" Type="String" MaxLength="1500" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="AdImage" Relationship="AnythingModel.FK_AdImage_AdOrder" FromRole="AdOrder" ToRole="AdImage" />
-    <NavigationProperty Name="AdManage" Relationship="AnythingModel.FK_AdOrder_AdManage" FromRole="AdOrder" ToRole="AdManage" />
-    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-  </EntityType>
-  <Association Name="FK_AdImage_AdOrder">
-    <End Type="AnythingModel.AdOrder" Role="AdOrder" Multiplicity="1" />
-    <End Type="AnythingModel.AdImage" Role="AdImage" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="AdOrder">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="AdImage">
-        <PropertyRef Name="AdId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_AdOrder_AdManage">
-    <End Type="AnythingModel.AdManage" Role="AdManage" Multiplicity="1" />
-    <End Type="AnythingModel.AdOrder" Role="AdOrder" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="AdManage">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="AdOrder">
-        <PropertyRef Name="AdId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <EntityType Name="BonusSystem">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="UserBonus" Type="Double" Nullable="false" />
-    <Property Name="ParentBonus" Type="Double" Nullable="false" />
-    <Property Name="Modifiter" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Modified" Type="DateTime" Precision="3" />
-  </EntityType>
-  <EntityType Name="HotelView">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="HotelId" Type="Int32" />
-    <Property Name="Created" Type="DateTime" Precision="3" />
-  </EntityType>
-  <EntityType Name="VIPOrder">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Vip" Type="Int32" Nullable="false" />
-    <Property Name="Pay" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
-    <Property Name="PayMethod" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-    <Property Name="OrderStatus" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-    <Property Name="PayType" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-    <Property Name="Creator" Type="Int32" />
-    <Property Name="Created" Type="DateTime" Precision="3" />
-    <Property Name="Address" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
-    <Property Name="Tel" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-    <Property Name="Email" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
-    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="VIPs" Relationship="AnythingModel.FK_VIPOrder_VIPs" FromRole="VIPOrder" ToRole="VIPs" />
-  </EntityType>
-  <EntityType Name="VIPs">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="BeginDate" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="Days" Type="Int32" Nullable="false" />
-    <Property Name="HotelId" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="VIPOrder" Relationship="AnythingModel.FK_VIPOrder_VIPs" FromRole="VIPs" ToRole="VIPOrder" />
-    <NavigationProperty Name="VIPs1" Relationship="AnythingModel.FK_VIPs_VIPs" FromRole="VIPs" ToRole="VIPs1" />
-    <NavigationProperty Name="VIPs2" Relationship="AnythingModel.FK_VIPs_VIPs" FromRole="VIPs1" ToRole="VIPs" />
-  </EntityType>
-  <Association Name="FK_VIPOrder_VIPs">
-    <End Type="AnythingModel.VIPs" Role="VIPs" Multiplicity="1" />
-    <End Type="AnythingModel.VIPOrder" Role="VIPOrder" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="VIPs">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="VIPOrder">
-        <PropertyRef Name="ID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_VIPs_VIPs">
-    <End Type="AnythingModel.VIPs" Role="VIPs" Multiplicity="1" />
-    <End Type="AnythingModel.VIPs" Role="VIPs1" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="VIPs">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="VIPs1">
-        <PropertyRef Name="ID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <EntityType Name="News">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Titile" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="Body" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="BeginDate" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="Creator" Type="Int32" Nullable="false" />
-    <Property Name="Remark" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-    <Property Name="Href" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="Enabled" Type="Boolean" Nullable="false" />
-    <Property Name="Deleted" Type="Boolean" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="AdImage" Relationship="Self.FK_AdImage_AdOrder" FromRole="AdOrder" ToRole="AdImage" />
   </EntityType>
   <EntityType Name="AllPayFeed">
     <Key>
@@ -391,70 +85,45 @@
     <Property Name="RtnCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="RtnMsg" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
   </EntityType>
-  <EntityType Name="RoomPrice">
+  <EntityType Name="Area_TW">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="RoomId" Type="Int32" Nullable="false" />
-    <Property Name="Price" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
-    <Property Name="SalePrice" Type="Decimal" Precision="10" Scale="2" />
-    <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
-    <Property Name="SaleOff" Type="Boolean" Nullable="false" />
-    <Property Name="Amount" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="Room" Relationship="AnythingModel.FK_RoomPrice_Room" FromRole="RoomPrice" ToRole="Room" />
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="CID" Type="Int32" Nullable="false" />
+    <Property Name="Area" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="City_TW" Relationship="Self.FK__Area_TW__CID__29572725" FromRole="Area_TW" ToRole="City_TW" />
   </EntityType>
-  <Association Name="FK_RoomPrice_Room">
-    <End Type="AnythingModel.Room" Role="Room" Multiplicity="1" />
-    <End Type="AnythingModel.RoomPrice" Role="RoomPrice" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Room">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="RoomPrice">
-        <PropertyRef Name="RoomId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <EntityType Name="Logs">
+  <EntityType Name="BonusSystem">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Creator" Type="Int32" Nullable="false" />
-    <Property Name="Created" Type="Int32" Nullable="false" />
-    <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Remark" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="UserBonus" Type="Double" Nullable="false" />
+    <Property Name="ParentBonus" Type="Double" Nullable="false" />
+    <Property Name="Modifiter" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Modified" Type="DateTime" Precision="3" />
   </EntityType>
-  <EntityType Name="MailServer">
+  <EntityType Name="City_TW">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="FromMail" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="ToMail" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="IsHtml" Type="Boolean" Nullable="false" />
-    <Property Name="Body" Type="String" Nullable="false" MaxLength="3000" FixedLength="false" Unicode="true" />
-    <Property Name="Subject" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
-    <Property Name="Cc" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-    <Property Name="Sent" Type="Boolean" Nullable="false" />
-    <Property Name="Created" Type="DateTime" Precision="3" />
-    <Property Name="Creator" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-    <Property Name="Remark" Type="String" MaxLength="1500" FixedLength="false" Unicode="true" />
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Location" Type="Int32" />
+    <NavigationProperty Name="Area_TW" Relationship="Self.FK__Area_TW__CID__29572725" FromRole="City_TW" ToRole="Area_TW" />
   </EntityType>
-  <EntityType Name="SysManage">
+  <EntityType Name="CodeFile">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="FieldCode" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-    <Property Name="FieldDescription" Type="String" Nullable="false" MaxLength="2000" FixedLength="false" Unicode="true" />
-    <Property Name="Value" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
-    <Property Name="Unit" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="ItemDescription" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ItemType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Remark" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="ItemCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Enabled" Type="Boolean" Nullable="false" />
-    <Property Name="Editor" Type="Int32" Nullable="false" />
-    <Property Name="Edited" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="FieldName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="TypeText" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="Hotel">
     <Key>
@@ -462,28 +131,225 @@
     </Key>
     <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="UserId" Type="Int32" Nullable="false" />
-    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Location" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Location" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="City" Type="Int32" Nullable="false" />
     <Property Name="Area" Type="Int32" Nullable="false" />
-    <Property Name="Address" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="WebSite" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="WebSite" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Introduce" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-    <Property Name="Feature" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
-    <Property Name="Information" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="Feature" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Information" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="ServiceOptions" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="Scenics" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="Enabled" Type="Boolean" Nullable="false" />
+    <Property Name="SaleOff" Type="Boolean" Nullable="false" />
     <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="Modified" Type="DateTime" Precision="3" />
     <Property Name="Tel" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-    <Property Name="SaleOff" Type="Boolean" Nullable="false" />
-    <NavigationProperty Name="HotelImage" Relationship="AnythingModel.FK_HotelImage_Hotel" FromRole="Hotel" ToRole="HotelImage" />
-    <NavigationProperty Name="Room" Relationship="AnythingModel.FK_Room_Hotel" FromRole="Hotel" ToRole="Room" />
+    <NavigationProperty Name="HotelImage" Relationship="Self.FK_HotelImage_Hotel" FromRole="Hotel" ToRole="HotelImage" />
+    <NavigationProperty Name="Room" Relationship="MyAnythingModel.FK_Room_Hotel" FromRole="Hotel" ToRole="Room" />
   </EntityType>
+  <EntityType Name="HotelImage">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="HotelId" Type="Int32" />
+    <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="Deleted" Type="Boolean" Nullable="false" />
+    <Property Name="Sort" Type="Int32" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Path" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Enabled" Type="Boolean" />
+    <NavigationProperty Name="Hotel" Relationship="Self.FK_HotelImage_Hotel" FromRole="HotelImage" ToRole="Hotel" />
+  </EntityType>
+  <EntityType Name="HotelView">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="HotelId" Type="Int32" />
+    <Property Name="Created" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="Logs">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Creator" Type="Int32" Nullable="false" />
+    <Property Name="Created" Type="Int32" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Remark" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="News">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Titile" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Body" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="BeginDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Creator" Type="Int32" Nullable="false" />
+    <Property Name="Remark" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Href" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Enabled" Type="Boolean" Nullable="false" />
+    <Property Name="Deleted" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="OrderMaster">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="ProductId" Type="Int32" Nullable="false" />
+    <Property Name="ProductName" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Price" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="Total" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="Amount" Type="Int32" Nullable="false" />
+    <Property Name="CheckIn" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CheckOut" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Status" Type="String" MaxLength="2" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Tel" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Address" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Remark" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Modified" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Modify" Type="Int32" Nullable="false" />
+    <Property Name="PayVendor" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ShareBonus" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="BoughtBonus" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="SystemBonus" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="MerchantTradeNo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="TradeNo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="ProductType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="TradeStatus" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="PaymentType" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="RoomImage">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoomId" Type="Int32" Nullable="false" />
+    <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+    <Property Name="Path" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Deleted" Type="Boolean" Nullable="false" />
+    <Property Name="Sort" Type="Int32" Nullable="false" />
+    <Property Name="Enabled" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Room" Relationship="MyAnythingModel.FK_RoomImage_Room" FromRole="RoomImage" ToRole="Room" />
+  </EntityType>
+  <EntityType Name="RoomPrice">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ROOMID" Type="Int32" Nullable="false" />
+    <Property Name="Price" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="Sell" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="SaleOff" Type="Boolean" Nullable="false" />
+    <Property Name="Quantity" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Room" Relationship="MyAnythingModel.FK_RoomPrice_Room" FromRole="RoomPrice" ToRole="Room" />
+  </EntityType>
+  <EntityType Name="Scenic">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Enabled" Type="Boolean" Nullable="false" />
+    <Property Name="City" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CityId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ServiceOption">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Text" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Enabled" Type="Boolean" Nullable="false" />
+    <Property Name="Created" Type="DateTime" Precision="3" />
+    <Property Name="Show" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="SysManage">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FieldCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="FieldDescription" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Value" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Unit" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="Enabled" Type="Boolean" Nullable="false" />
+    <Property Name="Editor" Type="Int32" Nullable="false" />
+    <Property Name="Edited" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="FieldName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="VIPOrder">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Vip" Type="Int32" Nullable="false" />
+    <Property Name="Pay" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="PayMethod" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="OrderStatus" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="PayType" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Creator" Type="Int32" />
+    <Property Name="Created" Type="DateTime" Precision="3" />
+    <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Tel" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="VIPs" Relationship="Self.FK_VIPOrder_VIPs" FromRole="VIPOrder" ToRole="VIPs" />
+  </EntityType>
+  <EntityType Name="VIPs">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BeginDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Days" Type="Int32" Nullable="false" />
+    <Property Name="HotelId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="VIPOrder" Relationship="Self.FK_VIPOrder_VIPs" FromRole="VIPs" ToRole="VIPOrder" />
+    <NavigationProperty Name="VIPs1" Relationship="Self.FK_VIPs_VIPs" FromRole="VIPs" ToRole="VIPs1" />
+    <NavigationProperty Name="VIPs2" Relationship="Self.FK_VIPs_VIPs" FromRole="VIPs1" ToRole="VIPs" />
+  </EntityType>
+  <Association Name="FK_AdImage_AdOrder">
+    <End Role="AdOrder" Type="Self.AdOrder" Multiplicity="1" />
+    <End Role="AdImage" Type="Self.AdImage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AdOrder">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="AdImage">
+        <PropertyRef Name="AdId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Area_TW__CID__29572725">
+    <End Role="City_TW" Type="Self.City_TW" Multiplicity="1" />
+    <End Role="Area_TW" Type="Self.Area_TW" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="City_TW">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Area_TW">
+        <PropertyRef Name="CID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_HotelImage_Hotel">
-    <End Type="AnythingModel.Hotel" Role="Hotel" Multiplicity="0..1" />
-    <End Type="AnythingModel.HotelImage" Role="HotelImage" Multiplicity="*" />
+    <End Role="Hotel" Type="Self.Hotel" Multiplicity="0..1" />
+    <End Role="HotelImage" Type="Self.HotelImage" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Hotel">
         <PropertyRef Name="ID" />
@@ -493,9 +359,116 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_VIPOrder_VIPs">
+    <End Role="VIPs" Type="Self.VIPs" Multiplicity="1" />
+    <End Role="VIPOrder" Type="Self.VIPOrder" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="VIPs">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="VIPOrder">
+        <PropertyRef Name="ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VIPs_VIPs">
+    <End Role="VIPs" Type="Self.VIPs" Multiplicity="1" />
+    <End Role="VIPs1" Type="Self.VIPs" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="VIPs">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="VIPs1">
+        <PropertyRef Name="ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MyAnythingEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="AdImage" EntityType="Self.AdImage" />
+    <EntitySet Name="AdManage" EntityType="Self.AdManage" />
+    <EntitySet Name="AdOrder" EntityType="Self.AdOrder" />
+    <EntitySet Name="AllPayFeed" EntityType="Self.AllPayFeed" />
+    <EntitySet Name="Area_TW" EntityType="Self.Area_TW" />
+    <EntitySet Name="BonusSystem" EntityType="Self.BonusSystem" />
+    <EntitySet Name="City_TW" EntityType="Self.City_TW" />
+    <EntitySet Name="CodeFile" EntityType="Self.CodeFile" />
+    <EntitySet Name="Hotel" EntityType="Self.Hotel" />
+    <EntitySet Name="HotelImage" EntityType="Self.HotelImage" />
+    <EntitySet Name="HotelView" EntityType="Self.HotelView" />
+    <EntitySet Name="Logs" EntityType="Self.Logs" />
+    <EntitySet Name="News" EntityType="Self.News" />
+    <EntitySet Name="OrderMaster" EntityType="Self.OrderMaster" />
+    <EntitySet Name="RoomImage" EntityType="Self.RoomImage" />
+    <EntitySet Name="RoomPrice" EntityType="Self.RoomPrice" />
+    <EntitySet Name="Scenic" EntityType="Self.Scenic" />
+    <EntitySet Name="ServiceOption" EntityType="Self.ServiceOption" />
+    <EntitySet Name="SysManage" EntityType="Self.SysManage" />
+    <EntitySet Name="VIPOrder" EntityType="Self.VIPOrder" />
+    <EntitySet Name="VIPs" EntityType="Self.VIPs" />
+    <AssociationSet Name="FK_AdImage_AdOrder" Association="Self.FK_AdImage_AdOrder">
+      <End Role="AdOrder" EntitySet="AdOrder" />
+      <End Role="AdImage" EntitySet="AdImage" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Area_TW__CID__29572725" Association="Self.FK__Area_TW__CID__29572725">
+      <End Role="City_TW" EntitySet="City_TW" />
+      <End Role="Area_TW" EntitySet="Area_TW" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HotelImage_Hotel" Association="Self.FK_HotelImage_Hotel">
+      <End Role="Hotel" EntitySet="Hotel" />
+      <End Role="HotelImage" EntitySet="HotelImage" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VIPOrder_VIPs" Association="Self.FK_VIPOrder_VIPs">
+      <End Role="VIPs" EntitySet="VIPs" />
+      <End Role="VIPOrder" EntitySet="VIPOrder" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VIPs_VIPs" Association="Self.FK_VIPs_VIPs">
+      <End Role="VIPs" EntitySet="VIPs" />
+      <End Role="VIPs1" EntitySet="VIPs" />
+    </AssociationSet>
+    <EntitySet Name="Room" EntityType="MyAnythingModel.Room" />
+    <AssociationSet Name="FK_Room_Hotel" Association="MyAnythingModel.FK_Room_Hotel">
+      <End Role="Hotel" EntitySet="Hotel" />
+      <End Role="Room" EntitySet="Room" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RoomImage_Room" Association="MyAnythingModel.FK_RoomImage_Room">
+      <End Role="Room" EntitySet="Room" />
+      <End Role="RoomImage" EntitySet="RoomImage" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RoomPrice_Room" Association="MyAnythingModel.FK_RoomPrice_Room">
+      <End Role="Room" EntitySet="Room" />
+      <End Role="RoomPrice" EntitySet="RoomPrice" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Room">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="HotelId" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="SellPrice" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+    <Property Name="DiscountPrice" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="Bonus" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+    <Property Name="Amount" Type="Int32" Nullable="false" />
+    <Property Name="Information" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+    <Property Name="Enabled" Type="Boolean" Nullable="false" />
+    <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Creator" Type="Int32" Nullable="false" />
+    <Property Name="Modified" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Person" Type="Int32" Nullable="false" />
+    <Property Name="Beds" Type="Int32" Nullable="false" />
+    <Property Name="BedType" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="true" />
+    <Property Name="RoomBed" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="true" />
+    <Property Name="BussinessBonus" Type="Int32" />
+    <Property Name="PlatformBonus" Type="Int32" />
+    <Property Name="Feature" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Hotel" Relationship="MyAnythingModel.FK_Room_Hotel" FromRole="Room" ToRole="Hotel" />
+    <NavigationProperty Name="RoomImage" Relationship="MyAnythingModel.FK_RoomImage_Room" FromRole="Room" ToRole="RoomImage" />
+    <NavigationProperty Name="RoomPrice" Relationship="MyAnythingModel.FK_RoomPrice_Room" FromRole="Room" ToRole="RoomPrice" />
+  </EntityType>
   <Association Name="FK_Room_Hotel">
-    <End Type="AnythingModel.Hotel" Role="Hotel" Multiplicity="1" />
-    <End Type="AnythingModel.Room" Role="Room" Multiplicity="*" />
+    <End Type="MyAnythingModel.Hotel" Role="Hotel" Multiplicity="1" />
+    <End Type="MyAnythingModel.Room" Role="Room" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Hotel">
         <PropertyRef Name="ID" />
@@ -505,35 +478,28 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityType Name="OrderMaster">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="UserId" Type="Int32" Nullable="false" />
-    <Property Name="ProductId" Type="Int32" Nullable="false" />
-    <Property Name="ProductName" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
-    <Property Name="Price" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
-    <Property Name="Total" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
-    <Property Name="Amount" Type="Int32" Nullable="false" />
-    <Property Name="CheckIn" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="CheckOut" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="Status" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="true" />
-    <Property Name="Tel" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-    <Property Name="Phone" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-    <Property Name="Address" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
-    <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="Remark" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-    <Property Name="Modified" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="Modify" Type="Int32" Nullable="false" />
-    <Property Name="PayVendor" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-    <Property Name="ShareBonus" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
-    <Property Name="BoughtBonus" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
-    <Property Name="SystemBonus" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
-    <Property Name="MerchantTradeNo" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-    <Property Name="TradeNo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-    <Property Name="ProductType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="TradeStatus" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
-    <Property Name="PaymentType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-  </EntityType>
+  <Association Name="FK_RoomImage_Room">
+    <End Type="MyAnythingModel.Room" Role="Room" Multiplicity="1" />
+    <End Type="MyAnythingModel.RoomImage" Role="RoomImage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Room">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="RoomImage">
+        <PropertyRef Name="RoomId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RoomPrice_Room">
+    <End Type="MyAnythingModel.Room" Role="Room" Multiplicity="1" />
+    <End Type="MyAnythingModel.RoomPrice" Role="RoomPrice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Room">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="RoomPrice">
+        <PropertyRef Name="ROOMID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

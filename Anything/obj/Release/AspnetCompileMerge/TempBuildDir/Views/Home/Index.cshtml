@@ -1,6 +1,6 @@
 ﻿@{
     ViewBag.Title = "Home Page";
-    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+    //Layout = "~/Views/Shared/_LayoutHome.cshtml";
 }
 @*<script src="~/Content/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
 <script src="~/Scripts/Base.js"></script>
@@ -12,56 +12,8 @@
 {
     @Html.AntiForgeryToken()
     <div class="row">
-        <input id="hidenddate" type="hidden" value="@ViewBag.EndDate" />
-        @*<div class="container search-panel">
-           <input id="hidenddate" type="hidden" value="@ViewBag.EndDate" />
-                <div class="col-md-12">
-                    <div class="col-md-3 col-sm-3 col-xs-12 city-input">
-                        <div class="input-group">
-                            <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-map-marker"></span>
-                            </span>
-                            @Html.DropDownList("City", null, new { @class = "form-control" })
-                        
-                        </div>
-                    </div>
-
-                    <div class="col-md-9 col-sm-9 col-xs-12 left">
-                        <div class="col-md-4 col-sm-4 col-xs-12 date-input">
-                            <div class="form-group">
-                                <div class='input-group date' id='datetimepicker-begin'>
-                                    <input type='text' id="begin-date" class="form-control" />
-                                    <span class="input-group-addon">
-                                        <span class="glyphicon glyphicon-calendar"></span>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-4 col-xs-12 date-input">
-                            <div class="form-group">
-                                <div class='input-group date' id='datetimepicker-end'>
-                                    <input type='text' id="end-date" class="form-control" />
-                                    <span class="input-group-addon">
-                                        <span class="glyphicon glyphicon-calendar"></span>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-4 col-xs-12 date-input">
-                            <button type="submit" class="btn btn-primary">GO!</button>
-                        </div>
-                    </div>
-                </div>
-            
-        </div>*@
-     
-        
-            
-            
-                    @Html.Partial("_HotelList")
-              
-           
-        
+        <input id="hidenddate" type="hidden" value="@ViewBag.EndDate" />                                     
+          @Html.Partial("_List")       
     </div>
 }
 </div>

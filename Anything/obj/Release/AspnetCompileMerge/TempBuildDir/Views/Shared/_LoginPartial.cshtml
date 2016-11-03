@@ -1,20 +1,33 @@
 ﻿@using Microsoft.AspNet.Identity
-@if (Request.IsAuthenticated) {
-    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" })) {
-        @Html.AntiForgeryToken()
 
-        <ul class="nav navbar-nav navbar-right">
-            <li>
-                @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
-            </li>
-            <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+<div class="ribbon">
+    <nav>
+        <ul class="profile-nav">
+            @*<li class="active"><a href="javascript:void(0);" title="My Account">My Account</a></li>*@
+            @if (Request.IsAuthenticated)
+            {
+                //using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+               // {
+                    //@Html.AntiForgeryToken()
+
+                    <li class="active"><a href="javascript:void(0);" title="My Account">@User.Identity.Name</a></li>
+                    <li class="active"><a href="@Url.Action("LogOff","Account")" title="Sign Out">登出</a></li>
+
+               // }
+
+                @*<li class="active"><a href="my_account.html" title="Settings">Settings</a></li>*@
+            }
+            else
+            {
+                <li class="active"><a id="btnlogin" href="javascript:void(0);" title="登入">登入</a></li>
+                <li class="active"><a href="@Url.Action("Join","Account")" title="註冊">註冊</a></li>
+            }
         </ul>
-    }
-}
-else {
-    <ul class="nav navbar-nav navbar-right">
-        @*<li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-        <li>@Html.ActionLink("HotelRegister", "HotelRegister", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>*@
-        <li>@Html.ActionLink("登入", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
-    </ul>
-}
+
+    </nav>
+</div>
+
+
+
+
+

@@ -1,0 +1,40 @@
+﻿<h4>條件設定</h4>
+<dl>
+    <!--Departure times-->
+    @*<dt>價格區間</dt>
+    <dd>
+        <div class="checkbox">
+            <input type="checkbox" id="ch1" name="departure" />
+            <label for="ch1">Lowest fare</label>
+        </div>
+        
+    </dd>*@
+    <!--//Departure times-->
+    <!--Stops-->
+@if (ViewBag.Options != null && ((List<Anything.Models.ServiceOption>)ViewBag.Options).Count > 0) {
+    <dt>服務設施</dt>
+    <dd>
+        @{
+    var items = (List<Anything.Models.ServiceOption>)ViewBag.Options;
+       foreach (var item in items) { 
+            <div class="checkbox">
+                <input type="checkbox" id="@item.ID" name="options" />
+                <label for="item.ID">@item.Text</label>
+            </div>
+        }
+    }
+
+</dd>
+}
+    <!--//Stops-->
+    <!--Airlines-->
+    <dt>熱門景點</dt>
+    <dd>
+        <div class="checkbox">
+            <input type="checkbox" id="ch32" name="airlines" />
+            <label for="ch32">British Airways</label>
+        </div>
+       
+    </dd>
+    
+</dl>

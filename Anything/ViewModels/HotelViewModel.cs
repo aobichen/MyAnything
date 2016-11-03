@@ -155,6 +155,8 @@ namespace Anything.ViewModels
         public string Feature { get; set; }
         public string Address { get; set; }
 
+        public string Infomation { get; set; }
+
         public string options { get; set; }
         public List<string> Facilities { get; set; }
         public List<HotelImage> Images { get; set; }
@@ -218,7 +220,7 @@ namespace Anything.ViewModels
         {
 
             var _db = new MyAnythingEntities();
-            var take = 5;
+            var take = 30;
             var r_result = new HotelListViewModel();
             if (model == null||model.City == 0)
             {

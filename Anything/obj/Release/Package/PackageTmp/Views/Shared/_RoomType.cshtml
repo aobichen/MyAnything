@@ -1,0 +1,67 @@
+﻿
+@model IEnumerable<Anything.ViewModels.RoomModel>
+@{
+    var idx = 1;
+    var gallery = "gallery";
+}
+<ul class="room-types">
+    @foreach (var item in Model)
+    {
+    <!--room-->
+        var id = gallery + (idx++).ToString();
+        <li>
+            <figure class="left" id="@id">
+                @foreach (var img in item.Images)
+                {
+                    var base64 = Convert.ToBase64String(img.Image);
+                    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                    <a href="@imgSrc" data-sub-html="<p>@item.Name</p>">
+                    <img src="@imgSrc" alt="" />
+
+					    <span class="image-overlay"></span>
+                    		</a>
+                }
+            </figure>
+            <div class="meta">
+                <h3>@item.Name</h3>
+                <p>@item.Feature</p>
+                @*@if (!item.HasBreakfast)
+                {
+                    <p data-localize="nonbreakfast">不含早餐</p>
+                }
+                else
+                {
+                    <p data-localize="hasbreakfast">包含早餐</p>
+                }*@
+
+                @*<a href="javascript:void(0)" title="more info" class="more-info">+ more info</a>*@
+            </div>
+            <div class="room-information">
+                <div class="row">
+                    <span class="first" data-localize="bedtype">Max:</span>
+                    <span class="second">
+                        @*@WGHotel.Helpers.CodeFiles.GetCodeFileDescription(item.BedType)*@
+                        @item.Bed
+                        @*<i class="material-icons">&#xE7FD;</i>*@
+                    </span>
+                </div>
+                <div class="row">
+                    <span class="first" data-localize="roomprice">Price:</span>
+                    <span class="second">@item.Price.ToString("#,##0")</span>
+                </div>
+                <div class="row">
+                    <span class="first" data-localize="roomtype">房型:</span>
+                    <span class="second">
+                        "床型"
+                    @*@WGHotel.Helpers.CodeFiles.GetCodeFileDescription(item.RoomType)*@
+                    </span>
+                </div>
+                <a href="" class="gradient-button" title="Book">Book now</a>
+            </div>
+            <div class="more-information">
+                   
+              </div>
+        </li>
+
+    }
+</ul>

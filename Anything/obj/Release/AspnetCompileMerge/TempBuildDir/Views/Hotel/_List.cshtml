@@ -2,8 +2,11 @@
 @model IEnumerable<Anything.Models.Hotel>
 
 
-
-
+@if (Model==null || Model.Count() <= 0) { 
+<p>
+    @Html.ActionLink("新增", "Edit", "Hotel",null, new {@class="btn btn-primary" })
+</p>
+}
 <table class="table table-bordered table-condensed table-hover table-striped alert-success">
     <tr>
         
@@ -13,9 +16,12 @@
         <th>
             地區
         </th>
-  
         <th>
-            啟用
+            房間數量
+        </th>
+       
+        <th>
+            服務中
         </th>
         
         <th></th>
@@ -31,9 +37,11 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Location)
             </td>
-           
             <td>
-                @Html.DisplayFor(modelItem => item.Enabled)
+                @item.Room.Count()
+            </td>
+            <td>
+                @Html.EditorFor(modelItem => item.SaleOff)
             </td>
            
             <td>

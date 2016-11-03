@@ -68,8 +68,8 @@ namespace Anything.Controllers
                     options = o.ServiceOptions,
                     Images = o.HotelImage.ToList(),
                     Name = o.Name,
-                    Feature = o.Feature
-
+                    Feature = o.Feature,
+                    Infomation = o.Information
                 }).FirstOrDefault();
 
             var Facilities = model.options.Split(',').Select(int.Parse).ToList();

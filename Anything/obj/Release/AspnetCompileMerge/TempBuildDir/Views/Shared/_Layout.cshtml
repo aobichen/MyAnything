@@ -1,75 +1,93 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta charset="utf-8" />
-    <meta name="description" content="MtAnything" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MyAnything</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+
+    @*<link rel="stylesheet" href="~/Content/theme.css" />
+    <link href="~/Content/font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet" />*@
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800|Roboto+Slab:400,700&subset=latin,latin-ext,greek-ext,greek,cyrillic,vietnamese,cyrillic-ext">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     
-   
+        @*<script type="text/javascript" src="~/Scripts/jquery-1.10.2.min.js"></script>
+        <script type="text/javascript" src="~/Scripts/jquery-ui.min.js"></script>*@
+       
+    @*@Scripts.Render("~/Scripts/lightslider.min.js", 
+        "~/Content/jquery-localize/dist/jquery.localize.min.js",
+        "~/Scripts/jquery.cookie.js",
+        "~/Scripts/jquery.uniform.min.js",
+        "~/Scripts/jquery.slimmenu.min.js")
 
+       
+        <script type="text/javascript" src="~/Scripts/scripts.js"></script>*@
+    <link rel="shortcut icon" href="images/favicon.ico" />
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
     @RenderSection("scripts", required: false)
-
-   
 </head>
 <body>
-    <style type="text/css">
-        footer{
-            margin:auto 0;
-            text-align:center;
-        }
-         
-        footer p{
-            color:#000;
-            font-size:14px;
-        }
-    </style>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#top-navbar" aria-expanded="false">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                
-                @Html.ActionLink(Session["WebName"] != null ? (string)Session["WebName"] : "Application", "Index", "Home", null, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse" id="top-navbar">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-
-                    @if (Request.IsAuthenticated && User.IsInRole("Admin"))
-                    {
-                        <li>@Html.ActionLink("RolesAdmin", "Index", "RolesAdmin")</li>
-                        <li>@Html.ActionLink("UsersAdmin", "Index", "UsersAdmin")</li>
-                    }
-                    @if (Request.IsAuthenticated && User.IsInRole("Admin"))
-                    {
-                        <li>@Html.ActionLink("系統設定", "Index", "SystemAdmin")</li>
-
-                    }
-
-                </ul>
-                @Html.Partial("_LoginPartial")
-            </div>
-        </div>
+    <div class="loading">
+        <div class="ball"></div>
+        <div class="ball1"></div>
     </div>
-    <div class="container body-content">
+    @Html.Partial("_Header")
+
+
+    @if (ViewContext.RouteData.Values["controller"] == "Home" && ViewContext.RouteData.Values["action"]=="Index")
+    {
+        @Html.Partial("_MainSearch")
+    }
+    <main class="main" style="padding-bottom:0;">
         @RenderBody()
-        <hr />
-        <footer>
-            @Html.Partial("_Copyright")
-        </footer>
+
+
+    </main>
+    @Html.Partial("_footer")
+    <div class="lightbox" style="display:none;">
+        @Html.Partial("_LoginLightbox", new Anything.Models.LoginViewModel())
     </div>
 
-    
+       
+        <script type="text/javascript">
+            (function ($) {
+                $(document).ready(function () {
+
+
+
+                    $('.form').hide();
+                    $('#form1').show();
+                    //$('.f-item:nth-child(1)').addClass('active');
+                    //$('.f-item:nth-child(1) span').addClass('checked');
+
+                    $('#hero-gallery').lightSlider({
+                        gallery: true,
+                        item: 1,
+                        pager: false,
+                        gallery: false,
+                        slideMargin: 0,
+                        speed: 2000,
+                        pause: 6000,
+                        mode: 'fade',
+                        auto: true,
+                        loop: true,
+                        onSliderLoad: function () {
+                            $('#hero-gallery').removeClass('cS-hidden');
+                        }
+                    });
+                });
+            })(jQuery);
+        </script>
+@Scripts.Render("~/Scripts/lightslider.min.js")
+
 </body>
 </html>

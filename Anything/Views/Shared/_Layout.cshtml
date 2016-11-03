@@ -43,7 +43,7 @@
     @Html.Partial("_Header")
 
 
-    @if (ViewContext.RouteData.Values["controller"] == "Home")
+    @if (ViewContext.RouteData.Values["controller"] == "Home" && ViewContext.RouteData.Values["action"]=="Index")
     {
         @Html.Partial("_MainSearch")
     }

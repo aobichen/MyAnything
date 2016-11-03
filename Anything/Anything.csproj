@@ -962,14 +962,6 @@
     <Content Include="Content\Pictures\offical.jpg" />
     <Content Include="Content\style-rtl.css" />
     <Content Include="Content\style.css" />
-    <Content Include="Content\theme-black.css" />
-    <Content Include="Content\theme-blue.css" />
-    <Content Include="Content\theme-orange.css" />
-    <Content Include="Content\theme-pink.css" />
-    <Content Include="Content\theme-purple.css" />
-    <Content Include="Content\theme-strawberry.css" />
-    <Content Include="Content\theme-turqoise.css" />
-    <Content Include="Content\theme-yellow.css" />
     <Content Include="Content\theme.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\ElegantIcons.svg" />
@@ -1028,26 +1020,6 @@
     <Content Include="images\uploads\img.jpg" />
     <Content Include="images\uploads\slider.jpg" />
     <Content Include="index.html" />
-    <Content Include="ProjectFile\AdImage.sql" />
-    <Content Include="ProjectFile\AdManage.sql" />
-    <Content Include="ProjectFile\AdOrder.sql" />
-    <Content Include="ProjectFile\BonusSystem.sql" />
-    <Content Include="ProjectFile\CodeFile.sql" />
-    <Content Include="ProjectFile\Hotel.sql" />
-    <Content Include="ProjectFile\HotelImage.sql" />
-    <Content Include="ProjectFile\HotelView.sql" />
-    <Content Include="ProjectFile\Logs.sql" />
-    <Content Include="ProjectFile\News.sql" />
-    <Content Include="ProjectFile\OrderMaster.sql" />
-    <Content Include="ProjectFile\Room.sql" />
-    <Content Include="ProjectFile\RoomImage.sql" />
-    <Content Include="ProjectFile\Scenic.sql" />
-    <Content Include="ProjectFile\ServiceOptions.sql" />
-    <Content Include="ProjectFile\SysManage.sql" />
-    <Content Include="ProjectFile\twarea.sql" />
-    <Content Include="ProjectFile\twcity.sql" />
-    <Content Include="ProjectFile\VIPOrder.sql" />
-    <Content Include="ProjectFile\VIPs.sql" />
     <Content Include="Scripts\Base.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -1084,7 +1056,6 @@
     <Content Include="Content\font-awesome-4.6.3\scss\_screen-reader.scss" />
     <Content Include="Content\font-awesome-4.6.3\scss\_stacked.scss" />
     <Content Include="Content\font-awesome-4.6.3\scss\_variables.scss" />
-    <Content Include="ProjectFile\金流手續費.docx" />
     <Content Include="Content\fonts\lg.eot" />
     <Content Include="Content\fonts\lg.ttf" />
     <Content Include="Content\fonts\lg.woff" />
@@ -1229,7 +1200,7 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
-    <None Include="Properties\PublishProfiles\MyAnything.pubxml" />
+    <None Include="Properties\PublishProfiles\Anything.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\infobox.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

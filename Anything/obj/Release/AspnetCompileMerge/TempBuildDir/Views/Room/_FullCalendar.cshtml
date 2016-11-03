@@ -1,0 +1,311 @@
+﻿<script src="~/Content/fullcalendar-3.0.1/jquery.min.js"></script>
+<script src="~/Content/fullcalendar-3.0.1/jquery-ui.min.js"></script>
+<script src="~/Content/fullcalendar-3.0.1/moment.min.js"></script>
+<script src="~/Content/fullcalendar-3.0.1/fullcalendar.min.js"></script>
+<link href="~/Content/fullcalendar-3.0.1/fullcalendar.min.css" rel="stylesheet" />
+<link href="~/Content/fullcalendar-3.0.1/fullcalendar.print.css" media="print" rel="stylesheet" />
+
+<script src="~/Content/Admin/js/bootstrap-switch.min.js"></script>
+<link href="~/Content/Admin/css/bootstrap-switch.min.css" rel="stylesheet" />
+<style type="text/css">
+  
+
+    th.fc-sun{
+         color:#FF5151;
+    }
+     th.fc-sun,td.fc-sun{
+        background-color:rgba(255, 209, 209,.2);
+    }
+     th.fc-sat{
+         color:	#FF9224;
+     }
+       th.fc-sat,td.fc-sat{
+        background-color:rgba(255, 232, 219,.2);
+    }
+
+   .fc-day-header input{
+        height: 20px;   
+        width:90%;
+        margin:2px;
+        font-size: 14px;
+        line-height: 1.428571429;
+        color: #555555;
+        vertical-align: middle;   
+       
+        border-radius: 4px;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+        -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+        transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+   }
+
+   .fc-day-header input.price{
+        background-color:rgba(74, 217, 98,.1);
+        border: 1px solid #4cd964;
+   }
+
+   .fc-day-header input.quantity{
+        background-color:rgba(254, 210, 139,.1);
+        border: 1px solid #fed189;
+   }
+
+  .fc-input {  
+    height: 20px;   
+    width:75%;
+    margin:2px;
+    font-size: 14px;
+    line-height: 1.428571429;
+    color: #555555;
+    vertical-align: middle;
+    background-color: #ffffff;
+    border: 1px solid #4cd964;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+    transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+}
+
+  .fc-quantity{
+      border:1px solid #fed189;
+  }
+
+  .message{
+      display:none;
+  }
+
+  .message.active{
+      display:block;
+     color:red;
+     font-weight:bold;
+transition: all 2s;
+-moz-transition: all 2s; /* Firefox 4 */
+-webkit-transition: all 2s; /* Safari 和 Chrome */
+-o-transition: all 2s; /* Opera */
+  }
+</style>
+
+<p class="message">已儲存!</p>
+<div class="panel panel-default">
+   <input id="roomid" type="hidden" value="@ViewBag.RoomId" />
+                <div class="panel-heading">
+                    <h2><strong>
+                            @ViewBag.Name
+                        </strong></h2>
+                   
+                </div>
+    <div class="panel-body">
+        <div class="col-lg-12">
+            <button type="button" class="btn btn-primary" id="save">
+                儲存
+            </button>
+        </div>
+    </div>
+                <div class="panel-body">
+                    <!-- Widget content -->
+                    <!-- Below line produces calendar. I am using FullCalendar plugin. -->
+                    <div class="col-lg-12">
+                        <div id="calendar"></div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+<script type="text/javascript">
+    $(function () {
+
+        let id ='1';
+        let tridx = 0;
+        let currentMonth = "0";
+        let saved = true;
+        let roomid = $('#roomid').val();
+       
+        $('#calendar').fullCalendar({
+            eventRender: function (event, element, view) {
+                $('.message').removeClass('active');
+                if (event.start.format("MM") != currentMonth) { return false;}
+                
+                var start = moment(event.start).format('YYYY-MM-DD');
+                
+                var $div = $('<div>').addClass('form-group fc-date').attr('data-date',start);
+                let $labelQuantity = $('<label>').text('數量');
+                var $inputQuantity = $('<input>').val(event.quantity).addClass('fc-input fc-quantity').appendTo($labelQuantity);
+                let $labelPrice = $('<label>').text('房價');
+                var $inputPrice = $('<input>').val(event.price).addClass('fc-input fc-price').appendTo($labelPrice);
+                $div.append($labelQuantity);
+                $div.append($labelPrice);
+                $div.append(OffSwitch(event.off, 1));
+                
+                return $div;
+            },
+            viewRender: function (currentView) {
+                if (!saved) {
+                    if (!confirm("資料未儲存，確定要結束編輯嗎?")) {
+                        return false;
+                    }
+                }
+                var $fcheader = $('.fc-day-header');
+                var headerQuantityInput = $('<input>').attr({
+                    type: 'text',
+                    placeholder: '數量'
+                }).addClass('quantity').appendTo($fcheader);
+
+                var headerInput = $('<input>').attr({
+                    type: 'text',
+                    placeholder: '房價'
+                }).addClass('price').appendTo($fcheader);
+                var date = $("#calendar").fullCalendar('getDate');
+                currentMonth = date.format("MM");
+               
+            },
+            eventAfterAllRender:function(view){
+                $("input.switch").bootstrapSwitch({
+                    onText: 'ON',
+                    offText: 'OFF',
+                    size: 'small'
+                });
+
+                $("input.switch").on('switchChange.bootstrapSwitch', function (event, state) {
+                    //console.log($(this).attr('data-id')); // DOM element
+                    ////console.log(event); // jQuery event
+                    //console.log(state); // true | false
+                    ////console.log($(this).prop('checked'));
+                });
+
+
+                $('.fc-day-header').delegate('.price', 'keyup', function () {
+                    let $self = $(this);
+                    let val = $self.val();
+                    let idx = $self.closest('th').index();
+
+                    let fcContent = $('.fc-content-skeleton');
+
+                    for (var i = 0, max = fcContent.length; i <= max; i++) {
+                        var input = $(fcContent[i]).find('table > tbody > tr > td:eq(' + idx + ')');
+                        input.find('.fc-price').val(val);
+                    }
+                });
+
+                $('.fc-day-header').delegate('.quantity', 'keyup', function () {
+
+                    let $self = $(this);
+                    let val = $self.val();
+                    console.log(val);
+                    let idx = $self.closest('th').index();
+                    let fcContent = $('.fc-content-skeleton');
+
+                    for (let i = 0, max = fcContent.length; i <= max; i++) {
+                        let input = $(fcContent[i]).find('table > tbody > tr > td:eq(' + idx + ')');
+                        input.find('.fc-quantity').val(val);
+                    }
+                });
+            },
+            events: function (start, end, timezone, callback) {
+                tridx = 0;
+                $.ajax({
+                    type: "POST",
+                    url: '/GetRoomPrice/' + roomid,
+                    cache: false,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        var events = [];
+                        $(data).each(function () {
+                            events.push({
+                                title: this.Title,
+                                start: this.Start,
+                                end: this.End,
+                                price: this.Price,
+                                quantity: this.Quantity,
+                                off : this.Off
+                            });
+                        });
+                        callback(events);
+                       
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                       // alert('There was an error');
+                    }
+                });
+            }
+        });
+
+        $('#save').on('click', function ()
+            {
+                Save();            
+            });
+
+        function Save() {
+            let elements = $('.fc-date').not('[data-date=""]');
+            let arr = [];
+            let id = roomid;
+
+            for (let i = 0, max = elements.length; i < max; i++) {
+                let date = $(elements[i]).attr('data-date');
+                let quantity = $(elements[i]).find('.fc-quantity').val();
+                let price = $(elements[i]).find('.fc-price').val();
+                let checked = $(elements[i]).find('input[type="checkbox"]').prop('checked');
+                if (quantity != "" && price != "") {
+                    let d = { roomid: id, date: date, quantity: quantity, price: price, off: checked };
+                    arr.push(d);
+                }
+            }
+            post(arr);
+        };
+
+
+        function post(arr) {
+            var json = JSON.stringify(arr);          
+            $.ajax({
+                type: "POST",
+                url: '/RoomSave',
+                data:json,
+                cache: false,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+
+                    saved = true;
+                    $('.message').addClass('active');
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    //alert('There was an error');
+                }
+            });
+        }
+        
+        $('.fc-date').delegate("input", "change", function () {
+           
+            saved = false;
+        });
+
+        $('.wclose').on("click", function () {           
+            let div = $('.fc-date');
+            for (var i = 0, max = div.length; i < max; i++) {
+                var input = $(div[i]).find('.fc-price');              
+               
+            }
+            
+        });
+
+  
+
+        
+       
+        function OffSwitch(switchOn,id){
+            
+            let offinput = $('<input>').attr({type:'checkbox',name:'off-check'}).addClass('switch');
+            let offswitch = $('<input>').attr({type:'checkbox',name:'off-check','data-id':id}).addClass('switch');
+            let onSwitch = $('<input>').attr({ type: 'checkbox', name: 'off-check', 'data-id': id, checked: true }).addClass('switch');
+
+            if (!switchOn) {
+              return  $(offswitch);
+            }else{
+                return $(onSwitch);
+            }
+        }
+    });
+</script>

@@ -31,22 +31,10 @@
     </div>
     @Html.Partial("_Header")
 
-    <div class="slider" style="height:300px">
-        <ul id="hero-gallery" class="cS-hidden">
-            <li data-thumb="Content/images/uploads/offical.jpg">
-                <img src="~/Content/images/uploads/offical.jpg" alt="" class="blur" />
-            </li>
-            @*<li data-thumb="images/uploads/slider.jpg">
-                <img src="images/uploads/slider.jpg" alt="" />
-            </li>
-            <li data-thumb="images/uploads/slider.jpg">
-                <img src="images/uploads/slider.jpg" alt="" />
-            </li>*@
-        </ul>
-    </div>
-
-    @Html.Partial("_MainSearch")
-
+    
+   @if (ViewContext.RouteData.Values["controller"] == "Home") { 
+        @Html.Partial("_MainSearch")
+   }
     <div class="main">
         @RenderBody()
         
