@@ -11,9 +11,11 @@
             </li>*@
     </ul>
 </div>
+
 <div class="main-search">
     <div class="wrap">
-        <form id="main-search" method="post" action="search_results.html">
+    @using (Html.BeginForm())
+    {
             <div class="row">
                 <!--column-->
                 
@@ -42,11 +44,11 @@
                             <div class="row">
                                 <div class="f-item one-half datepicker">
                                     <label for="datepicker1">住房日</label>
-                                    <div class="datepicker-wrap"><input type="text" placeholder="" id="datepicker4" name="datepicker4" value="@DateTime.Now.ToString("dd/MM/yyyy")" /></div>
+                                    <div class="datepicker-wrap"><input type="text" placeholder="" id="datepicker4" name="BeginDate" value="@DateTime.Now.ToString("MM/dd/yyyy")" /></div>
                                 </div>
                                 <div class="f-item one-half datepicker">
                                     <label for="datepicker2">退房日</label>
-                                    <div class="datepicker-wrap"><input type="text" placeholder="" id="datepicker5" name="datepicker5" value="@DateTime.Now.AddDays(1).ToString("dd/MM/yyyy")" /></div>
+                                    <div class="datepicker-wrap"><input type="text" placeholder="" id="datepicker5" name="EndDate" value="@DateTime.Now.AddDays(1).ToString("MM/dd/yyyy")" /></div>
                                 </div>
                             </div>
                         </div>
@@ -71,6 +73,7 @@
                 </div>
                 <input type="submit" value="搜尋" class="gradient-button search-submit" id="search-submit" />
             </div>
-        </form>
+    } 
     </div>
+   
 </div>

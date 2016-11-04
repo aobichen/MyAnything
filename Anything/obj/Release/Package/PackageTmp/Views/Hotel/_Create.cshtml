@@ -10,6 +10,7 @@
 <div class="wrap">
     @using (Html.BeginForm())
     {
+        @Html.AntiForgeryToken()
         @Html.HiddenFor(model=>model.ID)
     <!--基本資料-->
         <div class="row">

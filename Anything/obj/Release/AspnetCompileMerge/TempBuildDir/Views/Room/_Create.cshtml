@@ -89,12 +89,22 @@
 
             <div class="full-width">
                 <fieldset>
-                    <h2><span>03 </span>注意事項</h2>
+                    <h2><span>03 </span>房型介紹</h2>
                     <div class="panel panel-grassgreen">
                         <div class="panel-body">
+
                             <div class="row">
                                 <div class="f-item full-width">
-                                    <label>售價</label>
+                                    <label>房型介紹</label>
+                                    @Html.TextAreaFor(model => model.Feature, new { @class = "form-control"})
+
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="f-item full-width">
+                                    <label>注意事項</label>
                                     @Html.TextAreaFor(model => model.Information, new { @class = "form-control", @id = "Information" })
 
                                 </div>

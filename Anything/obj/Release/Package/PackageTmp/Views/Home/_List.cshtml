@@ -23,7 +23,7 @@
             <div class="row">
                 @if (ViewBag.HotelList != null)
                 {
-                    foreach (var item in ((Anything.ViewModels.HotelListViewModel)ViewBag.HotelList).HotelItems)
+                    foreach (var item in (List<Anything.ViewModels.HotelsViewModel>)ViewBag.HotelList)
                     {
                         <article class="one-third">
                            
@@ -42,24 +42,26 @@
                             </figure>
                             <div class="details">
                                 <h3>
-                                    @item.Name
-                                    @*<span class="stars">
-        <i class="material-icons">&#xE838;</i>
-        <i class="material-icons">&#xE838;</i>
-        <i class="material-icons">&#xE838;</i>
-        <i class="material-icons">&#xE838;</i>
-    </span>*@
-                                </h3>
+                                    <a href="@Url.Action("Detail", new { id= item.ID })" title="@item.Name">
+                                        @item.Name
+                                    </a>
+                                        @*<span class="stars">
+                <i class="material-icons">&#xE838;</i>
+                <i class="material-icons">&#xE838;</i>
+                <i class="material-icons">&#xE838;</i>
+                <i class="material-icons">&#xE838;</i>
+            </span>*@
+</h3>
                                 @*<span class="address">London  •  <a href="#">Show on map</a></span>*@
-                                <span class="address">@Anything.Helper.Helpers.CityArea.GetCityArea(item.City,item.Area)</span>
+                                <span class="address">@item.Location</span>
                                 @*<span class="rating"> 8 /10</span>*@
                                 <span class="price">價格  <em>$ @item.SellPrice</em> </span>
                                 <div class="description">
                                     <p>
                                     @item.Feature
-                                    <a href="hotel.html">More info</a></p>
+                                        <a href="@Url.Action("Detail", new { id= item.ID })">More info</a></p>
                                 </div>
-                                <a href="@Url.Action("Detail", new { id= item.ID })" title="Book now" class="gradient-button">Book now</a>
+                                <a href="@Url.Action("Detail", new { id= item.ID })" title="Book now" class="gradient-button">歡迎光臨</a>
                             </div>
                         </article>
                     }

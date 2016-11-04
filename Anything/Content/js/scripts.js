@@ -65,6 +65,7 @@
 				buttonImageOnly: true,
 				minDate: 0,
 				onSelect: function () {
+				    console.log('startDate');
 				    var startDate = $(this).datepicker('getDate');
 				    console.log(startDate);
                     //st
