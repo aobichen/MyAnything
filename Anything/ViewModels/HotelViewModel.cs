@@ -188,6 +188,8 @@ namespace Anything.ViewModels
         public string Introduce { get; set; }
         public string Feature { get; set; }
 
+        
+
          [Required]
         public decimal SellPrice { get; set; }
          [Required]
@@ -216,91 +218,144 @@ namespace Anything.ViewModels
         public List<int> BeforeItems { get; set; }
 
 
-        public HotelListViewModel GetHotels(HomeSearchViewModel model=null)
+        public List<HotelsViewModel> GetHotels(HomeSearchViewModel model = null)
         {
-
             var _db = new MyAnythingEntities();
+            var result = new List<HotelsViewModel>();
             var take = 30;
-            var r_result = new HotelListViewModel();
-            if (model == null||model.City == 0)
+            
+            
+            if (model.BeginDate == DateTime.MinValue)
             {
-                //取得廣告置入
-                
-                var model_null_result = (from h in _db.Hotel
-                              where h.Enabled == true && h.SaleOff == true && h.Room.Count > 0
-                                         select new HotelsViewModel
-                              {
-                                  Address = h.Address,
-                                  Area = h.Area,
-                                  City = h.City,
-                                  Feature = h.Feature,
-                                  ID = h.ID,
-                                  SellPrice = h.Room.Count <= 0 ? 0 : h.Room.Min(o => o.SellPrice),
-                                  DiscountPrice = h.Room.Count <= 0 ? 0 : h.Room.Min(o => o.DiscountPrice),
-                                  Location = h.Location,
-                                  Tel = h.Tel,
-                                  WebSite = h.WebSite,
-                                  Images = h.HotelImage.ToList(),
-                                  ServiceOptions = h.ServiceOptions,
-                                  Name = h.Name
+               // model.BeginDate = DateTime.Now;
+                var result_id = (from h in _db.Hotel
+                          join city in _db.City_TW
+                          on h.City equals city.ID
+                          join area in _db.Area_TW
+                          on h.Area equals area.ID                        
+                          select h.ID).Distinct().Take(take).ToList();
 
-                              }).OrderBy(r => Guid.NewGuid());
-
-                r_result.HotelItems =  model_null_result == null ? null : model_null_result.Take(take).ToList();
-                r_result.HasMore = model_null_result.Count() > r_result.HotelItems.Count?true:false;
-                r_result.BeforeItems = (from items in r_result.HotelItems select items.ID).ToList();
-                return r_result;
-            }
-           
-            var dbRoom = (  from hotel in _db.Hotel
-                            join room in _db.Room on hotel.ID equals room.HotelId
-                            where hotel.City == model.City
-                            group room by new { room.HotelId, room.ID, room.Amount } into g
-                            select new RoomSumModel
-                            {
-                                hotelId = g.Key.HotelId,
-                                ID = g.Key.ID,
-                                Sum = g.Sum(o => o.Amount)
-                            }).ToList();
-                                  
-
-            var HotelId = new List<int>();
-
-            foreach (var room in dbRoom)
-            {
-                var orders = _db.OrderMaster.Where(o => o.ProductId == room.ID && (o.CheckIn < model.BeginDate && o.CheckOut >= model.EndDate)).ToList();
-                var orderAmount = 0;
-                if (orders != null && orders.Count > 0)
-                {
-                    orderAmount = orders.Sum(o => o.Amount);
-                }
-                if (room.Sum > orderAmount)
-                {
-                    HotelId.Add(room.ID);
-                }
-            }
-
-            var result = (from hotel in _db.Hotel
-                          where HotelId.Contains(hotel.ID)
+                result = (from h in _db.Hotel
+                          join city in _db.City_TW
+                          on h.City equals city.ID
+                          join area in _db.Area_TW
+                          on h.Area equals area.ID
+                          where result_id.Contains(h.ID) && h.Room.Count()>0
                           select new HotelsViewModel
                           {
-                             Address = hotel.Address,
-                             Area = hotel.Area,
-                             City = hotel.City,
-                             SellPrice = hotel.Room.Count <= 0 ? 0 : hotel.Room.Min(o => o.SellPrice),
-                             DiscountPrice = hotel.Room.Count <= 0 ? 0 : hotel.Room.Min(o => o.DiscountPrice),
-                             Feature = hotel.Feature,
-                             ID = hotel.ID,
-                             Introduce = hotel.Introduce,
-                             Images = hotel.HotelImage.ToList(),
-                             ServiceOptions = hotel.ServiceOptions
+                              ID = h.ID,
+                              Address = h.Address,
+                              Location = city.City + area.Area,
+                              Name = h.Name,
+                              Feature = h.Feature,
+                              Images = h.HotelImage.ToList(),
+                              SellPrice = h.Room.Min(o=>o.SellPrice)
+                          }).Take(take).ToList();
 
-                          }).OrderBy(r => Guid.NewGuid());
+                return result;
+            }
+            
+            
+            result = (from h in _db.Hotel
+                          join city in _db.City_TW
+                          on h.City equals city.ID
+                          join area in _db.Area_TW
+                          on h.Area equals area.ID
+                          join rp in _db.RoomPrice
+                          on h.Room.FirstOrDefault().ID equals rp.ROOMID
+                          where (rp.Date.Year == model.BeginDate.Year && rp.Date.Month == model.BeginDate.Month && rp.Date.Day == model.BeginDate.Day)
+                          select new HotelsViewModel
+                          {
+                              ID =h.ID,
+                              Address = h.Address,
+                              Location = city.City + area.Area,
+                              Name = h.Name,
+                              Feature = h.Feature,
+                              Images = h.HotelImage.ToList(),
+                              SellPrice = rp.Price
+                          }).Take(take).ToList();
 
-            r_result.HotelItems = result.Take(take).ToList(); ;
-            r_result.HasMore = result.Count() > r_result.HotelItems.Count ? true : false;
-            r_result.BeforeItems = (from items in r_result.HotelItems select items.ID).ToList();
-            return r_result;
+            
+
+            //if (model == null||model.City == 0)
+            //{
+            //    //取得廣告置入
+                
+            //    var model_null_result = (from h in _db.Hotel
+            //                  where h.Enabled == true && h.SaleOff == true && h.Room.Count > 0
+            //                             select new HotelsViewModel
+            //                  {
+            //                      Address = h.Address,
+            //                      Area = h.Area,
+            //                      City = h.City,
+            //                      Feature = h.Feature,
+            //                      ID = h.ID,
+            //                      SellPrice = h.Room.Count <= 0 ? 0 : h.Room.Min(o => o.SellPrice),
+            //                      DiscountPrice = h.Room.Count <= 0 ? 0 : h.Room.Min(o => o.DiscountPrice),
+            //                      Location = h.Location,
+            //                      Tel = h.Tel,
+            //                      WebSite = h.WebSite,
+            //                      Images = h.HotelImage.ToList(),
+            //                      ServiceOptions = h.ServiceOptions,
+            //                      Name = h.Name
+
+            //                  }).OrderBy(r => Guid.NewGuid());
+
+            //    r_result.HotelItems =  model_null_result == null ? null : model_null_result.Take(take).ToList();
+            //    r_result.HasMore = model_null_result.Count() > r_result.HotelItems.Count?true:false;
+            //    r_result.BeforeItems = (from items in r_result.HotelItems select items.ID).ToList();
+            //    return r_result;
+            //}
+           
+            //var dbRoom = (  from hotel in _db.Hotel
+            //                join room in _db.Room on hotel.ID equals room.HotelId
+            //                where hotel.City == model.City
+            //                group room by new { room.HotelId, room.ID, room.Amount } into g
+            //                select new RoomSumModel
+            //                {
+            //                    hotelId = g.Key.HotelId,
+            //                    ID = g.Key.ID,
+            //                    Sum = g.Sum(o => o.Amount)
+            //                }).ToList();
+                                  
+
+            //var HotelId = new List<int>();
+
+            //foreach (var room in dbRoom)
+            //{
+            //    var orders = _db.OrderMaster.Where(o => o.ProductId == room.ID && (o.CheckIn < model.BeginDate && o.CheckOut >= model.EndDate)).ToList();
+            //    var orderAmount = 0;
+            //    if (orders != null && orders.Count > 0)
+            //    {
+            //        orderAmount = orders.Sum(o => o.Amount);
+            //    }
+            //    if (room.Sum > orderAmount)
+            //    {
+            //        HotelId.Add(room.ID);
+            //    }
+            //}
+
+            //var result = (from hotel in _db.Hotel
+            //              where HotelId.Contains(hotel.ID)
+            //              select new HotelsViewModel
+            //              {
+            //                 Address = hotel.Address,
+            //                 Area = hotel.Area,
+            //                 City = hotel.City,
+            //                 SellPrice = hotel.Room.Count <= 0 ? 0 : hotel.Room.Min(o => o.SellPrice),
+            //                 DiscountPrice = hotel.Room.Count <= 0 ? 0 : hotel.Room.Min(o => o.DiscountPrice),
+            //                 Feature = hotel.Feature,
+            //                 ID = hotel.ID,
+            //                 Introduce = hotel.Introduce,
+            //                 Images = hotel.HotelImage.ToList(),
+            //                 ServiceOptions = hotel.ServiceOptions
+
+            //              }).OrderBy(r => Guid.NewGuid());
+
+            //r_result.HotelItems = result.Take(take).ToList(); ;
+            //r_result.HasMore = result.Count() > r_result.HotelItems.Count ? true : false;
+            //r_result.BeforeItems = (from items in r_result.HotelItems select items.ID).ToList();
+            return result;
         }
     }
 

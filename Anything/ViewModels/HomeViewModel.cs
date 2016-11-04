@@ -10,7 +10,12 @@ namespace Anything.ViewModels
         public DateTime BeginDate { get; set; }
         public DateTime EndDate { get; set; }
 
-        public int City { get; set; }
+        public List<string> Facilities { get; set; }
+
+        public List<string> Scenic { get; set; }
+
+        
+        public int Word { get; set; }
     }
 
     

@@ -44,6 +44,7 @@ namespace Anything.ViewModels
         public string BedType { get; set; }
         public string RoomBed { get; set; }
 
+        public string Feature { get; set; }
         public int UserId { get; set; }
 
         public void Create()
@@ -70,7 +71,8 @@ namespace Anything.ViewModels
                 Beds = Beds,
                 BedType = BedType,
                 Person = Person,
-                RoomBed = RoomBed
+                RoomBed = RoomBed,
+                Feature = Feature
             });
             db.SaveChanges();
         }
@@ -98,6 +100,7 @@ namespace Anything.ViewModels
                 result.RoomBed = RoomBed;
                 result.Beds = Beds;
                 result.BedType = BedType;
+                result.Feature = Feature;
                 result.RoomImage = RoomImages();
                 db.SaveChanges();
             }

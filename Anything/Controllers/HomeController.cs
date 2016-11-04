@@ -22,23 +22,6 @@ namespace Anything.Controllers
             var result = new HotelListViewModel().GetHotels(model);
             ViewBag.HotelList = result;
 
-
-            //var headad = _db.AdOrder.Where(o => o.Position == "首頁看板").ToList();
-            
-            //var hasImage = new List<AdvImage>();
-            //foreach (var had in headad)
-            //{
-            //    foreach(var img in had.AdImage){
-            //        var image = new AdvImage();
-            //        image.ID = img.ID;
-            //        image.Image = img.Image;
-            //        image.Text = had.Text;
-            //        image.Url = had.Href;
-            //        hasImage.Add(image);
-            //    }
-            //}
-
-           // ViewBag.HeadAd = hasImage;
             var oo = _db.ServiceOption.Where(o => o.Show == true).ToList();
             ViewBag.Options = _db.ServiceOption.Where(o => o.Show == true).ToList();
             var City = new Caches().TWCity;
@@ -89,26 +72,7 @@ namespace Anything.Controllers
                                Quantity = r.Amount,
                                Type = r.Person.ToString()
                            }).ToList();
-            //var model = _db.Hotel.Find(id);
-            //var key = Guid.NewGuid().GetHashCode().ToString("x");
-            //ViewBag.SessionKey = key;
-
-            //var RoomSelectedAmount = new List<SelectedAmount>();
-            //if (model !=null && model.Room !=null && model.Room.Count > 0)
-            //{
-            //    foreach (var r in model.Room)
-            //    {
-            //        var Order = _db.OrderMaster.GroupBy(o => o.ProductId == r.ID).Select(g => new { id = g.Key, total = g.Sum(i => i.Amount) }).FirstOrDefault();
-            //        var Order_Amount = 0;
-            //        if (Order != null)
-            //        {
-            //            Order_Amount = Order.total;
-            //        }
-            //        r.Amount = r.Amount - Order_Amount <= 0 ? 0 : r.Amount - Order_Amount;
-            //        RoomSelectedAmount.Add(new SelectedAmount { Amount = 1, RoomId = r.ID });
-            //    }
-            //}
-            //Session[key] = RoomSelectedAmount;
+           
             return View(model);
         }
 
