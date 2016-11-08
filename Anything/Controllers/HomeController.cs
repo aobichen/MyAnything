@@ -13,7 +13,9 @@ namespace Anything.Controllers
     
         public ActionResult Index(HomeSearchViewModel model = null,string username = null)
         {
-
+            var Now = DateTime.Now;
+            Session["CheckInDate"] = Now;
+            Session["CheckOutDate"] = Now.AddDays(1);
             if (model != null && model.BeginDate >= DateTime.Now)
             {
                 Session["CheckInDate"] = model.BeginDate;
@@ -43,6 +45,7 @@ namespace Anything.Controllers
 
         public ActionResult Detail(int id)
         {
+            
             var model = _db.Hotel.Where(o => o.ID == id).Select(o =>
                 new HotelDetail
                 {
@@ -57,20 +60,33 @@ namespace Anything.Controllers
 
             var Facilities = model.options.Split(',').Select(int.Parse).ToList();
             model.Facilities = _db.ServiceOption.Where(o => Facilities.Contains(o.ID)).Select(p => p.Text).ToList();
+
+            var Date = Session["CheckInDate"] == null ? DateTime.Now:(DateTime)Session["CheckInDate"];
+            var DayOfWeek = Date.DayOfWeek.ToString("d");
+            var IsHoliday = false;
+            if (DayOfWeek == "5" || DayOfWeek == "6")
+            {
+                IsHoliday = true;
+            }
+
             model.Rooms = (from r in _db.Room
                            join code in _db.CodeFile
-                               on r.Beds equals code.ID
+                               on r.BedType equals code.ID
+                               join code2 in _db.CodeFile
+                               on r.RoomType equals code2.ID
                                where r.HotelId == model.ID
                            select new RoomModel
                            {
-                               Bed = code.ItemDescription,
+                               BedType = code.ItemDescription,
                                Feature = r.Feature,
                                Images = r.RoomImage.ToList(),
                                Name = r.Name,
-                               Price = r.DiscountPrice.Value,
-                               Sell = r.SellPrice,
-                               Quantity = r.Amount,
-                               Type = r.Person.ToString()
+                               FixedPrice = r.FixedPrice,
+                               HolidayPrice = r.HolidayPrice,
+                               Quantity = r.Quantity,
+                               RoomType = code2.ItemDescription,
+                               DayPrice = IsHoliday ? r.HolidayPrice : r.DayPrice,
+                               BedAmount = r.BedAmount
                            }).ToList();
            
             return View(model);

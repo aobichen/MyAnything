@@ -45,12 +45,7 @@
                                     <a href="@Url.Action("Detail", new { id= item.ID })" title="@item.Name">
                                         @item.Name
                                     </a>
-                                        @*<span class="stars">
-                <i class="material-icons">&#xE838;</i>
-                <i class="material-icons">&#xE838;</i>
-                <i class="material-icons">&#xE838;</i>
-                <i class="material-icons">&#xE838;</i>
-            </span>*@
+                                       
 </h3>
                                 @*<span class="address">London  •  <a href="#">Show on map</a></span>*@
                                 <span class="address">@item.Location</span>
@@ -61,7 +56,7 @@
                                     @item.Feature
                                         <a href="@Url.Action("Detail", new { id= item.ID })">More info</a></p>
                                 </div>
-                                <a href="@Url.Action("Detail", new { id= item.ID })" title="Book now" class="gradient-button">歡迎光臨</a>
+                                <a href="@Url.Action("Detail", new { id= item.ID })" title="Book now" class="gradient-button">選擇客房</a>
                             </div>
                         </article>
                     }

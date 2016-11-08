@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace Anything.Controllers
 {
-    [Authorize]
+   
     public class RoomController : BaseController
     {
         // GET: Room
@@ -34,14 +34,20 @@ namespace Anything.Controllers
 
         public ActionResult Create(int id)
         {
+            var Hotel = _db.Hotel.Find(id);
+            if (Hotel == null || Hotel.ID != CurrentUser.Id)
+            {
+                return RedirectToAction("Login","Account");
+            }
+            
             var model = new RoomCreateViewModel();
             //model.Bonus = 300;
             ViewBag.SessionKey = Guid.NewGuid().GetHashCode().ToString("x");
             model.HotelId = id;
             model.Enabled = true;
-            model.Amount = 1;
-            model.Beds = 1;
-            model.Information = new HtmlContent("/Views/Room/InformationTemp.html").Text;
+            model.Quantity = 1;
+            model.BedAmount = 1;
+            model.Notice = new HtmlContent("/Views/Room/InformationTemp.html").Text;
            
             ViewBag.BedType =new CodeFiles().GetBedsSelectList();
 
@@ -62,9 +68,9 @@ namespace Anything.Controllers
 
             var RoomImage = new List<RoomImage>();
             var PersonBed = new List<int>();
-            PersonBed.Add(model.Person);
-            PersonBed.Add(int.Parse(model.BedType));
-            PersonBed.Add(model.Beds);
+            //PersonBed.Add(model.m);
+            //PersonBed.Add(int.Parse(model.BedType));
+            //PersonBed.Add(model.Beds);
             //[房型,床型,數量]
             model.RoomBed = string.Join(",", PersonBed);
            
@@ -81,11 +87,11 @@ namespace Anything.Controllers
                 return View();
             }
 
-            if (string.IsNullOrEmpty(model.Information))
-            {
-                ModelState.AddModelError("", "必須提供房型資訊");
-                return View();
-            }
+            //if (string.IsNullOrEmpty(model.Notice))
+            //{
+            //    ModelState.AddModelError("", "必須提供房型資訊");
+            //    return View();
+            //}
 
             
 
@@ -128,16 +134,16 @@ namespace Anything.Controllers
                          {
                              ID = r.ID,
                              HotelId = r.HotelId,
-                             Beds = r.Beds,
-                             SellPrice = r.SellPrice,
-                             Enabled = r.Enabled,
-                             Amount = r.Amount,
                              BedType = r.BedType,
-                             Bonus = r.Bonus,
-                             DiscountPrice = r.DiscountPrice,
-                             Information = r.Information,
+                             FixedPrice = r.FixedPrice,
+                             HolidayPrice = r.HolidayPrice,
+                             DayPrice = r.DayPrice,
+                             Enabled = r.Enabled,
+                             Quantity = r.Quantity,
+                             RoomType = r.RoomType,
+                             Notice = r.Notice,
                              Name = r.Name,
-                             Person = r.Person
+                             MaxPerson = r.MaxPerson
                          }).FirstOrDefault();
             
             var key = Guid.NewGuid().GetHashCode().ToString("x");
@@ -147,7 +153,7 @@ namespace Anything.Controllers
             model.SessionKey = key;
             ViewBag.BedType = new CodeFiles().GetBedsSelectList(model.BedType);
          
-            ViewBag.RoomType = new CodeFiles().GetRoomsSelectList(model.Person.ToString());
+            ViewBag.RoomType = new CodeFiles().GetRoomsSelectList(model.RoomType);
             return View(model);
         }
 
@@ -167,7 +173,7 @@ namespace Anything.Controllers
             }
             catch(Exception ex){
                 ViewBag.BedType = new CodeFiles().GetBedsSelectList(model.BedType);
-                ViewBag.RoomType = new CodeFiles().GetRoomsSelectList(model.Person.ToString());
+                ViewBag.RoomType = new CodeFiles().GetRoomsSelectList(model.RoomType);
                 ModelState.AddModelError("",ex.Message.ToString());
                 return View();
             }

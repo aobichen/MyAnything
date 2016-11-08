@@ -24,13 +24,15 @@ namespace Anything.ViewModels
         public int ID { get; set; }
         public int HotelId { get; set; }
         public string Name { get; set; }
-        public decimal SellPrice { get; set; }
-        public Nullable<decimal> DiscountPrice { get; set; }
-        public decimal Bonus { get; set; }
-        public int Amount { get; set; }
+        public decimal FixedPrice { get; set; }
+        public decimal HolidayPrice { get; set; }
+        public decimal DayPrice { get; set; }
+
+       
+        public int Quantity { get; set; }
 
         [UIHint("tinymce_jquery_full"), AllowHtml]
-        public string Information { get; set; }
+        public string Notice { get; set; }
         public bool Enabled { get; set; }
 
         public DateTime Created { get; set; }
@@ -39,14 +41,16 @@ namespace Anything.ViewModels
         public DateTime Modified { get; set; }
         public string SessionKey { get; set; }
 
-        public int Person { get; set; }
-        public int Beds { get; set; }
-        public string BedType { get; set; }
+        public int MaxPerson { get; set; }
+        public int BedAmount { get; set; }
+        public int BedType { get; set; }
+        public int RoomType { get; set; }
         public string RoomBed { get; set; }
 
         public string Feature { get; set; }
         public int UserId { get; set; }
 
+        public bool HasBreakfast { get; set; }
         public void Create()
         {
             
@@ -54,24 +58,24 @@ namespace Anything.ViewModels
             var Now = DateTime.Now;
             db.Room.Add(new Room
             {
-                Amount = Amount,
-                Bonus = Bonus,
-                //BussinessBonus = bussinessbouns,
-                //PlatformBonus = platformbouns,
+                Quantity = Quantity,              
                 HotelId = HotelId,
                 Created = Now,
-                DiscountPrice = DiscountPrice,
+                HolidayPrice = HolidayPrice,
+                FixedPrice = FixedPrice,
+                DayPrice = DayPrice,
                 Creator = UserId,
                 Enabled = true,
-                Information = Information,
+                Notice = Notice,
                 Modified = Now,
                 Name = Name,
-                SellPrice = SellPrice,
+                BedType=BedType,
                 RoomImage = RoomImages(),
-                Beds = Beds,
-                BedType = BedType,
-                Person = Person,
+                BedAmount = BedAmount,
+                HasBreakfast = HasBreakfast,
+                MaxPerson = MaxPerson,
                 RoomBed = RoomBed,
+                RoomType = RoomType,
                 Feature = Feature
             });
             db.SaveChanges();
@@ -79,26 +83,27 @@ namespace Anything.ViewModels
         public void Edit()
         {
             var PersonBed = new List<int>();
-            PersonBed.Add(Person);
-            PersonBed.Add(int.Parse(BedType));
-            PersonBed.Add(Beds);
+            //PersonBed.Add(Person);
+            //PersonBed.Add(int.Parse(BedType));
+            //PersonBed.Add(Beds);
             //[房型,床型,數量]
             RoomBed = string.Join(",", PersonBed);
             using (var db = new MyAnythingEntities())
             {
                 var result = db.Room.Find(ID);
                 result.HotelId = HotelId;
-                result.Information = Information;
+                result.Notice = Notice;
                 result.Modified = DateTime.Now;
-                result.Name = Name;              
-                result.SellPrice = SellPrice;
-                result.DiscountPrice = DiscountPrice;
-                result.Amount = Amount;
-                result.Bonus = Bonus;
+                result.Name = Name;
+                result.FixedPrice = FixedPrice;
+                result.HolidayPrice = HolidayPrice;
+                result.DayPrice = DayPrice;
+                result.Quantity = Quantity;
+                result.MaxPerson = MaxPerson;
                 result.Enabled = Enabled;
-                result.Person = Person;
+                result.RoomType = RoomType;
                 result.RoomBed = RoomBed;
-                result.Beds = Beds;
+                result.BedAmount = BedAmount;
                 result.BedType = BedType;
                 result.Feature = Feature;
                 result.RoomImage = RoomImages();
@@ -144,14 +149,18 @@ namespace Anything.ViewModels
     public class RoomModel
     {
         public string Name { get; set; }
-        public decimal Sell { get; set; }
-        public decimal Price { get; set; }
+        public decimal FixedPrice { get; set; }
+        public decimal HolidayPrice { get; set; }
+        public decimal DayPrice { get; set; }
         public string Feature { get; set; }
 
-        public string Type { get; set; }
+        public string RoomType { get; set; }
 
-        public string Bed { get; set; }
+        public string BedType { get; set; }
 
+        public bool HasBreakfast { get; set; }
+
+        public int BedAmount { get; set; }
         public int Quantity { get; set; }
         public List<RoomImage> Images { get; set; }
     }

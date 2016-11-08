@@ -28,18 +28,24 @@
                     <!--form self catering-->
                     <div class="form row" id="form1">
                         <!--column-->
-                        <div class="one-third">
+                        <div class="one-half">
                             @*<h5><span>02</span> Where?</h5>*@
-                            <div class="row">
+                            <div class="row one-half">
                                 <div class="f-item full-width">
                                     <label for="destination2">地點</label>
-                                    <input type="text" placeholder="目的城市,景點,民宿" id="destination2" name="destination" />
+                                    @Html.DropDownList("City")
+                                </div>
+                            </div>
+                            <div class="row one-half">
+                                <div class="f-item full-width">
+                                    <label for="destination2"></label>
+                                    <input type="text" placeholder="民宿" id="destination2" name="destination" />
                                 </div>
                             </div>
                         </div>
                         <!--//column-->
                         <!--column-->
-                        <div class="column two-third">
+                        <div class="column one-half">
                             @*<h5><span>03</span> When?</h5>*@
                             <div class="row">
                                 <div class="f-item one-half datepicker">

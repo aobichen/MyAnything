@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1995kqdkunc5cGppQX1oeod30a9g-l9c&callback=initMap"
+            type="text/javascript"></script>
+    <script src="Content/Admin/js/jquery-1.8.3.min.js"></script>
+    <style type="text/css">
+        #map {
+            width: 500px;
+            height: 500px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="floating-panel">
+        <input id="address" type="textbox" value="Sydney, NSW">
+        <input id="submit" type="button" value="Geocode">
+    </div>
+    <div id="map"></div>
+    <script>
+        function initMap() {
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 15,
+                center: { lat: -34.397, lng: 150.644 }
+            });
+            var geocoder = new google.maps.Geocoder();
+            var address = '高雄市小港區寶山街25號';
+            //document.getElementById('submit').addEventListener('click', function () {
+                geocodeAddress(geocoder,address, map);
+            //});
+        }
+
+        function geocodeAddress(geocoder,address, resultsMap) {
+            //var address = document.getElementById('address').value;
+            geocoder.geocode({ 'address': address }, function (results, status) {
+                if (status === google.maps.GeocoderStatus.OK) {
+                    resultsMap.setCenter(results[0].geometry.location);
+                    console.log(results[0].geometry.location);
+                    var marker = new google.maps.Marker({
+                        map: resultsMap,
+                        position: results[0].geometry.location
+                    });
+                } else {
+                    alert('Geocode was not successful for the following reason: ' + status);
+                }
+            });
+        }
+
+    </script>
+    
+</body>
+
+</html>

@@ -446,22 +446,23 @@
     <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="HotelId" Type="Int32" Nullable="false" />
     <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-    <Property Name="SellPrice" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
-    <Property Name="DiscountPrice" Type="Decimal" Precision="18" Scale="0" />
-    <Property Name="Bonus" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
-    <Property Name="Amount" Type="Int32" Nullable="false" />
-    <Property Name="Information" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
-    <Property Name="Enabled" Type="Boolean" Nullable="false" />
+    <Property Name="Notice" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+    <Property Name="MaxPerson" Type="Int32" Nullable="false" />
+    <Property Name="BedAmount" Type="Int32" Nullable="false" />
+    <Property Name="BedType" Type="Int32" Nullable="false" />
+    <Property Name="RoomBed" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="true" />
+    <Property Name="Feature" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="FixedPrice" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+    <Property Name="HolidayPrice" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+    <Property Name="DayPrice" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+    <Property Name="Quantity" Type="Int32" Nullable="false" />
     <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="Creator" Type="Int32" Nullable="false" />
     <Property Name="Modified" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="Person" Type="Int32" Nullable="false" />
-    <Property Name="Beds" Type="Int32" Nullable="false" />
-    <Property Name="BedType" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="true" />
-    <Property Name="RoomBed" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="true" />
-    <Property Name="BussinessBonus" Type="Int32" />
-    <Property Name="PlatformBonus" Type="Int32" />
-    <Property Name="Feature" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Modify" Type="Int32" />
+    <Property Name="Enabled" Type="Boolean" Nullable="false" />
+    <Property Name="HasBreakfast" Type="Boolean" />
+    <Property Name="RoomType" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Hotel" Relationship="MyAnythingModel.FK_Room_Hotel" FromRole="Room" ToRole="Hotel" />
     <NavigationProperty Name="RoomImage" Relationship="MyAnythingModel.FK_RoomImage_Room" FromRole="Room" ToRole="RoomImage" />
     <NavigationProperty Name="RoomPrice" Relationship="MyAnythingModel.FK_RoomPrice_Room" FromRole="Room" ToRole="RoomPrice" />

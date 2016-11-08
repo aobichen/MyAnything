@@ -15,47 +15,51 @@
                 {
                     var base64 = Convert.ToBase64String(img.Image);
                     var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-                    <a href="@imgSrc" data-sub-html="<p>@item.Name</p>">
-                    <img src="@imgSrc" alt="" />
+                    <a href="@imgSrc@Url.Action("Image","Room",new {id=img.ID})" data-sub-html="<p>@item.Name</p>">
+                        <img src="@imgSrc" alt="" />
 
 					    <span class="image-overlay"></span>
                     		</a>
                 }
             </figure>
             <div class="meta">
-                <h3>@item.Name</h3>
+                <h3 style="text-shadow:2px 2px #F0F0F0;">@item.Name</h3>
                 <p>@item.Feature</p>
-                @*@if (!item.HasBreakfast)
+                @if (!item.HasBreakfast)
                 {
                     <p data-localize="nonbreakfast">不含早餐</p>
                 }
                 else
                 {
                     <p data-localize="hasbreakfast">包含早餐</p>
-                }*@
+                }
 
                 @*<a href="javascript:void(0)" title="more info" class="more-info">+ more info</a>*@
             </div>
             <div class="room-information">
                 <div class="row">
-                    <span class="first" data-localize="bedtype">Max:</span>
+                    <span class="first" data-localize="roomtype">房型:</span>
+                    <span class="second">
+                        @item.RoomType
+                        @*@WGHotel.Helpers.CodeFiles.GetCodeFileDescription(item.RoomType)*@
+                    </span>
+                </div>
+                <div class="row">
+                    <span class="first" data-localize="bedtype">床型:</span>
                     <span class="second">
                         @*@WGHotel.Helpers.CodeFiles.GetCodeFileDescription(item.BedType)*@
-                        @item.Bed
+                       <span>@item.BedType</span> / <span>@item.BedAmount</span>
                         @*<i class="material-icons">&#xE7FD;</i>*@
                     </span>
                 </div>
+
                 <div class="row">
-                    <span class="first" data-localize="roomprice">Price:</span>
-                    <span class="second">@item.Price.ToString("#,##0")</span>
+                  
+                    <span class="second price" style="font-weight:bold;text-shadow:2px 2px #F0F0F0;color:#3FAEA9;float:left;font-size:18px;">
+                    NT.@item.DayPrice.ToString("#,##0")</span>
+                <span>&nbsp / 晚</span>
                 </div>
-                <div class="row">
-                    <span class="first" data-localize="roomtype">房型:</span>
-                    <span class="second">
-                        "床型"
-                    @*@WGHotel.Helpers.CodeFiles.GetCodeFileDescription(item.RoomType)*@
-                    </span>
-                </div>
+               
                 <a href="" class="gradient-button" title="Book">訂房</a>
             </div>
             <div class="more-information">

@@ -234,22 +234,23 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="HotelId" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="SellPrice" Type="decimal" Precision="18" Scale="0" Nullable="false" />
-          <Property Name="DiscountPrice" Type="decimal" Precision="18" Scale="0" />
-          <Property Name="Bonus" Type="decimal" Precision="18" Scale="0" Nullable="false" />
-          <Property Name="Amount" Type="int" Nullable="false" />
-          <Property Name="Information" Type="nvarchar" MaxLength="2000" />
-          <Property Name="Enabled" Type="bit" Nullable="false" />
+          <Property Name="Notice" Type="nvarchar" MaxLength="2000" />
+          <Property Name="MaxPerson" Type="int" Nullable="false" />
+          <Property Name="BedAmount" Type="int" Nullable="false" />
+          <Property Name="BedType" Type="int" Nullable="false" />
+          <Property Name="RoomBed" Type="nvarchar" MaxLength="6" Nullable="false" />
+          <Property Name="Feature" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="FixedPrice" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="HolidayPrice" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="DayPrice" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
           <Property Name="Created" Type="datetime" Nullable="false" />
           <Property Name="Creator" Type="int" Nullable="false" />
           <Property Name="Modified" Type="datetime" Nullable="false" />
-          <Property Name="Person" Type="int" Nullable="false" />
-          <Property Name="Beds" Type="int" Nullable="false" />
-          <Property Name="BedType" Type="nvarchar" MaxLength="2" Nullable="false" />
-          <Property Name="RoomBed" Type="nvarchar" MaxLength="6" Nullable="false" />
-          <Property Name="BussinessBonus" Type="int" />
-          <Property Name="PlatformBonus" Type="int" />
-          <Property Name="Feature" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Modify" Type="int" />
+          <Property Name="Enabled" Type="bit" Nullable="false" />
+          <Property Name="HasBreakfast" Type="bit" />
+          <Property Name="RoomType" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="RoomImage">
           <Key>
@@ -933,7 +934,7 @@
             <End Role="Room" EntitySet="Room" />
             <End Role="RoomPrice" EntitySet="RoomPrice" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <EntityType Name="Room">
           <Key>
             <PropertyRef Name="ID" />
@@ -941,22 +942,23 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="HotelId" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="SellPrice" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
-          <Property Name="DiscountPrice" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="Bonus" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
-          <Property Name="Amount" Type="Int32" Nullable="false" />
-          <Property Name="Information" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
-          <Property Name="Enabled" Type="Boolean" Nullable="false" />
+          <Property Name="Notice" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="MaxPerson" Type="Int32" Nullable="false" />
+          <Property Name="BedAmount" Type="Int32" Nullable="false" />
+          <Property Name="BedType" Type="Int32" Nullable="false" />
+          <Property Name="RoomBed" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="true" />
+          <Property Name="Feature" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="FixedPrice" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="HolidayPrice" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="DayPrice" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
           <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Creator" Type="Int32" Nullable="false" />
           <Property Name="Modified" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Person" Type="Int32" Nullable="false" />
-          <Property Name="Beds" Type="Int32" Nullable="false" />
-          <Property Name="BedType" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="true" />
-          <Property Name="RoomBed" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="true" />
-          <Property Name="BussinessBonus" Type="Int32" />
-          <Property Name="PlatformBonus" Type="Int32" />
-          <Property Name="Feature" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Modify" Type="Int32" />
+          <Property Name="Enabled" Type="Boolean" Nullable="false" />
+          <Property Name="HasBreakfast" Type="Boolean" />
+          <Property Name="RoomType" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Hotel" Relationship="MyAnythingModel.FK_Room_Hotel" FromRole="Room" ToRole="Hotel" />
           <NavigationProperty Name="RoomImage" Relationship="MyAnythingModel.FK_RoomImage_Room" FromRole="Room" ToRole="RoomImage" />
           <NavigationProperty Name="RoomPrice" Relationship="MyAnythingModel.FK_RoomPrice_Room" FromRole="Room" ToRole="RoomPrice" />
@@ -997,7 +999,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -1337,22 +1339,23 @@
           <EntitySetMapping Name="Room">
             <EntityTypeMapping TypeName="MyAnythingModel.Room">
               <MappingFragment StoreEntitySet="Room">
-                <ScalarProperty Name="Feature" ColumnName="Feature" />
-                <ScalarProperty Name="PlatformBonus" ColumnName="PlatformBonus" />
-                <ScalarProperty Name="BussinessBonus" ColumnName="BussinessBonus" />
-                <ScalarProperty Name="RoomBed" ColumnName="RoomBed" />
-                <ScalarProperty Name="BedType" ColumnName="BedType" />
-                <ScalarProperty Name="Beds" ColumnName="Beds" />
-                <ScalarProperty Name="Person" ColumnName="Person" />
+                <ScalarProperty Name="RoomType" ColumnName="RoomType" />
+                <ScalarProperty Name="HasBreakfast" ColumnName="HasBreakfast" />
+                <ScalarProperty Name="Enabled" ColumnName="Enabled" />
+                <ScalarProperty Name="Modify" ColumnName="Modify" />
                 <ScalarProperty Name="Modified" ColumnName="Modified" />
                 <ScalarProperty Name="Creator" ColumnName="Creator" />
                 <ScalarProperty Name="Created" ColumnName="Created" />
-                <ScalarProperty Name="Enabled" ColumnName="Enabled" />
-                <ScalarProperty Name="Information" ColumnName="Information" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
-                <ScalarProperty Name="Bonus" ColumnName="Bonus" />
-                <ScalarProperty Name="DiscountPrice" ColumnName="DiscountPrice" />
-                <ScalarProperty Name="SellPrice" ColumnName="SellPrice" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="DayPrice" ColumnName="DayPrice" />
+                <ScalarProperty Name="HolidayPrice" ColumnName="HolidayPrice" />
+                <ScalarProperty Name="FixedPrice" ColumnName="FixedPrice" />
+                <ScalarProperty Name="Feature" ColumnName="Feature" />
+                <ScalarProperty Name="RoomBed" ColumnName="RoomBed" />
+                <ScalarProperty Name="BedType" ColumnName="BedType" />
+                <ScalarProperty Name="BedAmount" ColumnName="BedAmount" />
+                <ScalarProperty Name="MaxPerson" ColumnName="MaxPerson" />
+                <ScalarProperty Name="Notice" ColumnName="Notice" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="HotelId" ColumnName="HotelId" />
                 <ScalarProperty Name="ID" ColumnName="ID" />

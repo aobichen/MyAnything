@@ -18,8 +18,6 @@ namespace Anything.Controllers
             : base()
         {
             _db = new MyAnythingEntities();
-
-          
         }
 
         protected override void Initialize(System.Web.Routing.RequestContext requestContext)

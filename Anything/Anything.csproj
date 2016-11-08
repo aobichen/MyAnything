@@ -970,6 +970,7 @@
     <Content Include="fonts\lg.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="HtmlPage1.html" />
     <Content Include="images\ajax-loader.gif" />
     <Content Include="images\backgrounds\bedge_grunge.png" />
     <Content Include="images\backgrounds\bg2.jpg" />

@@ -44,8 +44,8 @@ namespace Anything.WebApi
             var End = Now.AddMonths(12);
             decimal Price = 0;
             List<CalendarEvent> Events = new List<CalendarEvent>();
-            
-                Price = db.Room.Find(id).SellPrice;
+
+            Price = 1000;
             
 
             Events = (from room in db.RoomPrice

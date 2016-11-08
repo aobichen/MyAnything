@@ -14,7 +14,7 @@ namespace Anything.Helper
             _db = new MyAnythingEntities();
         }
 
-        public SelectList GetRoomsSelectList(string selected="0")
+        public SelectList GetRoomsSelectList(int selected=0)
         {
 
             var Beds = GetRooms();
@@ -28,7 +28,7 @@ namespace Anything.Helper
             return GetCodeFiles(ItemType);
 
         }
-        public SelectList GetBedsSelectList(string selected="0")
+        public SelectList GetBedsSelectList(int selected=0)
         {
          
             var Beds = GetBeds();

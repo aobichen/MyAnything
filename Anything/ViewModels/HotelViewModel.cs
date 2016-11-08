@@ -249,7 +249,7 @@ namespace Anything.ViewModels
                               Name = h.Name,
                               Feature = h.Feature,
                               Images = h.HotelImage.ToList(),
-                              SellPrice = h.Room.Min(o=>o.SellPrice)
+                              SellPrice = 100
                           }).Take(take).ToList();
 
                 return result;

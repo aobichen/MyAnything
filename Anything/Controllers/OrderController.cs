@@ -53,7 +53,7 @@ namespace Anything.Controllers
            
             var RoomQuery = _db.Room.Find(id);
 
-            if (orderAmt > RoomQuery.Amount)
+            if (orderAmt > RoomQuery.Quantity)
             {
                 return RedirectToAction("Detail", "Home", new { id = id });
             }
@@ -62,7 +62,7 @@ namespace Anything.Controllers
             result.HotelName = RoomQuery.Hotel.Name;
             result.RoomId = RoomQuery.ID;
             result.RoomName = RoomQuery.Name;
-            result.Price = RoomQuery.DiscountPrice == null ? RoomQuery.SellPrice : RoomQuery.DiscountPrice.Value;
+            result.Price = RoomQuery.FixedPrice;
             result.Amount = amount;
 
             result.Total = result.Price * amount;

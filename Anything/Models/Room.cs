@@ -24,22 +24,23 @@ namespace Anything.Models
         public int ID { get; set; }
         public int HotelId { get; set; }
         public string Name { get; set; }
-        public decimal SellPrice { get; set; }
-        public Nullable<decimal> DiscountPrice { get; set; }
-        public decimal Bonus { get; set; }
-        public int Amount { get; set; }
-        public string Information { get; set; }
-        public bool Enabled { get; set; }
+        public string Notice { get; set; }
+        public int MaxPerson { get; set; }
+        public int BedAmount { get; set; }
+        public int BedType { get; set; }
+        public string RoomBed { get; set; }
+        public string Feature { get; set; }
+        public decimal FixedPrice { get; set; }
+        public decimal HolidayPrice { get; set; }
+        public decimal DayPrice { get; set; }
+        public int Quantity { get; set; }
         public System.DateTime Created { get; set; }
         public int Creator { get; set; }
         public System.DateTime Modified { get; set; }
-        public int Person { get; set; }
-        public int Beds { get; set; }
-        public string BedType { get; set; }
-        public string RoomBed { get; set; }
-        public Nullable<int> BussinessBonus { get; set; }
-        public Nullable<int> PlatformBonus { get; set; }
-        public string Feature { get; set; }
+        public Nullable<int> Modify { get; set; }
+        public bool Enabled { get; set; }
+        public Nullable<bool> HasBreakfast { get; set; }
+        public int RoomType { get; set; }
     
         public virtual Hotel Hotel { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

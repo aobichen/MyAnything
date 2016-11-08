@@ -31,7 +31,7 @@
         <AssociationConnector Association="MyAnythingModel.FK_HotelImage_Hotel" ManuallyRouted="false" />
         <AssociationConnector Association="MyAnythingModel.FK_VIPOrder_VIPs" ManuallyRouted="false" />
         <AssociationConnector Association="MyAnythingModel.FK_VIPs_VIPs" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="MyAnythingModel.Room" Width="1.5" PointX="8" PointY="5.5" />
+        <EntityTypeShape EntityType="MyAnythingModel.Room" Width="1.5" PointX="8" PointY="5.375" />
         <AssociationConnector Association="MyAnythingModel.FK_Room_Hotel" />
         <AssociationConnector Association="MyAnythingModel.FK_RoomImage_Room" />
         <AssociationConnector Association="MyAnythingModel.FK_RoomPrice_Room" />
