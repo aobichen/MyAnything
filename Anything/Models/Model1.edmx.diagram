@@ -20,7 +20,6 @@
         <EntityTypeShape EntityType="MyAnythingModel.News" Width="1.5" PointX="2.75" PointY="12.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MyAnythingModel.OrderMaster" Width="1.5" PointX="12.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MyAnythingModel.RoomImage" Width="1.5" PointX="10.25" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="MyAnythingModel.RoomPrice" Width="1.5" PointX="10.25" PointY="8.25" IsExpanded="true" />
         <EntityTypeShape EntityType="MyAnythingModel.Scenic" Width="1.5" PointX="12.75" PointY="10.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MyAnythingModel.ServiceOption" Width="1.5" PointX="12.75" PointY="13.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MyAnythingModel.SysManage" Width="1.5" PointX="14.75" PointY="0.75" IsExpanded="true" />
@@ -34,6 +33,7 @@
         <EntityTypeShape EntityType="MyAnythingModel.Room" Width="1.5" PointX="8" PointY="5.375" />
         <AssociationConnector Association="MyAnythingModel.FK_Room_Hotel" />
         <AssociationConnector Association="MyAnythingModel.FK_RoomImage_Room" />
+        <EntityTypeShape EntityType="MyAnythingModel.RoomPrice" Width="1.5" PointX="10.25" PointY="18" />
         <AssociationConnector Association="MyAnythingModel.FK_RoomPrice_Room" />
       </Diagram>
     </edmx:Diagrams>

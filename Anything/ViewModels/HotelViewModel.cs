@@ -170,6 +170,8 @@ namespace Anything.ViewModels
     {
         public int ID { get; set; }
 
+        public int RoomID { get; set; }
+
          [Required]
         public string Name { get; set; }
 
@@ -190,10 +192,11 @@ namespace Anything.ViewModels
 
         
 
-         [Required]
-        public decimal SellPrice { get; set; }
-         [Required]
-        public decimal? DiscountPrice { get; set; }
+         //[Required]
+        public decimal FixedPrice { get; set; }
+         //[Required]
+        public decimal HolidayPrice { get; set; }
+        public decimal DayPrice { get; set; }
 
         public bool HasWifi { get; set; }
 
@@ -223,37 +226,41 @@ namespace Anything.ViewModels
             var _db = new MyAnythingEntities();
             var result = new List<HotelsViewModel>();
             var take = 30;
-            
-            
-            if (model.BeginDate == DateTime.MinValue)
+
+            if (model == null || model.BeginDate == DateTime.MinValue)
             {
-               // model.BeginDate = DateTime.Now;
-                var result_id = (from h in _db.Hotel
-                          join city in _db.City_TW
-                          on h.City equals city.ID
-                          join area in _db.Area_TW
-                          on h.Area equals area.ID                        
-                          select h.ID).Distinct().Take(take).ToList();
-
-                result = (from h in _db.Hotel
-                          join city in _db.City_TW
-                          on h.City equals city.ID
-                          join area in _db.Area_TW
-                          on h.Area equals area.ID
-                          where result_id.Contains(h.ID) && h.Room.Count()>0
-                          select new HotelsViewModel
-                          {
-                              ID = h.ID,
-                              Address = h.Address,
-                              Location = city.City + area.Area,
-                              Name = h.Name,
-                              Feature = h.Feature,
-                              Images = h.HotelImage.ToList(),
-                              SellPrice = 100
-                          }).Take(take).ToList();
-
-                return result;
+                model.BeginDate = DateTime.Now;
             }
+            
+            //if (model.BeginDate == DateTime.MinValue)
+            //{
+            //   // model.BeginDate = DateTime.Now;
+            //    var result_id = (from h in _db.Hotel
+            //              join city in _db.City_TW
+            //              on h.City equals city.ID
+            //              join area in _db.Area_TW
+            //              on h.Area equals area.ID                        
+            //              select h.ID).Distinct().Take(take).ToList();
+
+            //    result = (from h in _db.Hotel
+            //              join city in _db.City_TW
+            //              on h.City equals city.ID
+            //              join area in _db.Area_TW
+            //              on h.Area equals area.ID
+            //              where result_id.Contains(h.ID) && h.Room.Count()>0
+            //              select new HotelsViewModel
+            //              {
+            //                  ID = h.ID,
+            //                  Address = h.Address,
+            //                  Location = city.City + area.Area,
+            //                  Name = h.Name,
+            //                  Feature = h.Feature,
+            //                  Images = h.HotelImage.ToList(),
+            //                  SellPrice = 100
+            //              }).Take(take).ToList();
+
+            //    return result;
+            //}
             
             
             result = (from h in _db.Hotel
@@ -261,21 +268,104 @@ namespace Anything.ViewModels
                           on h.City equals city.ID
                           join area in _db.Area_TW
                           on h.Area equals area.ID
-                          join rp in _db.RoomPrice
-                          on h.Room.FirstOrDefault().ID equals rp.ROOMID
-                          where (rp.Date.Year == model.BeginDate.Year && rp.Date.Month == model.BeginDate.Month && rp.Date.Day == model.BeginDate.Day)
+                                                
                           select new HotelsViewModel
                           {
+                              
                               ID =h.ID,
                               Address = h.Address,
                               Location = city.City + area.Area,
                               Name = h.Name,
                               Feature = h.Feature,
                               Images = h.HotelImage.ToList(),
-                              SellPrice = rp.Price
+                              //HolidayPrice = h.Room[0].HolidayPrice,
+                              //DayPrice = rp.Room.DayPrice,
+                              //FixedPrice = rp.Room.FixedPrice
+                              //SellPrice = rp.Price
                           }).Take(take).ToList();
 
-            
+            foreach (var m in result)
+            {
+                var day = model.BeginDate.DayOfWeek.ToString();
+                if (day == "5" || day == "6")
+                {
+                    var room = _db.Hotel.Find(m.ID).Room;
+                    
+                    //var room = _db.Hotel.Find(m.ID).Room;
+                    if(room==null || room.Count<=0){
+                        m.FixedPrice = 99999;
+                    }else{
+                        var r = room.ToList()[0];
+                        m.FixedPrice = r.FixedPrice;
+                        m.HolidayPrice = r.HolidayPrice;
+                        m.DayPrice = r.DayPrice;
+                        var p = _db.RoomPrice.Where(o => (o.Date.Year == model.BeginDate.Year && o.Date.Month == model.BeginDate.Month && o.Date.Day == model.BeginDate.Day) 
+                            && o.ROOMID == r.ID).FirstOrDefault();
+                        if (p == null)
+                        {
+                            m.FixedPrice = m.HolidayPrice;
+                        }
+                        else
+                        {
+                            switch (p.DayType)
+                            {
+                                case "0":
+                                    m.FixedPrice = m.DayPrice;
+                                    break;
+                                case "1":
+                                    m.FixedPrice = m.HolidayPrice;
+                                    break;
+                                case "2":
+                                    m.FixedPrice = m.FixedPrice;
+                                    break;
+                            }
+                        }
+                    }
+
+                }
+                else
+                {
+                    var room = _db.Hotel.Find(m.ID).Room;
+
+                    //var room = _db.Hotel.Find(m.ID).Room;
+                    if (room == null || room.Count <= 0)
+                    {
+                        m.FixedPrice = 99999;
+                    }
+                    else
+                    {
+                        var r = room.ToList()[0];
+                        m.FixedPrice = r.FixedPrice;
+                        m.HolidayPrice = r.HolidayPrice;
+                        m.DayPrice = r.DayPrice;
+                        var p = _db.RoomPrice.Where(o => 
+                            (o.Date.Year == model.BeginDate.Year 
+                            && o.Date.Month == model.BeginDate.Month 
+                            && o.Date.Day == model.BeginDate.Day)
+                            && o.ROOMID == r.ID).FirstOrDefault();
+                        if (p == null)
+                        {
+                            m.FixedPrice = m.DayPrice;
+                        }
+                        else
+                        {
+                            switch (p.DayType)
+                            {
+                                case "0":
+                                    m.FixedPrice = m.DayPrice;
+                                    break;
+                                case "1":
+                                    m.FixedPrice = m.HolidayPrice;
+                                    break;
+                                case "2":
+                                    m.FixedPrice = m.FixedPrice;
+                                    break;
+                            }
+                        }
+                    }
+                }
+                //var price = m
+            }
 
             //if (model == null||model.City == 0)
             //{

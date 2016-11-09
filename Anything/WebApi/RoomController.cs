@@ -12,25 +12,24 @@ namespace Anything.WebApi
     public class CalendarEvent
     {
         public string Title { get; set; }
-        public decimal Price { get; set; }
-        public bool Off { get; set; }
-
+       
         public DateTime Start { get; set; }
 
         public DateTime End { get; set; }
+        public string DayType { get; set; }
 
-        public int Quantity { get; set; }
+        public string DayText { get; set; }
     }
 
     public class CalendarPost
     {
         public DateTime date { get; set; }
-        public decimal price { get; set; }
-        public bool off { get; set; }
+        //public decimal price { get; set; }
+        //public bool off { get; set; }
+        public int RoomID { get; set; }
+        public string daytype { get; set; }
 
-        public int quantity { get; set; }
-
-        public int roomid { get; set; }
+        public string daytext { get; set; }
     }
     public class RoomController : ApiController
     {
@@ -53,10 +52,9 @@ namespace Anything.WebApi
                       select new CalendarEvent
                       {
                           Start = room.Date,
-                          //End = room.Date.AddDays(1),
-                          Off = room.SaleOff,
-                          Price = room.Price,
-                          Quantity = room.Quantity
+                          End = room.Date,
+                         DayText = room.DayText,
+                         DayType = room.DayType
                       }).ToList();
 
             DateTime epoc = new DateTime(1970, 1, 1);
@@ -72,9 +70,7 @@ namespace Anything.WebApi
                         Title = "Event" + id.ToString(),
                         Start = beginDay,
                         End = endDay,
-                        Price = Price,
-                        Off = true,
-                        Quantity = 0
+                        DayType = "0"
                     });
                 }
             }
@@ -88,27 +84,22 @@ namespace Anything.WebApi
                     var Off = false;
                     decimal CurrentPrice = 0;
                     int Quantity = 0;
+                    var DayType = "0";
                     var Current = Events.Where(o => o.Start == beginDay).FirstOrDefault();
                     if (Current != null)
                     {
-                        CurrentPrice = Current.Price;
-                        Off = Current.Off;
-                        Quantity = Current.Quantity;
+                        DayType = Current.DayType;
                     }
                     else
                     {
-                        CurrentPrice = Price;
-                        Off = true;
-                        Quantity = 0;
+                        DayType = "0";
                     }
                     events.Add(new CalendarEvent
                     {
                         Title = "Event" + id.ToString(),
                         Start = beginDay,
                         End = endDay,
-                        Price = CurrentPrice,
-                        Off = Off,
-                        Quantity = Quantity
+                       DayType = DayType
                     });
                 }
             }
@@ -135,24 +126,20 @@ namespace Anything.WebApi
             {
                 foreach (var item in data)
                 {
-                    if (db.RoomPrice.Any(o => o.Date == item.date && o.ROOMID == item.roomid))
+                    if (db.RoomPrice.Any(o => o.Date == item.date && o.ROOMID == item.RoomID))
                     {
-                        var obj = db.RoomPrice.Where(o => o.Date == item.date && o.ROOMID == item.roomid).FirstOrDefault();
-                        obj.ROOMID = item.roomid;
+                        var obj = db.RoomPrice.Where(o => o.Date == item.date && o.ROOMID == item.RoomID).FirstOrDefault();
+                        obj.ROOMID = item.RoomID;
                         obj.Date = item.date;
-                        obj.Price = item.price;
-                        obj.Quantity = item.quantity;
-                        obj.SaleOff = item.off;
+                        obj.DayType = item.daytype;
                     }
                     else
                     {
                         db.RoomPrice.Add(new RoomPrice
                         {
-                            SaleOff = item.off,
-                            Quantity = item.quantity,
-                            Price = item.price,
+                            DayType = item.daytype,
                             Date = item.date,
-                            ROOMID = item.roomid
+                            ROOMID = item.RoomID
                         });
                     }
                     db.SaveChanges();

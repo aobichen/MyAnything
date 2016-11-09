@@ -243,19 +243,6 @@
     <Property Name="Enabled" Type="Boolean" Nullable="false" />
     <NavigationProperty Name="Room" Relationship="MyAnythingModel.FK_RoomImage_Room" FromRole="RoomImage" ToRole="Room" />
   </EntityType>
-  <EntityType Name="RoomPrice">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="ROOMID" Type="Int32" Nullable="false" />
-    <Property Name="Price" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
-    <Property Name="Sell" Type="Decimal" Precision="10" Scale="2" />
-    <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
-    <Property Name="SaleOff" Type="Boolean" Nullable="false" />
-    <Property Name="Quantity" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="Room" Relationship="MyAnythingModel.FK_RoomPrice_Room" FromRole="RoomPrice" ToRole="Room" />
-  </EntityType>
   <EntityType Name="Scenic">
     <Key>
       <PropertyRef Name="ID" />
@@ -399,7 +386,6 @@
     <EntitySet Name="News" EntityType="Self.News" />
     <EntitySet Name="OrderMaster" EntityType="Self.OrderMaster" />
     <EntitySet Name="RoomImage" EntityType="Self.RoomImage" />
-    <EntitySet Name="RoomPrice" EntityType="Self.RoomPrice" />
     <EntitySet Name="Scenic" EntityType="Self.Scenic" />
     <EntitySet Name="ServiceOption" EntityType="Self.ServiceOption" />
     <EntitySet Name="SysManage" EntityType="Self.SysManage" />
@@ -434,6 +420,7 @@
       <End Role="Room" EntitySet="Room" />
       <End Role="RoomImage" EntitySet="RoomImage" />
     </AssociationSet>
+    <EntitySet Name="RoomPrice" EntityType="MyAnythingModel.RoomPrice" />
     <AssociationSet Name="FK_RoomPrice_Room" Association="MyAnythingModel.FK_RoomPrice_Room">
       <End Role="Room" EntitySet="Room" />
       <End Role="RoomPrice" EntitySet="RoomPrice" />
@@ -491,6 +478,17 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="RoomPrice">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ROOMID" Type="Int32" Nullable="false" />
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="DayType" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="true" />
+    <Property Name="DayText" Type="String" Nullable="false" MaxLength="12" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Room" Relationship="MyAnythingModel.FK_RoomPrice_Room" FromRole="RoomPrice" ToRole="Room" />
+  </EntityType>
   <Association Name="FK_RoomPrice_Room">
     <End Type="MyAnythingModel.Room" Role="Room" Multiplicity="1" />
     <End Type="MyAnythingModel.RoomPrice" Role="RoomPrice" Multiplicity="*" />

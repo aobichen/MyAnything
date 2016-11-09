@@ -271,11 +271,9 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ROOMID" Type="int" Nullable="false" />
-          <Property Name="Price" Type="decimal" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="Sell" Type="decimal" Precision="10" Scale="2" />
           <Property Name="Date" Type="date" Nullable="false" />
-          <Property Name="SaleOff" Type="bit" Nullable="false" />
-          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="DayType" Type="nvarchar" MaxLength="1" Nullable="false" />
+          <Property Name="DayText" Type="nvarchar" MaxLength="12" Nullable="false" />
         </EntityType>
         <EntityType Name="Scenic">
           <Key>
@@ -739,19 +737,6 @@
           <Property Name="Enabled" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Room" Relationship="MyAnythingModel.FK_RoomImage_Room" FromRole="RoomImage" ToRole="Room" />
         </EntityType>
-        <EntityType Name="RoomPrice">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ROOMID" Type="Int32" Nullable="false" />
-          <Property Name="Price" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="Sell" Type="Decimal" Precision="10" Scale="2" />
-          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="SaleOff" Type="Boolean" Nullable="false" />
-          <Property Name="Quantity" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Room" Relationship="MyAnythingModel.FK_RoomPrice_Room" FromRole="RoomPrice" ToRole="Room" />
-        </EntityType>
         <EntityType Name="Scenic">
           <Key>
             <PropertyRef Name="ID" />
@@ -895,7 +880,6 @@
           <EntitySet Name="News" EntityType="Self.News" />
           <EntitySet Name="OrderMaster" EntityType="Self.OrderMaster" />
           <EntitySet Name="RoomImage" EntityType="Self.RoomImage" />
-          <EntitySet Name="RoomPrice" EntityType="Self.RoomPrice" />
           <EntitySet Name="Scenic" EntityType="Self.Scenic" />
           <EntitySet Name="ServiceOption" EntityType="Self.ServiceOption" />
           <EntitySet Name="SysManage" EntityType="Self.SysManage" />
@@ -930,6 +914,7 @@
             <End Role="Room" EntitySet="Room" />
             <End Role="RoomImage" EntitySet="RoomImage" />
           </AssociationSet>
+          <EntitySet Name="RoomPrice" EntityType="MyAnythingModel.RoomPrice" />
           <AssociationSet Name="FK_RoomPrice_Room" Association="MyAnythingModel.FK_RoomPrice_Room">
             <End Role="Room" EntitySet="Room" />
             <End Role="RoomPrice" EntitySet="RoomPrice" />
@@ -987,6 +972,17 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="RoomPrice">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ROOMID" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DayType" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="DayText" Type="String" Nullable="false" MaxLength="12" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Room" Relationship="MyAnythingModel.FK_RoomPrice_Room" FromRole="RoomPrice" ToRole="Room" />
+        </EntityType>
         <Association Name="FK_RoomPrice_Room">
           <End Type="MyAnythingModel.Room" Role="Room" Multiplicity="1" />
           <End Type="MyAnythingModel.RoomPrice" Role="RoomPrice" Multiplicity="*" />
@@ -1255,19 +1251,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="RoomPrice">
-            <EntityTypeMapping TypeName="MyAnythingModel.RoomPrice">
-              <MappingFragment StoreEntitySet="RoomPrice">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="ROOMID" ColumnName="ROOMID" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="Sell" ColumnName="Sell" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="SaleOff" ColumnName="SaleOff" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Scenic">
             <EntityTypeMapping TypeName="MyAnythingModel.Scenic">
               <MappingFragment StoreEntitySet="Scenic">
@@ -1358,6 +1341,17 @@
                 <ScalarProperty Name="Notice" ColumnName="Notice" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="HotelId" ColumnName="HotelId" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RoomPrice">
+            <EntityTypeMapping TypeName="MyAnythingModel.RoomPrice">
+              <MappingFragment StoreEntitySet="RoomPrice">
+                <ScalarProperty Name="DayText" ColumnName="DayText" />
+                <ScalarProperty Name="DayType" ColumnName="DayType" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="ROOMID" ColumnName="ROOMID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

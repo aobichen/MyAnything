@@ -112,6 +112,9 @@ namespace Anything.Controllers
             {
                 return RedirectToAction("Login","Account");
             }
+
+            ViewBag.Room = Room;
+
             ViewBag.RoomId = Room.ID;
             ViewBag.Name = string.Format("{0}/{1}", Room.Hotel.Name,Room.Name); 
             return View();

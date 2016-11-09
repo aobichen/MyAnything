@@ -8,67 +8,43 @@
 <script src="~/Content/Admin/js/bootstrap-switch.min.js"></script>
 <link href="~/Content/Admin/css/bootstrap-switch.min.css" rel="stylesheet" />
 <style type="text/css">
-  
+  select.holiday{
+      background-color:#E8FFF5;
+  }
+      select.fixed{
+      background-color:#D2E9FF;
+  }
 
-    th.fc-sun{
-         color:#FF5151;
+    th.fc-sat{
+         color:#000000;
     }
-     th.fc-sun,td.fc-sun{
-        background-color:rgba(255, 209, 209,.2);
+
+    .fc-button,fc-icon{
+        background-color:#007979;
+        border-radius:0;
     }
-     th.fc-sat{
-         color:	#FF9224;
+
+    .fc-button:focus{
+        background-color:#00AEAE;
+       
+    }
+
+   
+
+    th.fc-fri,td.fc-fri{
+        background-color:#FFECF5;
+    }
+    
+     th.fc-fri{
+         color:	#000000;
      }
        th.fc-sat,td.fc-sat{
-        background-color:rgba(255, 232, 219,.2);
+        background-color:#FFECF5;
     }
 
-   .fc-day-header input{
-        height: 20px;   
-        width:90%;
-        margin:2px;
-        font-size: 14px;
-        line-height: 1.428571429;
-        color: #555555;
-        vertical-align: middle;   
-       
-        border-radius: 4px;
-        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-        -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-        transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-   }
 
-   .fc-day-header input.price{
-        background-color:rgba(74, 217, 98,.1);
-        border: 1px solid #4cd964;
-   }
 
-   .fc-day-header input.quantity{
-        background-color:rgba(254, 210, 139,.1);
-        border: 1px solid #fed189;
-   }
-
-  .fc-input {  
-    height: 20px;   
-    width:75%;
-    margin:2px;
-    font-size: 14px;
-    line-height: 1.428571429;
-    color: #555555;
-    vertical-align: middle;
-    background-color: #ffffff;
-    border: 1px solid #4cd964;
-    border-radius: 4px;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-    -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-    transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-}
-
-  .fc-quantity{
-      border:1px solid #fed189;
-  }
+ 
 
   .message{
       display:none;
@@ -83,14 +59,20 @@ transition: all 2s;
 -webkit-transition: all 2s; /* Safari 和 Chrome */
 -o-transition: all 2s; /* Opera */
   }
-</style>
 
+  button{
+      background-color:blue;
+  }
+</style>
+@{
+    var room = (Anything.Models.Room)ViewBag.Room;
+}
 <p class="message">已儲存!</p>
 <div class="panel panel-default">
-   <input id="roomid" type="hidden" value="@ViewBag.RoomId" />
+   <input id="roomid" type="hidden" value="@room.ID" />
                 <div class="panel-heading">
                     <h2><strong>
-                            @ViewBag.Name
+                            @room.Name
                         </strong></h2>
                    
                 </div>
@@ -117,27 +99,61 @@ transition: all 2s;
 <script type="text/javascript">
     $(function () {
 
-        let id ='1';
+        var RenderDropdown = function (day) {
+            let select = $('<select>');
+            var optionText = ["平日價", "假日價", "訂價"];
+            for (var i = 0, max = optionText.length; i < max; i++) {
+                var option = $("<option>");
+                option.text(optionText[i]);
+                option.val(i);
+                select.append(option);
+            }
+
+            if (day == 5 || day == 6) {
+                select.addClass('holiday').val('1');
+            }
+            return select;
+        }
+
+        let id = $('#roomid').val();
         let tridx = 0;
         let currentMonth = "0";
         let saved = true;
         let roomid = $('#roomid').val();
        
         $('#calendar').fullCalendar({
+            //header: {
+            //    //left: 'prev,next today',
+            //    center: 'title',
+            //    //right: 'agendaWeek'
+            //},
+            buttonText: {
+                today: '今天',
+                month: '月視圖',
+                week: '週視圖',
+                day: '日視圖'
+            },
+            monthNames: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'], //默认为英文月分，这里可以改成中文
+            dayNames: ['星期天', '星期一', '星期二', '星期三','星期四', '星期五', '星期六'],
+            dayNamesShort: ['日', '一', '二', '三', '四', '五', '六'],         
+            contentHeight: '9999',                    
             eventRender: function (event, element, view) {
                 $('.message').removeClass('active');
                 if (event.start.format("MM") != currentMonth) { return false;}
-                
+                var test_date = new Date(event.start).getDay();
+               
                 var start = moment(event.start).format('YYYY-MM-DD');
                 
                 var $div = $('<div>').addClass('form-group fc-date').attr('data-date',start);
-                let $labelQuantity = $('<label>').text('數量');
-                var $inputQuantity = $('<input>').val(event.quantity).addClass('fc-input fc-quantity').appendTo($labelQuantity);
-                let $labelPrice = $('<label>').text('房價');
-                var $inputPrice = $('<input>').val(event.price).addClass('fc-input fc-price').appendTo($labelPrice);
-                $div.append($labelQuantity);
-                $div.append($labelPrice);
-                $div.append(OffSwitch(event.off, 1));
+                var select = RenderDropdown(test_date);
+
+                //let $labelQuantity = $('<label>').text('數量');
+                //var $inputQuantity = $('<input>').val(event.quantity).addClass('fc-input fc-quantity').appendTo($labelQuantity);
+                //let $labelPrice = $('<label>').text('房價');
+                //var $inputPrice = $('<input>').val(event.price).addClass('fc-input fc-price').appendTo($labelPrice);
+                $div.append(select);
+                //$div.append($labelPrice);
+                //$div.append(OffSwitch(event.off, 1));
                 
                 return $div;
             },
@@ -148,59 +164,34 @@ transition: all 2s;
                     }
                 }
                 var $fcheader = $('.fc-day-header');
-                var headerQuantityInput = $('<input>').attr({
-                    type: 'text',
-                    placeholder: '數量'
-                }).addClass('quantity').appendTo($fcheader);
 
-                var headerInput = $('<input>').attr({
-                    type: 'text',
-                    placeholder: '房價'
-                }).addClass('price').appendTo($fcheader);
+                var select = RenderDropdown();
+                
                 var date = $("#calendar").fullCalendar('getDate');
                 currentMonth = date.format("MM");
                
             },
             eventAfterAllRender:function(view){
-                $("input.switch").bootstrapSwitch({
-                    onText: 'ON',
-                    offText: 'OFF',
-                    size: 'small'
-                });
-
-                $("input.switch").on('switchChange.bootstrapSwitch', function (event, state) {
-                    //console.log($(this).attr('data-id')); // DOM element
-                    ////console.log(event); // jQuery event
-                    //console.log(state); // true | false
-                    ////console.log($(this).prop('checked'));
-                });
-
-
-                $('.fc-day-header').delegate('.price', 'keyup', function () {
-                    let $self = $(this);
-                    let val = $self.val();
-                    let idx = $self.closest('th').index();
-
-                    let fcContent = $('.fc-content-skeleton');
-
-                    for (var i = 0, max = fcContent.length; i <= max; i++) {
-                        var input = $(fcContent[i]).find('table > tbody > tr > td:eq(' + idx + ')');
-                        input.find('.fc-price').val(val);
+                $('select', '.fc-date').on('change', function () {
+                    var val = $(this).val();
+                    
+                    switch(val){
+                        case "0":
+                            $(this).removeClass('holiday');
+                            $(this).removeClass('fixed');
+                            break;
+                        case "1":
+                            $(this).removeClass('holiday');
+                            $(this).removeClass('fixed');
+                            $(this).addClass('holiday');
+                            break;
+                        case "2":
+                            $(this).removeClass('holiday');
+                            $(this).removeClass('fixed');
+                            $(this).addClass('fixed');
+                            break;
                     }
-                });
-
-                $('.fc-day-header').delegate('.quantity', 'keyup', function () {
-
-                    let $self = $(this);
-                    let val = $self.val();
-                    console.log(val);
-                    let idx = $self.closest('th').index();
-                    let fcContent = $('.fc-content-skeleton');
-
-                    for (let i = 0, max = fcContent.length; i <= max; i++) {
-                        let input = $(fcContent[i]).find('table > tbody > tr > td:eq(' + idx + ')');
-                        input.find('.fc-quantity').val(val);
-                    }
+                    
                 });
             },
             events: function (start, end, timezone, callback) {
@@ -245,19 +236,20 @@ transition: all 2s;
 
             for (let i = 0, max = elements.length; i < max; i++) {
                 let date = $(elements[i]).attr('data-date');
-                let quantity = $(elements[i]).find('.fc-quantity').val();
-                let price = $(elements[i]).find('.fc-price').val();
-                let checked = $(elements[i]).find('input[type="checkbox"]').prop('checked');
-                if (quantity != "" && price != "") {
-                    let d = { roomid: id, date: date, quantity: quantity, price: price, off: checked };
+                let daytype = $(elements[i]).find('select').val();
+                let daytext = $(elements[i]).find('option:selected').text();
+               
+                
+                let d = { roomid: id, date: date, daytype: daytype, daytext: daytext };
                     arr.push(d);
-                }
+                
             }
             post(arr);
         };
 
 
         function post(arr) {
+            
             var json = JSON.stringify(arr);          
             $.ajax({
                 type: "POST",
@@ -272,12 +264,13 @@ transition: all 2s;
                     $('.message').addClass('active');
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
+                    console.log(jqXHR);
                     //alert('There was an error');
                 }
             });
         }
         
-        $('.fc-date').delegate("input", "change", function () {
+        $('.fc-date').delegate("select", "change", function () {
            
             saved = false;
         });
@@ -290,22 +283,6 @@ transition: all 2s;
             }
             
         });
-
-  
-
-        
-       
-        function OffSwitch(switchOn,id){
-            
-            let offinput = $('<input>').attr({type:'checkbox',name:'off-check'}).addClass('switch');
-            let offswitch = $('<input>').attr({type:'checkbox',name:'off-check','data-id':id}).addClass('switch');
-            let onSwitch = $('<input>').attr({ type: 'checkbox', name: 'off-check', 'data-id': id, checked: true }).addClass('switch');
-
-            if (!switchOn) {
-              return  $(offswitch);
-            }else{
-                return $(onSwitch);
-            }
-        }
     });
 </script>
+

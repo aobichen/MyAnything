@@ -16,11 +16,9 @@ namespace Anything.Models
     {
         public int ID { get; set; }
         public int ROOMID { get; set; }
-        public decimal Price { get; set; }
-        public Nullable<decimal> Sell { get; set; }
         public System.DateTime Date { get; set; }
-        public bool SaleOff { get; set; }
-        public int Quantity { get; set; }
+        public string DayType { get; set; }
+        public string DayText { get; set; }
     
         public virtual Room Room { get; set; }
     }
