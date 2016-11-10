@@ -55,7 +55,11 @@ namespace Anything.Controllers
                     Images = o.HotelImage.ToList(),
                     Name = o.Name,
                     Feature = o.Feature,
-                    Infomation = o.Information
+                    Infomation = o.Information,
+                    Tel = o.Tel,
+                    Scenics = o.Scenics,
+                    City = o.City,
+                    Area = o.Area
                 }).FirstOrDefault();
 
             var Facilities = model.options.Split(',').Select(int.Parse).ToList();
@@ -88,15 +92,74 @@ namespace Anything.Controllers
                                DayPrice = IsHoliday ? r.HolidayPrice : r.DayPrice,
                                BedAmount = r.BedAmount
                            }).ToList();
-           
+
+            ViewBag.NearHotels = _db.Hotel.Where(o => o.City == model.City && o.ID != id).OrderBy(o => Guid.NewGuid()).Take(5).ToList();
+            var sce = model.Scenics.Split(',').Select(int.Parse).ToList();
+            ViewBag.Scenics = _db.Scenic.Where(o => sce.Contains(o.ID)).Select(o => o.Name).ToList(); ;
             return View(model);
         }
 
 
         [Authorize]
-        public ActionResult About()
+        public ActionResult Booking(int id)
         {
             ViewBag.Message = "Your app description page.";
+            var Room = _db.Room.Find(id);
+            var CheckInDate = Session["CheckInDate"] == null ? DateTime.Now : (DateTime)Session["CheckInDate"];
+            var MaxDate = CheckInDate.AddDays(1);
+
+            var Prices = new List<DatePrices>();
+
+            #region
+            for (DateTime date = CheckInDate; MaxDate.CompareTo(CheckInDate) > 0; date.AddDays(1.0))
+            {
+                if (date.DayOfWeek.ToString() == "5" || date.DayOfWeek.ToString() == "6")
+                {
+                    var price = Room.HolidayPrice;
+                    var PriceFrom = _db.RoomPrice.Where(o => (o.Date.Year == date.Year && o.Date.Month == date.Month && o.Date.Day == date.Day)
+                             && o.ROOMID == Room.ID).FirstOrDefault();
+                    if (PriceFrom != null)
+                    {
+                        switch (PriceFrom.DayType)
+                        {
+                            case "0":
+                                price = Room.DayPrice;
+                                break;
+                            case "1":
+                                price = Room.HolidayPrice;
+                                break;
+                            case "2":
+                                price = Room.FixedPrice;
+                                break;
+                        }
+                        Prices.Add(new DatePrices { Date = date.ToShortDateString(), Price = price.ToString("#,##0") });
+                    }
+                }
+                else
+                {
+                    var price = Room.DayPrice;
+                    var PriceFrom = _db.RoomPrice.Where(o => (o.Date.Year == date.Year && o.Date.Month == date.Month && o.Date.Day == date.Day)
+                            && o.ROOMID == Room.ID).FirstOrDefault();
+                    if (PriceFrom != null)
+                    {
+                        switch (PriceFrom.DayType)
+                        {
+                            case "0":
+                                price = Room.DayPrice;
+                                break;
+                            case "1":
+                                price = Room.HolidayPrice;
+                                break;
+                            case "2":
+                                price = Room.FixedPrice;
+                                break;
+                        }
+                        Prices.Add(new DatePrices { Date = date.ToShortDateString(), Price = price.ToString("#,##0") });
+                    }
+                }
+            }
+            ViewBag.PriceList = Prices;
+            #endregion
 
             return View();
         }

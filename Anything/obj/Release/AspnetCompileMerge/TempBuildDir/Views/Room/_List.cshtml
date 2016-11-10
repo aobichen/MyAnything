@@ -11,14 +11,15 @@
                 房型
             </th>
             <th>
-                售價
+                定價
             </th>
             <th>
-                特價
+                平日房價
             </th>
             <th>
-                房型
+                假日房價
             </th>
+           
             <th>
                 數量
             </th>
@@ -37,23 +38,24 @@
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
                 <td>
-                    @item.SellPrice
+                    @item.FixedPrice
                 </td>
                 <td>
-                    @item.DiscountPrice
+                    @item.DayPrice
                 </td>
                 <td>
-                    @Anything.Helper.Helpers.Room.RoomType(item.RoomBed)
+                    @item.HolidayPrice
                 </td>
+              
                 <td>
-                    @item.Amount
+                    @item.Quantity
                 </td>
 
                 <td>
                     @Html.DisplayFor(modelItem => item.Enabled)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) 
+                    @Html.ActionLink("編輯", "Edit", new { id = item.ID }) 
                    @Html.ActionLink("設定價格", "SetPrice", new { id = item.ID }) 
                 </td>
             </tr>

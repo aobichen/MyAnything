@@ -229,22 +229,23 @@
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="HotelId" Type="int" Nullable="false" />
     <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
-    <Property Name="SellPrice" Type="decimal" Precision="18" Scale="0" Nullable="false" />
-    <Property Name="DiscountPrice" Type="decimal" Precision="18" Scale="0" />
-    <Property Name="Bonus" Type="decimal" Precision="18" Scale="0" Nullable="false" />
-    <Property Name="Amount" Type="int" Nullable="false" />
-    <Property Name="Information" Type="nvarchar" MaxLength="2000" />
-    <Property Name="Enabled" Type="bit" Nullable="false" />
+    <Property Name="Notice" Type="nvarchar" MaxLength="2000" />
+    <Property Name="MaxPerson" Type="int" Nullable="false" />
+    <Property Name="BedAmount" Type="int" Nullable="false" />
+    <Property Name="BedType" Type="int" Nullable="false" />
+    <Property Name="RoomBed" Type="nvarchar" MaxLength="6" Nullable="false" />
+    <Property Name="Feature" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="FixedPrice" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="HolidayPrice" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="DayPrice" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="Quantity" Type="int" Nullable="false" />
     <Property Name="Created" Type="datetime" Nullable="false" />
     <Property Name="Creator" Type="int" Nullable="false" />
     <Property Name="Modified" Type="datetime" Nullable="false" />
-    <Property Name="Person" Type="int" Nullable="false" />
-    <Property Name="Beds" Type="int" Nullable="false" />
-    <Property Name="BedType" Type="nvarchar" MaxLength="2" Nullable="false" />
-    <Property Name="RoomBed" Type="nvarchar" MaxLength="6" Nullable="false" />
-    <Property Name="BussinessBonus" Type="int" />
-    <Property Name="PlatformBonus" Type="int" />
-    <Property Name="Feature" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="Modify" Type="int" />
+    <Property Name="Enabled" Type="bit" Nullable="false" />
+    <Property Name="HasBreakfast" Type="bit" />
+    <Property Name="RoomType" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="RoomImage">
     <Key>
@@ -265,11 +266,9 @@
     </Key>
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ROOMID" Type="int" Nullable="false" />
-    <Property Name="Price" Type="decimal" Precision="10" Scale="2" Nullable="false" />
-    <Property Name="Sell" Type="decimal" Precision="10" Scale="2" />
     <Property Name="Date" Type="date" Nullable="false" />
-    <Property Name="SaleOff" Type="bit" Nullable="false" />
-    <Property Name="Quantity" Type="int" Nullable="false" />
+    <Property Name="DayType" Type="nvarchar" MaxLength="1" Nullable="false" />
+    <Property Name="DayText" Type="nvarchar" MaxLength="12" Nullable="false" />
   </EntityType>
   <EntityType Name="Scenic">
     <Key>

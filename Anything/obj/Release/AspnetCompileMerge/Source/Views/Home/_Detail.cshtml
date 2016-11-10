@@ -1,9 +1,88 @@
 ﻿
 @model Anything.ViewModels.HotelDetail
+
+
 <script src="~/Content/js/infobox.js"></script>
 
 <script src="~/Content/js/lightgallery-all.min.js"></script>
 <link href="~/Content/lightgallery.min.css" rel="stylesheet" />
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1995kqdkunc5cGppQX1oeod30a9g-l9c&callback=initMap"
+        type="text/javascript"></script>
+<script type="text/javascript">
+    function initialize() {
+        initMap();
+        function initMap() {
+            var map = new google.maps.Map(document.getElementById('map_canvas'), {
+                zoom: 15,
+                center: { lat: -34.397, lng: 150.644 }
+            });
+            var geocoder = new google.maps.Geocoder();
+            var address = document.getElementById('address').value;
+            console.log(address);
+            //document.getElementById('submit').addEventListener('click', function () {
+            geocodeAddress(geocoder,address, map);
+            //});
+        }
+
+        function geocodeAddress(geocoder,address, resultsMap) {
+          
+            //var address = document.getElementById('address').value;
+            geocoder.geocode({ 'address': address }, function (results, status) {
+                if (status === google.maps.GeocoderStatus.OK) {
+                    resultsMap.setCenter(results[0].geometry.location);
+                    var marker = new google.maps.Marker({
+                        map: resultsMap,
+                        position: results[0].geometry.location
+                    });
+                } else {
+                    alert('Geocode was not successful for the following reason: ' + status);
+                }
+            });
+        }
+
+        //var secheltLoc = new google.maps.LatLng(49.47216, -123.76307);
+
+        //var myMapOptions = {
+        //    zoom: 15
+		//	,center: secheltLoc
+		//	,mapTypeId: google.maps.MapTypeId.ROADMAP
+        //};
+
+       
+        //var theMap = new google.maps.Map(document.getElementById("map_canvas"), myMapOptions);
+
+
+        var marker = new google.maps.Marker({
+            map: theMap,
+            draggable: true,
+            position: new google.maps.LatLng(49.47216, -123.76307),
+            visible: true
+        });
+
+        //var boxText = document.createElement("div");
+        //boxText.innerHTML = "<strong>Best ipsum hotel</strong>1400 PennsylSUVia Ave,Washington DCwww.bestipsumhotel.com";
+
+        //var myOptions = {
+        //    content: boxText
+		//	,disableAutoPan: false
+		//	,maxWidth: 0
+		//	,pixelOffset: new google.maps.Size(-140, 0)
+		//	,zIndex: null
+		//	,closeBoxURL: ""
+		//	,infoBoxClearance: new google.maps.Size(1, 1)
+		//	,isHidden: false
+		//	,pane: "floatPane"
+		//	,enableEventPropagation: false
+        //};
+
+        //google.maps.event.addListener(marker, "click", function (e) {
+        //    ib.open(theMap, this);
+        //});
+
+        //var ib = new InfoBox(myOptions);
+        //ib.open(theMap, marker);
+    }
+</script>
 <div class="wrap">
     <div class="row">
         <div class="full-width">
@@ -15,6 +94,7 @@
             <div class="gallery">
                 @if (Model.Images != null && Model.Images.Count > 0)
                 {
+                    
 
                     <ul id="image-gallery" class="cS-hidden">
                         @foreach (var img in Model.Images)
@@ -22,7 +102,7 @@
                             var base64 = Convert.ToBase64String(img.Image);
                             var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
                             <li data-thumb="@imgSrc">
-                                <img src="@imgSrc" alt="" />
+                                <img src="@Url.Action("Image","Hotel",new {id=img.ID})" alt="" />
                             </li>
 
                         }
@@ -81,25 +161,13 @@
                         </ul>
                     </div>
 
-                    @*<h2>Activities</h2>
-                        <div class="text-wrap">
-                            <p>Tennis court, Sauna, Fitness centre, Massage </p>
-                        </div>
 
-                        <h2>Internet</h2>
-                        <div class="text-wrap">
-                            <p><strong>Free!</strong> WiFi is available in all areas and is free of charge. </p>
-                        </div>
-
-                        <h2>Parking</h2>
-                        <div class="text-wrap">
-                            <p>Private parking is possible at a location nearby (reservation is not needed) and costs USD 28.80 per day.</p>
-                        </div>*@
                 </article>
             </section>
             <!--//facilities-->
             <!--location-->
             <section id="location" class="tab-content">
+                <input type="hidden" id="address" value="@Model.Address" />
                 <article>
                     <!--map-->
                     <div class="gmap" id="map_canvas"></div>
@@ -119,118 +187,7 @@
 
                 </article>
             </section>
-            <!--//location-->
-            <!--reviews-->
-            <section id="reviews" class="tab-content">
-                <article>
-                    <h2>Hotel Score and Score Breakdown</h2>
-                    <div class="score">
-                        <span class="achieved">8 </span>
-                        <span> / 10</span>
-                        <p class="info">Based on 782 reviews</p>
-                        <p class="disclaimer">Guest reviews are written by our customers <strong>after their stay</strong> at Hotel Best Ipsum.</p>
-                    </div>
-
-                    <dl class="chart">
-                        <dt>Clean</dt>
-                        <dd><span id="data-one" style="width:80%;">8</span></dd>
-                        <dt>Comfort</dt>
-                        <dd><span id="data-two" style="width:60%;">6</span></dd>
-                        <dt>Location</dt>
-                        <dd><span id="data-three" style="width:80%;">8</span></dd>
-                        <dt>Staff</dt>
-                        <dd><span id="data-four" style="width:100%;">10</span></dd>
-                        <dt>Services</dt>
-                        <dd><span id="data-five" style="width:70%;">7</span></dd>
-                        <dt>Value for money</dt>
-                        <dd><span id="data-six" style="width:90%;">9</span></dd>
-                    </dl>
-                </article>
-
-                <article>
-                    <h2>Guest reviews</h2>
-                    <ul class="reviews">
-                        <!--review-->
-                        <li>
-                            <figure class="left">
-                                <img src="images/uploads/avatar.jpg" alt="avatar" />
-                                <address><span>Anonymous</span><br />Solo TravellerNorway<br />22/06/2016</address>
-                            </figure>
-                            <div class="rev pro"><p>It was a warm friendly hotel. Very easy access to shops and underground stations. Staff very welcoming.</p></div>
-                            <div class="rev con"><p>noisy neigbourghs spoilt the rather calm environment</p></div>
-                        </li>
-                        <!--//review-->
-                        <!--review-->
-                        <li>
-                            <figure class="left">
-                                <img src="images/uploads/avatar.jpg" alt="avatar" />
-                                <address><span>Anonymous</span><br />Solo TravellerNorway<br />22/06/2016</address>
-                            </figure>
-                            <div class="rev pro"><p>It was a warm friendly hotel. Very easy access to shops and underground stations. Staff very welcoming.</p></div>
-                            <div class="rev con"><p>noisy neigbourghs spoilt the rather calm environment</p></div>
-                        </li>
-                        <!--//review-->
-                        <!--review-->
-                        <li>
-                            <figure class="left">
-                                <img src="images/uploads/avatar.jpg" alt="avatar" />
-                                <address><span>Anonymous</span>Solo TravellerNorway22/06/2016</address>
-                            </figure>
-                            <div class="rev pro"><p>It was a warm friendly hotel. Very easy access to shops and underground stations. Staff very welcoming.</p></div>
-                            <div class="rev con"><p>noisy neigbourghs spoilt the rather calm environment</p></div>
-                        </li>
-                        <!--//review-->
-                        <!--review-->
-                        <li>
-                            <figure class="left">
-                                <img src="images/uploads/avatar.jpg" alt="avatar" />
-                                <address><span>Anonymous</span><br />Solo TravellerNorway<br />22/06/2016</address>
-                            </figure>
-                            <div class="rev pro"><p>It was a warm friendly hotel. Very easy access to shops and underground stations. Staff very welcoming.</p></div>
-                            <div class="rev con"><p>noisy neigbourghs spoilt the rather calm environment</p></div>
-                        </li>
-                        <!--//review-->
-                        <!--review-->
-                        <li>
-                            <figure class="left">
-                                <img src="images/uploads/avatar.jpg" alt="avatar" />
-                                <address><span>Anonymous</span><br />Solo TravellerNorway<br />22/06/2016</address>
-                            </figure>
-                            <div class="rev pro"><p>It was a warm friendly hotel. Very easy access to shops and underground stations. Staff very welcoming.</p></div>
-                            <div class="rev con"><p>noisy neigbourghs spoilt the rather calm environment</p></div>
-                        </li>
-                        <!--//review-->
-                    </ul>
-                </article>
-            </section>
-            <!--//reviews-->
-            <!--things to do-->
-            <section id="things-to-do" class="tab-content">
-                <article>
-                    <h2>London</h2>
-                    <figure><img src="images/uploads/img.jpg" alt="Things to do - London general" /></figure>
-                    <p><strong>London is a diverse and exciting city with some of the best sights and attractions in the world. </strong></p>
-                    <p>See London from above on the London Eye; meet a celebrity at Madame Tussauds; examine some of the world’s most precious treasures at the British Museum or come face-to-face with the dinosaurs at the Natural History Museum.</p>
-
-                    <h2>Sports and nature</h2>
-                    <figure><img src="images/uploads/img.jpg" alt="Things to do - London Sports and nature" /></figure>
-                    <p><strong>London is one of the greenest capitals in the world, with plenty of green and open spaces. There are more than 3000 open spaces.</strong></p>
-                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.Ut wisi enim ad minim veniam, quis nostrud exerci. </p>
-
-                    <h2>Nightlife</h2>
-                    <figure><img src="images/uploads/img.jpg" alt="Things to do - London Nightlife" /></figure>
-                    <p><strong>Looking for nightclubs in London? Take a look at our guide to London clubs. Browse for club ideas, regular club nights and one-off events. </strong></p>
-                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.Ut wisi enim ad minim veniam, quis nostrud exerci. </p>
-
-                    <h2>Culture and history</h2>
-                    <figure><img src="images/uploads/img.jpg" alt="Things to do - London general" /></figure>
-                    <p><strong>For a display of British pomp and ceremony, watch the Changing the Guard ceremony outside Buckingham Palace.</strong></p>
-                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.Ut wisi enim ad minim veniam, quis nostrud exerci. </p>
-                    <hr />
-                    <a href="#" class="gradient-button right" title="Read more">Read more</a>
-                </article>
-            </section>
-            <!--//things to do-->
+           
         </section>
        
     </div>
@@ -253,5 +210,9 @@
         $('#gallery1,#gallery2,#gallery3,#gallery4').lightGallery({
             download: false
         });
+
+      
+       
+
     })
 </script>

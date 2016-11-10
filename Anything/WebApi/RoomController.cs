@@ -40,7 +40,7 @@ namespace Anything.WebApi
             var db = new MyAnythingEntities();
             var Now = DateTime.Now;
             var Begin = Now.AddDays(1);
-            var End = Now.AddMonths(12);
+            var End = Now.AddMonths(1);
             decimal Price = 0;
             List<CalendarEvent> Events = new List<CalendarEvent>();
 
@@ -122,6 +122,8 @@ namespace Anything.WebApi
                 return response;
             }
 
+            var CreateModel = new List<RoomPrice>();
+
             try
             {
                 foreach (var item in data)
@@ -132,18 +134,22 @@ namespace Anything.WebApi
                         obj.ROOMID = item.RoomID;
                         obj.Date = item.date;
                         obj.DayType = item.daytype;
+                        obj.DayText = item.daytext;
                     }
                     else
                     {
                         db.RoomPrice.Add(new RoomPrice
                         {
+                            DayText = item.daytext,
                             DayType = item.daytype,
                             Date = item.date,
                             ROOMID = item.RoomID
                         });
                     }
-                    db.SaveChanges();
+                    
                 }
+
+                db.SaveChanges();
             }
             catch (Exception ex)
             {

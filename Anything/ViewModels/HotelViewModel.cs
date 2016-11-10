@@ -157,6 +157,13 @@ namespace Anything.ViewModels
 
         public string Infomation { get; set; }
 
+        public string Tel { get; set; }
+
+        public string Scenics { get; set; }
+
+        public int City { get; set; }
+
+        public int Area { get; set; }
         public string options { get; set; }
         public List<string> Facilities { get; set; }
         public List<HotelImage> Images { get; set; }
@@ -232,35 +239,7 @@ namespace Anything.ViewModels
                 model.BeginDate = DateTime.Now;
             }
             
-            //if (model.BeginDate == DateTime.MinValue)
-            //{
-            //   // model.BeginDate = DateTime.Now;
-            //    var result_id = (from h in _db.Hotel
-            //              join city in _db.City_TW
-            //              on h.City equals city.ID
-            //              join area in _db.Area_TW
-            //              on h.Area equals area.ID                        
-            //              select h.ID).Distinct().Take(take).ToList();
-
-            //    result = (from h in _db.Hotel
-            //              join city in _db.City_TW
-            //              on h.City equals city.ID
-            //              join area in _db.Area_TW
-            //              on h.Area equals area.ID
-            //              where result_id.Contains(h.ID) && h.Room.Count()>0
-            //              select new HotelsViewModel
-            //              {
-            //                  ID = h.ID,
-            //                  Address = h.Address,
-            //                  Location = city.City + area.Area,
-            //                  Name = h.Name,
-            //                  Feature = h.Feature,
-            //                  Images = h.HotelImage.ToList(),
-            //                  SellPrice = 100
-            //              }).Take(take).ToList();
-
-            //    return result;
-            //}
+           
             
             
             result = (from h in _db.Hotel
@@ -268,7 +247,7 @@ namespace Anything.ViewModels
                           on h.City equals city.ID
                           join area in _db.Area_TW
                           on h.Area equals area.ID
-                                                
+                          where h.Room.ToList().Count > 0                     
                           select new HotelsViewModel
                           {
                               
