@@ -16,13 +16,13 @@
       <publishTime>11/03/2016 14:26:22</publishTime>
     </File>
     <File Include="bin/Anything.dll">
-      <publishTime>11/10/2016 08:24:59</publishTime>
+      <publishTime>11/11/2016 08:42:58</publishTime>
     </File>
     <File Include="bin/App_global.asax.compiled">
-      <publishTime>11/10/2016 08:26:44</publishTime>
+      <publishTime>11/11/2016 08:43:11</publishTime>
     </File>
     <File Include="bin/App_global.asax.dll">
-      <publishTime>11/10/2016 08:26:44</publishTime>
+      <publishTime>11/11/2016 08:43:11</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>11/03/2016 14:26:22</publishTime>
@@ -2776,13 +2776,13 @@
       <publishTime>11/03/2016 14:54:55</publishTime>
     </File>
     <File Include="Models/Model1.edmx.diagram">
-      <publishTime>11/10/2016 08:18:13</publishTime>
+      <publishTime>11/10/2016 15:38:51</publishTime>
     </File>
     <File Include="packages.config">
       <publishTime>11/03/2016 14:26:22</publishTime>
     </File>
     <File Include="PrecompiledApp.config">
-      <publishTime>11/10/2016 08:26:40</publishTime>
+      <publishTime>11/11/2016 08:43:06</publishTime>
     </File>
     <File Include="Scripts/Base.js">
       <publishTime>11/03/2016 14:25:12</publishTime>
@@ -4371,17 +4371,20 @@
     <File Include="Views/Home/About.cshtml">
       <publishTime>11/03/2016 14:25:25</publishTime>
     </File>
+    <File Include="Views/Home/Booking.cshtml">
+      <publishTime>11/10/2016 14:48:25</publishTime>
+    </File>
     <File Include="Views/Home/Contact.cshtml">
       <publishTime>11/03/2016 14:25:25</publishTime>
     </File>
     <File Include="Views/Home/Detail.cshtml">
-      <publishTime>11/04/2016 13:44:53</publishTime>
+      <publishTime>11/10/2016 13:01:01</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
       <publishTime>11/03/2016 14:25:25</publishTime>
     </File>
     <File Include="Views/Home/_Detail.cshtml">
-      <publishTime>11/08/2016 15:30:11</publishTime>
+      <publishTime>11/10/2016 14:04:11</publishTime>
     </File>
     <File Include="Views/Home/_List.cshtml">
       <publishTime>11/10/2016 08:18:13</publishTime>
@@ -4477,7 +4480,7 @@
       <publishTime>11/08/2016 16:18:15</publishTime>
     </File>
     <File Include="Views/Room/_FullCalendar.cshtml">
-      <publishTime>11/10/2016 08:18:13</publishTime>
+      <publishTime>11/10/2016 16:01:57</publishTime>
     </File>
     <File Include="Views/Room/_List.cshtml">
       <publishTime>11/08/2016 15:42:13</publishTime>
@@ -4522,7 +4525,7 @@
       <publishTime>11/03/2016 14:25:25</publishTime>
     </File>
     <File Include="Views/Shared/_ImageUpload.cshtml">
-      <publishTime>11/03/2016 14:25:25</publishTime>
+      <publishTime>11/10/2016 17:16:32</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
       <publishTime>11/04/2016 13:44:53</publishTime>
@@ -4555,7 +4558,7 @@
       <publishTime>11/03/2016 14:25:25</publishTime>
     </File>
     <File Include="Views/Shared/_RoomType.cshtml">
-      <publishTime>11/08/2016 17:05:42</publishTime>
+      <publishTime>11/10/2016 13:43:44</publishTime>
     </File>
     <File Include="Views/Shared/_TaiwanSelectList.cshtml">
       <publishTime>11/03/2016 14:25:25</publishTime>
@@ -4630,7 +4633,7 @@
       <publishTime>11/03/2016 14:25:26</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>11/10/2016 08:25:13</publishTime>
+      <publishTime>11/11/2016 08:30:17</publishTime>
     </File>
   </ItemGroup>
 </Project>

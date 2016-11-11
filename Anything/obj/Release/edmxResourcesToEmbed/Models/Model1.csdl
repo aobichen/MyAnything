@@ -484,8 +484,8 @@
     </Key>
     <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="ROOMID" Type="Int32" Nullable="false" />
-    <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
-    <Property Name="DayType" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="true" />
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="DayType" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="true" />
     <Property Name="DayText" Type="String" Nullable="false" MaxLength="12" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Room" Relationship="MyAnythingModel.FK_RoomPrice_Room" FromRole="RoomPrice" ToRole="Room" />
   </EntityType>

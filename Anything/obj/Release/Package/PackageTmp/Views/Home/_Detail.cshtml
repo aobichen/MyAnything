@@ -84,10 +84,14 @@
     }
 </script>
 <div class="wrap">
+    <nav class="breadcrumbs">
+      
+    </nav>
     <div class="row">
-        <div class="full-width">
+        <section class="three-fourth">
+        @*<div class="full-width">
             <h1>@Model.Name</h1>
-        </div>
+        </div>*@
         <!--hotel three-fourth content-->
         <section class="full-width">
             <!--gallery-->
@@ -189,7 +193,61 @@
             </section>
            
         </section>
-       
+        </section>
+        <aside class="one-fourth right-sidebar">
+            <!--hotel details-->
+            <article class="hotel-details">
+                <p>
+                    <h1>
+                        @Model.Name
+
+                    </h1>
+                </p>
+                <p class="number">@Model.Tel</p>
+                <span class="address">@Model.Address</span>
+               
+               
+                <div class="tags">
+                    <ul>
+                        @foreach (var s in (List<string>)ViewBag.Scenics) { 
+                        <li><a href="javascript:void(0);" title="@s">@s</a></li>
+                         
+                        }
+                    </ul>
+                </div>
+            </article>
+            
+            <article class="widget">
+                <h4>推薦</h4>
+                @foreach (var item in (List<Anything.Models.Hotel>)ViewBag.NearHotels)
+                {
+                    <div class="deal-of-the-day">
+                        <figure><a href="@Url.Action("Detail", new { id= item.ID })" title="">
+                            @if (item.HotelImage.Count > 0)
+                            {
+                                <img src="@Url.Action("Image", "Hotel", new { id = item.HotelImage.ToList()[0].ID })" alt="" />
+                            }
+                            else
+                            {
+                                <img src="~/images/uploads/img.jpg" />
+                            }
+                        </a>
+
+                        </figure>
+                        <h3>
+                            <a href="@Url.Action("Detail", new { id= item.ID })">
+                               @item.Name
+                                
+                            </a>
+                        </h3>
+                        <p> 只要 <span class="price">@Model.Rooms.ToList().Min(o=>o.DayPrice).ToString("#,##0")<small> 起</small></span></p>
+                        @*<p class="number">@Model.Tel</p>*@
+                    </div>
+                }
+               
+            </article>
+            <!--//Deal of the day-->
+        </aside>
     </div>
 </div>
 <script type="text/javascript">

@@ -266,8 +266,8 @@
     </Key>
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ROOMID" Type="int" Nullable="false" />
-    <Property Name="Date" Type="date" Nullable="false" />
-    <Property Name="DayType" Type="nvarchar" MaxLength="1" Nullable="false" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
+    <Property Name="DayType" Type="nvarchar" MaxLength="3" Nullable="false" />
     <Property Name="DayText" Type="nvarchar" MaxLength="12" Nullable="false" />
   </EntityType>
   <EntityType Name="Scenic">

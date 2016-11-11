@@ -139,14 +139,23 @@ transition: all 2s;
             contentHeight: '9999',                    
             eventRender: function (event, element, view) {
                 $('.message').removeClass('active');
-                if (event.start.format("MM") != currentMonth) { return false;}
+                if (event.start.format("MM") != currentMonth) { return false; }
+                
                 var test_date = new Date(event.start).getDay();
                
                 var start = moment(event.start).format('YYYY-MM-DD');
                 
                 var $div = $('<div>').addClass('form-group fc-date').attr('data-date',start);
                 var select = RenderDropdown(test_date);
+                select.val(event.daytype);
+                if ((test_date != "5" && test_date != "6") && event.daytype != "0") {
+                    if (event.daytype == "1") {
+                        select.addClass("holiday");
+                    } else {
+                        select.addClass("fixed");
+                    }
 
+                }
                 //let $labelQuantity = $('<label>').text('數量');
                 //var $inputQuantity = $('<input>').val(event.quantity).addClass('fc-input fc-quantity').appendTo($labelQuantity);
                 //let $labelPrice = $('<label>').text('房價');
@@ -205,13 +214,14 @@ transition: all 2s;
                     success: function (data) {
                         var events = [];
                         $(data).each(function () {
+                            
                             events.push({
                                 title: this.Title,
                                 start: this.Start,
                                 end: this.End,
-                                price: this.Price,
-                                quantity: this.Quantity,
-                                off : this.Off
+                                daytype: this.DayType,
+                                daytext: this.daytext
+                             
                             });
                         });
                         callback(events);

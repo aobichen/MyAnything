@@ -103,17 +103,26 @@ namespace Anything.Controllers
         [Authorize]
         public ActionResult Booking(int id)
         {
-            ViewBag.Message = "Your app description page.";
+           
             var Room = _db.Room.Find(id);
             var CheckInDate = Session["CheckInDate"] == null ? DateTime.Now : (DateTime)Session["CheckInDate"];
-            var MaxDate = CheckInDate.AddDays(1);
+            var CheckOutDate = Session["CheckOutDate"] == null ? CheckInDate.AddDays(2): (DateTime)Session["CheckOutDate"];
+            var DateSpans = new TimeSpan(CheckOutDate.Ticks - CheckInDate.Ticks).Days;
+            var Dates = new List<DateTime>();
+            for (var i = 0; i < DateSpans; i++)
+            {
+                Dates.Add(CheckInDate.AddDays(i));
+            }
+
+            var MaxDate = CheckInDate.AddDays(10);
 
             var Prices = new List<DatePrices>();
-
+            decimal Total = 0;
             #region
-            for (DateTime date = CheckInDate; MaxDate.CompareTo(CheckInDate) > 0; date.AddDays(1.0))
+            for (DateTime date = CheckInDate; MaxDate.CompareTo(date) > 0; date = date.AddDays(1.0))
             {
-                if (date.DayOfWeek.ToString() == "5" || date.DayOfWeek.ToString() == "6")
+                var d = (int)date.DayOfWeek;
+                if (d == 5 || d==6)
                 {
                     var price = Room.HolidayPrice;
                     var PriceFrom = _db.RoomPrice.Where(o => (o.Date.Year == date.Year && o.Date.Month == date.Month && o.Date.Day == date.Day)
@@ -132,8 +141,17 @@ namespace Anything.Controllers
                                 price = Room.FixedPrice;
                                 break;
                         }
-                        Prices.Add(new DatePrices { Date = date.ToShortDateString(), Price = price.ToString("#,##0") });
+                       
                     }
+
+                    var Checked = Dates.Where(o => o.Year == date.Year && o.Month == date.Month && o.Date == date.Date).Any();
+
+                    if (Checked)
+                    {
+                        Total += price;
+                    }
+
+                    Prices.Add(new DatePrices { Date = date.ToShortDateString(), Price = price.ToString("#,##0"), Checked = Checked });
                 }
                 else
                 {
@@ -154,19 +172,101 @@ namespace Anything.Controllers
                                 price = Room.FixedPrice;
                                 break;
                         }
-                        Prices.Add(new DatePrices { Date = date.ToShortDateString(), Price = price.ToString("#,##0") });
+                       
                     }
+
+                    var Checked = Dates.Where(o => o.Year == date.Year && o.Month == date.Month && o.Date == date.Date).Any();
+                    if (Checked)
+                    {
+                        Total += price;
+                    }
+                    Prices.Add(new DatePrices { Date = date.ToShortDateString(), Price = price.ToString("#,##0"), Checked = Checked });
                 }
             }
             ViewBag.PriceList = Prices;
             #endregion
 
-            return View();
+            var Booking = new BookingModel();
+            Booking.Address = Room.Hotel.Address;
+            Booking.BedType = _db.CodeFile.Find(Room.BedType).ItemDescription + "X" +Room.BedAmount;
+            Booking.Name = Room.Name;
+            Booking.ID = Room.ID;
+            Booking.MaxPeople = Room.MaxPerson;
+            Booking.Tel = Room.Hotel.Tel;
+            Booking.Total = Total;
+            Booking.CheckInDate = CheckInDate;
+            Booking.CheckOutDate = CheckOutDate;
+            Booking.RoomType = _db.CodeFile.Find(Room.RoomType).ItemDescription ;
+            
+            return View(Booking);
         }
 
-        public ActionResult Contact()
+        [HttpPost]
+        public ActionResult Booking(BookingModel model)
         {
-            ViewBag.Message = "Your contact page.";
+            var Room = _db.Room.Find(model.ID);
+            var Dates = model.DateList.Split(',').Select(DateTime.Parse).ToList();
+            var CheckInDate = Dates.First();
+            var CheckOutDate = Dates.Last();
+            decimal Total = 0;
+            #region
+            for (DateTime date = CheckInDate; CheckOutDate.CompareTo(date) >= 0; date = date.AddDays(1.0))
+            {
+                var d = (int)date.DayOfWeek;
+                if (d == 5 || d == 6)
+                {
+                    var price = Room.HolidayPrice;
+                    var PriceFrom = _db.RoomPrice.Where(o => (o.Date.Year == date.Year && o.Date.Month == date.Month && o.Date.Day == date.Day)
+                             && o.ROOMID == Room.ID).FirstOrDefault();
+                    if (PriceFrom != null)
+                    {
+                        switch (PriceFrom.DayType)
+                        {
+                            case "0":
+                                price = Room.DayPrice;
+                                break;
+                            case "1":
+                                price = Room.HolidayPrice;
+                                break;
+                            case "2":
+                                price = Room.FixedPrice;
+                                break;
+                        }
+
+                    }
+
+                   
+                        Total += price;
+                   
+                }
+                else
+                {
+                    var price = Room.DayPrice;
+                    var PriceFrom = _db.RoomPrice.Where(o => (o.Date.Year == date.Year && o.Date.Month == date.Month && o.Date.Day == date.Day)
+                            && o.ROOMID == Room.ID).FirstOrDefault();
+                    if (PriceFrom != null)
+                    {
+                        switch (PriceFrom.DayType)
+                        {
+                            case "0":
+                                price = Room.DayPrice;
+                                break;
+                            case "1":
+                                price = Room.HolidayPrice;
+                                break;
+                            case "2":
+                                price = Room.FixedPrice;
+                                break;
+                        }
+
+                    }
+
+                    Total += price;
+                }
+            }
+            //ViewBag.PriceList = Prices;
+            #endregion
+            var a = Total;
 
             return View();
         }

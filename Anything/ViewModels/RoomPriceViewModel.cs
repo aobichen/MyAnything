@@ -9,6 +9,8 @@ namespace Anything.ViewModels
     {
         public string Date { get; set; }
         public string Price { get; set; }
+
+        public bool Checked { get; set; }
     }
 
     
