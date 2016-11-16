@@ -227,8 +227,7 @@ namespace Anything.Controllers
             }
         }
 
-        //
-        // GET: /Account/Register
+       
         [AllowAnonymous]
         public ActionResult Join()
         {
@@ -271,7 +270,7 @@ namespace Anything.Controllers
                     UserManager.AddToRole(user.Id, model.UserType);
                     var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
+                    await UserManager.SendEmailAsync(user.Id, "MYAnything 信箱驗證", "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
                     ViewBag.Link = callbackUrl;
                     return View("DisplayEmail");
                 }

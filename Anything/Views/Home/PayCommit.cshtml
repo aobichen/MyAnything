@@ -1,0 +1,188 @@
+﻿@model Anything.Models.PayGoRequest
+@{
+    ViewBag.Title = "PayCommit";
+}
+
+<div class="wrap">
+    <div class="full-width">
+        <nav class="breadcrumbs">
+
+        </nav>
+        <!--//breadcrumbs-->
+
+        <div class="row">
+            <form name="Pay2go" method="post" action="https://capi.pay2go.com/MPG/mpg_getway" class="static-content booking">
+
+                @Html.HiddenFor(model => model.MerchantID)
+                @Html.HiddenFor(model => model.DateList)
+                <div class="three-fourth">
+
+                    <fieldset>
+                        <h2><span><i class="fa fa-credit-card-alt" aria-hidden="true"></i> </span>訂單資訊</h2>
+                        <div class="row">
+                            <div class="f-item full-width">
+                                <label for="first_name">姓名</label>
+                                @Html.EditorFor(model => model.info.Name)
+                                @*<input type="text" id="first_name" name="first_name" />*@
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="f-item full-width">
+                                <label for="email">Email信箱</label>
+                                @Html.EditorFor(model => model.info.Email)
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+
+                            <div class="f-item full-width">
+                                <label for="address">聯絡電話</label>
+                                @Html.EditorFor(model => model.info.Phone)
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="f-item one-fourth">
+                                <label for="zip">郵遞區號</label>
+                                @Html.EditorFor(model => model.info.ZipCode)
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+
+                            <div class="f-item full-width">
+                                <label for="address">完整地址</label>
+                                @Html.EditorFor(model => model.info.Address)
+                            </div>
+
+                        </div>
+
+
+                        <div class="row">
+                            <div class="f-item full-width">
+                                <input type="submit" class="gradient-button" value="Proceed to next step" id="next-step" />
+                            </div>
+                        </div>
+                    </fieldset>
+
+                </div>
+
+
+                <aside class="one-fourth right-sidebar">
+                    <!--Booking details-->
+                    <article class="hotel-details booking-details">
+                        <p>
+                            <h1>
+                                @Model.Name
+
+                            </h1>
+                        </p>
+
+                        <p class="number">@Model.Tel</p>
+                        <span class="address">@Model.Address</span>
+
+                        <dl class="booking-info">
+                            <dt>房型</dt>
+                            <dd>@Model.RoomType</dd>
+                            <dt>床型</dt>
+                            <dd>@Model.BedType</dd>
+                            <dt>入住日期</dt>
+                            <dd id="CheckInDate">@Model.CheckInDate.ToShortDateString()</dd>
+                            <dt>退房日期</dt>
+                            <dd id="CheckOutDate">@Model.CheckOutDate.ToShortDateString()</dd>
+                            @*<dt>Room(s)</dt>
+                                <dd>
+                                1 night, 1 room, max. 2 people.
+                                </dd>*@
+                        </dl>
+                        <div class="price">
+                            <p class="total">總金額:  NT. <span>@Model.Total.ToString("#,##0")</span></p>
+                            @*<p>VAT (20%) included</p>*@
+                        </div>
+                    </article>
+                    <!--//Booking details-->
+                    <!--Need Help Booking?-->
+                    <article class="widget">
+                        <h4>其他日期</h4>
+                        @if (ViewBag.PriceList != null)
+                        {
+                            foreach (var item in (List<Anything.ViewModels.DatePrices>)ViewBag.PriceList)
+                            {
+                                <p>
+                                    <label>
+                                        @if (item.Checked)
+                                        {
+                                            <input type="checkbox" name="checkindate" data-price="@item.Price" value="@item.Date" checked />
+                                        }
+                                        else
+                                        {
+                                            <input type="checkbox" name="checkindate" data-price="@item.Price" value="@item.Date" />
+                                        }
+                                        @item.Date
+                                    </label>
+                                    <label>
+                                        @item.Price
+                                    </label>
+                                </p>
+                            }
+                        }
+                    </article>
+                    <!--//Need Help Booking?-->
+                </aside>
+            </form>
+
+        </div>
+    </div>
+
+</div>
+<script type="text/javascript">
+
+    jQuery(function () {
+
+        var total_input = $('#Total');
+        var dateList = $('#DateList');
+        var total_span = $('.total').find('span');
+        $('input[name=checkindate]').on("change", function () {
+            settingTotalInCheckList();
+        });
+
+
+        settingTotalInCheckList();
+
+        function settingTotalInCheckList() {
+            let checkboxs = $('input[name=checkindate]');
+            let total = 0;
+            var dates = [];
+            for (var i = 0, max = checkboxs.length; i < max; i++) {
+                if ($(checkboxs[i]).prop('checked')) {
+                    dates.push($(checkboxs[i]).val());
+                    var price = $(checkboxs[i]).attr('data-price');
+                    total += parseInt(price.replace(',', ''));
+                    total_span.text(total);
+                    total_input.val(total);
+                    dateList.val(dates.join(','));
+                }
+            }
+
+            SetCheckDate();
+        };
+
+        function SetCheckDate() {
+            var InDate = $('#CheckInDate');
+            var OutDate = $('#CheckOutDate');
+            let checkboxs = $('input[name=checkindate]:checked');
+            InDate.text(checkboxs.first().val());
+            var outdate = new Date(checkboxs.last().val());
+
+            let newOutDate = new Date(outdate.setDate(outdate.getDate() + 1));
+            var y = newOutDate.getFullYear();
+            var m = (newOutDate.getMonth() + 1) < 10 ? "0" + (newOutDate.getMonth() + 1) : newOutDate.getMonth() + 1;
+            var d = newOutDate.getDate() < 10 ? "0" + newOutDate.getDate() : newOutDate.getDate();
+            OutDate.text(y+"/"+m+"/"+d);
+        }
+    })
+</script>

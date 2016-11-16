@@ -5,6 +5,7 @@ using Anything.ViewModels;
 using System;
 using System.Collections.Generic;
 using Anything.Helper;
+using Anything.Models;
 namespace Anything.Controllers
 {
     public class HomeController : BaseController
@@ -80,7 +81,7 @@ namespace Anything.Controllers
                                on r.RoomType equals code2.ID
                                where r.HotelId == model.ID
                            select new RoomModel
-                           {
+                           {  ID=r.ID,
                                BedType = code.ItemDescription,
                                Feature = r.Feature,
                                Images = r.RoomImage.ToList(),
@@ -90,8 +91,17 @@ namespace Anything.Controllers
                                Quantity = r.Quantity,
                                RoomType = code2.ItemDescription,
                                DayPrice = IsHoliday ? r.HolidayPrice : r.DayPrice,
-                               BedAmount = r.BedAmount
+                               BedAmount = r.BedAmount,
+                               Amt = _db.OrderMaster.Where(o => o.ProductId == r.ID && 
+                ((o.CheckIn.Year == Date.Year&&
+                o.CheckIn.Month == Date.Month&&
+                o.CheckIn.Date == Date.Date)||
+                (o.CheckOut.Year == Date.Year &&
+                o.CheckOut.Month == Date.Month &&
+                o.CheckOut.Date == Date.Date))).Sum(o => o.Amount)
                            }).ToList();
+
+            model.Rooms = model.Rooms.Where(o => o.Quantity > o.Amt).ToList();
 
             ViewBag.NearHotels = _db.Hotel.Where(o => o.City == model.City && o.ID != id).OrderBy(o => Guid.NewGuid()).Take(5).ToList();
             var sce = model.Scenics.Split(',').Select(int.Parse).ToList();
@@ -205,6 +215,18 @@ namespace Anything.Controllers
         public ActionResult Booking(BookingModel model)
         {
             var Room = _db.Room.Find(model.ID);
+            var Filled = Room.Quantity >= _db.OrderMaster.Where(o => o.ProductId == Room.ID && 
+                ((o.CheckIn.Year == model.CheckInDate.Year&&
+                o.CheckIn.Month == model.CheckInDate.Month&&
+                o.CheckIn.Date == model.CheckInDate.Date)||
+                (o.CheckOut.Year == model.CheckInDate.Year &&
+                o.CheckOut.Month == model.CheckInDate.Month &&
+                o.CheckOut.Date == model.CheckInDate.Date))).Sum(o => o.Amount);
+            if (Filled)
+            {
+                ModelState.AddModelError("","客滿");
+                return View();
+            }
             var Dates = model.DateList.Split(',').Select(DateTime.Parse).ToList();
             var CheckInDate = Dates.First();
             var CheckOutDate = Dates.Last();
@@ -266,7 +288,10 @@ namespace Anything.Controllers
             }
             //ViewBag.PriceList = Prices;
             #endregion
-            var a = Total;
+
+            var PayGo = new PayGoRequest();
+            
+            //PayGo.
 
             return View();
         }

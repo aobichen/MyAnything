@@ -98,21 +98,29 @@ namespace Anything.Models
             var SendMailFromWebsite = ConfigurationManager.AppSettings["SendMailFromWebsite"].ToString();
             if (SendMailFromWebsite == "true")
             {
+                var From = ConfigurationManager.AppSettings["From"];
+                var Password = ConfigurationManager.AppSettings["SmtpPassword"];
+                var SmtpUserName = ConfigurationManager.AppSettings["SmtpUserName"];
+                var Port = int.Parse(ConfigurationManager.AppSettings["SmtpPort"]);
+                var SmtpServer = ConfigurationManager.AppSettings["SmtpServer"];
+
+                SmtpClient smtpClient = new SmtpClient(SmtpServer,Port);
+               
                 
-                SmtpClient smtpClient = new SmtpClient(ConfigurationManager.AppSettings["SmtpServer"], int.Parse(ConfigurationManager.AppSettings["SmtpPort"]));
-                smtpClient.Host = ConfigurationManager.AppSettings["Host"];
-                smtpClient.Credentials = new System.Net.NetworkCredential(ConfigurationManager.AppSettings["From"], ConfigurationManager.AppSettings["From"]);
-                smtpClient.UseDefaultCredentials = true;              
+                smtpClient.Credentials = new System.Net.NetworkCredential(From, Password);
+                //smtpClient.UseDefaultCredentials = true;              
                 smtpClient.EnableSsl = true;
                 MailMessage mail = new MailMessage();
                 mail.Body = message.Body;
                 mail.Subject = message.Subject;
                 mail.SubjectEncoding = System.Text.Encoding.UTF8;
-               
-                mail.From = new MailAddress(ConfigurationManager.AppSettings["From"], ConfigurationManager.AppSettings["SmtpUserName"]);
+                mail.Priority = MailPriority.Normal;
+                mail.From = new MailAddress(From, SmtpUserName);
                 mail.To.Add(new MailAddress(message.Destination));             
 
                 smtpClient.Send(mail);
+                smtpClient = null;
+                mail.Dispose();
 
                 
             }

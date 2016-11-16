@@ -148,6 +148,8 @@ namespace Anything.ViewModels
 
     public class RoomModel
     {
+        public int ID { get; set; }
+        public int Amt { get; set; }
         public string Name { get; set; }
         public decimal FixedPrice { get; set; }
         public decimal HolidayPrice { get; set; }

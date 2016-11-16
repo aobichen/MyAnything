@@ -28,6 +28,12 @@ namespace Anything
                 defaults: new { controller = "Home", action = "Detail", id = UrlParameter.Optional }
             );
 
+            routes.MapRoute(
+               name: "Booking",
+               url: "Booking/{id}",
+               defaults: new { controller = "Home", action = "Booking", id = UrlParameter.Optional }
+           );
+
          //   routes.MapRoute(
          //    name: "Account/Join",
          //    url: "Account/{action}",

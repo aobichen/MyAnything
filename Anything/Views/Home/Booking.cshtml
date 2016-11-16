@@ -14,7 +14,7 @@
             @using (Html.BeginForm("Booking", "Home", FormMethod.Post, new { @class = "static-content booking" }))
             {
                 @Html.HiddenFor(model => model.Total)
-                 @Html.HiddenFor(model => model.DateList)
+                @Html.HiddenFor(model => model.DateList)
             <div class="three-fourth">
                
                     <fieldset>
@@ -61,10 +61,35 @@
 
                         </div>
 
+                        <div class="row">
+
+                            <div class="f-item full-width">
+                                <label for="address">付款方式</label>
+                                <select class="form-control">
+                                    <option value="1">
+                                        信用卡
+                                    </option>
+                                    <option value="2">
+                                        信用卡分期/6期
+                                    </option>
+                                    <option value="3">
+                                        網路ATM
+                                    </option>
+                                    <option value="4">
+                                        實體ATM
+                                    </option>
+                                    <option value="5">
+                                        超商付款
+                                    </option>
+                                </select>
+                            </div>
+
+                        </div>
+
 
                         <div class="row">
                             <div class="f-item full-width">
-                                <input type="submit" class="gradient-button" value="Proceed to next step" id="next-step" />
+                                <input type="submit" class="gradient-button" value="付款" id="next-step" />
                             </div>
                         </div>
                     </fieldset>
