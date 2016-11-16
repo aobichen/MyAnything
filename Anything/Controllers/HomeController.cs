@@ -290,9 +290,20 @@ namespace Anything.Controllers
             #endregion
 
             var PayGo = new PayGoRequest();
-            
-            //PayGo.
 
+            PayGo.MerchantOrderNo = Guid.NewGuid().GetHashCode().ToString("x");
+            PayGo.LangType = "zh-tw";
+            var Now = DateTime.Now;
+            PayGo.TimeStamp = DateTime.UtcNow.Subtract(Now).TotalSeconds.ToString();
+            PayGo.Amt = int.Parse(Total.ToString());
+            PayGo.Version = "1.2";
+            PayGo.TradeLimit = 60;
+            PayGo.ItemDesc = string.Format("{0}/{1}/{2}",Room.Name,Total,CurrentUser.Id);
+            PayGo.Email = model.Email;
+            PayGo.EmailModify = 0;
+            PayGo.LoginType = 0;
+            PayGo.OrderComment = "";
+            PayGo.NotifyURL = "http://";
             return View();
         }
     }

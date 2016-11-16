@@ -21,10 +21,11 @@ namespace Anything.Models
         public string ExpireDate { get; set; }
         public string ExpireTime { get; set; }
 
-        public string ReturnURL { get; set; }
-        public string NotifyURL { get; set; }
+        public string ReturnURL { get { return System.Configuration.ConfigurationManager.AppSettings["ReturnURL"];} set; }
+        public string NotifyURL { get { return System.Configuration.ConfigurationManager.AppSettings["NotifyURL"]; } set; }
         public string CustomerURL { get; set; }
         public string ClientBackUrl { get; set; }
+        public string Email { get; set; }
         public int EmailModify { get; set; }
         public int LoginType { get; set; }
         public string OrderComment { get; set; }
