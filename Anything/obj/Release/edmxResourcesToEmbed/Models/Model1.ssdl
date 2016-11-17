@@ -66,23 +66,6 @@
     <Property Name="Text" Type="nvarchar" MaxLength="1500" />
     <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
   </EntityType>
-  <EntityType Name="AllPayFeed">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="MerchantID" Type="nvarchar" MaxLength="500" />
-    <Property Name="MerchantTradeNo" Type="nvarchar" MaxLength="500" />
-    <Property Name="PaymentDate" Type="nvarchar" MaxLength="15" />
-    <Property Name="PaymentType" Type="nvarchar" MaxLength="30" />
-    <Property Name="PaymentTypeChargeFee" Type="nvarchar" MaxLength="6" />
-    <Property Name="SimulatePaid" Type="nvarchar" MaxLength="5" />
-    <Property Name="TradeAmt" Type="nvarchar" MaxLength="6" />
-    <Property Name="TradeDate" Type="nvarchar" MaxLength="15" />
-    <Property Name="TradeNo" Type="nvarchar" MaxLength="50" />
-    <Property Name="RtnCode" Type="nvarchar" MaxLength="100" />
-    <Property Name="RtnMsg" Type="nvarchar" MaxLength="100" />
-  </EntityType>
   <EntityType Name="Area_TW">
     <Key>
       <PropertyRef Name="ID" />
@@ -193,34 +176,63 @@
   </EntityType>
   <EntityType Name="OrderMaster">
     <Key>
-      <PropertyRef Name="ID" />
+      <PropertyRef Name="MerchantOrderNo" />
     </Key>
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MerchantOrderNo" Type="nvarchar" MaxLength="20" Nullable="false" />
     <Property Name="UserId" Type="int" Nullable="false" />
     <Property Name="ProductId" Type="int" Nullable="false" />
     <Property Name="ProductName" Type="nvarchar" MaxLength="300" Nullable="false" />
-    <Property Name="Price" Type="decimal" Precision="10" Scale="2" Nullable="false" />
-    <Property Name="Total" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="Quantity" Type="int" Nullable="false" />
     <Property Name="Amount" Type="int" Nullable="false" />
     <Property Name="CheckIn" Type="datetime" Nullable="false" />
     <Property Name="CheckOut" Type="datetime" Nullable="false" />
-    <Property Name="Status" Type="nvarchar" MaxLength="2" Nullable="false" />
     <Property Name="Tel" Type="nvarchar" MaxLength="20" Nullable="false" />
-    <Property Name="Phone" Type="nvarchar" MaxLength="20" Nullable="false" />
     <Property Name="Address" Type="nvarchar" MaxLength="150" Nullable="false" />
     <Property Name="Created" Type="datetime" Nullable="false" />
     <Property Name="Remark" Type="nvarchar" MaxLength="500" />
     <Property Name="Modified" Type="datetime" Nullable="false" />
     <Property Name="Modify" Type="int" Nullable="false" />
     <Property Name="PayVendor" Type="nvarchar" MaxLength="100" Nullable="false" />
-    <Property Name="ShareBonus" Type="decimal" Precision="10" Scale="2" Nullable="false" />
-    <Property Name="BoughtBonus" Type="decimal" Precision="10" Scale="2" Nullable="false" />
-    <Property Name="SystemBonus" Type="decimal" Precision="10" Scale="2" Nullable="false" />
-    <Property Name="MerchantTradeNo" Type="nvarchar" MaxLength="100" Nullable="false" />
-    <Property Name="TradeNo" Type="nvarchar" MaxLength="100" />
-    <Property Name="ProductType" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ShareBonus" Type="float" />
+    <Property Name="BoughtBonus" Type="float" />
+    <Property Name="SystemBonus" Type="float" />
+    <Property Name="TradeNo" Type="nvarchar" MaxLength="20" />
     <Property Name="TradeStatus" Type="nvarchar" MaxLength="10" />
-    <Property Name="PaymentType" Type="nvarchar" MaxLength="10" />
+    <Property Name="PaymentType" Type="nvarchar" MaxLength="20" />
+    <Property Name="ProductType" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Creator" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PayGo">
+    <Key>
+      <PropertyRef Name="MerchantOrderNo" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MerchantOrderNo" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="Status" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="Message" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="MerchantID" Type="nvarchar" MaxLength="15" Nullable="false" />
+    <Property Name="Amt" Type="int" Nullable="false" />
+    <Property Name="TradeNo" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="PayTime" Type="datetime" Nullable="false" />
+    <Property Name="IP" Type="nvarchar" MaxLength="15" Nullable="false" />
+    <Property Name="EscrowBank" Type="nvarchar" MaxLength="10" />
+    <Property Name="RespondCode" Type="nvarchar" MaxLength="5" />
+    <Property Name="Auth" Type="nvarchar" MaxLength="6" />
+    <Property Name="Card6No" Type="nvarchar" MaxLength="6" />
+    <Property Name="Card4No" Type="nvarchar" MaxLength="4" />
+    <Property Name="Inst" Type="int" />
+    <Property Name="InstFirst" Type="int" />
+    <Property Name="InstEach" Type="int" />
+    <Property Name="TokenUseStatus" Type="int" />
+    <Property Name="RedAmt" Type="int" />
+    <Property Name="PayBankCode" Type="nvarchar" MaxLength="10" />
+    <Property Name="PayAccount5Code" Type="nvarchar" MaxLength="5" />
+    <Property Name="CodeNo" Type="nvarchar" MaxLength="30" />
+    <Property Name="Barcode_1" Type="nvarchar" MaxLength="20" />
+    <Property Name="Barcode_2" Type="nvarchar" MaxLength="20" />
+    <Property Name="Barcode_3" Type="nvarchar" MaxLength="20" />
+    <Property Name="RespondType" Type="nvarchar" MaxLength="10" />
   </EntityType>
   <EntityType Name="Room">
     <Key>
@@ -369,6 +381,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_PayGo_OrderMaster">
+    <End Role="OrderMaster" Type="Self.OrderMaster" Multiplicity="1" />
+    <End Role="PayGo" Type="Self.PayGo" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="OrderMaster">
+        <PropertyRef Name="MerchantOrderNo" />
+      </Principal>
+      <Dependent Role="PayGo">
+        <PropertyRef Name="MerchantOrderNo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Room_Hotel">
     <End Role="Hotel" Type="Self.Hotel" Multiplicity="1" />
     <End Role="Room" Type="Self.Room" Multiplicity="*" />
@@ -433,7 +457,6 @@
     <EntitySet Name="AdImage" EntityType="Self.AdImage" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AdManage" EntityType="Self.AdManage" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AdOrder" EntityType="Self.AdOrder" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="AllPayFeed" EntityType="Self.AllPayFeed" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Area_TW" EntityType="Self.Area_TW" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BonusSystem" EntityType="Self.BonusSystem" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="City_TW" EntityType="Self.City_TW" Schema="dbo" store:Type="Tables" />
@@ -444,6 +467,7 @@
     <EntitySet Name="Logs" EntityType="Self.Logs" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="News" EntityType="Self.News" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="OrderMaster" EntityType="Self.OrderMaster" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PayGo" EntityType="Self.PayGo" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Room" EntityType="Self.Room" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="RoomImage" EntityType="Self.RoomImage" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="RoomPrice" EntityType="Self.RoomPrice" Schema="dbo" store:Type="Tables" />
@@ -463,6 +487,10 @@
     <AssociationSet Name="FK_HotelImage_Hotel" Association="Self.FK_HotelImage_Hotel">
       <End Role="Hotel" EntitySet="Hotel" />
       <End Role="HotelImage" EntitySet="HotelImage" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PayGo_OrderMaster" Association="Self.FK_PayGo_OrderMaster">
+      <End Role="OrderMaster" EntitySet="OrderMaster" />
+      <End Role="PayGo" EntitySet="PayGo" />
     </AssociationSet>
     <AssociationSet Name="FK_Room_Hotel" Association="Self.FK_Room_Hotel">
       <End Role="Hotel" EntitySet="Hotel" />

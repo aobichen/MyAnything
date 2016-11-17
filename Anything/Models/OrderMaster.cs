@@ -19,27 +19,25 @@ namespace Anything.Models
         public int UserId { get; set; }
         public int ProductId { get; set; }
         public string ProductName { get; set; }
-        public decimal Price { get; set; }
-        public decimal Total { get; set; }
+        public int Quantity { get; set; }
         public int Amount { get; set; }
         public System.DateTime CheckIn { get; set; }
         public System.DateTime CheckOut { get; set; }
-        public string Status { get; set; }
         public string Tel { get; set; }
-        public string Phone { get; set; }
         public string Address { get; set; }
         public System.DateTime Created { get; set; }
         public string Remark { get; set; }
         public System.DateTime Modified { get; set; }
         public int Modify { get; set; }
         public string PayVendor { get; set; }
-        public decimal ShareBonus { get; set; }
-        public decimal BoughtBonus { get; set; }
-        public decimal SystemBonus { get; set; }
+        public Nullable<double> ShareBonus { get; set; }
+        public Nullable<double> BoughtBonus { get; set; }
+        public Nullable<double> SystemBonus { get; set; }
         public string TradeNo { get; set; }
-        public string ProductType { get; set; }
         public string TradeStatus { get; set; }
         public string PaymentType { get; set; }
+        public string ProductType { get; set; }
+        public int Creator { get; set; }
     
         public virtual PayGo PayGo { get; set; }
     }

@@ -96,10 +96,10 @@ namespace Anything.Controllers
                                Amt = _db.OrderMaster.Where(o => o.ProductId == r.ID && 
                                 ( 
                                 
-                                 (DbFunctions.TruncateTime(o.CheckIn).Value.CompareTo(Date) == 0) ||
-                                 (DbFunctions.TruncateTime(o.CheckOut).Value.CompareTo(Date) == 0)
+                                 (DbFunctions.DiffDays(o.CheckIn, Date) == 0) ||
+                                 (DbFunctions.DiffDays(o.CheckOut, Date) == 0)
 
-                                 )).Select(o=>o.Amount).DefaultIfEmpty(0).Sum()
+                                 )).Select(o=>o.Quantity).DefaultIfEmpty(0).Sum()
                            }).ToList();
 
             model.Rooms = model.Rooms.Where(o => o.Quantity > o.Amt).ToList();
@@ -225,12 +225,12 @@ namespace Anything.Controllers
                                  (DbFunctions.TruncateTime(o.CheckIn).Value.CompareTo(model.CheckInDate) == 0) ||
                                  (DbFunctions.TruncateTime(o.CheckOut).Value.CompareTo(model.CheckOutDate) == 0)
 
-                                 )).Select(o => o.Amount).DefaultIfEmpty(0).Sum();
+                                 )).Select(o => o.Quantity).DefaultIfEmpty(0).Sum();
             var Filled = Room.Quantity >= Sum;
             if (!Filled)
             {
                 ModelState.AddModelError("","客滿");
-                return View();
+                return RedirectToAction("Detail", new { id=Room.ID });
             }
             var Dates = model.DateList.Split(',').Select(DateTime.Parse).ToList();
             var CheckInDate = Dates.First();
@@ -308,6 +308,9 @@ namespace Anything.Controllers
             PayGo.LoginType = 0;
             PayGo.OrderComment = "";
             PayGo.CheckValue = new Pay2Go().CheckValue(PayGo.Amt, PayGo.MerchantOrderNo, PayGo.TimeStamp);
+            PayGo.RespondType = "JSON";
+            var PaymentType = string.Empty;
+            
             switch (model.PaymentType)
             {
                 case 1:                   
@@ -316,6 +319,7 @@ namespace Anything.Controllers
                     PayGo.WEBATM = 0;
                     PayGo.VACC = 0;
                     PayGo.CVS = 0;
+                    PaymentType = "信用卡一次付清";
                     break;
                 case 2:
                      PayGo.CREDIT = 0;
@@ -323,6 +327,7 @@ namespace Anything.Controllers
                     PayGo.WEBATM = 0;
                     PayGo.VACC = 0;
                     PayGo.CVS = 0;
+                    PaymentType = "信用卡分三期";
                     break;
                 case 3:
                      PayGo.CREDIT = 0;
@@ -330,6 +335,7 @@ namespace Anything.Controllers
                     PayGo.WEBATM = 1;
                     PayGo.VACC = 0;
                     PayGo.CVS = 0;
+                    PaymentType = "網路ATM";
                     break;
                 case 4:
                     PayGo.CREDIT = 0;
@@ -337,6 +343,7 @@ namespace Anything.Controllers
                     PayGo.WEBATM = 0;
                     PayGo.VACC = 1;
                     PayGo.CVS = 0;
+                     PaymentType = "實體ATM";
                     break;
                 case 5:
                     PayGo.CREDIT = 0;
@@ -344,12 +351,36 @@ namespace Anything.Controllers
                     PayGo.WEBATM = 0;
                     PayGo.VACC = 0;
                     PayGo.CVS = 1;
+                    PaymentType = "超商付款";
                     break;              
             }
 
             BookingCommit BookCommit = new BookingCommit();
             BookCommit.Booking = model;
             BookCommit.PayGoRequest = PayGo;
+            var order = new OrderMaster
+            {
+                ID = 1,
+                Address = model.info.Address,
+                Amount = PayGo.Amt,
+                CheckIn = model.CheckInDate,
+                CheckOut = model.CheckOutDate,
+                MerchantOrderNo = PayGo.MerchantOrderNo,
+                Created = DateTime.Now,
+                PayVendor = "Pay2Go",
+                PaymentType = PaymentType,
+                ProductId = Room.ID,
+                ProductName = Room.Name,
+                ProductType = "Room",
+                Creator = CurrentUser.Id,
+                Modified = Now,
+                Modify = CurrentUser.Id,
+                Quantity = 1,
+                Tel = model.info.Phone,
+                UserId = CurrentUser.Id
+            };
+            _db.OrderMaster.Add(order);
+            _db.SaveChanges();
             return View("PayCommit", BookCommit);
         }
 

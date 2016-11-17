@@ -33,9 +33,9 @@
         <AssociationConnector Association="MyAnythingModel.FK_RoomImage_Room" />
         <EntityTypeShape EntityType="MyAnythingModel.RoomPrice" Width="1.5" PointX="10.25" PointY="18" />
         <AssociationConnector Association="MyAnythingModel.FK_RoomPrice_Room" />
-        <EntityTypeShape EntityType="MyAnythingModel.PayGo" Width="1.5" PointX="15" PointY="4.875" />
-        <EntityTypeShape EntityType="MyAnythingModel.OrderMaster" Width="1.5" PointX="12.75" PointY="17.875" />
-        <AssociationConnector Association="MyAnythingModel.FK_PayGo_PayGo" />
+        <EntityTypeShape EntityType="MyAnythingModel.OrderMaster" Width="1.5" PointX="15.375" PointY="5.375" />
+        <EntityTypeShape EntityType="MyAnythingModel.PayGo" Width="1.5" PointX="17.625" PointY="5.125" />
+        <AssociationConnector Association="MyAnythingModel.FK_PayGo_OrderMaster" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

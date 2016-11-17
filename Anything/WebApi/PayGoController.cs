@@ -13,7 +13,7 @@ namespace Anything.WebApi
     public class PayGoController : ApiController
     {
         [HttpPost]
-        [Route("PayNotify")]      
+        [Route("Order/PayNotify")]      
         public object PayNotify(PayGoRespond model)
         {
             using (var db = new MyAnythingEntities())

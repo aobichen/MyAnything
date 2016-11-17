@@ -45,7 +45,7 @@ namespace Anything.Models
         public virtual DbSet<VIPs> VIPs { get; set; }
         public virtual DbSet<Room> Room { get; set; }
         public virtual DbSet<RoomPrice> RoomPrice { get; set; }
-        public virtual DbSet<PayGo> PayGo { get; set; }
         public virtual DbSet<OrderMaster> OrderMaster { get; set; }
+        public virtual DbSet<PayGo> PayGo { get; set; }
     }
 }

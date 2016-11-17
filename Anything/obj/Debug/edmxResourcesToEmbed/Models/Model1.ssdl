@@ -183,27 +183,25 @@
     <Property Name="UserId" Type="int" Nullable="false" />
     <Property Name="ProductId" Type="int" Nullable="false" />
     <Property Name="ProductName" Type="nvarchar" MaxLength="300" Nullable="false" />
-    <Property Name="Price" Type="decimal" Precision="10" Scale="2" Nullable="false" />
-    <Property Name="Total" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="Quantity" Type="int" Nullable="false" />
     <Property Name="Amount" Type="int" Nullable="false" />
     <Property Name="CheckIn" Type="datetime" Nullable="false" />
     <Property Name="CheckOut" Type="datetime" Nullable="false" />
-    <Property Name="Status" Type="nvarchar" MaxLength="2" Nullable="false" />
     <Property Name="Tel" Type="nvarchar" MaxLength="20" Nullable="false" />
-    <Property Name="Phone" Type="nvarchar" MaxLength="20" Nullable="false" />
     <Property Name="Address" Type="nvarchar" MaxLength="150" Nullable="false" />
     <Property Name="Created" Type="datetime" Nullable="false" />
     <Property Name="Remark" Type="nvarchar" MaxLength="500" />
     <Property Name="Modified" Type="datetime" Nullable="false" />
     <Property Name="Modify" Type="int" Nullable="false" />
     <Property Name="PayVendor" Type="nvarchar" MaxLength="100" Nullable="false" />
-    <Property Name="ShareBonus" Type="decimal" Precision="10" Scale="2" Nullable="false" />
-    <Property Name="BoughtBonus" Type="decimal" Precision="10" Scale="2" Nullable="false" />
-    <Property Name="SystemBonus" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="ShareBonus" Type="float" />
+    <Property Name="BoughtBonus" Type="float" />
+    <Property Name="SystemBonus" Type="float" />
     <Property Name="TradeNo" Type="nvarchar" MaxLength="20" />
-    <Property Name="ProductType" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="TradeStatus" Type="nvarchar" MaxLength="10" />
-    <Property Name="PaymentType" Type="nvarchar" MaxLength="10" />
+    <Property Name="PaymentType" Type="nvarchar" MaxLength="20" />
+    <Property Name="ProductType" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Creator" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="PayGo">
     <Key>
@@ -383,7 +381,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_PayGo_PayGo">
+  <Association Name="FK_PayGo_OrderMaster">
     <End Role="OrderMaster" Type="Self.OrderMaster" Multiplicity="1" />
     <End Role="PayGo" Type="Self.PayGo" Multiplicity="0..1" />
     <ReferentialConstraint>
@@ -490,7 +488,7 @@
       <End Role="Hotel" EntitySet="Hotel" />
       <End Role="HotelImage" EntitySet="HotelImage" />
     </AssociationSet>
-    <AssociationSet Name="FK_PayGo_PayGo" Association="Self.FK_PayGo_PayGo">
+    <AssociationSet Name="FK_PayGo_OrderMaster" Association="Self.FK_PayGo_OrderMaster">
       <End Role="OrderMaster" EntitySet="OrderMaster" />
       <End Role="PayGo" EntitySet="PayGo" />
     </AssociationSet>
