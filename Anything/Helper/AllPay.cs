@@ -314,7 +314,7 @@ namespace Anything.Helper
 
                     using (var db = new MyAnythingEntities())
                     {
-                        var order = db.OrderMaster.Where(o => o.MerchantTradeNo == MerchantTradeNo).FirstOrDefault();
+                        var order = db.OrderMaster.Where(o => o.MerchantOrderNo == MerchantTradeNo).FirstOrDefault();
                         if (order != null)
                         {
                             order.TradeNo = szTradeNo;

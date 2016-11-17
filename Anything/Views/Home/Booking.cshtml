@@ -65,7 +65,7 @@
 
                             <div class="f-item full-width">
                                 <label for="address">付款方式</label>
-                                <select class="form-control">
+                                <select class="form-control" name="PaymentType">
                                     <option value="1">
                                         信用卡
                                     </option>
@@ -116,9 +116,9 @@
                         <dt>床型</dt>
                         <dd>@Model.BedType</dd>
                         <dt>入住日期</dt>
-                        <dd id="CheckInDate">@Model.CheckInDate.ToShortDateString()</dd>
+                        <dd id="CheckInDate" name="CheckInDate">@Model.CheckInDate.ToShortDateString()</dd>
                         <dt>退房日期</dt>
-                        <dd id="CheckOutDate">@Model.CheckOutDate.ToShortDateString()</dd>
+                        <dd id="CheckOutDate" name="CheckOutDate">@Model.CheckOutDate.ToShortDateString()</dd>
                         @*<dt>Room(s)</dt>
                         <dd>
                         1 night, 1 room, max. 2 people. 
@@ -141,11 +141,11 @@
                                 <label>
                                     @if (item.Checked)
                                     {
-                                        <input type="checkbox" name="checkindate" data-price="@item.Price" value="@item.Date" checked />
+                                        <input type="checkbox" name="checkdate" data-price="@item.Price" value="@item.Date" checked />
                                     }
                                     else
                                     {
-                                        <input type="checkbox" name="checkindate" data-price="@item.Price" value="@item.Date" />
+                                        <input type="checkbox" name="checkdate" data-price="@item.Price" value="@item.Date" />
                                     }
                                     @item.Date
                                 </label>
@@ -171,7 +171,7 @@
         var total_input = $('#Total');
         var dateList = $('#DateList');
         var total_span = $('.total').find('span');
-        $('input[name=checkindate]').on("change", function () {
+        $('input[name=checkdate]').on("change", function () {
             settingTotalInCheckList();
         });
 
@@ -179,7 +179,7 @@
         settingTotalInCheckList();
 
         function settingTotalInCheckList() {
-            let checkboxs = $('input[name=checkindate]');
+            let checkboxs = $('input[name=checkdate]');
             let total = 0;
             var dates = [];
             for (var i = 0, max = checkboxs.length; i < max; i++) {
@@ -199,7 +199,7 @@
         function SetCheckDate() {
             var InDate = $('#CheckInDate');
             var OutDate = $('#CheckOutDate');
-            let checkboxs = $('input[name=checkindate]:checked');
+            let checkboxs = $('input[name=checkdate]:checked');
             InDate.text(checkboxs.first().val());
             var outdate = new Date(checkboxs.last().val());
            

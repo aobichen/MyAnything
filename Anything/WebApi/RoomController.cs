@@ -41,12 +41,10 @@ namespace Anything.WebApi
             var Now = DateTime.Now;
             var Begin = Now.AddDays(1);
             var End = Now.AddMonths(1);
-            decimal Price = 0;
+            
             List<CalendarEvent> Events = new List<CalendarEvent>();
 
-            Price = 1000;
-            
-
+           
             Events = (from room in db.RoomPrice
                       where room.ROOMID == id
                       select new CalendarEvent
@@ -81,9 +79,8 @@ namespace Anything.WebApi
 
                     var beginDay = DateTime.Parse(date.ToShortDateString());
                     var endDay = DateTime.Parse(date.ToShortDateString());
-                    var Off = false;
-                    decimal CurrentPrice = 0;
-                    int Quantity = 0;
+                    
+                    
                     var DayType = "0";
                     var Current = Events.Where(o => o.Start == beginDay).FirstOrDefault();
                     if (Current != null)

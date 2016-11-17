@@ -31,6 +31,8 @@ namespace Anything.ViewModels
         public int MaxPeople { get; set; }
 
         public string DateList { get; set; }
+
+        public int PaymentType { get; set; }
     }
 
     public class BookingInfo
@@ -48,5 +50,11 @@ namespace Anything.ViewModels
         public string ZipCode { get; set; }
 
         public string Remark { get; set; }
+    }
+
+    public class BookingCommit
+    {
+        public BookingModel Booking { get; set; }
+        public PayGoRequest PayGoRequest { get; set; }
     }
 }

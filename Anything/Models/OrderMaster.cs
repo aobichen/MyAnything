@@ -15,6 +15,7 @@ namespace Anything.Models
     public partial class OrderMaster
     {
         public int ID { get; set; }
+        public string MerchantOrderNo { get; set; }
         public int UserId { get; set; }
         public int ProductId { get; set; }
         public string ProductName { get; set; }
@@ -35,10 +36,11 @@ namespace Anything.Models
         public decimal ShareBonus { get; set; }
         public decimal BoughtBonus { get; set; }
         public decimal SystemBonus { get; set; }
-        public string MerchantTradeNo { get; set; }
         public string TradeNo { get; set; }
         public string ProductType { get; set; }
         public string TradeStatus { get; set; }
         public string PaymentType { get; set; }
+    
+        public virtual PayGo PayGo { get; set; }
     }
 }

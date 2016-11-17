@@ -139,7 +139,7 @@ namespace Anything.Controllers
 
             var MerchantTradeNo = "R" + Guid.NewGuid().GetHashCode().ToString("x").ToLower();
 
-            Order.MerchantTradeNo = MerchantTradeNo;
+            Order.MerchantOrderNo = MerchantTradeNo;
             Order.CheckIn = model.CheckIn;
             Order.CheckOut = model.CheckOut;
             

@@ -28,7 +28,6 @@ namespace Anything.Models
         public virtual DbSet<AdImage> AdImage { get; set; }
         public virtual DbSet<AdManage> AdManage { get; set; }
         public virtual DbSet<AdOrder> AdOrder { get; set; }
-        public virtual DbSet<AllPayFeed> AllPayFeed { get; set; }
         public virtual DbSet<Area_TW> Area_TW { get; set; }
         public virtual DbSet<BonusSystem> BonusSystem { get; set; }
         public virtual DbSet<City_TW> City_TW { get; set; }
@@ -38,7 +37,6 @@ namespace Anything.Models
         public virtual DbSet<HotelView> HotelView { get; set; }
         public virtual DbSet<Logs> Logs { get; set; }
         public virtual DbSet<News> News { get; set; }
-        public virtual DbSet<OrderMaster> OrderMaster { get; set; }
         public virtual DbSet<RoomImage> RoomImage { get; set; }
         public virtual DbSet<Scenic> Scenic { get; set; }
         public virtual DbSet<ServiceOption> ServiceOption { get; set; }
@@ -47,5 +45,7 @@ namespace Anything.Models
         public virtual DbSet<VIPs> VIPs { get; set; }
         public virtual DbSet<Room> Room { get; set; }
         public virtual DbSet<RoomPrice> RoomPrice { get; set; }
+        public virtual DbSet<PayGo> PayGo { get; set; }
+        public virtual DbSet<OrderMaster> OrderMaster { get; set; }
     }
 }

@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using Anything.Helper;
 using Anything.Models;
+using System.Data.Entity;
 namespace Anything.Controllers
 {
     public class HomeController : BaseController
@@ -93,12 +94,12 @@ namespace Anything.Controllers
                                DayPrice = IsHoliday ? r.HolidayPrice : r.DayPrice,
                                BedAmount = r.BedAmount,
                                Amt = _db.OrderMaster.Where(o => o.ProductId == r.ID && 
-                ((o.CheckIn.Year == Date.Year&&
-                o.CheckIn.Month == Date.Month&&
-                o.CheckIn.Date == Date.Date)||
-                (o.CheckOut.Year == Date.Year &&
-                o.CheckOut.Month == Date.Month &&
-                o.CheckOut.Date == Date.Date))).Sum(o => o.Amount)
+                                ( 
+                                
+                                 (DbFunctions.TruncateTime(o.CheckIn).Value.CompareTo(Date) == 0) ||
+                                 (DbFunctions.TruncateTime(o.CheckOut).Value.CompareTo(Date) == 0)
+
+                                 )).Select(o=>o.Amount).DefaultIfEmpty(0).Sum()
                            }).ToList();
 
             model.Rooms = model.Rooms.Where(o => o.Quantity > o.Amt).ToList();
@@ -215,14 +216,18 @@ namespace Anything.Controllers
         public ActionResult Booking(BookingModel model)
         {
             var Room = _db.Room.Find(model.ID);
-            var Filled = Room.Quantity >= _db.OrderMaster.Where(o => o.ProductId == Room.ID && 
-                ((o.CheckIn.Year == model.CheckInDate.Year&&
-                o.CheckIn.Month == model.CheckInDate.Month&&
-                o.CheckIn.Date == model.CheckInDate.Date)||
-                (o.CheckOut.Year == model.CheckInDate.Year &&
-                o.CheckOut.Month == model.CheckInDate.Month &&
-                o.CheckOut.Date == model.CheckInDate.Date))).Sum(o => o.Amount);
-            if (Filled)
+            var DateTims = model.DateList.Split(',');
+            model.CheckInDate = DateTime.Parse(DateTims.First());
+            model.CheckOutDate = DateTime.Parse(DateTims.Last()).AddDays(1);
+            var Sum = _db.OrderMaster.Where(o => o.ProductId == Room.ID &&
+                                (
+
+                                 (DbFunctions.TruncateTime(o.CheckIn).Value.CompareTo(model.CheckInDate) == 0) ||
+                                 (DbFunctions.TruncateTime(o.CheckOut).Value.CompareTo(model.CheckOutDate) == 0)
+
+                                 )).Select(o => o.Amount).DefaultIfEmpty(0).Sum();
+            var Filled = Room.Quantity >= Sum;
+            if (!Filled)
             {
                 ModelState.AddModelError("","客滿");
                 return View();
@@ -295,15 +300,61 @@ namespace Anything.Controllers
             PayGo.LangType = "zh-tw";
             var Now = DateTime.Now;
             PayGo.TimeStamp = DateTime.UtcNow.Subtract(Now).TotalSeconds.ToString();
-            PayGo.Amt = int.Parse(Total.ToString());
-            PayGo.Version = "1.2";
+            PayGo.Amt = Convert.ToInt16(Total);
             PayGo.TradeLimit = 60;
             PayGo.ItemDesc = string.Format("{0}/{1}/{2}",Room.Name,Total,CurrentUser.Id);
             PayGo.Email = model.Email;
             PayGo.EmailModify = 0;
             PayGo.LoginType = 0;
             PayGo.OrderComment = "";
-            PayGo.NotifyURL = "http://";
+            PayGo.CheckValue = new Pay2Go().CheckValue(PayGo.Amt, PayGo.MerchantOrderNo, PayGo.TimeStamp);
+            switch (model.PaymentType)
+            {
+                case 1:                   
+                    PayGo.CREDIT = 1;
+                    PayGo.InstFlag = "0";
+                    PayGo.WEBATM = 0;
+                    PayGo.VACC = 0;
+                    PayGo.CVS = 0;
+                    break;
+                case 2:
+                     PayGo.CREDIT = 0;
+                    PayGo.InstFlag = "3";
+                    PayGo.WEBATM = 0;
+                    PayGo.VACC = 0;
+                    PayGo.CVS = 0;
+                    break;
+                case 3:
+                     PayGo.CREDIT = 0;
+                    PayGo.InstFlag = "0";
+                    PayGo.WEBATM = 1;
+                    PayGo.VACC = 0;
+                    PayGo.CVS = 0;
+                    break;
+                case 4:
+                    PayGo.CREDIT = 0;
+                    PayGo.InstFlag = "0";
+                    PayGo.WEBATM = 0;
+                    PayGo.VACC = 1;
+                    PayGo.CVS = 0;
+                    break;
+                case 5:
+                    PayGo.CREDIT = 0;
+                    PayGo.InstFlag = "0";
+                    PayGo.WEBATM = 0;
+                    PayGo.VACC = 0;
+                    PayGo.CVS = 1;
+                    break;              
+            }
+
+            BookingCommit BookCommit = new BookingCommit();
+            BookCommit.Booking = model;
+            BookCommit.PayGoRequest = PayGo;
+            return View("PayCommit", BookCommit);
+        }
+
+        public ActionResult PayCommit(PayGoRequest model)
+        {
             return View();
         }
     }

@@ -76,6 +76,26 @@ namespace Anything.Helper
 
             }
 
+            public static string GetRoomForID(int ID)
+            {
+                var _db = new MyAnythingEntities();
+
+                var Room = _db.Room.Find(ID);
+                var Name = Room != null ? Room.Name : string.Empty;
+                return Name;
+
+            }
+
+            public static string GetHotelForID(int ID)
+            {
+                var _db = new MyAnythingEntities();
+
+                var Room = _db.Room.Find(ID);
+                var Name = Room != null ? Room.Hotel.Name : string.Empty;
+                return Name;
+
+            }
+
            
         }
 
