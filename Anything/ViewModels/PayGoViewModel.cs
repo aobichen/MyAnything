@@ -25,15 +25,19 @@ namespace Anything.ViewModels
             var HashKey = System.Configuration.ConfigurationManager.AppSettings["PayHashKey"];
             var HashIV = System.Configuration.ConfigurationManager.AppSettings["PayHashIV"];
 
-            var Value = string.Format(@"HashKey={0}&Amt={1}&MerchantID={2}
-                &MerchantOrderNo={3}&TimeStamp={4}&Version={5}&HashIV={6}"
+            var text = string.Format(@"HashKey={0}&Amt={1}&MerchantID={2}&MerchantOrderNo={3}&TimeStamp={4}&Version={5}&HashIV={6}"
                 , HashKey, Amt, pay.MerchantID, MerchantOrderNo, TimeStamp, pay.Version, HashIV);
 
-            SHA256 sha256 = new SHA256CryptoServiceProvider();//建立一個SHA256
-            byte[] source = Encoding.Default.GetBytes(Value);//將字串轉為Byte[]
-            byte[] crypto = sha256.ComputeHash(source);//進行SHA256加密
-            string result = Convert.ToBase64String(crypto);//把加密後的字串從Byte[]轉為字串
-            return result;
+            byte[] bytes = Encoding.UTF8.GetBytes(text);
+            SHA256Managed hashstring = new SHA256Managed();
+            byte[] hash = hashstring.ComputeHash(bytes);
+            string hashString = string.Empty;
+            foreach (byte x in hash)
+            {
+                hashString += String.Format("{0:x2}", x);
+            }
+
+            return hashString.ToUpper();
         }
     }
     public class PayGoRequest
@@ -54,8 +58,8 @@ namespace Anything.ViewModels
 
         public string ReturnURL { get { return System.Configuration.ConfigurationManager.AppSettings["ReturnURL"];}  }
         public string NotifyURL { get { return System.Configuration.ConfigurationManager.AppSettings["NotifyURL"]; }  }
-        public string CustomerURL { get; set; }
-        public string ClientBackUrl { get; set; }
+        public string CustomerURL { get { return System.Configuration.ConfigurationManager.AppSettings["CustomerURL"]; } }
+        public string ClientBackUrl { get { return System.Configuration.ConfigurationManager.AppSettings["ClientBackUrl"]; } }
         public string Email { get; set; }
         public int EmailModify { get; set; }
         public int LoginType { get; set; }
@@ -73,11 +77,18 @@ namespace Anything.ViewModels
         
     }
 
+    
     public class PayGoRespond
     {
         public string Status { get; set; }
         public string Message { get; set; }
         public string Result { get; set; }
+        
+    }
+
+    //[Serializable]
+    public class PayResult
+    {
         public string MerchantID { get; set; }
         public int Amt { get; set; }
         public string TradeNo { get; set; }
@@ -86,7 +97,10 @@ namespace Anything.ViewModels
 
         public string RespondType { get; set; }
         public string CheckCode { get; set; }
-        public DateTime PayTime { get; set; }
+
+        public string ExpireTime { get; set; }
+        public string ExpireDate { get; set; }
+        public string PayTime { get; set; }
         public string IP { get; set; }
         public string EscrowBank { get; set; }
         public string Auth { get; set; }
@@ -98,13 +112,14 @@ namespace Anything.ViewModels
         public string ECI { get; set; }
         public int TokenUseStatus { get; set; }
         public int RedAmt { get; set; }
-        public string PayBankCode { get; set; }
+        public string BankCode { get; set; }
         public string PayerAccount5Code { get; set; }
-        public string CoedNo { get; set; }
+        public string CodeNo { get; set; }
         public string Barcode1 { get; set; }
         public string Barcode2 { get; set; }
         public string Barcode3 { get; set; }
 
+       
         public string RespondCode { get; set; }
     }
 }

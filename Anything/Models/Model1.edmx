@@ -323,6 +323,14 @@
           <Property Name="Edited" Type="datetime" Nullable="false" />
           <Property Name="FieldName" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="TEST">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Message" Type="nvarchar(max)" />
+          <Property Name="Created" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="VIPOrder">
           <Key>
             <PropertyRef Name="ID" />
@@ -479,6 +487,7 @@
           <EntitySet Name="Scenic" EntityType="Self.Scenic" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ServiceOption" EntityType="Self.ServiceOption" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SysManage" EntityType="Self.SysManage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TEST" EntityType="Self.TEST" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VIPOrder" EntityType="Self.VIPOrder" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VIPs" EntityType="Self.VIPs" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__Area_TW__CID__29572725" Association="Self.FK__Area_TW__CID__29572725">
@@ -903,6 +912,7 @@
             <End Role="OrderMaster" EntitySet="OrderMaster" />
             <End Role="PayGo" EntitySet="PayGo" />
           </AssociationSet>
+          <EntitySet Name="TEST" EntityType="MyAnythingModel.TEST" />
           </EntityContainer>
         <EntityType Name="Room">
           <Key>
@@ -1053,6 +1063,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="TEST">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1422,6 +1440,15 @@
                 <ScalarProperty Name="Message" ColumnName="Message" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="MerchantOrderNo" ColumnName="MerchantOrderNo" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TEST">
+            <EntityTypeMapping TypeName="MyAnythingModel.TEST">
+              <MappingFragment StoreEntitySet="TEST">
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -69,9 +69,9 @@
                                 </div>
                             </div>
                             <div class="row">
-            <form name='Pay2go' method='post'action='https://capi.pay2go.com/MPG/mpg_gateway' class="static-content booking">
+            <form name='Pay2go' method='post'action='https://api.pay2go.com/MPG/mpg_gateway' class="static-content booking">
 
-                                        <input type="hidden" name="MerchantID" value="@Model.PayGoRequest.MerchantID" />
+                                         <input type="hidden" name="MerchantID" value="@Model.PayGoRequest.MerchantID" />
                                         <input type="hidden" name="Amt" value="@Model.PayGoRequest.Amt" />
                                         <input type="hidden" name="BARCODE" value="@Model.PayGoRequest.BARCODE" />
                                         <input type="hidden" name="CheckValue" value="@Model.PayGoRequest.CheckValue" />
@@ -101,6 +101,7 @@
                                         <input type="hidden" name="WEBATM" value="@Model.PayGoRequest.WEBATM" />
                                         <input type="hidden" name="RespondType" value="@Model.PayGoRequest.RespondType" />
                                         <input type="hidden" name="Email" value="@Model.PayGoRequest.Email" />
+                                       
                                         <div class="f-item full-width">
                                             <input type="submit" class="gradient-button" value="付款" id="next-step" />
                                         </div>

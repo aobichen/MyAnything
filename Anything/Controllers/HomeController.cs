@@ -221,10 +221,8 @@ namespace Anything.Controllers
             model.CheckOutDate = DateTime.Parse(DateTims.Last()).AddDays(1);
             var Sum = _db.OrderMaster.Where(o => o.ProductId == Room.ID &&
                                 (
-
-                                 (DbFunctions.TruncateTime(o.CheckIn).Value.CompareTo(model.CheckInDate) == 0) ||
-                                 (DbFunctions.TruncateTime(o.CheckOut).Value.CompareTo(model.CheckOutDate) == 0)
-
+                                 (DbFunctions.DiffDays(o.CheckIn, model.CheckInDate) == 0) ||
+                                 (DbFunctions.DiffDays(o.CheckOut, model.CheckOutDate) == 0)
                                  )).Select(o => o.Quantity).DefaultIfEmpty(0).Sum();
             var Filled = Room.Quantity >= Sum;
             if (!Filled)
@@ -236,7 +234,8 @@ namespace Anything.Controllers
             var CheckInDate = Dates.First();
             var CheckOutDate = Dates.Last();
             decimal Total = 0;
-            #region
+           
+            #region ## 檢查 ##
             for (DateTime date = CheckInDate; CheckOutDate.CompareTo(date) >= 0; date = date.AddDays(1.0))
             {
                 var d = (int)date.DayOfWeek;
@@ -295,20 +294,43 @@ namespace Anything.Controllers
             #endregion
 
             var PayGo = new PayGoRequest();
-
-            PayGo.MerchantOrderNo = Guid.NewGuid().GetHashCode().ToString("x");
-            PayGo.LangType = "zh-tw";
             var Now = DateTime.Now;
-            PayGo.TimeStamp = DateTime.UtcNow.Subtract(Now).TotalSeconds.ToString();
-            PayGo.Amt = Convert.ToInt16(Total);
-            PayGo.TradeLimit = 60;
+            PayGo.MerchantOrderNo = Now.ToString("yyyyMMdd") + Guid.NewGuid().GetHashCode().ToString("x");
+            PayGo.LangType = "zh-tw";
+            PayGo.TimeStamp = Convert.ToInt32(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds).ToString();
+            //PayGo.Amt = Convert.ToInt16(Total);
+            PayGo.Amt = 30;
+            PayGo.TradeLimit = 120;
             PayGo.ItemDesc = string.Format("{0}/{1}/{2}",Room.Name,Total,CurrentUser.Id);
-            PayGo.Email = model.Email;
+            PayGo.Email = model.info.Email;
             PayGo.EmailModify = 0;
             PayGo.LoginType = 0;
-            PayGo.OrderComment = "";
-            PayGo.CheckValue = new Pay2Go().CheckValue(PayGo.Amt, PayGo.MerchantOrderNo, PayGo.TimeStamp);
+            PayGo.OrderComment = "";           
+            PayGo.CheckValue = new Pay2Go().CheckValue(PayGo.Amt, PayGo.MerchantOrderNo, PayGo.TimeStamp);        
             PayGo.RespondType = "JSON";
+            var ExpireDateTimeSpan = new TimeSpan(CheckInDate.Ticks - Now.Ticks).Days;
+            var ExpireTimeSpan = new TimeSpan(CheckInDate.Ticks - Now.Ticks).Hours;
+            //var ExpireDate = Now;
+           
+            //if (ExpireDateTimeSpan >= 4)
+            //{
+            //    ExpireDate = Now.AddDays(4);
+            //}
+            //else if (ExpireDateTimeSpan >= 3)
+            //{
+            //    ExpireDate = Now.AddDays(3);
+            //}
+            //else if (ExpireDateTimeSpan >= 2)
+            //{
+            //    ExpireDate = Now.AddDays(2);
+            //}
+            //else if (ExpireDateTimeSpan >= 1)
+            //{
+            //    ExpireDate = Now.AddDays(1);
+            //}
+
+            PayGo.ExpireDate = Now.AddDays(1).ToString("yyyyMMdd");
+            PayGo.ExpireTime = "";
             var PaymentType = string.Empty;
             
             switch (model.PaymentType)
@@ -360,7 +382,6 @@ namespace Anything.Controllers
             BookCommit.PayGoRequest = PayGo;
             var order = new OrderMaster
             {
-                ID = 1,
                 Address = model.info.Address,
                 Amount = PayGo.Amt,
                 CheckIn = model.CheckInDate,

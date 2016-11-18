@@ -3,6 +3,16 @@
     ViewBag.Title = "Booking";
 }
 
+<style type="text/css">
+    option{
+        cursor:pointer;
+    }
+    option:disabled{
+        background-color:#E0E0E0;
+        cursor:default;
+        pointer-events:none;
+    }
+</style>
 <div class="wrap">
     <div class="full-width">
         <nav class="breadcrumbs">
@@ -74,13 +84,14 @@
                                     </option>
                                     <option value="3">
                                         網路ATM
-                                    </option>
+                                   </option>                                  
                                     <option value="4">
                                         實體ATM
                                     </option>
                                     <option value="5">
                                         超商付款
                                     </option>
+                                    
                                 </select>
                             </div>
 
@@ -202,12 +213,23 @@
             let checkboxs = $('input[name=checkdate]:checked');
             InDate.text(checkboxs.first().val());
             var outdate = new Date(checkboxs.last().val());
-           
+            var indate = new Date(checkboxs.first().val());
             let newOutDate = new Date(outdate.setDate(outdate.getDate() + 1));
             var y = newOutDate.getFullYear();
             var m = (newOutDate.getMonth() + 1) < 10 ? "0" + (newOutDate.getMonth() + 1) : newOutDate.getMonth() + 1;
             var d = newOutDate.getDate() < 10 ? "0" + newOutDate.getDate() : newOutDate.getDate();
-            OutDate.text(y+"/"+m+"/"+d);
+            OutDate.text(y + "/" + m + "/" + d);
+            var Now = new Date();
+            var dd = Now.getDate();
+            var thisDate = indate.getDate();
+           
+            if ((thisDate-dd) <= 1) {
+                $('select[name=PaymentType] option[value="4"]').attr('disabled', true);
+                $('select[name=PaymentType] option[value="5"]').attr('disabled', true);
+            } else {
+                $('select[name=PaymentType] option[value="4"]').attr('disabled', false);
+                $('select[name=PaymentType] option[value="5"]').attr('disabled', false);
+            }
         }
     })
 </script>

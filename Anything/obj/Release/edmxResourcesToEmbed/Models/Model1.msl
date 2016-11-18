@@ -368,5 +368,14 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="TEST">
+      <EntityTypeMapping TypeName="MyAnythingModel.TEST">
+        <MappingFragment StoreEntitySet="TEST">
+          <ScalarProperty Name="Created" ColumnName="Created" />
+          <ScalarProperty Name="Message" ColumnName="Message" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

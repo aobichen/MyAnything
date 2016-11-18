@@ -381,6 +381,7 @@
       <End Role="OrderMaster" EntitySet="OrderMaster" />
       <End Role="PayGo" EntitySet="PayGo" />
     </AssociationSet>
+    <EntitySet Name="TEST" EntityType="MyAnythingModel.TEST" />
   </EntityContainer>
   <EntityType Name="Room">
     <Key>
@@ -531,4 +532,12 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="TEST">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
 </Schema>

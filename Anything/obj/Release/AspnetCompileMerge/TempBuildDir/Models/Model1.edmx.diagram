@@ -36,6 +36,7 @@
         <EntityTypeShape EntityType="MyAnythingModel.OrderMaster" Width="1.5" PointX="15.375" PointY="5.375" />
         <EntityTypeShape EntityType="MyAnythingModel.PayGo" Width="1.5" PointX="17.625" PointY="5.125" />
         <AssociationConnector Association="MyAnythingModel.FK_PayGo_OrderMaster" />
+        <EntityTypeShape EntityType="MyAnythingModel.TEST" Width="1.5" PointX="12.375" PointY="4.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
