@@ -21,7 +21,7 @@ namespace Anything.Models
         public string MerchantID { get; set; }
         public int Amt { get; set; }
         public string TradeNo { get; set; }
-        public System.DateTime PayTime { get; set; }
+        public Nullable<System.DateTime> PayTime { get; set; }
         public string IP { get; set; }
         public string EscrowBank { get; set; }
         public string RespondCode { get; set; }

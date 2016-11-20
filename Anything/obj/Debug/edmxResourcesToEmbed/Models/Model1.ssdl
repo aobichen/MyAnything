@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="MyAnythingModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+<Schema Namespace="MyAnythingModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="AdImage">
     <Key>
       <PropertyRef Name="ID" />
@@ -139,6 +139,7 @@
     <Property Name="Name" Type="nvarchar" MaxLength="50" />
     <Property Name="Path" Type="nvarchar" MaxLength="500" />
     <Property Name="Enabled" Type="bit" />
+    <Property Name="Extension" Type="nvarchar" MaxLength="5" />
   </EntityType>
   <EntityType Name="HotelView">
     <Key>
@@ -214,7 +215,7 @@
     <Property Name="MerchantID" Type="nvarchar" MaxLength="15" Nullable="false" />
     <Property Name="Amt" Type="int" Nullable="false" />
     <Property Name="TradeNo" Type="nvarchar" MaxLength="20" Nullable="false" />
-    <Property Name="PayTime" Type="datetime" Nullable="false" />
+    <Property Name="PayTime" Type="datetime" />
     <Property Name="IP" Type="nvarchar" MaxLength="15" Nullable="false" />
     <Property Name="EscrowBank" Type="nvarchar" MaxLength="10" />
     <Property Name="RespondCode" Type="nvarchar" MaxLength="5" />

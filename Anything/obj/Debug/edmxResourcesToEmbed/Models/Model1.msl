@@ -139,6 +139,7 @@
     <EntitySetMapping Name="HotelImage">
       <EntityTypeMapping TypeName="MyAnythingModel.HotelImage">
         <MappingFragment StoreEntitySet="HotelImage">
+          <ScalarProperty Name="Extension" ColumnName="Extension" />
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="HotelId" ColumnName="HotelId" />
           <ScalarProperty Name="Image" ColumnName="Image" />

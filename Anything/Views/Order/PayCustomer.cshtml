@@ -1,0 +1,48 @@
+﻿@model Anything.ViewModels.OrderViewModel
+@{
+    ViewBag.Title = "PayCustomer";
+}
+
+<div class="wrap">
+    <div class="full-width">
+        <nav class="breadcrumbs">
+
+        </nav>
+        <!--//breadcrumbs-->
+
+        <div class="row">
+           <div class="full-width">
+               @if (Model.PaymentType == "VACC") { 
+                   <div class="well-sm">
+                       <h4>
+                          <span>銀行代碼:</span> @Model.CodeNo
+                       </h4>
+                   </div>
+                   <div class="well">
+                       <h4>繳費代碼</h4>
+                       <h2 class="alert alert-success">
+                           @Model.CodeNo
+                       </h2>
+                   </div>
+               }else if (Model.PaymentType == "CVS")
+               {
+                    <div class="well">
+                        <h4>繳費代碼</h4>
+                        <h2 class="alert alert-success">
+                            @Model.CodeNo
+                        </h2>
+                   </div>
+               }
+               else if (Model.PaymentType == "BARCODE")
+               {
+                    <div class="well">
+                       <h4>
+                           <img src="https://api.pay2go.com/API/barcode_display/get_barcode_img?barcode_text="></h4>
+                   </div>
+               }
+           </div>
+        </div>
+    </div>
+
+</div>
+

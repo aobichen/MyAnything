@@ -435,3 +435,6 @@ C:\Users\Aobi\Documents\SOHOProject\MYAnything\Anything\bin\zh-Hant\Microsoft.Ow
 C:\Users\Aobi\Documents\SOHOProject\MYAnything\Anything\obj\Release\Anything.csprojResolveAssemblyReference.cache
 C:\Users\Aobi\Documents\SOHOProject\MYAnything\Anything\obj\Release\Anything.dll
 C:\Users\Aobi\Documents\SOHOProject\MYAnything\Anything\obj\Release\Anything.pdb
+C:\Users\aobi\Documents\SOHOProjects\MyAnything\Anything\bin\System.Web.Cors.dll
+C:\Users\aobi\Documents\SOHOProjects\MyAnything\Anything\bin\System.Web.Http.Cors.dll
+C:\Users\aobi\Documents\SOHOProjects\MyAnything\Anything\bin\System.Web.Http.Cors.xml

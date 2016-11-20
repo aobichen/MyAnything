@@ -51,7 +51,7 @@ namespace Anything.ViewModels
         public bool Enabled { get; set; }
 
         public bool SaleOff { get; set; }
-        public string SessionKey { get; set; }
+        public string ImgKey { get; set; }
 
         public int UserId { get; set; }
 
@@ -116,9 +116,9 @@ namespace Anything.ViewModels
          {
             var HotelImage = new List<HotelImage>();
             
-            if (!string.IsNullOrEmpty(SessionKey))
+            if (!string.IsNullOrEmpty(ImgKey))
             {
-                HotelImage = (List<HotelImage>)HttpContext.Current.Session[SessionKey];
+                HotelImage = (List<HotelImage>)HttpContext.Current.Session[ImgKey];
 
                 if (ID > 0)
                 {
@@ -127,19 +127,29 @@ namespace Anything.ViewModels
                     HotelImage = HotelImage.Where(o => !Images.Contains(o.Name)).ToList();
                 }
 
+                var Today = DateTime.Now;
+
                 var UserFolder = System.Configuration.ConfigurationManager.AppSettings["UserFolder"];
+                var DirectoryPath = Path.Combine(UserFolder,Today.ToString("yyyyMMdd"));
+                var DirectoryServerPath = HttpContext.Current.Server.MapPath(DirectoryPath);
+                if (!Directory.Exists(DirectoryServerPath))
+                {
+                    Directory.CreateDirectory(DirectoryServerPath);
+                }
 
                 for (var i = 0; i < HotelImage.Count; i++)
                 {
-                    var fileName = Guid.NewGuid().ToString();
-                   // var Extension = Path.GetExtension(fileName);
-                    var webPath = Path.Combine(UserFolder, fileName + ".jpg");
-                    var path = Path.Combine(HttpContext.Current.Server.MapPath(UserFolder), fileName + ".jpg");
+                    var FileName = Guid.NewGuid().GetHashCode().ToString("x");
+                    var Extension = Path.GetExtension(HotelImage[i].Name);
+                    var WebPath = Path.Combine(DirectoryPath, FileName + Extension);
+                    var ServerPath = Path.Combine(DirectoryServerPath, FileName + Extension);
                     MemoryStream ms = new MemoryStream(HotelImage[i].Image);
-                    var returnImage = System.Drawing.Image.FromStream(ms);
+                    var Image = System.Drawing.Image.FromStream(ms);
+                    Image.Save(ServerPath);
                     HotelImage[i].Sort = i + 1;
                     HotelImage[i].Enabled = true;
-                    HotelImage[i].Path = path;
+                    HotelImage[i].Path = WebPath;
+                    HotelImage[i].Name = FileName;
                 }              
             }
             return HotelImage;

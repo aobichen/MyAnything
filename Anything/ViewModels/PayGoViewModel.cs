@@ -9,15 +9,6 @@ namespace Anything.ViewModels
 {
     public class Pay2Go
     {
-//        1. 排列參數並串聯
-//Amt=200&MerchantID=123456&MerchantOrderNo=20140901001&TimeStamp=140
-//3243286&Version=1.1
-//2. 前後加上商店專屬的 HashKey 及 HashIV
-//HashKey=1A3S21DAS3D1AS65D1&Amt=200&MerchantID=123456&MerchantOrd
-//erNo=20140901001&TimeStamp=1403243286&Version=1.1&HashIV=1AS56D1AS
-//24D
-//3. 使用 SHA256 壓碼過後並轉大寫
-//strtoupper(hash("sha256", $CheckValue_str));
 
         public string CheckValue(int Amt, string MerchantOrderNo, string TimeStamp)
         {
@@ -77,7 +68,7 @@ namespace Anything.ViewModels
         
     }
 
-    
+    [Serializable]
     public class PayGoRespond
     {
         public string Status { get; set; }
@@ -122,4 +113,6 @@ namespace Anything.ViewModels
        
         public string RespondCode { get; set; }
     }
+
+   
 }

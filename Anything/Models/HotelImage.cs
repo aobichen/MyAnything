@@ -22,6 +22,7 @@ namespace Anything.Models
         public string Name { get; set; }
         public string Path { get; set; }
         public Nullable<bool> Enabled { get; set; }
+        public string Extension { get; set; }
     
         public virtual Hotel Hotel { get; set; }
     }

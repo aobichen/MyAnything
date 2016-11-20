@@ -122,7 +122,8 @@ namespace Anything.WebApi
                // var image = FileToByte(file);
                 var subName = Path.GetExtension(file.FileName);
                 var fileName = file.FileName;
-                var webPath = Path.Combine(FolderPath, fileName + ".jpg");
+                var Extension = Path.GetExtension(fileName);
+                var webPath = Path.Combine(FolderPath, fileName +Extension);
                 //var path = Path.Combine(HttpContext.Current.Server.MapPath(FolderPath),fileName+".jpg");
                 //file.SaveAs(path);
                 var image = FileToByte(file);
@@ -139,6 +140,48 @@ namespace Anything.WebApi
             Current.Session[key] = Images;
             var data = JsonConvert.SerializeObject(Images);
             return Json(new { data = data, message = Message });
+        }
+
+
+        public class ImageModel
+        {
+            public string image { get; set; }
+            public string name { get; set; }
+            public string key { get; set; }
+        }
+
+        [HttpPost]
+        [Route("ImageUpload")]
+        public HttpResponseMessage ImageUpload(List<ImageModel> model)
+        {
+            var key = model[0].key;
+            var Images = new List<HotelImage>();
+
+            var Current = HttpContext.Current;
+            if (Current.Session[key] != null)
+            {
+
+                Images = (List<HotelImage>)Current.Session[key];              
+            }
+
+            foreach (var m in model)
+            {
+                byte[] bytes = Convert.FromBase64String(m.image);
+                var Extension = Path.GetExtension(m.name);
+                Images.Add(new HotelImage { Image = bytes, Name = m.name, Extension = Extension });
+                
+            }
+
+            Current.Session[key] = Images;
+            var ResposeMessage = new HttpResponseMessage(
+                HttpStatusCode.OK)
+            {
+                Content = new StringContent(JsonConvert.SerializeObject(new {Success=true,Message="OK" })),
+                ReasonPhrase = "Success"
+            };
+
+
+            return ResposeMessage;
         }
 
         [HttpPost]
