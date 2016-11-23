@@ -488,6 +488,8 @@
     <Property Name="ProductType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Creator" Type="Int32" Nullable="false" />
     <NavigationProperty Name="PayGo" Relationship="MyAnythingModel.FK_PayGo_OrderMaster" FromRole="OrderMaster" ToRole="PayGo" />
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="PayGo">
     <Key>
@@ -520,6 +522,7 @@
     <Property Name="Barcode_3" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
     <Property Name="RespondType" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="OrderMaster" Relationship="MyAnythingModel.FK_PayGo_OrderMaster" FromRole="PayGo" ToRole="OrderMaster" />
+    <Property Name="PaymentType" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
   </EntityType>
   <Association Name="FK_PayGo_OrderMaster">
     <End Type="MyAnythingModel.OrderMaster" Role="OrderMaster" Multiplicity="1" />

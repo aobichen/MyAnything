@@ -139,6 +139,7 @@
     <Property Name="Name" Type="nvarchar" MaxLength="50" />
     <Property Name="Path" Type="nvarchar" MaxLength="500" />
     <Property Name="Enabled" Type="bit" />
+    <Property Name="Extension" Type="nvarchar" MaxLength="5" />
   </EntityType>
   <EntityType Name="HotelView">
     <Key>
@@ -202,6 +203,8 @@
     <Property Name="PaymentType" Type="nvarchar" MaxLength="20" />
     <Property Name="ProductType" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Creator" Type="int" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="150" Nullable="false" />
   </EntityType>
   <EntityType Name="PayGo">
     <Key>
@@ -214,7 +217,7 @@
     <Property Name="MerchantID" Type="nvarchar" MaxLength="15" Nullable="false" />
     <Property Name="Amt" Type="int" Nullable="false" />
     <Property Name="TradeNo" Type="nvarchar" MaxLength="20" Nullable="false" />
-    <Property Name="PayTime" Type="datetime" Nullable="false" />
+    <Property Name="PayTime" Type="datetime" />
     <Property Name="IP" Type="nvarchar" MaxLength="15" Nullable="false" />
     <Property Name="EscrowBank" Type="nvarchar" MaxLength="10" />
     <Property Name="RespondCode" Type="nvarchar" MaxLength="5" />
@@ -233,6 +236,7 @@
     <Property Name="Barcode_2" Type="nvarchar" MaxLength="20" />
     <Property Name="Barcode_3" Type="nvarchar" MaxLength="20" />
     <Property Name="RespondType" Type="nvarchar" MaxLength="10" />
+    <Property Name="PaymentType" Type="nvarchar" MaxLength="10" />
   </EntityType>
   <EntityType Name="Room">
     <Key>

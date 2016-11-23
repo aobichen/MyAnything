@@ -1,0 +1,92 @@
+﻿@model Anything.ViewModels.OrderViewModel
+<div id="booking" class="static-content booking">
+    <fieldset>
+        <div class="full-width">
+            @if (Model.PaymentType == "VACC")
+            {
+                <div class="well-sm">
+                    <h4>
+                        <span>銀行代碼:</span> @Model.PayBankCode
+                    </h4>
+                </div>
+                <div class="well">
+                    <h4>繳費代碼</h4>
+                    <h2 class="alert alert-success">
+                        @Model.CodeNo
+                    </h2>
+                </div>
+            }
+            else if (Model.PaymentType == "CVS")
+            {
+                <div class="well">
+                    <h4>繳費代碼</h4>
+                    <h2 class="alert alert-success">
+                        @Model.CodeNo
+                    </h2>
+                </div>
+            }
+            else if (Model.PaymentType == "BARCODE")
+            {
+                <div class="well">
+                    <h4>
+                        <img src="https://api.pay2go.com/API/barcode_display/get_barcode_img?barcode_text="@Model.Barcode_1>
+                    </h4>
+                    <h4>
+                        <img src="https://api.pay2go.com/API/barcode_display/get_barcode_img?barcode_text=" @Model.Barcode_2>
+                    </h4>
+                    <h4>
+                        <img src="https://api.pay2go.com/API/barcode_display/get_barcode_img?barcode_text=" @Model.Barcode_3>
+                    </h4>
+                </div>
+            }
+        </div>
+
+        @*<h3>訂單資訊</h3>
+        <div class="text-wrap">
+            <div class="output">
+                <p>訂單編號:</p>
+                <p>@Model.MerchantTradeNo</p>
+                <p>訂購人 </p>
+                <p>@Model.Name</p>
+
+                <p>E-mail: </p>
+                <p>@Model.Email</p>
+                <p>地址:</p>
+                <p>@Model.Address</p>
+                <p>電話: </p>
+                <p>@Model.Phone</p>
+                <p>飯店名稱:</p>
+                <p>@Model.HotelName</p>
+                <p>房型:</p>
+                <p>@Model.RoomName</p>
+                <p>數量:</p>
+                <p>@Model.Quantity</p>
+                <p>金額:</p>
+                <p>@Model.Amount</p>
+                <p>入住日:</p>
+                <p>@Model.CheckIn</p>
+                <p>退房日:</p>
+                <p>@Model.CheckOut</p>
+            </div>
+        </div>*@
+
+
+
+        @*<h3>Payment</h3>
+            <div class="text-wrap">
+                <p>You have now confirmed and guaranteed your booking by credit card.All payments are to be made at the hotel during your stay, unless otherwise stated in the hotel policies or in the room conditions.Please note that your credit card may be pre-authorised prior to your arrival. </p>
+                <p><strong class="dark">This hotel accepts the following forms of payment:</strong></p>
+                <p>American Express, Visa, MasterCard</p>
+            </div>*@
+
+        @*<h3>Don’t forget</h3>
+            <div class="text-wrap">
+                <p>
+                    You can change or cancel your booking via our online self service tool myBookYourTravel:
+                    <a href="#">https://secure.bookyourtravel.com/myreservations.html?tmpl=profile/myreservations;bn=904054553;pincode=6525</a>
+                </p>
+                <p><strong>We wish you a pleasant stay</strong><i>your BookYourTravel team</i></p>
+            </div>*@
+    </fieldset>
+</div>
+

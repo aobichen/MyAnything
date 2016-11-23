@@ -139,6 +139,7 @@
     <EntitySetMapping Name="HotelImage">
       <EntityTypeMapping TypeName="MyAnythingModel.HotelImage">
         <MappingFragment StoreEntitySet="HotelImage">
+          <ScalarProperty Name="Extension" ColumnName="Extension" />
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="HotelId" ColumnName="HotelId" />
           <ScalarProperty Name="Image" ColumnName="Image" />
@@ -309,6 +310,8 @@
     <EntitySetMapping Name="OrderMaster">
       <EntityTypeMapping TypeName="MyAnythingModel.OrderMaster">
         <MappingFragment StoreEntitySet="OrderMaster">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
           <ScalarProperty Name="Creator" ColumnName="Creator" />
           <ScalarProperty Name="ProductType" ColumnName="ProductType" />
           <ScalarProperty Name="PaymentType" ColumnName="PaymentType" />
@@ -339,6 +342,7 @@
     <EntitySetMapping Name="PayGo">
       <EntityTypeMapping TypeName="MyAnythingModel.PayGo">
         <MappingFragment StoreEntitySet="PayGo">
+          <ScalarProperty Name="PaymentType" ColumnName="PaymentType" />
           <ScalarProperty Name="RespondType" ColumnName="RespondType" />
           <ScalarProperty Name="Barcode_3" ColumnName="Barcode_3" />
           <ScalarProperty Name="Barcode_2" ColumnName="Barcode_2" />

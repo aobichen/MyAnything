@@ -1,7 +1,18 @@
-﻿
+﻿@model Anything.ViewModels.OrderViewModel
 @{
-    ViewBag.Title = "PaySuccess";
+    ViewBag.Title = "PayCustomer";
 }
 
-<h2>PaySuccess</h2>
+<div class="wrap">
+    <div class="full-width">
+        <nav class="breadcrumbs">
+
+        </nav>
+        <div class="full-width">
+            @Html.Partial("_Detail", Model)
+        </div>
+
+    </div>
+
+</div>
 

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="MyAnythingModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="MyAnythingModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AdImage">
           <Key>
             <PropertyRef Name="ID" />
@@ -208,6 +208,8 @@
           <Property Name="PaymentType" Type="nvarchar" MaxLength="20" />
           <Property Name="ProductType" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Creator" Type="int" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="150" Nullable="false" />
         </EntityType>
         <EntityType Name="PayGo">
           <Key>
@@ -239,6 +241,7 @@
           <Property Name="Barcode_2" Type="nvarchar" MaxLength="20" />
           <Property Name="Barcode_3" Type="nvarchar" MaxLength="20" />
           <Property Name="RespondType" Type="nvarchar" MaxLength="10" />
+          <Property Name="PaymentType" Type="nvarchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="Room">
           <Key>
@@ -1020,6 +1023,8 @@
           <Property Name="ProductType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Creator" Type="Int32" Nullable="false" />
           <NavigationProperty Name="PayGo" Relationship="MyAnythingModel.FK_PayGo_OrderMaster" FromRole="OrderMaster" ToRole="PayGo" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="PayGo">
           <Key>
@@ -1052,6 +1057,7 @@
           <Property Name="Barcode_3" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="RespondType" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="OrderMaster" Relationship="MyAnythingModel.FK_PayGo_OrderMaster" FromRole="PayGo" ToRole="OrderMaster" />
+          <Property Name="PaymentType" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_PayGo_OrderMaster">
           <End Type="MyAnythingModel.OrderMaster" Role="OrderMaster" Multiplicity="1" />
@@ -1388,6 +1394,8 @@
           <EntitySetMapping Name="OrderMaster">
             <EntityTypeMapping TypeName="MyAnythingModel.OrderMaster">
               <MappingFragment StoreEntitySet="OrderMaster">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Creator" ColumnName="Creator" />
                 <ScalarProperty Name="ProductType" ColumnName="ProductType" />
                 <ScalarProperty Name="PaymentType" ColumnName="PaymentType" />
@@ -1418,6 +1426,7 @@
           <EntitySetMapping Name="PayGo">
             <EntityTypeMapping TypeName="MyAnythingModel.PayGo">
               <MappingFragment StoreEntitySet="PayGo">
+                <ScalarProperty Name="PaymentType" ColumnName="PaymentType" />
                 <ScalarProperty Name="RespondType" ColumnName="RespondType" />
                 <ScalarProperty Name="Barcode_3" ColumnName="Barcode_3" />
                 <ScalarProperty Name="Barcode_2" ColumnName="Barcode_2" />

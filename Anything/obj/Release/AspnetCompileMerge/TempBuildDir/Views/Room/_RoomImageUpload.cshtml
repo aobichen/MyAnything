@@ -63,11 +63,7 @@
                 $.each(files, function (index, file) {
                     var reader = new FileReader();
                     reader.onload = function (e) {
-
                         var div = $('#imagePanel');
-
-
-
                         let col = $('<div class="col-md-3 img-container"></div>');
                         let DeleteIcon = $('<i class="fa fa-times-circle fa-2x deleteicon"></i>');
                         let imageTemp = $('<img/>').attr('src', e.target.result).addClass('img-responsive');

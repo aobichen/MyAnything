@@ -146,6 +146,7 @@
     <Property Name="Path" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
     <Property Name="Enabled" Type="Boolean" />
     <NavigationProperty Name="Hotel" Relationship="Self.FK_HotelImage_Hotel" FromRole="HotelImage" ToRole="Hotel" />
+    <Property Name="Extension" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="HotelView">
     <Key>
@@ -487,6 +488,8 @@
     <Property Name="ProductType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Creator" Type="Int32" Nullable="false" />
     <NavigationProperty Name="PayGo" Relationship="MyAnythingModel.FK_PayGo_OrderMaster" FromRole="OrderMaster" ToRole="PayGo" />
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="PayGo">
     <Key>
@@ -499,7 +502,7 @@
     <Property Name="MerchantID" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
     <Property Name="Amt" Type="Int32" Nullable="false" />
     <Property Name="TradeNo" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-    <Property Name="PayTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="PayTime" Type="DateTime" Precision="3" />
     <Property Name="IP" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
     <Property Name="EscrowBank" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
     <Property Name="RespondCode" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
@@ -519,6 +522,7 @@
     <Property Name="Barcode_3" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
     <Property Name="RespondType" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="OrderMaster" Relationship="MyAnythingModel.FK_PayGo_OrderMaster" FromRole="PayGo" ToRole="OrderMaster" />
+    <Property Name="PaymentType" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
   </EntityType>
   <Association Name="FK_PayGo_OrderMaster">
     <End Type="MyAnythingModel.OrderMaster" Role="OrderMaster" Multiplicity="1" />

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="MyAnythingModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+<Schema Namespace="MyAnythingModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="AdImage">
     <Key>
       <PropertyRef Name="ID" />
@@ -203,6 +203,8 @@
     <Property Name="PaymentType" Type="nvarchar" MaxLength="20" />
     <Property Name="ProductType" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Creator" Type="int" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="150" Nullable="false" />
   </EntityType>
   <EntityType Name="PayGo">
     <Key>
@@ -234,6 +236,7 @@
     <Property Name="Barcode_2" Type="nvarchar" MaxLength="20" />
     <Property Name="Barcode_3" Type="nvarchar" MaxLength="20" />
     <Property Name="RespondType" Type="nvarchar" MaxLength="10" />
+    <Property Name="PaymentType" Type="nvarchar" MaxLength="10" />
   </EntityType>
   <EntityType Name="Room">
     <Key>

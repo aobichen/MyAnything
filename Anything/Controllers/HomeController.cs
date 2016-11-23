@@ -102,7 +102,7 @@ namespace Anything.Controllers
                                  )).Select(o=>o.Quantity).DefaultIfEmpty(0).Sum()
                            }).ToList();
 
-            model.Rooms = model.Rooms.Where(o => o.Quantity > o.Amt).ToList();
+            model.Rooms = model.Rooms.Where(o => o.Quantity >= o.Amt).ToList();
 
             ViewBag.NearHotels = _db.Hotel.Where(o => o.City == model.City && o.ID != id).OrderBy(o => Guid.NewGuid()).Take(5).ToList();
             var sce = model.Scenics.Split(',').Select(int.Parse).ToList();
@@ -228,7 +228,7 @@ namespace Anything.Controllers
             if (!Filled)
             {
                 ModelState.AddModelError("","客滿");
-                return RedirectToAction("Detail", new { id=Room.ID });
+                return RedirectToAction("Detail", new { id=Room.Hotel.ID });
             }
             var Dates = model.DateList.Split(',').Select(DateTime.Parse).ToList();
             var CheckInDate = Dates.First();
@@ -398,7 +398,9 @@ namespace Anything.Controllers
                 Modify = CurrentUser.Id,
                 Quantity = 1,
                 Tel = model.info.Phone,
-                UserId = CurrentUser.Id
+                UserId = CurrentUser.Id,
+                Email = model.info.Email,
+                Name = model.info.Name
             };
             _db.OrderMaster.Add(order);
             _db.SaveChanges();
