@@ -4,8 +4,22 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render("~/System/Content/css")
+    @*@Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/System/bootstrap")
+        <script src="~/Scripts/iCheck/icheck.min.js"></script>
+
+    <link href="~/Scripts/iCheck/skins/flat/green.css" rel="stylesheet" />
+    *@
+
+    @*<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    
+    <link href="~/Content/font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet" />
+   
+    <link href="~/Content/custom.min.css" rel="stylesheet">*@
+    
+    
 </head>
 
 <body class="nav-md">
@@ -14,7 +28,7 @@
             <div class="col-md-3 left_col">
                 <div class="left_col scroll-view">
                     <div class="navbar nav_title" style="border: 0;">
-                        <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Gentellela Alela!</span></a>
+                        <a href="index.html" class="site_title"><i class="fa fa-rocket" aria-hidden="true"></i> <span>Gentellela Alela!</span></a>
                     </div>
 
                     <div class="clearfix"></div>
@@ -280,38 +294,18 @@
             <!-- /footer content -->
         </div>
     </div>
-
+   
+    @Scripts.Render("~/System/Scripts")
+    @*<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Content/bootstrap.min.js"></script> 
+    <script src="~/Scripts/custom.min.js"></script>*@
   
+    <script type="text/javascript">
+        jQuery(function () {
 
+        })
+    </script>
     
 </body>
-@*<body class="nav-md">
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav"></ul>
-            </div>
-        </div>
-    </div>
 
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
-
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
-</body>*@
 </html>

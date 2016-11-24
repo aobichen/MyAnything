@@ -10,9 +10,7 @@ namespace Anything
             
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-1.10.2.min.js",
-                        "~/Scripts/jquery-ui.min.js",
-                        "~/Content/jquery-localize/dist/jquery.localize.js",
-                        "~/Scripts/jquery.cookie.js"));
+                        "~/Scripts/jquery-ui.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -28,15 +26,14 @@ namespace Anything
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js",
                       "~/Scripts/lightslider.min.js",
-                        "~/Scripts/jquery.uniform.min.js",
-                        "~/Scripts/jquery.slimmenu.min.js",
-                        "~/Scripts/scripts.js"));
+                      "~/Scripts/jquery.uniform.min.js",
+                      "~/Scripts/jquery.slimmenu.min.js",
+                      "~/Scripts/scripts.js"));
 
 
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                "~/Content/bootstrap.css",
-                // "~/Content/site.css",
+                      "~/Content/bootstrap.css",               
                       "~/Content/style.css",
                       "~/Content/lightslider.min.css",
                       "~/Content/theme.css",

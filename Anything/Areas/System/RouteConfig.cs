@@ -14,9 +14,10 @@ namespace Anything.Areas.System
            
 
             context.MapRoute(
-               "System_default",
+               "System",
                "System/{controller}/{action}/{id}",
-               new { action = "Index", id = UrlParameter.Optional }
+               new { controller = "Home", action = "Index", id = UrlParameter.Optional },
+               new string[] { "Anything.Areas.System.Controllers" }
            );
 
         }

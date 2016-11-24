@@ -1,24 +1,32 @@
 ﻿using System.Web.Mvc;
+using System.Web.Optimization;
 
 namespace Anything.Areas.System
 {
     public class SystemAreaRegistration : AreaRegistration 
     {
-        public override string AreaName 
+        public override string AreaName
         {
-            get 
+            get
             {
                 return "System";
             }
         }
 
-        public override void RegisterArea(AreaRegistrationContext context) 
+        public override void RegisterArea(AreaRegistrationContext context)
         {
-            context.MapRoute(
-                "System_default",
-                "System/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional }
-            );
+            RegisterRoutes(context);
+            RegisterBundles();
         }
+
+        private void RegisterRoutes(AreaRegistrationContext context)
+        {
+            RouteConfig.RegisterRoutes(context);
+        }
+
+        private void RegisterBundles()
+        {
+            BundleConfig.RegisterBundles(BundleTable.Bundles);
+        }       
     }
 }
