@@ -244,8 +244,10 @@ namespace Anything.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Join(RegisterViewModel model)
         {
+            var Recommend = Session["RecommendCode"] == null ? OfficalRecommendCode : Session["RecommendCode"].ToString();
+            ViewBag.Recommend = Recommend;
             AddRoles();
-            var Recommend = string.Empty;
+            //var Recommend = string.Empty;
             if (string.IsNullOrEmpty(model.Recommend))
             {
                 Recommend = OfficalRecommendCode;
@@ -299,12 +301,14 @@ namespace Anything.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
+            var Recommend = Session["RecommendCode"] == null ? OfficalRecommendCode : Session["RecommendCode"].ToString();
+            ViewBag.Recommend = Recommend;
             AddRoles();
-            var Recommend = string.Empty;
-            if (string.IsNullOrEmpty(model.Recommend))
-            {
-                Recommend = OfficalRecommendCode;
-            }
+            //var Recommend = string.Empty;
+            //if (string.IsNullOrEmpty(model.Recommend))
+            //{
+            //    Recommend = OfficalRecommendCode;
+            //}
             
             if (Recommend != OfficalRecommendCode)
             {
@@ -345,7 +349,10 @@ namespace Anything.Controllers
                     UserManager.AddToRole(user.Id, TypeOfUser);
                     var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
+
+                    var link = string.Format("信箱驗證連結網址<a href='{0}'>完成驗證</a>", callbackUrl);
+
+                    await UserManager.SendEmailAsync(user.Id, "MYAnything 信箱驗證", link);
                     ViewBag.Link = callbackUrl;
                     return View("DisplayEmail");
                 }

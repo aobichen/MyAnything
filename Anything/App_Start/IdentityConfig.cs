@@ -42,11 +42,11 @@ namespace Anything.Models
             // Configure validation logic for passwords
             manager.PasswordValidator = new PasswordValidator
             {
-                //RequiredLength = 6,
-                //RequireNonLetterOrDigit = true,
-                //RequireDigit = true,
-                //RequireLowercase = true,
-                //RequireUppercase = true,
+                RequiredLength = 6,
+                RequireNonLetterOrDigit = true,
+                RequireDigit = true,
+                RequireLowercase = true,
+                RequireUppercase = true,
             };
             // Configure user lockout defaults
             manager.UserLockoutEnabledByDefault = true;
@@ -110,9 +110,11 @@ namespace Anything.Models
                 smtpClient.Credentials = new System.Net.NetworkCredential(From, Password);
                 //smtpClient.UseDefaultCredentials = true;              
                 smtpClient.EnableSsl = true;
+                
                 MailMessage mail = new MailMessage();
                 mail.Body = message.Body;
                 mail.Subject = message.Subject;
+                mail.IsBodyHtml = true;
                 mail.SubjectEncoding = System.Text.Encoding.UTF8;
                 mail.Priority = MailPriority.Normal;
                 mail.From = new MailAddress(From, SmtpUserName);

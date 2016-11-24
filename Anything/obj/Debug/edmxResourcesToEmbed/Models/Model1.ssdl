@@ -159,6 +159,22 @@
     <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Remark" Type="nvarchar(max)" />
   </EntityType>
+  <EntityType Name="MyBouns">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PayTime" Type="datetime" />
+    <Property Name="OrderAmt" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="Bouns" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="ParentID" Type="int" />
+    <Property Name="Created" Type="datetime" />
+    <Property Name="OrderID" Type="int" />
+    <Property Name="UserID" Type="int" />
+    <Property Name="Status" Type="nvarchar" MaxLength="50" />
+    <Property Name="AmtMinLimit" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="UseMonth" Type="int" />
+  </EntityType>
   <EntityType Name="News">
     <Key>
       <PropertyRef Name="ID" />
@@ -465,6 +481,7 @@
     <EntitySet Name="HotelImage" EntityType="Self.HotelImage" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="HotelView" EntityType="Self.HotelView" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Logs" EntityType="Self.Logs" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MyBouns" EntityType="Self.MyBouns" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="News" EntityType="Self.News" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="OrderMaster" EntityType="Self.OrderMaster" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PayGo" EntityType="Self.PayGo" Schema="dbo" store:Type="Tables" />

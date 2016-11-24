@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -20,6 +21,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <TypeScriptToolsVersion>1.0</TypeScriptToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -190,6 +192,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\System\BundleConfig.cs" />
+    <Compile Include="Areas\System\Controllers\HomeController.cs" />
+    <Compile Include="Areas\System\RouteConfig.cs" />
+    <Compile Include="Areas\System\SystemAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AccountingController.cs" />
     <Compile Include="Controllers\AdManageController.cs" />
@@ -866,6 +872,7 @@
     <Content Include="Content\bootstrap-datetimepicker\js\locales\bootstrap-datetimepicker.zh-TW.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\bootstrap.min.js" />
     <Content Include="Content\font-awesome-4.6.3\css\font-awesome.css" />
     <Content Include="Content\font-awesome-4.6.3\css\font-awesome.min.css" />
     <Content Include="Content\font-awesome-4.6.3\fonts\fontawesome-webfont.svg" />
@@ -957,6 +964,7 @@
     <Content Include="Content\images\uploads\slider.jpg" />
     <Content Include="Content\jquery-localize\dist\jquery.localize.js" />
     <Content Include="Content\jquery-localize\dist\jquery.localize.min.js" />
+    <Content Include="Content\jquery.min.js" />
     <Content Include="Content\js\infobox.js" />
     <Content Include="Content\js\jquery.raty.min.js" />
     <Content Include="Content\js\jquery.slicknav.min.js" />
@@ -974,9 +982,74 @@
     <Content Include="Content\Pictures\header-bg2.jpg" />
     <Content Include="Content\Pictures\header-bg3.jpg" />
     <Content Include="Content\Pictures\offical.jpg" />
+    <Content Include="Content\production\calendar.html" />
+    <Content Include="Content\production\chartjs.html" />
+    <Content Include="Content\production\chartjs2.html" />
+    <Content Include="Content\production\contacts.html" />
+    <Content Include="Content\production\css\maps\jquery-jvectormap-2.0.3.css" />
+    <Content Include="Content\production\echarts.html" />
+    <Content Include="Content\production\e_commerce.html" />
+    <Content Include="Content\production\fixed_footer.html" />
+    <Content Include="Content\production\fixed_sidebar.html" />
+    <Content Include="Content\production\form.html" />
+    <Content Include="Content\production\form_advanced.html" />
+    <Content Include="Content\production\form_buttons.html" />
+    <Content Include="Content\production\form_upload.html" />
+    <Content Include="Content\production\form_validation.html" />
+    <Content Include="Content\production\form_wizards.html" />
+    <Content Include="Content\production\general_elements.html" />
+    <Content Include="Content\production\glyphicons.html" />
+    <Content Include="Content\production\icons.html" />
+    <Content Include="Content\production\images\american-express.png" />
+    <Content Include="Content\production\images\cropper.jpg" />
+    <Content Include="Content\production\images\img.jpg" />
+    <Content Include="Content\production\images\inbox.png" />
+    <Content Include="Content\production\images\mastercard.png" />
+    <Content Include="Content\production\images\media.jpg" />
+    <Content Include="Content\production\images\paypal.png" />
+    <Content Include="Content\production\images\picture.jpg" />
+    <Content Include="Content\production\images\prod-1.jpg" />
+    <Content Include="Content\production\images\prod-2.jpg" />
+    <Content Include="Content\production\images\prod-3.jpg" />
+    <Content Include="Content\production\images\prod-4.jpg" />
+    <Content Include="Content\production\images\prod-5.jpg" />
+    <Content Include="Content\production\images\user.png" />
+    <Content Include="Content\production\images\visa.png" />
+    <Content Include="Content\production\inbox.html" />
+    <Content Include="Content\production\index.html" />
+    <Content Include="Content\production\index2.html" />
+    <Content Include="Content\production\index3.html" />
+    <Content Include="Content\production\invoice.html" />
+    <Content Include="Content\production\js\datepicker\daterangepicker.js" />
+    <Content Include="Content\production\js\moment\moment.min.js" />
+    <Content Include="Content\production\level2.html" />
+    <Content Include="Content\production\login.html" />
+    <Content Include="Content\production\map.html" />
+    <Content Include="Content\production\media_gallery.html" />
+    <Content Include="Content\production\morisjs.html" />
+    <Content Include="Content\production\other_charts.html" />
+    <Content Include="Content\production\page_403.html" />
+    <Content Include="Content\production\page_404.html" />
+    <Content Include="Content\production\page_500.html" />
+    <Content Include="Content\production\plain_page.html" />
+    <Content Include="Content\production\pricing_tables.html" />
+    <Content Include="Content\production\profile.html" />
+    <Content Include="Content\production\projects.html" />
+    <Content Include="Content\production\project_detail.html" />
+    <Content Include="Content\production\tables.html" />
+    <Content Include="Content\production\tables_dynamic.html" />
+    <Content Include="Content\production\typography.html" />
+    <Content Include="Content\production\widgets.html" />
+    <Content Include="Content\production\xx.html" />
     <Content Include="Content\style-rtl.css" />
     <Content Include="Content\style.css" />
     <Content Include="Content\theme.css" />
+    <Content Include="Content\vendors\bootstrap.css" />
+    <Content Include="Content\vendors\bootstrap.min.css" />
+    <Content Include="Content\vendors\custom.css" />
+    <Content Include="Content\vendors\custom.js" />
+    <Content Include="Content\vendors\custom.min.css" />
+    <Content Include="Content\vendors\custom.min.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\ElegantIcons.svg" />
     <Content Include="fonts\fontawesome-webfont.svg" />
@@ -1215,6 +1288,11 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Content Include="Areas\System\Views\web.config" />
+    <Content Include="Areas\System\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\System\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\System\Views\Home\Index.cshtml" />
+    <Content Include="Content\vendors\bootstrap.css.map" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\infobox.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -1848,6 +1926,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\System\Models\" />
     <Folder Include="Content\Admin\assets\jquery-file-upload\server\php\files\thumbnail\" />
     <Folder Include="Views\VIPManage\" />
   </ItemGroup>
@@ -1866,6 +1945,7 @@
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">

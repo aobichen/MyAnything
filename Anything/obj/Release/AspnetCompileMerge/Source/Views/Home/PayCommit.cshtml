@@ -31,17 +31,18 @@
                                     <p>連絡電話: </p>
                                     <p>@Model.Booking.info.Phone</p>
                                     <p>入住日期: </p>
-                                    <p>@Model.Booking.CheckInDate</p>
+                                    <p>@Model.Booking.CheckInDate.ToString("yyyy-MM-dd")</p>
                                     <p>退房日期:</p>
-                                    <p>@Model.Booking.CheckOutDate</p>
+                                    <p>@Model.Booking.CheckOutDate.ToString("yyyy-MM-dd")</p>
                                     <p>金額:</p>
                                     <p>@Model.PayGoRequest.Amt</p>
-                                  
+                                    <p>數量:</p>
+                                    <p>@Model.Booking.Quantity</p>
                                     <p>飯店:</p>
                                     <p>@Anything.Helper.Helpers.Room.GetHotelForID(Model.Booking.ID)</p>
                                     <p>房型:</p>
                                     <p>@Anything.Helper.Helpers.Room.GetRoomForID(Model.Booking.ID)</p>
-                                    <p>款方式:</p>
+                                    <p>付款方式:</p>
                                     <p>
                                     @{
                                         switch (Model.Booking.PaymentType)

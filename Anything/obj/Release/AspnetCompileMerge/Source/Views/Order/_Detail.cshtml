@@ -1,17 +1,17 @@
 ﻿@model Anything.ViewModels.OrderViewModel
 <div id="booking" class="static-content booking">
     <fieldset>
-        @*<div class="full-width">
+        <div class="full-width">
             @if (Model.PaymentType == "VACC")
             {
                 <div class="well-sm">
-                    <h4>
+                    <h4 class="alert alert-success">
                         <span>銀行代碼:</span> @Model.PayBankCode
                     </h4>
                 </div>
-                <div class="well">
+                <div class="well-sm">
                     <h4>繳費代碼</h4>
-                    <h2 class="alert alert-success">
+                    <h2 class="alert alert-warning">
                         @Model.CodeNo
                     </h2>
                 </div>
@@ -20,7 +20,7 @@
             {
                 <div class="well">
                     <h4>繳費代碼</h4>
-                    <h2 class="alert alert-success">
+                    <h2 class="alert alert-warning">
                         @Model.CodeNo
                     </h2>
                 </div>
@@ -39,10 +39,10 @@
                     </h4>
                 </div>
             }
-        </div>*@
+        </div>
 
         <h3>訂單資訊</h3>
-@*
+
     <div class="text-wrap">
         <div class="output">
             <p>訂單編號:</p>
@@ -69,7 +69,7 @@
             <p>退房日:</p>
             <p>@Model.CheckOut</p>
         </div>
-    </div>*@
+    </div>
 
 
 

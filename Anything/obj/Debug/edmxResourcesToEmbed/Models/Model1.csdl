@@ -379,6 +379,7 @@
     <EntitySet Name="OrderMaster" EntityType="MyAnythingModel.OrderMaster" />
     <EntitySet Name="TEST" EntityType="MyAnythingModel.TEST" />
     <EntitySet Name="PayGo" EntityType="MyAnythingModel.PayGo" />
+    <EntitySet Name="MyBouns" EntityType="MyAnythingModel.MyBouns" />
   </EntityContainer>
   <EntityType Name="Room">
     <Key>
@@ -525,5 +526,21 @@
     <Property Name="Barcode_3" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
     <Property Name="RespondType" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
     <Property Name="PaymentType" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="MyBouns">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PayTime" Type="DateTime" Precision="3" />
+    <Property Name="OrderAmt" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="Bouns" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="ParentID" Type="Int32" />
+    <Property Name="Created" Type="DateTime" Precision="3" />
+    <Property Name="OrderID" Type="Int32" />
+    <Property Name="UserID" Type="Int32" />
+    <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="AmtMinLimit" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="UseMonth" Type="Int32" />
   </EntityType>
 </Schema>
