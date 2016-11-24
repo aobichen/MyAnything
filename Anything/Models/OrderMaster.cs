@@ -40,7 +40,5 @@ namespace Anything.Models
         public int Creator { get; set; }
         public string Email { get; set; }
         public string Name { get; set; }
-    
-        public virtual PayGo PayGo { get; set; }
     }
 }

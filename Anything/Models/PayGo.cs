@@ -41,7 +41,5 @@ namespace Anything.Models
         public string Barcode_3 { get; set; }
         public string RespondType { get; set; }
         public string PaymentType { get; set; }
-    
-        public virtual OrderMaster OrderMaster { get; set; }
     }
 }

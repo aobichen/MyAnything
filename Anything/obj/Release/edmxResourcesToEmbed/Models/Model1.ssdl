@@ -208,7 +208,7 @@
   </EntityType>
   <EntityType Name="PayGo">
     <Key>
-      <PropertyRef Name="MerchantOrderNo" />
+      <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="MerchantOrderNo" Type="nvarchar" MaxLength="20" Nullable="false" />
@@ -393,18 +393,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_PayGo_OrderMaster">
-    <End Role="OrderMaster" Type="Self.OrderMaster" Multiplicity="1" />
-    <End Role="PayGo" Type="Self.PayGo" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="OrderMaster">
-        <PropertyRef Name="MerchantOrderNo" />
-      </Principal>
-      <Dependent Role="PayGo">
-        <PropertyRef Name="MerchantOrderNo" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_Room_Hotel">
     <End Role="Hotel" Type="Self.Hotel" Multiplicity="1" />
     <End Role="Room" Type="Self.Room" Multiplicity="*" />
@@ -500,10 +488,6 @@
     <AssociationSet Name="FK_HotelImage_Hotel" Association="Self.FK_HotelImage_Hotel">
       <End Role="Hotel" EntitySet="Hotel" />
       <End Role="HotelImage" EntitySet="HotelImage" />
-    </AssociationSet>
-    <AssociationSet Name="FK_PayGo_OrderMaster" Association="Self.FK_PayGo_OrderMaster">
-      <End Role="OrderMaster" EntitySet="OrderMaster" />
-      <End Role="PayGo" EntitySet="PayGo" />
     </AssociationSet>
     <AssociationSet Name="FK_Room_Hotel" Association="Self.FK_Room_Hotel">
       <End Role="Hotel" EntitySet="Hotel" />

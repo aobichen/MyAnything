@@ -91,6 +91,9 @@
                                     <option value="5">
                                         超商付款
                                     </option>
+                                    <option value="6">
+                                        條碼付款
+                                    </option>
                                     
                                 </select>
                             </div>
@@ -127,22 +130,40 @@
                         <dt>床型</dt>
                         <dd>@Model.BedType</dd>
                         <dt>入住日期</dt>
-                        <dd id="CheckInDate" name="CheckInDate">@Model.CheckInDate.ToShortDateString()</dd>
+                        <dd id="CheckInDate" name="CheckInDate">@Model.CheckInDate.ToString("yyyy-MM-dd")</dd>
                         <dt>退房日期</dt>
-                        <dd id="CheckOutDate" name="CheckOutDate">@Model.CheckOutDate.ToShortDateString()</dd>
+                        <dd id="CheckOutDate" name="CheckOutDate">@Model.CheckOutDate.ToString("yyyy-MM-dd")</dd>
+                        @*<dt>金額</dt>
+                        <dd id="UnitPrice">@Model.UnitPrice</dd>*@
                         @*<dt>Room(s)</dt>
                         <dd>
                         1 night, 1 room, max. 2 people. 
                         </dd>*@
                     </dl>
                     <div class="price">
-                        <p class="total">總金額:  NT. <span>@Model.Total.ToString("#,##0")</span></p>
+                        @if (Model.Quantity <= 0)
+                        {
+                            <p class="alert alert-danger"><span>客滿</span></p>
+                        }
+                        else
+                        {
+                            <select name="Quantity" class="form-control">
+                                @for (var i = 1; i <= Model.Quantity;i++)
+                                {
+                                    <option value="@i">@i</option>
+                                }
+                            </select>
+                        }
+                    </div>
+                    <div class="price">
+                        <input type="hidden" id="UnitPrice" value="@Model.Total.ToString("#.##")" />
+                        <p class="total">總金額:  NT. <span>@Model.Total.ToString("#.##")</span></p>
                         @*<p>VAT (20%) included</p>*@
                     </div>
                 </article>
                 <!--//Booking details-->
                 <!--Need Help Booking?-->
-                <article class="widget">
+                @*<article class="widget">
                     <h4>其他日期</h4>
                     @if (ViewBag.PriceList != null)
                     {
@@ -166,7 +187,7 @@
                             </p>
                         }
                     }
-                </article>
+                </article>*@
                 <!--//Need Help Booking?-->
             </aside>
             }
@@ -179,57 +200,71 @@
 
     jQuery(function () {
 
-        var total_input = $('#Total');
-        var dateList = $('#DateList');
-        var total_span = $('.total').find('span');
-        $('input[name=checkdate]').on("change", function () {
-            settingTotalInCheckList();
+        let Quantity = $('select[name=Quantity]');
+        let UnitPrice = $('#UnitPrice').val();
+        let Total = $('.total').find('span');
+        
+        let Qty = parseInt(Quantity.val());
+        let Price = parseInt(UnitPrice);
+        Total.text(Qty * Price);
+
+        Quantity.on('change', function () {
+            let self = $(this);
+            let Qty = parseInt(self.val());
+            let Price = parseInt(UnitPrice);
+            Total.text(Qty * Price);
         });
+        //var total_input = $('#Total');
+        //var dateList = $('#DateList');
+        //var total_span = $('.total').find('span');
+        //$('input[name=checkdate]').on("change", function () {
+        //    settingTotalInCheckList();
+        //});
 
         
-        settingTotalInCheckList();
+        //settingTotalInCheckList();
 
-        function settingTotalInCheckList() {
-            let checkboxs = $('input[name=checkdate]');
-            let total = 0;
-            var dates = [];
-            for (var i = 0, max = checkboxs.length; i < max; i++) {
-                if ($(checkboxs[i]).prop('checked')) {
-                    dates.push($(checkboxs[i]).val());
-                    var price = $(checkboxs[i]).attr('data-price');
-                    total += parseInt(price.replace(',', ''));
-                    total_span.text(total);
-                    total_input.val(total);
-                    dateList.val(dates.join(','));
-                }
-            }
+        //function settingTotalInCheckList() {
+        //    let checkboxs = $('input[name=checkdate]');
+        //    let total = 0;
+        //    var dates = [];
+        //    for (var i = 0, max = checkboxs.length; i < max; i++) {
+        //        if ($(checkboxs[i]).prop('checked')) {
+        //            dates.push($(checkboxs[i]).val());
+        //            var price = $(checkboxs[i]).attr('data-price');
+        //            total += parseInt(price.replace(',', ''));
+        //            total_span.text(total);
+        //            total_input.val(total);
+        //            dateList.val(dates.join(','));
+        //        }
+        //    }
 
-            SetCheckDate();
-        };
+        //    SetCheckDate();
+        //};
 
-        function SetCheckDate() {
-            var InDate = $('#CheckInDate');
-            var OutDate = $('#CheckOutDate');
-            let checkboxs = $('input[name=checkdate]:checked');
-            InDate.text(checkboxs.first().val());
-            var outdate = new Date(checkboxs.last().val());
-            var indate = new Date(checkboxs.first().val());
-            let newOutDate = new Date(outdate.setDate(outdate.getDate() + 1));
-            var y = newOutDate.getFullYear();
-            var m = (newOutDate.getMonth() + 1) < 10 ? "0" + (newOutDate.getMonth() + 1) : newOutDate.getMonth() + 1;
-            var d = newOutDate.getDate() < 10 ? "0" + newOutDate.getDate() : newOutDate.getDate();
-            OutDate.text(y + "/" + m + "/" + d);
-            var Now = new Date();
-            var dd = Now.getDate();
-            var thisDate = indate.getDate();
+        //function SetCheckDate() {
+        //    var InDate = $('#CheckInDate');
+        //    var OutDate = $('#CheckOutDate');
+        //    let checkboxs = $('input[name=checkdate]:checked');
+        //    InDate.text(checkboxs.first().val());
+        //    var outdate = new Date(checkboxs.last().val());
+        //    var indate = new Date(checkboxs.first().val());
+        //    let newOutDate = new Date(outdate.setDate(outdate.getDate() + 1));
+        //    var y = newOutDate.getFullYear();
+        //    var m = (newOutDate.getMonth() + 1) < 10 ? "0" + (newOutDate.getMonth() + 1) : newOutDate.getMonth() + 1;
+        //    var d = newOutDate.getDate() < 10 ? "0" + newOutDate.getDate() : newOutDate.getDate();
+        //    OutDate.text(y + "/" + m + "/" + d);
+        //    var Now = new Date();
+        //    var dd = Now.getDate();
+        //    var thisDate = indate.getDate();
            
-            if ((thisDate-dd) <= 1) {
-                $('select[name=PaymentType] option[value="4"]').attr('disabled', true);
-                $('select[name=PaymentType] option[value="5"]').attr('disabled', true);
-            } else {
-                $('select[name=PaymentType] option[value="4"]').attr('disabled', false);
-                $('select[name=PaymentType] option[value="5"]').attr('disabled', false);
-            }
-        }
+        //    if ((thisDate-dd) <= 1) {
+        //        $('select[name=PaymentType] option[value="4"]').attr('disabled', true);
+        //        $('select[name=PaymentType] option[value="5"]').attr('disabled', true);
+        //    } else {
+        //        $('select[name=PaymentType] option[value="4"]').attr('disabled', false);
+        //        $('select[name=PaymentType] option[value="5"]').attr('disabled', false);
+        //    }
+        //}
     })
 </script>

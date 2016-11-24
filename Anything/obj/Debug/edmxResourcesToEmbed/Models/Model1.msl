@@ -339,6 +339,15 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="TEST">
+      <EntityTypeMapping TypeName="MyAnythingModel.TEST">
+        <MappingFragment StoreEntitySet="TEST">
+          <ScalarProperty Name="Created" ColumnName="Created" />
+          <ScalarProperty Name="Message" ColumnName="Message" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="PayGo">
       <EntityTypeMapping TypeName="MyAnythingModel.PayGo">
         <MappingFragment StoreEntitySet="PayGo">
@@ -368,15 +377,6 @@
           <ScalarProperty Name="Message" ColumnName="Message" />
           <ScalarProperty Name="Status" ColumnName="Status" />
           <ScalarProperty Name="MerchantOrderNo" ColumnName="MerchantOrderNo" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="TEST">
-      <EntityTypeMapping TypeName="MyAnythingModel.TEST">
-        <MappingFragment StoreEntitySet="TEST">
-          <ScalarProperty Name="Created" ColumnName="Created" />
-          <ScalarProperty Name="Message" ColumnName="Message" />
           <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>

@@ -1,7 +1,7 @@
 ﻿@model Anything.ViewModels.OrderViewModel
 <div id="booking" class="static-content booking">
     <fieldset>
-        <div class="full-width">
+        @*<div class="full-width">
             @if (Model.PaymentType == "VACC")
             {
                 <div class="well-sm">
@@ -39,36 +39,37 @@
                     </h4>
                 </div>
             }
-        </div>
-
-        @*<h3>訂單資訊</h3>
-        <div class="text-wrap">
-            <div class="output">
-                <p>訂單編號:</p>
-                <p>@Model.MerchantTradeNo</p>
-                <p>訂購人 </p>
-                <p>@Model.Name</p>
-
-                <p>E-mail: </p>
-                <p>@Model.Email</p>
-                <p>地址:</p>
-                <p>@Model.Address</p>
-                <p>電話: </p>
-                <p>@Model.Phone</p>
-                <p>飯店名稱:</p>
-                <p>@Model.HotelName</p>
-                <p>房型:</p>
-                <p>@Model.RoomName</p>
-                <p>數量:</p>
-                <p>@Model.Quantity</p>
-                <p>金額:</p>
-                <p>@Model.Amount</p>
-                <p>入住日:</p>
-                <p>@Model.CheckIn</p>
-                <p>退房日:</p>
-                <p>@Model.CheckOut</p>
-            </div>
         </div>*@
+
+        <h3>訂單資訊</h3>
+@*
+    <div class="text-wrap">
+        <div class="output">
+            <p>訂單編號:</p>
+            <p>@Model.MerchantTradeNo</p>
+            <p>訂購人 </p>
+            <p>@Model.Name</p>
+
+            <p>E-mail: </p>
+            <p>@Model.Email</p>
+            <p>地址:</p>
+            <p>@Model.Address</p>
+            <p>電話: </p>
+            <p>@Model.Phone</p>
+            <p>飯店名稱:</p>
+            <p>@Model.HotelName</p>
+            <p>房型:</p>
+            <p>@Model.RoomName</p>
+            <p>數量:</p>
+            <p>@Model.Quantity</p>
+            <p>金額:</p>
+            <p>@Model.Amount</p>
+            <p>入住日:</p>
+            <p>@Model.CheckIn</p>
+            <p>退房日:</p>
+            <p>@Model.CheckOut</p>
+        </div>
+    </div>*@
 
 
 

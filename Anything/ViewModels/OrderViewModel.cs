@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -16,7 +17,11 @@ namespace Anything.ViewModels
         
         public int Quantity { get; set; }
         public int Amount { get; set; }
+
+        [DisplayFormat(DataFormatString="{0:yyyy-MM-dd}",ApplyFormatInEditMode=true)]
         public System.DateTime CheckIn { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public System.DateTime CheckOut { get; set; }
 
         public string PaymentType { get; set; }

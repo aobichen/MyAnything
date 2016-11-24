@@ -17,7 +17,10 @@ namespace Anything.ViewModels
         public string RoomType { get; set; }
         public string BedType { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime CheckInDate { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime CheckOutDate { get; set; }
 
         public string Address { get; set; }
@@ -33,6 +36,10 @@ namespace Anything.ViewModels
         public string DateList { get; set; }
 
         public int PaymentType { get; set; }
+
+        public int Quantity { get; set; }
+
+        public decimal UnitPrice { get; set; }
     }
 
     public class BookingInfo

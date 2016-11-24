@@ -870,3 +870,6 @@ C:\Users\aobi\Documents\SOHOProjects\MyAnything\Anything\bin\zh-Hant\Microsoft.O
 C:\Users\aobi\Documents\SOHOProjects\MyAnything\Anything\bin\zh-Hant\Microsoft.Owin.Security.MicrosoftAccount.resources.dll
 C:\Users\aobi\Documents\SOHOProjects\MyAnything\Anything\obj\Debug\Anything.dll
 C:\Users\aobi\Documents\SOHOProjects\MyAnything\Anything\obj\Debug\Anything.pdb
+C:\Users\Aobi\Documents\SOHOProject\MYAnything\Anything\bin\System.Web.Cors.dll
+C:\Users\Aobi\Documents\SOHOProject\MYAnything\Anything\bin\System.Web.Http.Cors.dll
+C:\Users\Aobi\Documents\SOHOProject\MYAnything\Anything\bin\System.Web.Http.Cors.xml

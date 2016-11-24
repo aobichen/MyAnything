@@ -377,12 +377,8 @@
       <End Role="RoomPrice" EntitySet="RoomPrice" />
     </AssociationSet>
     <EntitySet Name="OrderMaster" EntityType="MyAnythingModel.OrderMaster" />
-    <EntitySet Name="PayGo" EntityType="MyAnythingModel.PayGo" />
-    <AssociationSet Name="FK_PayGo_OrderMaster" Association="MyAnythingModel.FK_PayGo_OrderMaster">
-      <End Role="OrderMaster" EntitySet="OrderMaster" />
-      <End Role="PayGo" EntitySet="PayGo" />
-    </AssociationSet>
     <EntitySet Name="TEST" EntityType="MyAnythingModel.TEST" />
+    <EntitySet Name="PayGo" EntityType="MyAnythingModel.PayGo" />
   </EntityContainer>
   <EntityType Name="Room">
     <Key>
@@ -487,13 +483,20 @@
     <Property Name="PaymentType" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
     <Property Name="ProductType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Creator" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="PayGo" Relationship="MyAnythingModel.FK_PayGo_OrderMaster" FromRole="OrderMaster" ToRole="PayGo" />
     <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Name" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
   </EntityType>
+  <EntityType Name="TEST">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
   <EntityType Name="PayGo">
     <Key>
-      <PropertyRef Name="MerchantOrderNo" />
+      <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="MerchantOrderNo" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
@@ -521,27 +524,6 @@
     <Property Name="Barcode_2" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
     <Property Name="Barcode_3" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
     <Property Name="RespondType" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="OrderMaster" Relationship="MyAnythingModel.FK_PayGo_OrderMaster" FromRole="PayGo" ToRole="OrderMaster" />
     <Property Name="PaymentType" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-  </EntityType>
-  <Association Name="FK_PayGo_OrderMaster">
-    <End Type="MyAnythingModel.OrderMaster" Role="OrderMaster" Multiplicity="1" />
-    <End Type="MyAnythingModel.PayGo" Role="PayGo" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="OrderMaster">
-        <PropertyRef Name="MerchantOrderNo" />
-      </Principal>
-      <Dependent Role="PayGo">
-        <PropertyRef Name="MerchantOrderNo" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <EntityType Name="TEST">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
   </EntityType>
 </Schema>
