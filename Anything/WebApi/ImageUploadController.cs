@@ -154,8 +154,35 @@ namespace Anything.WebApi
         [Route("ImageUpload")]
         public HttpResponseMessage ImageUpload(List<ImageModel> model)
         {
+            var xauth = "r8rEvWpEsK7BMMH";
             var key = model[0].key;
             var Images = new List<HotelImage>();
+            IEnumerable<string> headerValues ;
+            if (Request.Headers.TryGetValues("x-auth-header", out headerValues))
+            {
+                var Xcustomer = headerValues.FirstOrDefault();
+                if (Xcustomer == null && Xcustomer.Equals(xauth))
+                {
+                   return new HttpResponseMessage(
+                    HttpStatusCode.BadRequest)
+                    {
+                        Content = new StringContent(JsonConvert.SerializeObject(new { Success = false, Message = "未通過網站權限驗證" })),
+                        ReasonPhrase = "Error"
+                    };
+                }
+
+            }
+            else
+            {
+                
+                    return new HttpResponseMessage(
+                     HttpStatusCode.BadRequest)
+                    {
+                        Content = new StringContent(JsonConvert.SerializeObject(new { Success = false, Message = "未通過網站權限驗證" })),
+                        ReasonPhrase = "Error"
+                    };
+                
+            }
 
             var Current = HttpContext.Current;
             if (Current.Session[key] != null)

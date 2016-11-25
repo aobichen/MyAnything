@@ -35,7 +35,7 @@ namespace Anything.Controllers
         public ActionResult Create(int id)
         {
             var Hotel = _db.Hotel.Find(id);
-            if (Hotel == null || Hotel.ID != CurrentUser.Id)
+            if (Hotel == null || Hotel.UserId != CurrentUser.Id)
             {
                 return RedirectToAction("Login","Account");
             }

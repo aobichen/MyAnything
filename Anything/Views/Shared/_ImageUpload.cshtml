@@ -1,4 +1,5 @@
-﻿<style type="text/css">
+﻿<script src="~/Scripts/Base.js"></script>
+<style type="text/css">
     .remove {
         right: 20px;
         top: 2px;
@@ -143,32 +144,10 @@
 
         var UploadPost = function () {
             let model = arr;
-            $.ajax({
-                type: "POST",
-                url: '/ImageUpload',
-                data: JSON.stringify(model),
-                cache: false,
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (xhr) {
-                    //console.log(xhr);
-                    //console.log(arr);
-                    AppendImages();
-                    //preview(file);
-                    //var d = xhr.data;
-                    //console.log(xhr.data);
-                    //var img = document.createElement('img');
-                    ////console.log(arr[i].url);
-                    //img.src = d.path;
-                    //imgPanel.append(img);
-                },
-                error: function (xhr) {
-                    $('#message').html('上傳資料過大').show();
-                    console.log("ERROR");
-                }
-            });
+            FileUploadPost('/ImageUpload', model, AppendImages());            
         }
 
+       
     })
 </script>
 

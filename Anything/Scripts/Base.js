@@ -77,3 +77,24 @@ function QueryAllPay() {
         }
     });
 }
+
+
+var FileUploadPost = function (url, arrmodel, callback) {
+    let model = arr;
+    $.ajax({
+        type: "POST",
+        url: url,
+        headers: { 'x-auth-header': 'r8rEvWpEsK7BMMHc' },
+        data: JSON.stringify(arrmodel),
+        cache: false,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (xhr) {
+            callback();
+        },
+        error: function (xhr) {
+            $('#message').html('上傳資料過大').show();
+            
+        }
+    });
+}
