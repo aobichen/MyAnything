@@ -1,4 +1,4 @@
-﻿using Anything.Helper;
+﻿using Anything.Helpers;
 using Anything.Models;
 using Anything.ViewModels;
 using System;
@@ -44,7 +44,7 @@ namespace Anything.Controllers
             var model = new HotelCreateViewModel();
             model.Information = new HtmlContent("/Views/Hotel/InformationTemp.html").Text;
 
-            ViewBag.ServiceOptions = _db.ServiceOption.Where(o => o.Enabled == true).ToList();
+           // ViewBag.ServiceOptions = _db.ServiceOption.Where(o => o.Enabled == true).ToList();
             ViewBag.Scenics = _db.Scenic.Where(o => o.Enabled == true).ToList();
             ViewBag.ImgKey = Guid.NewGuid().GetHashCode().ToString("x");
             model.Enabled = true;
@@ -64,8 +64,8 @@ namespace Anything.Controllers
             if (id == null || model == null)
             {
                 result.Information = new HtmlContent("/Views/Hotel/InformationTemp.html").Text;
-                ViewBag.ServiceOptions = new ServiceOptionCheckbox().ConverToCheckbox(null);
-                ViewBag.Scenics = new ScenicsCheckbox().ConverToCheckbox(null);
+                //ViewBag.ServiceOptions = new ServiceOptionCheckbox().ConverToCheckbox(null);
+                //ViewBag.Scenics = new ScenicsCheckbox().ConverToCheckbox(null);
                 ViewBag.ImgKey = Guid.NewGuid().GetHashCode().ToString("x");
                 result.Enabled = true;
                 result.SaleOff = true;
@@ -92,8 +92,8 @@ namespace Anything.Controllers
                  chkoptions = model.ServiceOptions.Split(',');             
             }
 
-            var CheckboxForServiceoption = new ServiceOptionCheckbox().ConverToCheckbox(chkoptions);
-            ViewBag.ServiceOptions = CheckboxForServiceoption;
+            //var CheckboxForServiceoption = new ServiceOptionCheckbox().ConverToCheckbox(chkoptions);
+            //ViewBag.ServiceOptions = CheckboxForServiceoption;
 
             string[] chkScenics = null;
 
@@ -103,8 +103,8 @@ namespace Anything.Controllers
                
             }
 
-            var CheckboxForScenics = new ScenicsCheckbox().ConverToCheckbox(chkScenics);
-            ViewBag.Scenics = CheckboxForScenics;
+            //var CheckboxForScenics = new ScenicsCheckbox().ConverToCheckbox(chkScenics);
+            //ViewBag.Scenics = CheckboxForScenics;
 
             ViewBag.CurrentCity = model.City;
             ViewBag.CurrentArea = model.Area;
@@ -164,10 +164,10 @@ namespace Anything.Controllers
                
             }
 
-            var CheckboxForScenics = new ScenicsCheckbox().ConverToCheckbox(model.Scenics.Split(','));
-            ViewBag.Scenics = CheckboxForScenics;
-            var CheckboxForServiceoption = new ServiceOptionCheckbox().ConverToCheckbox(model.ServiceOptions.Split(','));
-            ViewBag.ServiceOptions = CheckboxForServiceoption;
+            //var CheckboxForScenics = new ScenicsCheckbox().ConverToCheckbox(model.Scenics.Split(','));
+            //ViewBag.Scenics = CheckboxForScenics;
+            //var CheckboxForServiceoption = new ServiceOptionCheckbox().ConverToCheckbox(model.ServiceOptions.Split(','));
+            //ViewBag.ServiceOptions = CheckboxForServiceoption;
             return View(model.ID);
         }
 

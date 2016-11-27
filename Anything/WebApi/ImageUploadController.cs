@@ -30,38 +30,7 @@ namespace Anything.WebApi
 
         private string UserFolder { get; set; }
 
-        [HttpPost]
-        [Route("AdImageDelete")]
-        public object AdImageDelete(imagedelete data)
-        {
-            var ImageFile = db.AdImage.Where(o => o.Name == data.name).FirstOrDefault();
-            if (ImageFile != null)
-            {
-                db.AdImage.Attach(ImageFile);
-                db.AdImage.Remove(ImageFile);
-                db.SaveChanges();
-            }
-
-            var path = Path.Combine(HttpContext.Current.Server.MapPath(UserFolder), data.name + ".jpg");
-
-            if (File.Exists(path))
-            {
-                File.Delete(path);
-            }
-
-            if (HttpContext.Current.Session[data.key] != null)
-            {
-                var images = (List<HotelImage>)HttpContext.Current.Session[data.key];
-                if (images.Count > 0)
-                {
-                    images.Remove(images.Where(o => o.Name == data.name).FirstOrDefault());
-                }
-
-                HttpContext.Current.Session[data.key] = images;
-            }
-
-            return Json(new { success = true });
-        }
+      
 
         [HttpPost]
         [Route("HotelImageDelete")]

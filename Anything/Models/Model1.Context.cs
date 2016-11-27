@@ -25,29 +25,21 @@ namespace Anything.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<AdImage> AdImage { get; set; }
-        public virtual DbSet<AdManage> AdManage { get; set; }
-        public virtual DbSet<AdOrder> AdOrder { get; set; }
-        public virtual DbSet<Area_TW> Area_TW { get; set; }
-        public virtual DbSet<BonusSystem> BonusSystem { get; set; }
-        public virtual DbSet<City_TW> City_TW { get; set; }
+        public virtual DbSet<Area> Area { get; set; }
+        public virtual DbSet<City> City { get; set; }
         public virtual DbSet<CodeFile> CodeFile { get; set; }
+        public virtual DbSet<Facility> Facility { get; set; }
         public virtual DbSet<Hotel> Hotel { get; set; }
         public virtual DbSet<HotelImage> HotelImage { get; set; }
-        public virtual DbSet<HotelView> HotelView { get; set; }
-        public virtual DbSet<Logs> Logs { get; set; }
-        public virtual DbSet<News> News { get; set; }
-        public virtual DbSet<RoomImage> RoomImage { get; set; }
-        public virtual DbSet<Scenic> Scenic { get; set; }
-        public virtual DbSet<ServiceOption> ServiceOption { get; set; }
-        public virtual DbSet<SysManage> SysManage { get; set; }
-        public virtual DbSet<VIPOrder> VIPOrder { get; set; }
-        public virtual DbSet<VIPs> VIPs { get; set; }
-        public virtual DbSet<Room> Room { get; set; }
-        public virtual DbSet<RoomPrice> RoomPrice { get; set; }
-        public virtual DbSet<OrderMaster> OrderMaster { get; set; }
-        public virtual DbSet<TEST> TEST { get; set; }
-        public virtual DbSet<PayGo> PayGo { get; set; }
+        public virtual DbSet<ImageStore> ImageStore { get; set; }
         public virtual DbSet<MyBouns> MyBouns { get; set; }
+        public virtual DbSet<News> News { get; set; }
+        public virtual DbSet<OrderMaster> OrderMaster { get; set; }
+        public virtual DbSet<PayGo> PayGo { get; set; }
+        public virtual DbSet<Room> Room { get; set; }
+        public virtual DbSet<RoomImage> RoomImage { get; set; }
+        public virtual DbSet<RoomPrice> RoomPrice { get; set; }
+        public virtual DbSet<Scenic> Scenic { get; set; }
+        public virtual DbSet<TEST> TEST { get; set; }
     }
 }

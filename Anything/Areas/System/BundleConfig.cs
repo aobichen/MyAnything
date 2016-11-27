@@ -24,22 +24,23 @@ namespace Anything.Areas.System
             //            "~/Scripts/modernizr-*"));
 
 
+            //bundles.Add(new StyleBundle("~/System/Content/css").Include(
+            //            "~/Content/bootstrap.css",
+            //            "~/Content/font-awesome-4.6.3/css/font-awesome.min.css",
+            //            "~/Content/customer.min.css"));
 
-            bundles.Add(new ScriptBundle("~/System/Scripts").Include(
-                      "~/Scripts/jquery-1.10.2.min.js",
-                      "~/Content/bootstrap.min.js",
-                      "~/Scripts/customer.min.js"
+           
+
+            //bundles.Add(new ScriptBundle("~/System/Scripts").Include(
+            //          "~/Scripts/jquery-1.10.2.min.js",
+            //          "~/Content/bootstrap.min.js",
+            //          "~/Scripts/customer.min.js"
                      
-                      ));
+            //          ));
 
-
+            BundleTable.EnableOptimizations = false;
     
-            bundles.Add(new StyleBundle("~/System/Content/css").Include(
-                    "~/Content/bootstrap.css",
-                    "~/Content/font-awesome-4.6.3/css/font-awesome.min.css",
-                    "~/Content/customer.min.css"
-              
-                    ));
+            
         }
     }
 }

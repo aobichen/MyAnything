@@ -5,96 +5,20 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="MyAnythingModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="AdImage">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="AdId" Type="int" Nullable="false" />
-          <Property Name="Image" Type="image" Nullable="false" />
-          <Property Name="Path" Type="nvarchar" MaxLength="250" />
-          <Property Name="Name" Type="nvarchar" MaxLength="50" />
-          <Property Name="Enabled" Type="bit" />
-          <Property Name="ImageText" Type="nvarchar" MaxLength="150" />
-        </EntityType>
-        <EntityType Name="AdManage">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Position" Type="nvarchar" MaxLength="250" Nullable="false" />
-          <Property Name="PositionId" Type="int" Nullable="false" />
-          <Property Name="Image" Type="image" />
-          <Property Name="AllowImage" Type="bit" Nullable="false" />
-          <Property Name="AllowText" Type="bit" Nullable="false" />
-          <Property Name="ImageLimit" Type="int" />
-          <Property Name="TextLimit" Type="int" />
-          <Property Name="ImageWidth" Type="float" />
-          <Property Name="ImageHeight" Type="float" />
-          <Property Name="MaxCount" Type="int" />
-          <Property Name="Enabled" Type="bit" Nullable="false" />
-          <Property Name="Creator" Type="int" Nullable="false" />
-          <Property Name="Created" Type="datetime" Nullable="false" />
-          <Property Name="Modified" Type="datetime" Nullable="false" />
-          <Property Name="Modify" Type="int" Nullable="false" />
-          <Property Name="AllowImageType" Type="nvarchar" MaxLength="150" />
-          <Property Name="SaleOff" Type="bit" Nullable="false" />
-          <Property Name="SalePrice" Type="decimal" Precision="18" Scale="0" Nullable="false" />
-          <Property Name="DiscountPrice" Type="decimal" Precision="18" Scale="0" />
-          <Property Name="Days" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="AdOrder">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="BeginDate" Type="datetime" Nullable="false" />
-          <Property Name="EndDate" Type="datetime" Nullable="false" />
-          <Property Name="Position" Type="nvarchar" MaxLength="250" Nullable="false" />
-          <Property Name="bought" Type="decimal" Precision="18" Scale="0" Nullable="false" />
-          <Property Name="AllowImage" Type="bit" Nullable="false" />
-          <Property Name="AllowText" Type="bit" Nullable="false" />
-          <Property Name="ImageLimit" Type="int" />
-          <Property Name="TextLimit" Type="int" />
-          <Property Name="ImageWidth" Type="float" />
-          <Property Name="ImageHeight" Type="float" />
-          <Property Name="Creator" Type="int" />
-          <Property Name="Created" Type="datetime" />
-          <Property Name="Status" Type="nvarchar" MaxLength="50" />
-          <Property Name="Href" Type="nvarchar" MaxLength="300" />
-          <Property Name="Days" Type="int" Nullable="false" />
-          <Property Name="Tel" Type="nvarchar" MaxLength="20" />
-          <Property Name="Phone" Type="nvarchar" MaxLength="20" />
-          <Property Name="Email" Type="nvarchar" MaxLength="150" />
-          <Property Name="AdId" Type="int" Nullable="false" />
-          <Property Name="PositionId" Type="int" Nullable="false" />
-          <Property Name="Text" Type="nvarchar" MaxLength="1500" />
-          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Area_TW">
+        <EntityType Name="Area">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" Nullable="false" />
           <Property Name="CID" Type="int" Nullable="false" />
-          <Property Name="Area" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
-        <EntityType Name="BonusSystem">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserBonus" Type="float" Nullable="false" />
-          <Property Name="ParentBonus" Type="float" Nullable="false" />
-          <Property Name="Modifiter" Type="nvarchar" MaxLength="50" />
-          <Property Name="Modified" Type="datetime" />
-        </EntityType>
-        <EntityType Name="City_TW">
+        <EntityType Name="City">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" Nullable="false" />
-          <Property Name="City" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Location" Type="int" />
         </EntityType>
         <EntityType Name="CodeFile">
@@ -108,6 +32,17 @@
           <Property Name="ItemCode" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Enabled" Type="bit" Nullable="false" />
           <Property Name="TypeText" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Facility">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Text" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Enabled" Type="bit" Nullable="false" />
+          <Property Name="Created" Type="datetime" />
+          <Property Name="Show" Type="bit" />
         </EntityType>
         <EntityType Name="Hotel">
           <Key>
@@ -146,23 +81,19 @@
           <Property Name="Enabled" Type="bit" />
           <Property Name="Extension" Type="nvarchar" MaxLength="5" />
         </EntityType>
-        <EntityType Name="HotelView">
+        <EntityType Name="ImageStore">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="HotelId" Type="int" />
-          <Property Name="Created" Type="datetime" />
-        </EntityType>
-        <EntityType Name="Logs">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Creator" Type="int" Nullable="false" />
-          <Property Name="Created" Type="int" Nullable="false" />
-          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Remark" Type="nvarchar(max)" />
+          <Property Name="Image" Type="image" />
+          <Property Name="Path" Type="nvarchar" MaxLength="500" />
+          <Property Name="Extension" Type="nvarchar" MaxLength="5" />
+          <Property Name="Type" Type="nvarchar" MaxLength="10" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Deleted" Type="bit" />
+          <Property Name="Created" Type="datetime" Nullable="false" />
+          <Property Name="Creator" Type="int" />
         </EntityType>
         <EntityType Name="MyBouns">
           <Key>
@@ -318,31 +249,6 @@
           <Property Name="City" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="CityId" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="ServiceOption">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Text" Type="nvarchar" MaxLength="30" Nullable="false" />
-          <Property Name="Description" Type="nvarchar" MaxLength="200" Nullable="false" />
-          <Property Name="Enabled" Type="bit" Nullable="false" />
-          <Property Name="Created" Type="datetime" />
-          <Property Name="Show" Type="bit" />
-        </EntityType>
-        <EntityType Name="SysManage">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FieldCode" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="FieldDescription" Type="nvarchar" MaxLength="2000" Nullable="false" />
-          <Property Name="Value" Type="nvarchar" MaxLength="10" Nullable="false" />
-          <Property Name="Unit" Type="nvarchar" MaxLength="10" />
-          <Property Name="Enabled" Type="bit" Nullable="false" />
-          <Property Name="Editor" Type="int" Nullable="false" />
-          <Property Name="Edited" Type="datetime" Nullable="false" />
-          <Property Name="FieldName" Type="nvarchar" MaxLength="50" Nullable="false" />
-        </EntityType>
         <EntityType Name="TEST">
           <Key>
             <PropertyRef Name="ID" />
@@ -351,54 +257,15 @@
           <Property Name="Message" Type="nvarchar(max)" />
           <Property Name="Created" Type="datetime" Nullable="false" />
         </EntityType>
-        <EntityType Name="VIPOrder">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Vip" Type="int" Nullable="false" />
-          <Property Name="Pay" Type="decimal" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="PayMethod" Type="nvarchar" MaxLength="100" />
-          <Property Name="OrderStatus" Type="nvarchar" MaxLength="100" />
-          <Property Name="PayType" Type="nvarchar" MaxLength="100" />
-          <Property Name="Creator" Type="int" />
-          <Property Name="Created" Type="datetime" />
-          <Property Name="Address" Type="nvarchar" MaxLength="500" Nullable="false" />
-          <Property Name="Tel" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="Email" Type="nvarchar" MaxLength="150" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="50" />
-        </EntityType>
-        <EntityType Name="VIPs">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="BeginDate" Type="datetime" Nullable="false" />
-          <Property Name="EndDate" Type="datetime" Nullable="false" />
-          <Property Name="Days" Type="int" Nullable="false" />
-          <Property Name="HotelId" Type="int" Nullable="false" />
-        </EntityType>
         <Association Name="FK__Area_TW__CID__29572725">
-          <End Role="City_TW" Type="Self.City_TW" Multiplicity="1" />
-          <End Role="Area_TW" Type="Self.Area_TW" Multiplicity="*" />
+          <End Role="City" Type="Self.City" Multiplicity="1" />
+          <End Role="Area" Type="Self.Area" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="City_TW">
+            <Principal Role="City">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="Area_TW">
+            <Dependent Role="Area">
               <PropertyRef Name="CID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_AdImage_AdOrder">
-          <End Role="AdOrder" Type="Self.AdOrder" Multiplicity="1" />
-          <End Role="AdImage" Type="Self.AdImage" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AdOrder">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="AdImage">
-              <PropertyRef Name="AdId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -450,42 +317,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_VIPOrder_VIPs">
-          <End Role="VIPs" Type="Self.VIPs" Multiplicity="1" />
-          <End Role="VIPOrder" Type="Self.VIPOrder" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="VIPs">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="VIPOrder">
-              <PropertyRef Name="ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_VIPs_VIPs">
-          <End Role="VIPs" Type="Self.VIPs" Multiplicity="1" />
-          <End Role="VIPs1" Type="Self.VIPs" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="VIPs">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="VIPs1">
-              <PropertyRef Name="ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="MyAnythingModelStoreContainer">
-          <EntitySet Name="AdImage" EntityType="Self.AdImage" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="AdManage" EntityType="Self.AdManage" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="AdOrder" EntityType="Self.AdOrder" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Area_TW" EntityType="Self.Area_TW" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="BonusSystem" EntityType="Self.BonusSystem" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="City_TW" EntityType="Self.City_TW" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Area" EntityType="Self.Area" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="City" EntityType="Self.City" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CodeFile" EntityType="Self.CodeFile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Facility" EntityType="Self.Facility" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Hotel" EntityType="Self.Hotel" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HotelImage" EntityType="Self.HotelImage" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="HotelView" EntityType="Self.HotelView" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Logs" EntityType="Self.Logs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ImageStore" EntityType="Self.ImageStore" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MyBouns" EntityType="Self.MyBouns" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="News" EntityType="Self.News" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderMaster" EntityType="Self.OrderMaster" Schema="dbo" store:Type="Tables" />
@@ -494,18 +333,10 @@
           <EntitySet Name="RoomImage" EntityType="Self.RoomImage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RoomPrice" EntityType="Self.RoomPrice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Scenic" EntityType="Self.Scenic" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ServiceOption" EntityType="Self.ServiceOption" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="SysManage" EntityType="Self.SysManage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TEST" EntityType="Self.TEST" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="VIPOrder" EntityType="Self.VIPOrder" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="VIPs" EntityType="Self.VIPs" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__Area_TW__CID__29572725" Association="Self.FK__Area_TW__CID__29572725">
-            <End Role="City_TW" EntitySet="City_TW" />
-            <End Role="Area_TW" EntitySet="Area_TW" />
-          </AssociationSet>
-          <AssociationSet Name="FK_AdImage_AdOrder" Association="Self.FK_AdImage_AdOrder">
-            <End Role="AdOrder" EntitySet="AdOrder" />
-            <End Role="AdImage" EntitySet="AdImage" />
+            <End Role="City" EntitySet="City" />
+            <End Role="Area" EntitySet="Area" />
           </AssociationSet>
           <AssociationSet Name="FK_HotelImage_Hotel" Association="Self.FK_HotelImage_Hotel">
             <End Role="Hotel" EntitySet="Hotel" />
@@ -523,126 +354,89 @@
             <End Role="Room" EntitySet="Room" />
             <End Role="RoomPrice" EntitySet="RoomPrice" />
           </AssociationSet>
-          <AssociationSet Name="FK_VIPOrder_VIPs" Association="Self.FK_VIPOrder_VIPs">
-            <End Role="VIPs" EntitySet="VIPs" />
-            <End Role="VIPOrder" EntitySet="VIPOrder" />
-          </AssociationSet>
-          <AssociationSet Name="FK_VIPs_VIPs" Association="Self.FK_VIPs_VIPs">
-            <End Role="VIPs" EntitySet="VIPs" />
-            <End Role="VIPs1" EntitySet="VIPs" />
-          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MyAnythingModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="AdImage">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="AdId" Type="Int32" Nullable="false" />
-          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
-          <Property Name="Path" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Enabled" Type="Boolean" />
-          <Property Name="ImageText" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AdOrder" Relationship="Self.FK_AdImage_AdOrder" FromRole="AdImage" ToRole="AdOrder" />
-        </EntityType>
-        <EntityType Name="AdManage">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Position" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="PositionId" Type="Int32" Nullable="false" />
-          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="AllowImage" Type="Boolean" Nullable="false" />
-          <Property Name="AllowText" Type="Boolean" Nullable="false" />
-          <Property Name="ImageLimit" Type="Int32" />
-          <Property Name="TextLimit" Type="Int32" />
-          <Property Name="ImageWidth" Type="Double" />
-          <Property Name="ImageHeight" Type="Double" />
-          <Property Name="MaxCount" Type="Int32" />
-          <Property Name="Enabled" Type="Boolean" Nullable="false" />
-          <Property Name="Creator" Type="Int32" Nullable="false" />
-          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Modified" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Modify" Type="Int32" Nullable="false" />
-          <Property Name="AllowImageType" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="SaleOff" Type="Boolean" Nullable="false" />
-          <Property Name="SalePrice" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
-          <Property Name="DiscountPrice" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="Days" Type="Int32" Nullable="false" />
-        </EntityType>
-        <EntityType Name="AdOrder">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="BeginDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Position" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="bought" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
-          <Property Name="AllowImage" Type="Boolean" Nullable="false" />
-          <Property Name="AllowText" Type="Boolean" Nullable="false" />
-          <Property Name="ImageLimit" Type="Int32" />
-          <Property Name="TextLimit" Type="Int32" />
-          <Property Name="ImageWidth" Type="Double" />
-          <Property Name="ImageHeight" Type="Double" />
-          <Property Name="Creator" Type="Int32" />
-          <Property Name="Created" Type="DateTime" Precision="3" />
-          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Href" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-          <Property Name="Days" Type="Int32" Nullable="false" />
-          <Property Name="Tel" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="AdId" Type="Int32" Nullable="false" />
-          <Property Name="PositionId" Type="Int32" Nullable="false" />
-          <Property Name="Text" Type="String" MaxLength="1500" FixedLength="false" Unicode="true" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="AdImage" Relationship="Self.FK_AdImage_AdOrder" FromRole="AdOrder" ToRole="AdImage" />
-        </EntityType>
-        <EntityType Name="Area_TW">
+        <EntityContainer Name="MyAnythingEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Area" EntityType="MyAnythingModel.Area" />
+          <EntitySet Name="City" EntityType="MyAnythingModel.City" />
+          <EntitySet Name="CodeFile" EntityType="MyAnythingModel.CodeFile" />
+          <EntitySet Name="Facility" EntityType="MyAnythingModel.Facility" />
+          <EntitySet Name="Hotel" EntityType="MyAnythingModel.Hotel" />
+          <EntitySet Name="HotelImage" EntityType="MyAnythingModel.HotelImage" />
+          <EntitySet Name="ImageStore" EntityType="MyAnythingModel.ImageStore" />
+          <EntitySet Name="MyBouns" EntityType="MyAnythingModel.MyBouns" />
+          <EntitySet Name="News" EntityType="MyAnythingModel.News" />
+          <EntitySet Name="OrderMaster" EntityType="MyAnythingModel.OrderMaster" />
+          <EntitySet Name="PayGo" EntityType="MyAnythingModel.PayGo" />
+          <EntitySet Name="Room" EntityType="MyAnythingModel.Room" />
+          <EntitySet Name="RoomImage" EntityType="MyAnythingModel.RoomImage" />
+          <EntitySet Name="RoomPrice" EntityType="MyAnythingModel.RoomPrice" />
+          <EntitySet Name="Scenic" EntityType="MyAnythingModel.Scenic" />
+          <EntitySet Name="TEST" EntityType="MyAnythingModel.TEST" />
+          <AssociationSet Name="FK__Area_TW__CID__29572725" Association="MyAnythingModel.FK__Area_TW__CID__29572725">
+            <End Role="City" EntitySet="City" />
+            <End Role="Area" EntitySet="Area" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HotelImage_Hotel" Association="MyAnythingModel.FK_HotelImage_Hotel">
+            <End Role="Hotel" EntitySet="Hotel" />
+            <End Role="HotelImage" EntitySet="HotelImage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Room_Hotel" Association="MyAnythingModel.FK_Room_Hotel">
+            <End Role="Hotel" EntitySet="Hotel" />
+            <End Role="Room" EntitySet="Room" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RoomImage_Room" Association="MyAnythingModel.FK_RoomImage_Room">
+            <End Role="Room" EntitySet="Room" />
+            <End Role="RoomImage" EntitySet="RoomImage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RoomPrice_Room" Association="MyAnythingModel.FK_RoomPrice_Room">
+            <End Role="Room" EntitySet="Room" />
+            <End Role="RoomPrice" EntitySet="RoomPrice" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Area">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" />
           <Property Name="CID" Type="Int32" Nullable="false" />
-          <Property Name="Area" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="City_TW" Relationship="Self.FK__Area_TW__CID__29572725" FromRole="Area_TW" ToRole="City_TW" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="City" Relationship="MyAnythingModel.FK__Area_TW__CID__29572725" FromRole="Area" ToRole="City" />
         </EntityType>
-        <EntityType Name="BonusSystem">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserBonus" Type="Double" Nullable="false" />
-          <Property Name="ParentBonus" Type="Double" Nullable="false" />
-          <Property Name="Modifiter" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Modified" Type="DateTime" Precision="3" />
-        </EntityType>
-        <EntityType Name="City_TW">
+        <EntityType Name="City">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Location" Type="Int32" />
-          <NavigationProperty Name="Area_TW" Relationship="Self.FK__Area_TW__CID__29572725" FromRole="City_TW" ToRole="Area_TW" />
+          <NavigationProperty Name="Area" Relationship="MyAnythingModel.FK__Area_TW__CID__29572725" FromRole="City" ToRole="Area" />
         </EntityType>
         <EntityType Name="CodeFile">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ItemDescription" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ItemType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ItemDescription" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ItemType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Remark" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-          <Property Name="ItemCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ItemCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Enabled" Type="Boolean" Nullable="false" />
           <Property Name="TypeText" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Facility">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Text" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Enabled" Type="Boolean" Nullable="false" />
+          <Property Name="Created" Type="DateTime" Precision="3" />
+          <Property Name="Show" Type="Boolean" />
         </EntityType>
         <EntityType Name="Hotel">
           <Key>
@@ -650,15 +444,15 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserId" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Location" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Location" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="City" Type="Int32" Nullable="false" />
           <Property Name="Area" Type="Int32" Nullable="false" />
-          <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="WebSite" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="WebSite" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="Introduce" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="Feature" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Information" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Feature" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Information" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="ServiceOptions" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Scenics" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Enabled" Type="Boolean" Nullable="false" />
@@ -666,7 +460,7 @@
           <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Modified" Type="DateTime" Precision="3" />
           <Property Name="Tel" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="HotelImage" Relationship="Self.FK_HotelImage_Hotel" FromRole="Hotel" ToRole="HotelImage" />
+          <NavigationProperty Name="HotelImage" Relationship="MyAnythingModel.FK_HotelImage_Hotel" FromRole="Hotel" ToRole="HotelImage" />
           <NavigationProperty Name="Room" Relationship="MyAnythingModel.FK_Room_Hotel" FromRole="Hotel" ToRole="Room" />
         </EntityType>
         <EntityType Name="HotelImage">
@@ -681,34 +475,46 @@
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Path" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Enabled" Type="Boolean" />
-          <NavigationProperty Name="Hotel" Relationship="Self.FK_HotelImage_Hotel" FromRole="HotelImage" ToRole="Hotel" />
           <Property Name="Extension" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Hotel" Relationship="MyAnythingModel.FK_HotelImage_Hotel" FromRole="HotelImage" ToRole="Hotel" />
         </EntityType>
-        <EntityType Name="HotelView">
+        <EntityType Name="ImageStore">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="HotelId" Type="Int32" />
+          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Path" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Extension" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Deleted" Type="Boolean" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Creator" Type="Int32" />
+        </EntityType>
+        <EntityType Name="MyBouns">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PayTime" Type="DateTime" Precision="3" />
+          <Property Name="OrderAmt" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Bouns" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="ParentID" Type="Int32" />
           <Property Name="Created" Type="DateTime" Precision="3" />
-        </EntityType>
-        <EntityType Name="Logs">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Creator" Type="Int32" Nullable="false" />
-          <Property Name="Created" Type="Int32" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Remark" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OrderID" Type="Int32" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AmtMinLimit" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="UseMonth" Type="Int32" />
         </EntityType>
         <EntityType Name="News">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Titile" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Body" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Titile" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Body" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="BeginDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
@@ -718,280 +524,6 @@
           <Property Name="Enabled" Type="Boolean" Nullable="false" />
           <Property Name="Deleted" Type="Boolean" Nullable="false" />
         </EntityType>
-        <EntityType Name="RoomImage">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="RoomId" Type="Int32" Nullable="false" />
-          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
-          <Property Name="Path" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Deleted" Type="Boolean" Nullable="false" />
-          <Property Name="Sort" Type="Int32" Nullable="false" />
-          <Property Name="Enabled" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Room" Relationship="MyAnythingModel.FK_RoomImage_Room" FromRole="RoomImage" ToRole="Room" />
-        </EntityType>
-        <EntityType Name="Scenic">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Enabled" Type="Boolean" Nullable="false" />
-          <Property Name="City" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CityId" Type="Int32" Nullable="false" />
-        </EntityType>
-        <EntityType Name="ServiceOption">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Text" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Enabled" Type="Boolean" Nullable="false" />
-          <Property Name="Created" Type="DateTime" Precision="3" />
-          <Property Name="Show" Type="Boolean" />
-        </EntityType>
-        <EntityType Name="SysManage">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FieldCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="FieldDescription" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Value" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Unit" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="Enabled" Type="Boolean" Nullable="false" />
-          <Property Name="Editor" Type="Int32" Nullable="false" />
-          <Property Name="Edited" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="FieldName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-        </EntityType>
-        <EntityType Name="VIPOrder">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Vip" Type="Int32" Nullable="false" />
-          <Property Name="Pay" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="PayMethod" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="OrderStatus" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="PayType" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Creator" Type="Int32" />
-          <Property Name="Created" Type="DateTime" Precision="3" />
-          <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Tel" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Email" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="VIPs" Relationship="Self.FK_VIPOrder_VIPs" FromRole="VIPOrder" ToRole="VIPs" />
-        </EntityType>
-        <EntityType Name="VIPs">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="BeginDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Days" Type="Int32" Nullable="false" />
-          <Property Name="HotelId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="VIPOrder" Relationship="Self.FK_VIPOrder_VIPs" FromRole="VIPs" ToRole="VIPOrder" />
-          <NavigationProperty Name="VIPs1" Relationship="Self.FK_VIPs_VIPs" FromRole="VIPs" ToRole="VIPs1" />
-          <NavigationProperty Name="VIPs2" Relationship="Self.FK_VIPs_VIPs" FromRole="VIPs1" ToRole="VIPs" />
-        </EntityType>
-        <Association Name="FK_AdImage_AdOrder">
-          <End Role="AdOrder" Type="Self.AdOrder" Multiplicity="1" />
-          <End Role="AdImage" Type="Self.AdImage" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AdOrder">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="AdImage">
-              <PropertyRef Name="AdId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Area_TW__CID__29572725">
-          <End Role="City_TW" Type="Self.City_TW" Multiplicity="1" />
-          <End Role="Area_TW" Type="Self.Area_TW" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="City_TW">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Area_TW">
-              <PropertyRef Name="CID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_HotelImage_Hotel">
-          <End Role="Hotel" Type="Self.Hotel" Multiplicity="0..1" />
-          <End Role="HotelImage" Type="Self.HotelImage" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Hotel">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="HotelImage">
-              <PropertyRef Name="HotelId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_VIPOrder_VIPs">
-          <End Role="VIPs" Type="Self.VIPs" Multiplicity="1" />
-          <End Role="VIPOrder" Type="Self.VIPOrder" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="VIPs">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="VIPOrder">
-              <PropertyRef Name="ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_VIPs_VIPs">
-          <End Role="VIPs" Type="Self.VIPs" Multiplicity="1" />
-          <End Role="VIPs1" Type="Self.VIPs" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="VIPs">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="VIPs1">
-              <PropertyRef Name="ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="MyAnythingEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="AdImage" EntityType="Self.AdImage" />
-          <EntitySet Name="AdManage" EntityType="Self.AdManage" />
-          <EntitySet Name="AdOrder" EntityType="Self.AdOrder" />
-          <EntitySet Name="Area_TW" EntityType="Self.Area_TW" />
-          <EntitySet Name="BonusSystem" EntityType="Self.BonusSystem" />
-          <EntitySet Name="City_TW" EntityType="Self.City_TW" />
-          <EntitySet Name="CodeFile" EntityType="Self.CodeFile" />
-          <EntitySet Name="Hotel" EntityType="Self.Hotel" />
-          <EntitySet Name="HotelImage" EntityType="Self.HotelImage" />
-          <EntitySet Name="HotelView" EntityType="Self.HotelView" />
-          <EntitySet Name="Logs" EntityType="Self.Logs" />
-          <EntitySet Name="News" EntityType="Self.News" />
-          <EntitySet Name="RoomImage" EntityType="Self.RoomImage" />
-          <EntitySet Name="Scenic" EntityType="Self.Scenic" />
-          <EntitySet Name="ServiceOption" EntityType="Self.ServiceOption" />
-          <EntitySet Name="SysManage" EntityType="Self.SysManage" />
-          <EntitySet Name="VIPOrder" EntityType="Self.VIPOrder" />
-          <EntitySet Name="VIPs" EntityType="Self.VIPs" />
-          <AssociationSet Name="FK_AdImage_AdOrder" Association="Self.FK_AdImage_AdOrder">
-            <End Role="AdOrder" EntitySet="AdOrder" />
-            <End Role="AdImage" EntitySet="AdImage" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Area_TW__CID__29572725" Association="Self.FK__Area_TW__CID__29572725">
-            <End Role="City_TW" EntitySet="City_TW" />
-            <End Role="Area_TW" EntitySet="Area_TW" />
-          </AssociationSet>
-          <AssociationSet Name="FK_HotelImage_Hotel" Association="Self.FK_HotelImage_Hotel">
-            <End Role="Hotel" EntitySet="Hotel" />
-            <End Role="HotelImage" EntitySet="HotelImage" />
-          </AssociationSet>
-          <AssociationSet Name="FK_VIPOrder_VIPs" Association="Self.FK_VIPOrder_VIPs">
-            <End Role="VIPs" EntitySet="VIPs" />
-            <End Role="VIPOrder" EntitySet="VIPOrder" />
-          </AssociationSet>
-          <AssociationSet Name="FK_VIPs_VIPs" Association="Self.FK_VIPs_VIPs">
-            <End Role="VIPs" EntitySet="VIPs" />
-            <End Role="VIPs1" EntitySet="VIPs" />
-          </AssociationSet>
-          <EntitySet Name="Room" EntityType="MyAnythingModel.Room" />
-          <AssociationSet Name="FK_Room_Hotel" Association="MyAnythingModel.FK_Room_Hotel">
-            <End Role="Hotel" EntitySet="Hotel" />
-            <End Role="Room" EntitySet="Room" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RoomImage_Room" Association="MyAnythingModel.FK_RoomImage_Room">
-            <End Role="Room" EntitySet="Room" />
-            <End Role="RoomImage" EntitySet="RoomImage" />
-          </AssociationSet>
-          <EntitySet Name="RoomPrice" EntityType="MyAnythingModel.RoomPrice" />
-          <AssociationSet Name="FK_RoomPrice_Room" Association="MyAnythingModel.FK_RoomPrice_Room">
-            <End Role="Room" EntitySet="Room" />
-            <End Role="RoomPrice" EntitySet="RoomPrice" />
-          </AssociationSet>
-          <EntitySet Name="OrderMaster" EntityType="MyAnythingModel.OrderMaster" />
-          <EntitySet Name="TEST" EntityType="MyAnythingModel.TEST" />
-          <EntitySet Name="PayGo" EntityType="MyAnythingModel.PayGo" />
-          <EntitySet Name="MyBouns" EntityType="MyAnythingModel.MyBouns" />
-          </EntityContainer>
-        <EntityType Name="Room">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="HotelId" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Notice" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
-          <Property Name="MaxPerson" Type="Int32" Nullable="false" />
-          <Property Name="BedAmount" Type="Int32" Nullable="false" />
-          <Property Name="BedType" Type="Int32" Nullable="false" />
-          <Property Name="RoomBed" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="true" />
-          <Property Name="Feature" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="FixedPrice" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
-          <Property Name="HolidayPrice" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
-          <Property Name="DayPrice" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
-          <Property Name="Quantity" Type="Int32" Nullable="false" />
-          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Creator" Type="Int32" Nullable="false" />
-          <Property Name="Modified" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Modify" Type="Int32" />
-          <Property Name="Enabled" Type="Boolean" Nullable="false" />
-          <Property Name="HasBreakfast" Type="Boolean" />
-          <Property Name="RoomType" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Hotel" Relationship="MyAnythingModel.FK_Room_Hotel" FromRole="Room" ToRole="Hotel" />
-          <NavigationProperty Name="RoomImage" Relationship="MyAnythingModel.FK_RoomImage_Room" FromRole="Room" ToRole="RoomImage" />
-          <NavigationProperty Name="RoomPrice" Relationship="MyAnythingModel.FK_RoomPrice_Room" FromRole="Room" ToRole="RoomPrice" />
-        </EntityType>
-        <Association Name="FK_Room_Hotel">
-          <End Type="MyAnythingModel.Hotel" Role="Hotel" Multiplicity="1" />
-          <End Type="MyAnythingModel.Room" Role="Room" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Hotel">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Room">
-              <PropertyRef Name="HotelId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_RoomImage_Room">
-          <End Type="MyAnythingModel.Room" Role="Room" Multiplicity="1" />
-          <End Type="MyAnythingModel.RoomImage" Role="RoomImage" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Room">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="RoomImage">
-              <PropertyRef Name="RoomId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="RoomPrice">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ROOMID" Type="Int32" Nullable="false" />
-          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="DayType" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="true" />
-          <Property Name="DayText" Type="String" Nullable="false" MaxLength="12" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Room" Relationship="MyAnythingModel.FK_RoomPrice_Room" FromRole="RoomPrice" ToRole="Room" />
-        </EntityType>
-        <Association Name="FK_RoomPrice_Room">
-          <End Type="MyAnythingModel.Room" Role="Room" Multiplicity="1" />
-          <End Type="MyAnythingModel.RoomPrice" Role="RoomPrice" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Room">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="RoomPrice">
-              <PropertyRef Name="ROOMID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="OrderMaster">
           <Key>
             <PropertyRef Name="MerchantOrderNo" />
@@ -1020,16 +552,8 @@
           <Property Name="PaymentType" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="ProductType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Creator" Type="Int32" Nullable="false" />
-          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="TEST">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <EntityType Name="PayGo">
           <Key>
@@ -1063,160 +587,208 @@
           <Property Name="RespondType" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="PaymentType" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="MyBouns">
+        <EntityType Name="Room">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PayTime" Type="DateTime" Precision="3" />
-          <Property Name="OrderAmt" Type="Decimal" Precision="10" Scale="2" />
-          <Property Name="Bouns" Type="Decimal" Precision="10" Scale="2" />
-          <Property Name="ParentID" Type="Int32" />
-          <Property Name="Created" Type="DateTime" Precision="3" />
-          <Property Name="OrderID" Type="Int32" />
-          <Property Name="UserID" Type="Int32" />
-          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="AmtMinLimit" Type="Decimal" Precision="10" Scale="2" />
-          <Property Name="UseMonth" Type="Int32" />
+          <Property Name="HotelId" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Notice" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="MaxPerson" Type="Int32" Nullable="false" />
+          <Property Name="BedAmount" Type="Int32" Nullable="false" />
+          <Property Name="BedType" Type="Int32" Nullable="false" />
+          <Property Name="RoomBed" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="true" />
+          <Property Name="Feature" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="FixedPrice" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="HolidayPrice" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="DayPrice" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Creator" Type="Int32" Nullable="false" />
+          <Property Name="Modified" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Modify" Type="Int32" />
+          <Property Name="Enabled" Type="Boolean" Nullable="false" />
+          <Property Name="HasBreakfast" Type="Boolean" />
+          <Property Name="RoomType" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Hotel" Relationship="MyAnythingModel.FK_Room_Hotel" FromRole="Room" ToRole="Hotel" />
+          <NavigationProperty Name="RoomImage" Relationship="MyAnythingModel.FK_RoomImage_Room" FromRole="Room" ToRole="RoomImage" />
+          <NavigationProperty Name="RoomPrice" Relationship="MyAnythingModel.FK_RoomPrice_Room" FromRole="Room" ToRole="RoomPrice" />
         </EntityType>
+        <EntityType Name="RoomImage">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoomId" Type="Int32" Nullable="false" />
+          <Property Name="Image" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Name="Path" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Deleted" Type="Boolean" Nullable="false" />
+          <Property Name="Sort" Type="Int32" Nullable="false" />
+          <Property Name="Enabled" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Room" Relationship="MyAnythingModel.FK_RoomImage_Room" FromRole="RoomImage" ToRole="Room" />
+        </EntityType>
+        <EntityType Name="RoomPrice">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ROOMID" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DayType" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Name="DayText" Type="String" Nullable="false" MaxLength="12" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Room" Relationship="MyAnythingModel.FK_RoomPrice_Room" FromRole="RoomPrice" ToRole="Room" />
+        </EntityType>
+        <EntityType Name="Scenic">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Enabled" Type="Boolean" Nullable="false" />
+          <Property Name="City" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="CityId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TEST">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <Association Name="FK__Area_TW__CID__29572725">
+          <End Type="MyAnythingModel.City" Role="City" Multiplicity="1" />
+          <End Type="MyAnythingModel.Area" Role="Area" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Area">
+              <PropertyRef Name="CID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HotelImage_Hotel">
+          <End Type="MyAnythingModel.Hotel" Role="Hotel" Multiplicity="0..1" />
+          <End Type="MyAnythingModel.HotelImage" Role="HotelImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hotel">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="HotelImage">
+              <PropertyRef Name="HotelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Room_Hotel">
+          <End Type="MyAnythingModel.Hotel" Role="Hotel" Multiplicity="1" />
+          <End Type="MyAnythingModel.Room" Role="Room" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hotel">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Room">
+              <PropertyRef Name="HotelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RoomImage_Room">
+          <End Type="MyAnythingModel.Room" Role="Room" Multiplicity="1" />
+          <End Type="MyAnythingModel.RoomImage" Role="RoomImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Room">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RoomImage">
+              <PropertyRef Name="RoomId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RoomPrice_Room">
+          <End Type="MyAnythingModel.Room" Role="Room" Multiplicity="1" />
+          <End Type="MyAnythingModel.RoomPrice" Role="RoomPrice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Room">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RoomPrice">
+              <PropertyRef Name="ROOMID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="MyAnythingModelStoreContainer" CdmEntityContainer="MyAnythingEntities">
-          <EntitySetMapping Name="AdImage">
-            <EntityTypeMapping TypeName="MyAnythingModel.AdImage">
-              <MappingFragment StoreEntitySet="AdImage">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="AdId" ColumnName="AdId" />
-                <ScalarProperty Name="Image" ColumnName="Image" />
-                <ScalarProperty Name="Path" ColumnName="Path" />
+          <EntitySetMapping Name="Area">
+            <EntityTypeMapping TypeName="MyAnythingModel.Area">
+              <MappingFragment StoreEntitySet="Area">
                 <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Enabled" ColumnName="Enabled" />
-                <ScalarProperty Name="ImageText" ColumnName="ImageText" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="AdManage">
-            <EntityTypeMapping TypeName="MyAnythingModel.AdManage">
-              <MappingFragment StoreEntitySet="AdManage">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Position" ColumnName="Position" />
-                <ScalarProperty Name="PositionId" ColumnName="PositionId" />
-                <ScalarProperty Name="Image" ColumnName="Image" />
-                <ScalarProperty Name="AllowImage" ColumnName="AllowImage" />
-                <ScalarProperty Name="AllowText" ColumnName="AllowText" />
-                <ScalarProperty Name="ImageLimit" ColumnName="ImageLimit" />
-                <ScalarProperty Name="TextLimit" ColumnName="TextLimit" />
-                <ScalarProperty Name="ImageWidth" ColumnName="ImageWidth" />
-                <ScalarProperty Name="ImageHeight" ColumnName="ImageHeight" />
-                <ScalarProperty Name="MaxCount" ColumnName="MaxCount" />
-                <ScalarProperty Name="Enabled" ColumnName="Enabled" />
-                <ScalarProperty Name="Creator" ColumnName="Creator" />
-                <ScalarProperty Name="Created" ColumnName="Created" />
-                <ScalarProperty Name="Modified" ColumnName="Modified" />
-                <ScalarProperty Name="Modify" ColumnName="Modify" />
-                <ScalarProperty Name="AllowImageType" ColumnName="AllowImageType" />
-                <ScalarProperty Name="SaleOff" ColumnName="SaleOff" />
-                <ScalarProperty Name="SalePrice" ColumnName="SalePrice" />
-                <ScalarProperty Name="DiscountPrice" ColumnName="DiscountPrice" />
-                <ScalarProperty Name="Days" ColumnName="Days" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="AdOrder">
-            <EntityTypeMapping TypeName="MyAnythingModel.AdOrder">
-              <MappingFragment StoreEntitySet="AdOrder">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="BeginDate" ColumnName="BeginDate" />
-                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
-                <ScalarProperty Name="Position" ColumnName="Position" />
-                <ScalarProperty Name="bought" ColumnName="bought" />
-                <ScalarProperty Name="AllowImage" ColumnName="AllowImage" />
-                <ScalarProperty Name="AllowText" ColumnName="AllowText" />
-                <ScalarProperty Name="ImageLimit" ColumnName="ImageLimit" />
-                <ScalarProperty Name="TextLimit" ColumnName="TextLimit" />
-                <ScalarProperty Name="ImageWidth" ColumnName="ImageWidth" />
-                <ScalarProperty Name="ImageHeight" ColumnName="ImageHeight" />
-                <ScalarProperty Name="Creator" ColumnName="Creator" />
-                <ScalarProperty Name="Created" ColumnName="Created" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Href" ColumnName="Href" />
-                <ScalarProperty Name="Days" ColumnName="Days" />
-                <ScalarProperty Name="Tel" ColumnName="Tel" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="AdId" ColumnName="AdId" />
-                <ScalarProperty Name="PositionId" ColumnName="PositionId" />
-                <ScalarProperty Name="Text" ColumnName="Text" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Area_TW">
-            <EntityTypeMapping TypeName="MyAnythingModel.Area_TW">
-              <MappingFragment StoreEntitySet="Area_TW">
-                <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="CID" ColumnName="CID" />
-                <ScalarProperty Name="Area" ColumnName="Area" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="BonusSystem">
-            <EntityTypeMapping TypeName="MyAnythingModel.BonusSystem">
-              <MappingFragment StoreEntitySet="BonusSystem">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="UserBonus" ColumnName="UserBonus" />
-                <ScalarProperty Name="ParentBonus" ColumnName="ParentBonus" />
-                <ScalarProperty Name="Modifiter" ColumnName="Modifiter" />
-                <ScalarProperty Name="Modified" ColumnName="Modified" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="City_TW">
-            <EntityTypeMapping TypeName="MyAnythingModel.City_TW">
-              <MappingFragment StoreEntitySet="City_TW">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="City" ColumnName="City" />
+          <EntitySetMapping Name="City">
+            <EntityTypeMapping TypeName="MyAnythingModel.City">
+              <MappingFragment StoreEntitySet="City">
                 <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CodeFile">
             <EntityTypeMapping TypeName="MyAnythingModel.CodeFile">
               <MappingFragment StoreEntitySet="CodeFile">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="ItemDescription" ColumnName="ItemDescription" />
-                <ScalarProperty Name="ItemType" ColumnName="ItemType" />
-                <ScalarProperty Name="Remark" ColumnName="Remark" />
-                <ScalarProperty Name="ItemCode" ColumnName="ItemCode" />
-                <ScalarProperty Name="Enabled" ColumnName="Enabled" />
                 <ScalarProperty Name="TypeText" ColumnName="TypeText" />
+                <ScalarProperty Name="Enabled" ColumnName="Enabled" />
+                <ScalarProperty Name="ItemCode" ColumnName="ItemCode" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="ItemType" ColumnName="ItemType" />
+                <ScalarProperty Name="ItemDescription" ColumnName="ItemDescription" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Facility">
+            <EntityTypeMapping TypeName="MyAnythingModel.Facility">
+              <MappingFragment StoreEntitySet="Facility">
+                <ScalarProperty Name="Show" ColumnName="Show" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="Enabled" ColumnName="Enabled" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Hotel">
             <EntityTypeMapping TypeName="MyAnythingModel.Hotel">
               <MappingFragment StoreEntitySet="Hotel">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Location" ColumnName="Location" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="Area" ColumnName="Area" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="WebSite" ColumnName="WebSite" />
-                <ScalarProperty Name="Introduce" ColumnName="Introduce" />
-                <ScalarProperty Name="Feature" ColumnName="Feature" />
-                <ScalarProperty Name="Information" ColumnName="Information" />
-                <ScalarProperty Name="ServiceOptions" ColumnName="ServiceOptions" />
-                <ScalarProperty Name="Scenics" ColumnName="Scenics" />
-                <ScalarProperty Name="Enabled" ColumnName="Enabled" />
-                <ScalarProperty Name="SaleOff" ColumnName="SaleOff" />
-                <ScalarProperty Name="Created" ColumnName="Created" />
-                <ScalarProperty Name="Modified" ColumnName="Modified" />
                 <ScalarProperty Name="Tel" ColumnName="Tel" />
+                <ScalarProperty Name="Modified" ColumnName="Modified" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="SaleOff" ColumnName="SaleOff" />
+                <ScalarProperty Name="Enabled" ColumnName="Enabled" />
+                <ScalarProperty Name="Scenics" ColumnName="Scenics" />
+                <ScalarProperty Name="ServiceOptions" ColumnName="ServiceOptions" />
+                <ScalarProperty Name="Information" ColumnName="Information" />
+                <ScalarProperty Name="Feature" ColumnName="Feature" />
+                <ScalarProperty Name="Introduce" ColumnName="Introduce" />
+                <ScalarProperty Name="WebSite" ColumnName="WebSite" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1224,169 +796,62 @@
             <EntityTypeMapping TypeName="MyAnythingModel.HotelImage">
               <MappingFragment StoreEntitySet="HotelImage">
                 <ScalarProperty Name="Extension" ColumnName="Extension" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="HotelId" ColumnName="HotelId" />
-                <ScalarProperty Name="Image" ColumnName="Image" />
-                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
-                <ScalarProperty Name="Sort" ColumnName="Sort" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Path" ColumnName="Path" />
                 <ScalarProperty Name="Enabled" ColumnName="Enabled" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="HotelView">
-            <EntityTypeMapping TypeName="MyAnythingModel.HotelView">
-              <MappingFragment StoreEntitySet="HotelView">
-                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Path" ColumnName="Path" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Sort" ColumnName="Sort" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="HotelId" ColumnName="HotelId" />
-                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Logs">
-            <EntityTypeMapping TypeName="MyAnythingModel.Logs">
-              <MappingFragment StoreEntitySet="Logs">
-                <ScalarProperty Name="ID" ColumnName="ID" />
+          <EntitySetMapping Name="ImageStore">
+            <EntityTypeMapping TypeName="MyAnythingModel.ImageStore">
+              <MappingFragment StoreEntitySet="ImageStore">
                 <ScalarProperty Name="Creator" ColumnName="Creator" />
                 <ScalarProperty Name="Created" ColumnName="Created" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Extension" ColumnName="Extension" />
+                <ScalarProperty Name="Path" ColumnName="Path" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MyBouns">
+            <EntityTypeMapping TypeName="MyAnythingModel.MyBouns">
+              <MappingFragment StoreEntitySet="MyBouns">
+                <ScalarProperty Name="UseMonth" ColumnName="UseMonth" />
+                <ScalarProperty Name="AmtMinLimit" ColumnName="AmtMinLimit" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+                <ScalarProperty Name="Bouns" ColumnName="Bouns" />
+                <ScalarProperty Name="OrderAmt" ColumnName="OrderAmt" />
+                <ScalarProperty Name="PayTime" ColumnName="PayTime" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="News">
             <EntityTypeMapping TypeName="MyAnythingModel.News">
               <MappingFragment StoreEntitySet="News">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Titile" ColumnName="Titile" />
-                <ScalarProperty Name="Body" ColumnName="Body" />
-                <ScalarProperty Name="BeginDate" ColumnName="BeginDate" />
-                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
-                <ScalarProperty Name="Created" ColumnName="Created" />
-                <ScalarProperty Name="Creator" ColumnName="Creator" />
-                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="Enabled" ColumnName="Enabled" />
                 <ScalarProperty Name="Href" ColumnName="Href" />
-                <ScalarProperty Name="Enabled" ColumnName="Enabled" />
-                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="RoomImage">
-            <EntityTypeMapping TypeName="MyAnythingModel.RoomImage">
-              <MappingFragment StoreEntitySet="RoomImage">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="RoomId" ColumnName="RoomId" />
-                <ScalarProperty Name="Image" ColumnName="Image" />
-                <ScalarProperty Name="Path" ColumnName="Path" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
-                <ScalarProperty Name="Sort" ColumnName="Sort" />
-                <ScalarProperty Name="Enabled" ColumnName="Enabled" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Scenic">
-            <EntityTypeMapping TypeName="MyAnythingModel.Scenic">
-              <MappingFragment StoreEntitySet="Scenic">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Enabled" ColumnName="Enabled" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="CityId" ColumnName="CityId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ServiceOption">
-            <EntityTypeMapping TypeName="MyAnythingModel.ServiceOption">
-              <MappingFragment StoreEntitySet="ServiceOption">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Text" ColumnName="Text" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Enabled" ColumnName="Enabled" />
-                <ScalarProperty Name="Created" ColumnName="Created" />
-                <ScalarProperty Name="Show" ColumnName="Show" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="SysManage">
-            <EntityTypeMapping TypeName="MyAnythingModel.SysManage">
-              <MappingFragment StoreEntitySet="SysManage">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="FieldCode" ColumnName="FieldCode" />
-                <ScalarProperty Name="FieldDescription" ColumnName="FieldDescription" />
-                <ScalarProperty Name="Value" ColumnName="Value" />
-                <ScalarProperty Name="Unit" ColumnName="Unit" />
-                <ScalarProperty Name="Enabled" ColumnName="Enabled" />
-                <ScalarProperty Name="Editor" ColumnName="Editor" />
-                <ScalarProperty Name="Edited" ColumnName="Edited" />
-                <ScalarProperty Name="FieldName" ColumnName="FieldName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="VIPOrder">
-            <EntityTypeMapping TypeName="MyAnythingModel.VIPOrder">
-              <MappingFragment StoreEntitySet="VIPOrder">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Vip" ColumnName="Vip" />
-                <ScalarProperty Name="Pay" ColumnName="Pay" />
-                <ScalarProperty Name="PayMethod" ColumnName="PayMethod" />
-                <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
-                <ScalarProperty Name="PayType" ColumnName="PayType" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
                 <ScalarProperty Name="Creator" ColumnName="Creator" />
                 <ScalarProperty Name="Created" ColumnName="Created" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Tel" ColumnName="Tel" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="VIPs">
-            <EntityTypeMapping TypeName="MyAnythingModel.VIPs">
-              <MappingFragment StoreEntitySet="VIPs">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="BeginDate" ColumnName="BeginDate" />
                 <ScalarProperty Name="EndDate" ColumnName="EndDate" />
-                <ScalarProperty Name="Days" ColumnName="Days" />
-                <ScalarProperty Name="HotelId" ColumnName="HotelId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Room">
-            <EntityTypeMapping TypeName="MyAnythingModel.Room">
-              <MappingFragment StoreEntitySet="Room">
-                <ScalarProperty Name="RoomType" ColumnName="RoomType" />
-                <ScalarProperty Name="HasBreakfast" ColumnName="HasBreakfast" />
-                <ScalarProperty Name="Enabled" ColumnName="Enabled" />
-                <ScalarProperty Name="Modify" ColumnName="Modify" />
-                <ScalarProperty Name="Modified" ColumnName="Modified" />
-                <ScalarProperty Name="Creator" ColumnName="Creator" />
-                <ScalarProperty Name="Created" ColumnName="Created" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="DayPrice" ColumnName="DayPrice" />
-                <ScalarProperty Name="HolidayPrice" ColumnName="HolidayPrice" />
-                <ScalarProperty Name="FixedPrice" ColumnName="FixedPrice" />
-                <ScalarProperty Name="Feature" ColumnName="Feature" />
-                <ScalarProperty Name="RoomBed" ColumnName="RoomBed" />
-                <ScalarProperty Name="BedType" ColumnName="BedType" />
-                <ScalarProperty Name="BedAmount" ColumnName="BedAmount" />
-                <ScalarProperty Name="MaxPerson" ColumnName="MaxPerson" />
-                <ScalarProperty Name="Notice" ColumnName="Notice" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="HotelId" ColumnName="HotelId" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="RoomPrice">
-            <EntityTypeMapping TypeName="MyAnythingModel.RoomPrice">
-              <MappingFragment StoreEntitySet="RoomPrice">
-                <ScalarProperty Name="DayText" ColumnName="DayText" />
-                <ScalarProperty Name="DayType" ColumnName="DayType" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="ROOMID" ColumnName="ROOMID" />
+                <ScalarProperty Name="BeginDate" ColumnName="BeginDate" />
+                <ScalarProperty Name="Body" ColumnName="Body" />
+                <ScalarProperty Name="Titile" ColumnName="Titile" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1419,15 +884,6 @@
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="MerchantOrderNo" ColumnName="MerchantOrderNo" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TEST">
-            <EntityTypeMapping TypeName="MyAnythingModel.TEST">
-              <MappingFragment StoreEntitySet="TEST">
-                <ScalarProperty Name="Created" ColumnName="Created" />
-                <ScalarProperty Name="Message" ColumnName="Message" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1465,19 +921,74 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="MyBouns">
-            <EntityTypeMapping TypeName="MyAnythingModel.MyBouns">
-              <MappingFragment StoreEntitySet="MyBouns">
-                <ScalarProperty Name="UseMonth" ColumnName="UseMonth" />
-                <ScalarProperty Name="AmtMinLimit" ColumnName="AmtMinLimit" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+          <EntitySetMapping Name="Room">
+            <EntityTypeMapping TypeName="MyAnythingModel.Room">
+              <MappingFragment StoreEntitySet="Room">
+                <ScalarProperty Name="RoomType" ColumnName="RoomType" />
+                <ScalarProperty Name="HasBreakfast" ColumnName="HasBreakfast" />
+                <ScalarProperty Name="Enabled" ColumnName="Enabled" />
+                <ScalarProperty Name="Modify" ColumnName="Modify" />
+                <ScalarProperty Name="Modified" ColumnName="Modified" />
+                <ScalarProperty Name="Creator" ColumnName="Creator" />
                 <ScalarProperty Name="Created" ColumnName="Created" />
-                <ScalarProperty Name="ParentID" ColumnName="ParentID" />
-                <ScalarProperty Name="Bouns" ColumnName="Bouns" />
-                <ScalarProperty Name="OrderAmt" ColumnName="OrderAmt" />
-                <ScalarProperty Name="PayTime" ColumnName="PayTime" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="DayPrice" ColumnName="DayPrice" />
+                <ScalarProperty Name="HolidayPrice" ColumnName="HolidayPrice" />
+                <ScalarProperty Name="FixedPrice" ColumnName="FixedPrice" />
+                <ScalarProperty Name="Feature" ColumnName="Feature" />
+                <ScalarProperty Name="RoomBed" ColumnName="RoomBed" />
+                <ScalarProperty Name="BedType" ColumnName="BedType" />
+                <ScalarProperty Name="BedAmount" ColumnName="BedAmount" />
+                <ScalarProperty Name="MaxPerson" ColumnName="MaxPerson" />
+                <ScalarProperty Name="Notice" ColumnName="Notice" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="HotelId" ColumnName="HotelId" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RoomImage">
+            <EntityTypeMapping TypeName="MyAnythingModel.RoomImage">
+              <MappingFragment StoreEntitySet="RoomImage">
+                <ScalarProperty Name="Enabled" ColumnName="Enabled" />
+                <ScalarProperty Name="Sort" ColumnName="Sort" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Path" ColumnName="Path" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="RoomId" ColumnName="RoomId" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RoomPrice">
+            <EntityTypeMapping TypeName="MyAnythingModel.RoomPrice">
+              <MappingFragment StoreEntitySet="RoomPrice">
+                <ScalarProperty Name="DayText" ColumnName="DayText" />
+                <ScalarProperty Name="DayType" ColumnName="DayType" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="ROOMID" ColumnName="ROOMID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Scenic">
+            <EntityTypeMapping TypeName="MyAnythingModel.Scenic">
+              <MappingFragment StoreEntitySet="Scenic">
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Enabled" ColumnName="Enabled" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TEST">
+            <EntityTypeMapping TypeName="MyAnythingModel.TEST">
+              <MappingFragment StoreEntitySet="TEST">
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

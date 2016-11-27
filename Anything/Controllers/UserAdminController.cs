@@ -88,7 +88,7 @@ namespace Anything.Controllers
         [HttpPost]
         public async Task<ActionResult> Create(RegisterViewModel userViewModel, params string[] selectedRoles)
         {
-            userViewModel.UserCode = new Anything.Helper.BaseDLL().GetUserCode(userViewModel.UserName);
+            userViewModel.UserCode = new Anything.Helpers.BaseDLL().GetUserCode(userViewModel.UserName);
             userViewModel.UserType = "System";
             if (ModelState.IsValid)
             {

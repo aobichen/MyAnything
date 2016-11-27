@@ -1,95 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="MyAnythingModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityType Name="AdImage">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="AdId" Type="int" Nullable="false" />
-    <Property Name="Image" Type="image" Nullable="false" />
-    <Property Name="Path" Type="nvarchar" MaxLength="250" />
-    <Property Name="Name" Type="nvarchar" MaxLength="50" />
-    <Property Name="Enabled" Type="bit" />
-    <Property Name="ImageText" Type="nvarchar" MaxLength="150" />
-  </EntityType>
-  <EntityType Name="AdManage">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Position" Type="nvarchar" MaxLength="250" Nullable="false" />
-    <Property Name="PositionId" Type="int" Nullable="false" />
-    <Property Name="Image" Type="image" />
-    <Property Name="AllowImage" Type="bit" Nullable="false" />
-    <Property Name="AllowText" Type="bit" Nullable="false" />
-    <Property Name="ImageLimit" Type="int" />
-    <Property Name="TextLimit" Type="int" />
-    <Property Name="ImageWidth" Type="float" />
-    <Property Name="ImageHeight" Type="float" />
-    <Property Name="MaxCount" Type="int" />
-    <Property Name="Enabled" Type="bit" Nullable="false" />
-    <Property Name="Creator" Type="int" Nullable="false" />
-    <Property Name="Created" Type="datetime" Nullable="false" />
-    <Property Name="Modified" Type="datetime" Nullable="false" />
-    <Property Name="Modify" Type="int" Nullable="false" />
-    <Property Name="AllowImageType" Type="nvarchar" MaxLength="150" />
-    <Property Name="SaleOff" Type="bit" Nullable="false" />
-    <Property Name="SalePrice" Type="decimal" Precision="18" Scale="0" Nullable="false" />
-    <Property Name="DiscountPrice" Type="decimal" Precision="18" Scale="0" />
-    <Property Name="Days" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="AdOrder">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="BeginDate" Type="datetime" Nullable="false" />
-    <Property Name="EndDate" Type="datetime" Nullable="false" />
-    <Property Name="Position" Type="nvarchar" MaxLength="250" Nullable="false" />
-    <Property Name="bought" Type="decimal" Precision="18" Scale="0" Nullable="false" />
-    <Property Name="AllowImage" Type="bit" Nullable="false" />
-    <Property Name="AllowText" Type="bit" Nullable="false" />
-    <Property Name="ImageLimit" Type="int" />
-    <Property Name="TextLimit" Type="int" />
-    <Property Name="ImageWidth" Type="float" />
-    <Property Name="ImageHeight" Type="float" />
-    <Property Name="Creator" Type="int" />
-    <Property Name="Created" Type="datetime" />
-    <Property Name="Status" Type="nvarchar" MaxLength="50" />
-    <Property Name="Href" Type="nvarchar" MaxLength="300" />
-    <Property Name="Days" Type="int" Nullable="false" />
-    <Property Name="Tel" Type="nvarchar" MaxLength="20" />
-    <Property Name="Phone" Type="nvarchar" MaxLength="20" />
-    <Property Name="Email" Type="nvarchar" MaxLength="150" />
-    <Property Name="AdId" Type="int" Nullable="false" />
-    <Property Name="PositionId" Type="int" Nullable="false" />
-    <Property Name="Text" Type="nvarchar" MaxLength="1500" />
-    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Area_TW">
+  <EntityType Name="Area">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="int" Nullable="false" />
     <Property Name="CID" Type="int" Nullable="false" />
-    <Property Name="Area" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
   </EntityType>
-  <EntityType Name="BonusSystem">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="UserBonus" Type="float" Nullable="false" />
-    <Property Name="ParentBonus" Type="float" Nullable="false" />
-    <Property Name="Modifiter" Type="nvarchar" MaxLength="50" />
-    <Property Name="Modified" Type="datetime" />
-  </EntityType>
-  <EntityType Name="City_TW">
+  <EntityType Name="City">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="int" Nullable="false" />
-    <Property Name="City" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Location" Type="int" />
   </EntityType>
   <EntityType Name="CodeFile">
@@ -103,6 +27,17 @@
     <Property Name="ItemCode" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Enabled" Type="bit" Nullable="false" />
     <Property Name="TypeText" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Facility">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Text" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="Enabled" Type="bit" Nullable="false" />
+    <Property Name="Created" Type="datetime" />
+    <Property Name="Show" Type="bit" />
   </EntityType>
   <EntityType Name="Hotel">
     <Key>
@@ -141,23 +76,19 @@
     <Property Name="Enabled" Type="bit" />
     <Property Name="Extension" Type="nvarchar" MaxLength="5" />
   </EntityType>
-  <EntityType Name="HotelView">
+  <EntityType Name="ImageStore">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="HotelId" Type="int" />
-    <Property Name="Created" Type="datetime" />
-  </EntityType>
-  <EntityType Name="Logs">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Creator" Type="int" Nullable="false" />
-    <Property Name="Created" Type="int" Nullable="false" />
-    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Remark" Type="nvarchar(max)" />
+    <Property Name="Image" Type="image" />
+    <Property Name="Path" Type="nvarchar" MaxLength="500" />
+    <Property Name="Extension" Type="nvarchar" MaxLength="5" />
+    <Property Name="Type" Type="nvarchar" MaxLength="10" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Deleted" Type="bit" />
+    <Property Name="Created" Type="datetime" Nullable="false" />
+    <Property Name="Creator" Type="int" />
   </EntityType>
   <EntityType Name="MyBouns">
     <Key>
@@ -313,31 +244,6 @@
     <Property Name="City" Type="nvarchar" MaxLength="10" Nullable="false" />
     <Property Name="CityId" Type="int" Nullable="false" />
   </EntityType>
-  <EntityType Name="ServiceOption">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Text" Type="nvarchar" MaxLength="30" Nullable="false" />
-    <Property Name="Description" Type="nvarchar" MaxLength="200" Nullable="false" />
-    <Property Name="Enabled" Type="bit" Nullable="false" />
-    <Property Name="Created" Type="datetime" />
-    <Property Name="Show" Type="bit" />
-  </EntityType>
-  <EntityType Name="SysManage">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="FieldCode" Type="nvarchar" MaxLength="100" Nullable="false" />
-    <Property Name="FieldDescription" Type="nvarchar" MaxLength="2000" Nullable="false" />
-    <Property Name="Value" Type="nvarchar" MaxLength="10" Nullable="false" />
-    <Property Name="Unit" Type="nvarchar" MaxLength="10" />
-    <Property Name="Enabled" Type="bit" Nullable="false" />
-    <Property Name="Editor" Type="int" Nullable="false" />
-    <Property Name="Edited" Type="datetime" Nullable="false" />
-    <Property Name="FieldName" Type="nvarchar" MaxLength="50" Nullable="false" />
-  </EntityType>
   <EntityType Name="TEST">
     <Key>
       <PropertyRef Name="ID" />
@@ -346,54 +252,15 @@
     <Property Name="Message" Type="nvarchar(max)" />
     <Property Name="Created" Type="datetime" Nullable="false" />
   </EntityType>
-  <EntityType Name="VIPOrder">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Vip" Type="int" Nullable="false" />
-    <Property Name="Pay" Type="decimal" Precision="10" Scale="2" Nullable="false" />
-    <Property Name="PayMethod" Type="nvarchar" MaxLength="100" />
-    <Property Name="OrderStatus" Type="nvarchar" MaxLength="100" />
-    <Property Name="PayType" Type="nvarchar" MaxLength="100" />
-    <Property Name="Creator" Type="int" />
-    <Property Name="Created" Type="datetime" />
-    <Property Name="Address" Type="nvarchar" MaxLength="500" Nullable="false" />
-    <Property Name="Tel" Type="nvarchar" MaxLength="20" Nullable="false" />
-    <Property Name="Email" Type="nvarchar" MaxLength="150" Nullable="false" />
-    <Property Name="Name" Type="nvarchar" MaxLength="50" />
-  </EntityType>
-  <EntityType Name="VIPs">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="BeginDate" Type="datetime" Nullable="false" />
-    <Property Name="EndDate" Type="datetime" Nullable="false" />
-    <Property Name="Days" Type="int" Nullable="false" />
-    <Property Name="HotelId" Type="int" Nullable="false" />
-  </EntityType>
   <Association Name="FK__Area_TW__CID__29572725">
-    <End Role="City_TW" Type="Self.City_TW" Multiplicity="1" />
-    <End Role="Area_TW" Type="Self.Area_TW" Multiplicity="*" />
+    <End Role="City" Type="Self.City" Multiplicity="1" />
+    <End Role="Area" Type="Self.Area" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="City_TW">
+      <Principal Role="City">
         <PropertyRef Name="ID" />
       </Principal>
-      <Dependent Role="Area_TW">
+      <Dependent Role="Area">
         <PropertyRef Name="CID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_AdImage_AdOrder">
-    <End Role="AdOrder" Type="Self.AdOrder" Multiplicity="1" />
-    <End Role="AdImage" Type="Self.AdImage" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="AdOrder">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="AdImage">
-        <PropertyRef Name="AdId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -445,42 +312,14 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_VIPOrder_VIPs">
-    <End Role="VIPs" Type="Self.VIPs" Multiplicity="1" />
-    <End Role="VIPOrder" Type="Self.VIPOrder" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="VIPs">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="VIPOrder">
-        <PropertyRef Name="ID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_VIPs_VIPs">
-    <End Role="VIPs" Type="Self.VIPs" Multiplicity="1" />
-    <End Role="VIPs1" Type="Self.VIPs" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="VIPs">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="VIPs1">
-        <PropertyRef Name="ID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <EntityContainer Name="MyAnythingModelStoreContainer">
-    <EntitySet Name="AdImage" EntityType="Self.AdImage" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="AdManage" EntityType="Self.AdManage" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="AdOrder" EntityType="Self.AdOrder" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Area_TW" EntityType="Self.Area_TW" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="BonusSystem" EntityType="Self.BonusSystem" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="City_TW" EntityType="Self.City_TW" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Area" EntityType="Self.Area" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="City" EntityType="Self.City" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CodeFile" EntityType="Self.CodeFile" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Facility" EntityType="Self.Facility" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Hotel" EntityType="Self.Hotel" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="HotelImage" EntityType="Self.HotelImage" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="HotelView" EntityType="Self.HotelView" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Logs" EntityType="Self.Logs" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ImageStore" EntityType="Self.ImageStore" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MyBouns" EntityType="Self.MyBouns" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="News" EntityType="Self.News" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="OrderMaster" EntityType="Self.OrderMaster" Schema="dbo" store:Type="Tables" />
@@ -489,18 +328,10 @@
     <EntitySet Name="RoomImage" EntityType="Self.RoomImage" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="RoomPrice" EntityType="Self.RoomPrice" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Scenic" EntityType="Self.Scenic" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="ServiceOption" EntityType="Self.ServiceOption" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="SysManage" EntityType="Self.SysManage" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TEST" EntityType="Self.TEST" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="VIPOrder" EntityType="Self.VIPOrder" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="VIPs" EntityType="Self.VIPs" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK__Area_TW__CID__29572725" Association="Self.FK__Area_TW__CID__29572725">
-      <End Role="City_TW" EntitySet="City_TW" />
-      <End Role="Area_TW" EntitySet="Area_TW" />
-    </AssociationSet>
-    <AssociationSet Name="FK_AdImage_AdOrder" Association="Self.FK_AdImage_AdOrder">
-      <End Role="AdOrder" EntitySet="AdOrder" />
-      <End Role="AdImage" EntitySet="AdImage" />
+      <End Role="City" EntitySet="City" />
+      <End Role="Area" EntitySet="Area" />
     </AssociationSet>
     <AssociationSet Name="FK_HotelImage_Hotel" Association="Self.FK_HotelImage_Hotel">
       <End Role="Hotel" EntitySet="Hotel" />
@@ -517,14 +348,6 @@
     <AssociationSet Name="FK_RoomPrice_Room" Association="Self.FK_RoomPrice_Room">
       <End Role="Room" EntitySet="Room" />
       <End Role="RoomPrice" EntitySet="RoomPrice" />
-    </AssociationSet>
-    <AssociationSet Name="FK_VIPOrder_VIPs" Association="Self.FK_VIPOrder_VIPs">
-      <End Role="VIPs" EntitySet="VIPs" />
-      <End Role="VIPOrder" EntitySet="VIPOrder" />
-    </AssociationSet>
-    <AssociationSet Name="FK_VIPs_VIPs" Association="Self.FK_VIPs_VIPs">
-      <End Role="VIPs" EntitySet="VIPs" />
-      <End Role="VIPs1" EntitySet="VIPs" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

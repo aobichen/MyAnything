@@ -1,4 +1,4 @@
-﻿using Anything.Helper;
+﻿using Anything.Helpers;
 using Anything.Models;
 using System;
 using System.Collections.Generic;
@@ -253,9 +253,9 @@ namespace Anything.ViewModels
             
             
             result = (from h in _db.Hotel
-                          join city in _db.City_TW
+                          join city in _db.City
                           on h.City equals city.ID
-                          join area in _db.Area_TW
+                          join area in _db.Area
                           on h.Area equals area.ID
                           where h.Room.ToList().Count > 0                     
                           select new HotelsViewModel
@@ -263,7 +263,7 @@ namespace Anything.ViewModels
                               
                               ID =h.ID,
                               Address = h.Address,
-                              Location = city.City + area.Area,
+                              Location = city.Name + area.Name,
                               Name = h.Name,
                               Feature = h.Feature,
                               Images = h.HotelImage.ToList(),
@@ -447,69 +447,8 @@ namespace Anything.ViewModels
         public int Sum { get; set; }
     }
 
-    public class ServiceOptionCheckbox : ServiceOption
-    {
-        public bool Checked { get; set; }
+    
 
-        public List<ServiceOptionCheckbox> ConverToCheckbox(string[] checkedValue)
-        {
-            var items = new List<ServiceOption>();
-            var checkbox = new List<ServiceOptionCheckbox>();
-            using (var db = new MyAnythingEntities())
-            {
-                items = db.ServiceOption.ToList();
-            }
-
-            
-
-            if (items == null || items.Count <= 0)
-            {
-
-                return checkbox;
-            }
-
-            foreach (var item in items)
-            {
-                var Id = item.ID.ToString();
-                var IsChecked = checkedValue==null ? false : checkedValue.Any(o => o.Contains(Id));
-                checkbox.Add(new ServiceOptionCheckbox() { Checked = IsChecked, Text = item.Text, Description = item.Description, ID = item.ID, Enabled = item.Enabled });  
-            }
-            
-            return checkbox;
-        }
-    }
-
-    public class ScenicsCheckbox : Scenic
-    {
-        public bool Checked { get; set; }
-
-        public List<ScenicsCheckbox> ConverToCheckbox(string[] checkedValue)
-        {
-            var items = new List<Scenic>();
-            var checkbox = new List<ScenicsCheckbox>();
-            using (var db = new MyAnythingEntities())
-            {
-                items = db.Scenic.ToList();
-            }
-
-            if (items == null || items.Count <= 0)
-            {
-
-                return checkbox;
-            }
-
-
-           
-
-            foreach (var item in items)
-            {
-                var Id = item.ID.ToString();
-                var IsChecked = checkedValue == null ? false : checkedValue.Any(o => o.Contains(Id));
-                checkbox.Add(new ScenicsCheckbox() { Checked = IsChecked, City = item.City, Description = item.Description, Name = item.Name, ID = item.ID, Enabled = item.Enabled });
-            }
-            
-            return checkbox;
-        }
-    }
+   
     
 }

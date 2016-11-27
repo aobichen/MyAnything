@@ -12,7 +12,7 @@ using System.Web.Mvc;
 using Newtonsoft.Json;
 using System.Web.Security;
 using Microsoft.AspNet.Identity.EntityFramework;
-using Anything.Helper;
+using Anything.Helpers;
 
 namespace Anything.Controllers
 {
@@ -253,7 +253,7 @@ namespace Anything.Controllers
                 Recommend = OfficalRecommendCode;
             }
             model.Recommend = Recommend;
-            model.UserCode = new Anything.Helper.BaseDLL().GetUserCode(model.UserName);
+            model.UserCode = new Anything.Helpers.BaseDLL().GetUserCode(model.UserName);
             model.UserType = "User";
             if (ModelState.IsValid)
             {
@@ -320,7 +320,7 @@ namespace Anything.Controllers
                 }
             }
             model.Recommend = Recommend;
-            model.UserCode = new Anything.Helper.BaseDLL().GetUserCode(model.UserName);
+            model.UserCode = new Anything.Helpers.BaseDLL().GetUserCode(model.UserName);
             
             model.UserType = "Hotel";
             var TypeOfUser = "User";
@@ -612,7 +612,7 @@ namespace Anything.Controllers
         [AllowAnonymous]
         public ActionResult VerificationCode()
         {
-            var code = new Anything.Helper.VerificationCode(5);
+            var code = new Anything.Helpers.VerificationCode(5);
             var img = code.bytes;
             
             return File(img, "image/jpg");

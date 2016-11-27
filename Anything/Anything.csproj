@@ -192,76 +192,58 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\My\Controllers\HotelController.cs" />
+    <Compile Include="Areas\My\MyAreaRegistration.cs" />
     <Compile Include="Areas\System\BundleConfig.cs" />
     <Compile Include="Areas\System\Controllers\HomeController.cs" />
     <Compile Include="Areas\System\RouteConfig.cs" />
     <Compile Include="Areas\System\SystemAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\AccountingController.cs" />
-    <Compile Include="Controllers\AdManageController.cs" />
-    <Compile Include="Controllers\AdvertisingController.cs" />
     <Compile Include="Controllers\AnythingController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
-    <Compile Include="Controllers\BonusSettingController.cs" />
     <Compile Include="Controllers\CityAreaController.cs" />
     <Compile Include="Controllers\CodeFileController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HotelController.cs" />
-    <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\RolesAdminController.cs" />
     <Compile Include="Controllers\RoomController.cs" />
     <Compile Include="Controllers\ScenicController.cs" />
-    <Compile Include="Controllers\SysManageController.cs" />
     <Compile Include="Controllers\SystemAdminController.cs" />
     <Compile Include="Controllers\UserAdminController.cs" />
-    <Compile Include="Controllers\UserController.cs" />
-    <Compile Include="Controllers\VIPManageController.cs" />
-    <Compile Include="Controllers\VIPStoreController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helper\AllPay.cs" />
-    <Compile Include="Helper\BaseDLL.cs" />
-    <Compile Include="Helper\Caches.cs" />
-    <Compile Include="Helper\CodeFiles.cs" />
-    <Compile Include="Helper\Helpers.cs" />
-    <Compile Include="Helper\ImageHandle.cs" />
+    <Compile Include="Helpers\AllPay.cs" />
+    <Compile Include="Helpers\BaseDLL.cs" />
+    <Compile Include="Helpers\Caches.cs" />
+    <Compile Include="Helpers\CheckBoxListExtensions.cs" />
+    <Compile Include="Helpers\CodeFiles.cs" />
+    <Compile Include="Helpers\Helpers.cs" />
+    <Compile Include="Helpers\ImageHandle.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\AdImage.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\AdManage.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\AdminViewModel.cs" />
-    <Compile Include="Models\AdOrder.cs">
+    <Compile Include="Models\Area.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Area_TW.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\BonusSystem.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\City_TW.cs">
+    <Compile Include="Models\City.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CodeFile.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CustomPrincipal.cs" />
+    <Compile Include="Models\Facility.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Hotel.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\HotelImage.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\HotelView.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\Logs.cs">
+    <Compile Include="Models\ImageStore.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ManageViewModels.cs" />
@@ -304,25 +286,13 @@
     <Compile Include="Models\Scenic.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ServiceOption.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SysManage.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\TEST.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\VIPOrder.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\VIPs.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
+    <Compile Include="ViewModels\FacilityModel.cs" />
     <Compile Include="ViewModels\PayGoViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="ViewModels\AdViewModel.cs" />
     <Compile Include="ViewModels\BookingViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\HotelViewModel.cs" />
@@ -330,8 +300,7 @@
     <Compile Include="ViewModels\OrderViewModel.cs" />
     <Compile Include="ViewModels\RoomPriceViewModel.cs" />
     <Compile Include="ViewModels\RoomViewModel.cs" />
-    <Compile Include="ViewModels\SystemAdmin.cs" />
-    <Compile Include="ViewModels\VIPViewModels.cs" />
+    <Compile Include="ViewModels\ScenicModel.cs" />
     <Compile Include="WebApi\DefaultController.cs" />
     <Compile Include="WebApi\ImageUploadController.cs" />
     <Compile Include="WebApi\PayGoController.cs" />
@@ -419,7 +388,6 @@
     <Content Include="Content\Pictures\header-bg2.jpg" />
     <Content Include="Content\Pictures\header-bg3.jpg" />
     <Content Include="Content\Pictures\offical.jpg" />
-    <Content Include="Content\style-rtl.css" />
     <Content Include="Content\style.css" />
     <Content Include="Content\theme.css" />
     <Content Include="Content\custom.css" />
@@ -565,11 +533,32 @@
     <Content Include="Areas\System\Views\_ViewStart.cshtml" />
     <Content Include="Areas\System\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\System\Views\Home\Index.cshtml" />
+    <Content Include="Areas\My\Views\web.config" />
+    <Content Include="Areas\My\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\My\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\My\Views\Hotel\Index.cshtml" />
+    <Content Include="Areas\My\Views\Hotel\_List.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\infobox.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\jQuery-Smart-Wizard\.bower.json" />
+    <Content Include="Scripts\jQuery-Smart-Wizard\README.md" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jQuery-Smart-Wizard\images\loader.gif" />
+    <Content Include="Scripts\jQuery-Smart-Wizard\index.htm" />
+    <Content Include="Scripts\jQuery-Smart-Wizard\js\jquery-1.4.2.min.js" />
+    <Content Include="Scripts\jQuery-Smart-Wizard\js\jquery.smartWizard.js" />
+    <Content Include="Scripts\jQuery-Smart-Wizard\more_examples\services\service.php" />
+    <Content Include="Scripts\jQuery-Smart-Wizard\more_examples\smartwizard2-ajax.htm" />
+    <Content Include="Scripts\jQuery-Smart-Wizard\more_examples\smartwizard2-validation.php" />
+    <Content Include="Scripts\jQuery-Smart-Wizard\smartwizard2-ajax.htm" />
+    <Content Include="Scripts\jQuery-Smart-Wizard\smartwizard2-multiple.htm" />
+    <Content Include="Scripts\jQuery-Smart-Wizard\smartwizard2-validation.htm" />
+    <Content Include="Scripts\jQuery-Smart-Wizard\smartwizard2-vertical.htm" />
+    <Content Include="Scripts\jQuery-Smart-Wizard\styles\demo_style.css" />
+    <Content Include="Scripts\jQuery-Smart-Wizard\styles\smart_wizard.css" />
+    <Content Include="Scripts\jQuery-Smart-Wizard\styles\smart_wizard_vertical.css" />
     <Content Include="Scripts\jquery-ui.js" />
     <Content Include="Scripts\jquery-ui.min.js" />
     <Content Include="Scripts\jquery.cookie.js" />
@@ -1175,7 +1164,6 @@
     <Content Include="Views\Room\_RoomCalendar.cshtml" />
     <Content Include="Views\Room\RoomSet.cshtml" />
     <Content Include="Views\Shared\_PayMethod.cshtml" />
-    <Content Include="Views\AllPay\CreditFeed.cshtml" />
     <Content Include="Views\MyOrder\Index.cshtml" />
     <Content Include="Views\MyOrder\_List.cshtml" />
     <Content Include="Views\Shared\_HeadOfficalAd.cshtml" />
@@ -1195,9 +1183,12 @@
     <Content Include="Views\Order\PaySuccess.cshtml" />
     <Content Include="Views\Order\PayCustomer.cshtml" />
     <Content Include="Views\Order\_Detail.cshtml" />
+    <Content Include="Views\Shared\_Facility.cshtml" />
+    <Content Include="Views\Shared\_Scenic.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\My\Models\" />
     <Folder Include="Areas\System\Models\" />
     <Folder Include="Views\VIPManage\" />
   </ItemGroup>

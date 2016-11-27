@@ -4,7 +4,7 @@ using System.Linq;
 using Anything.ViewModels;
 using System;
 using System.Collections.Generic;
-using Anything.Helper;
+using Anything.Helpers;
 using Anything.Models;
 using System.Data.Entity;
 namespace Anything.Controllers
@@ -26,22 +26,21 @@ namespace Anything.Controllers
             var result = new HotelListViewModel().GetHotels(model);
             ViewBag.HotelList = result;
 
-            var oo = _db.ServiceOption.Where(o => o.Show == true).ToList();
-            ViewBag.Options = _db.ServiceOption.Where(o => o.Show == true).ToList();
+           // var a = new FacilityModel().SelectListItems;
+
+            ViewBag.Facility = new FacilityModel().SelectListItems;
+            ViewBag.Scenic = new ScenicModel().SelectListItems;
+
             var City = new Caches().TWCity;
            
-            SelectList selectList = new SelectList(City, "ID", "City", 0);
+            SelectList selectList = new SelectList(City, "ID", "Name", 0);
             ViewBag.City = selectList;
            
             return View();
         }
 
 
-        public ActionResult AdImage(int id)
-        {
-            var imageData = _db.AdImage.Find(id).Image;
-           return File(imageData, "image/jpeg");
-        }
+        
         
         
 
@@ -65,7 +64,7 @@ namespace Anything.Controllers
                 }).FirstOrDefault();
 
             var Facilities = model.options.Split(',').Select(int.Parse).ToList();
-            model.Facilities = _db.ServiceOption.Where(o => Facilities.Contains(o.ID)).Select(p => p.Text).ToList();
+            //model.Facilities = _db.ServiceOption.Where(o => Facilities.Contains(o.ID)).Select(p => p.Text).ToList();
 
             var Date = Session["CheckInDate"] == null ? DateTime.Now.AddDays(1):(DateTime)Session["CheckInDate"];
             var DayOfWeek = Date.DayOfWeek.ToString("d");
