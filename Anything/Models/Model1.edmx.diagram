@@ -9,22 +9,22 @@
         <EntityTypeShape EntityType="MyAnythingModel.City" Width="1.5" PointX="7.75" PointY="0.875" />
         <EntityTypeShape EntityType="MyAnythingModel.CodeFile" Width="1.5" PointX="7.75" PointY="3.75" />
         <EntityTypeShape EntityType="MyAnythingModel.Facility" Width="1.5" PointX="5.75" PointY="7.75" />
-        <EntityTypeShape EntityType="MyAnythingModel.Hotel" Width="1.5" PointX="0.75" PointY="3.5" />
         <EntityTypeShape EntityType="MyAnythingModel.HotelImage" Width="1.5" PointX="3" PointY="7.75" />
         <EntityTypeShape EntityType="MyAnythingModel.ImageStore" Width="1.5" PointX="7.75" PointY="7.75" />
         <EntityTypeShape EntityType="MyAnythingModel.MyBouns" Width="1.5" PointX="9.75" PointY="3.75" />
         <EntityTypeShape EntityType="MyAnythingModel.News" Width="1.5" PointX="9.75" PointY="7.75" />
         <EntityTypeShape EntityType="MyAnythingModel.OrderMaster" Width="1.5" PointX="0.75" PointY="11.75" />
         <EntityTypeShape EntityType="MyAnythingModel.PayGo" Width="1.5" PointX="2.75" PointY="11.75" />
-        <EntityTypeShape EntityType="MyAnythingModel.Room" Width="1.5" PointX="3" PointY="1.375" />
         <EntityTypeShape EntityType="MyAnythingModel.RoomImage" Width="1.5" PointX="5.25" PointY="4.25" />
         <EntityTypeShape EntityType="MyAnythingModel.RoomPrice" Width="1.5" PointX="5.25" PointY="1.25" />
         <EntityTypeShape EntityType="MyAnythingModel.Scenic" Width="1.5" PointX="11.75" PointY="3.75" />
         <EntityTypeShape EntityType="MyAnythingModel.TEST" Width="1.5" PointX="11.75" PointY="6.75" />
         <AssociationConnector Association="MyAnythingModel.FK__Area_TW__CID__29572725" />
+        <EntityTypeShape EntityType="MyAnythingModel.Hotel" Width="1.5" PointX="0.75" PointY="3.625" />
         <AssociationConnector Association="MyAnythingModel.FK_HotelImage_Hotel" />
+        <EntityTypeShape EntityType="MyAnythingModel.Room" Width="1.5" PointX="3" PointY="1.375" />
         <AssociationConnector Association="MyAnythingModel.FK_Room_Hotel" />
-        <AssociationConnector Association="MyAnythingModel.FK_RoomImage_Room" />
+        <AssociationConnector Association="MyAnythingModel.FK_RoomImage_Room1" />
         <AssociationConnector Association="MyAnythingModel.FK_RoomPrice_Room" />
       </Diagram>
     </edmx:Diagrams>

@@ -32,7 +32,7 @@ namespace Anything.Models
         public string Introduce { get; set; }
         public string Feature { get; set; }
         public string Information { get; set; }
-        public string ServiceOptions { get; set; }
+        public string Facility { get; set; }
         public string Scenics { get; set; }
         public bool Enabled { get; set; }
         public bool SaleOff { get; set; }

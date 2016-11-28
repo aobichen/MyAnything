@@ -14,6 +14,21 @@ namespace Anything.Controllers
     
     public class HotelController : BaseController
     {
+        public HotelController()
+        {
+            var City = new Caches().TWCity;
+           
+            SelectList selectList = new SelectList(City, "ID", "Name", 0);
+            ViewBag.City = selectList;
+            
+            var Areas = new Caches().TWArea;
+            //SelectList Areas = new SelectList(City, "ID", "Name", 0);
+            ViewBag.Area = Areas;
+
+            var Location = new Caches().TWLocation;
+            SelectList Locations = new SelectList(Location, "Location", "Location", 0);
+            ViewBag.Location = Locations;
+        }
         //
         // GET: /Hotel/
         [Authorize(Roles = "Hotel,Admin")]
@@ -34,18 +49,15 @@ namespace Anything.Controllers
         {
             
 
-            var City = new Caches().TWCity;
-            ViewBag.Area = new Caches().TWArea;
-            SelectList selectList = new SelectList(City, "ID", "City", 0);
-            ViewBag.City = selectList;
-            ViewBag.Area = new Caches().TWArea;
+            
+           
 
             
             var model = new HotelCreateViewModel();
             model.Information = new HtmlContent("/Views/Hotel/InformationTemp.html").Text;
 
-           // ViewBag.ServiceOptions = _db.ServiceOption.Where(o => o.Enabled == true).ToList();
-            ViewBag.Scenics = _db.Scenic.Where(o => o.Enabled == true).ToList();
+            ViewBag.Facility = new FacilityModel().SelectListItems;
+            ViewBag.Scenics = new ScenicModel().SelectListItems;
             ViewBag.ImgKey = Guid.NewGuid().GetHashCode().ToString("x");
             model.Enabled = true;
             return View(model);
@@ -57,15 +69,15 @@ namespace Anything.Controllers
         public ActionResult Edit(int? id=null)
         {
 
-
+            ViewBag.Facility = new FacilityModel().SelectListItems;
+            ViewBag.Scenics = new ScenicModel().SelectListItems;
             var result = new HotelCreateViewModel();
 
             var model = _db.Hotel.Where(o => o.ID == id).FirstOrDefault();
             if (id == null || model == null)
             {
                 result.Information = new HtmlContent("/Views/Hotel/InformationTemp.html").Text;
-                //ViewBag.ServiceOptions = new ServiceOptionCheckbox().ConverToCheckbox(null);
-                //ViewBag.Scenics = new ScenicsCheckbox().ConverToCheckbox(null);
+               
                 ViewBag.ImgKey = Guid.NewGuid().GetHashCode().ToString("x");
                 result.Enabled = true;
                 result.SaleOff = true;
@@ -87,9 +99,9 @@ namespace Anything.Controllers
             result.SaleOff = model.SaleOff;
             result.Enabled = true;
             string[] chkoptions = null;
-            if (!string.IsNullOrEmpty(model.ServiceOptions))
+            if (!string.IsNullOrEmpty(model.Facility))
             {
-                 chkoptions = model.ServiceOptions.Split(',');             
+                chkoptions = model.Facility.Split(',');             
             }
 
             //var CheckboxForServiceoption = new ServiceOptionCheckbox().ConverToCheckbox(chkoptions);
@@ -125,29 +137,7 @@ namespace Anything.Controllers
         [HttpPost]
         public ActionResult Edit(HotelCreateViewModel model)
         {
-            model.UserId = CurrentUser.Id;
-            
-
-
-            if (model.City <= 0)
-            {
-                ModelState.AddModelError("City", "城市為必填");
-            }
-
-            if (model.Area <= 0)
-            {
-                ModelState.AddModelError("Area", "鄉鎮區為必填");
-            }
-
-            if (Request["ServiceOptions"] != null)
-            {
-                model.ServiceOptions = Request["ServiceOptions"];
-            }
-
-            if (Request["Scenics"] != null)
-            {
-                model.Scenics = Request["Scenics"];
-            }
+            model.UserId = CurrentUser.Id;            
 
             if (ModelState.IsValid)
             {

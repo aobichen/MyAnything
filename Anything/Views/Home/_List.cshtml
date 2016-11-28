@@ -31,11 +31,11 @@
                                 <a href="@Url.Action("Detail", new { id= item.ID })" title="">
                                 @if (item.Images.Count > 0)
                                 {
-                                    <img style="height:180px;" src="@Url.Action("Image","Hotel",new {id=item.Images[0].ID})" alt="" />
+                                    <img src="@Url.Action("Image","Hotel",new {id=item.Images[0].ID})" alt="" />
                                 }
                                 else
                                 {
-                                    <img style="height:180px;" src="~/images/uploads/img.jpg" />
+                                    <img src="~/images/uploads/img.jpg" />
                                 }
                             </a>
 

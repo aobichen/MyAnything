@@ -43,7 +43,8 @@ namespace Anything.Controllers
             
             var model = new RoomCreateViewModel();
             //model.Bonus = 300;
-            ViewBag.SessionKey = Guid.NewGuid().GetHashCode().ToString("x");
+           var ImgKey = Guid.NewGuid().GetHashCode().ToString("x");
+           model.ImgKey = ImgKey;
             model.HotelId = id;
             model.Enabled = true;
             model.Quantity = 1;
@@ -61,47 +62,24 @@ namespace Anything.Controllers
         public ActionResult Create(RoomCreateViewModel model)
         {
 
-            //if (model.ID > 0)
-            //{
-            //    model.Edit();
-            //    return RedirectToAction("Edit", new {id=model.ID });
-            //}
-
             var RoomImage = new List<RoomImage>();
             var PersonBed = new List<int>();
-            //PersonBed.Add(model.m);
-            //PersonBed.Add(int.Parse(model.BedType));
-            //PersonBed.Add(model.Beds);
-            //[房型,床型,數量]
-            model.RoomBed = string.Join(",", PersonBed);
-           
-             RoomImage = (List<RoomImage>)Session[model.SessionKey];
-             Session[model.SessionKey] = RoomImage;
+          
+             RoomImage = (List<RoomImage>)Session[model.ImgKey];
+             Session[model.ImgKey] = RoomImage;
                 
              ViewBag.RoomImage = RoomImage;
-               
-            
-
-            if (RoomImage == null || RoomImage.Count <= 0)
-            {
-                ModelState.AddModelError("","必須上傳圖片");
-                return View();
-            }
-
-            //if (string.IsNullOrEmpty(model.Notice))
-            //{
-            //    ModelState.AddModelError("", "必須提供房型資訊");
-            //    return View();
-            //}
-
-            
-
+              
+          
             model.UserId = CurrentUser.Id;
 
             if (ModelState.IsValid){
                 model.Create();
                 return RedirectToAction("Index", new {id=model.HotelId});
             }
+
+            ViewBag.BedType = new CodeFiles().GetBedsSelectList();
+            ViewBag.RoomType = new CodeFiles().GetRoomsSelectList();
             return View(model);
         }
 
@@ -147,14 +125,16 @@ namespace Anything.Controllers
                              RoomType = r.RoomType,
                              Notice = r.Notice,
                              Name = r.Name,
-                             MaxPerson = r.MaxPerson
+                             MaxPerson = r.MaxPerson,
+                             BedAmount = r.BedAmount
                          }).FirstOrDefault();
             
             var key = Guid.NewGuid().GetHashCode().ToString("x");
+            model.ImgKey = key;
             ViewBag.SessionKey = key;
             Session[key] = Images;
             ViewBag.RoomImages = Images;
-            model.SessionKey = key;
+           
             ViewBag.BedType = new CodeFiles().GetBedsSelectList(model.BedType);
          
             ViewBag.RoomType = new CodeFiles().GetRoomsSelectList(model.RoomType);
@@ -172,8 +152,7 @@ namespace Anything.Controllers
             }
             try
             {
-                model.Edit();
-                
+                model.Edit();                
             }
             catch(Exception ex){
                 ViewBag.BedType = new CodeFiles().GetBedsSelectList(model.BedType);

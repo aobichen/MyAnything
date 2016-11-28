@@ -22,11 +22,11 @@ namespace Anything
                 url: "Room/{id}",
                 defaults: new { controller = "Room", action = "Index", id = UrlParameter.Optional }
             );
-            routes.MapRoute(
-                name: "Detail",
-                url: "Detail/{id}",
-                defaults: new { controller = "Home", action = "Detail", id = UrlParameter.Optional }
-            );
+            //routes.MapRoute(
+            //    name: "Detail",
+            //    url: "Detail/{id}",
+            //    defaults: new { controller = "Home", action = "Detail", id = UrlParameter.Optional }
+            //);
 
             routes.MapRoute(
                name: "Booking",

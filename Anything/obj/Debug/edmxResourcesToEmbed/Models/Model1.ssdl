@@ -54,8 +54,8 @@
     <Property Name="Introduce" Type="nvarchar" MaxLength="500" />
     <Property Name="Feature" Type="nvarchar" MaxLength="500" Nullable="false" />
     <Property Name="Information" Type="nvarchar" MaxLength="1000" Nullable="false" />
-    <Property Name="ServiceOptions" Type="nvarchar" MaxLength="100" />
-    <Property Name="Scenics" Type="nvarchar" MaxLength="100" />
+    <Property Name="Facility" Type="nvarchar" MaxLength="200" />
+    <Property Name="Scenics" Type="nvarchar" MaxLength="200" />
     <Property Name="Enabled" Type="bit" Nullable="false" />
     <Property Name="SaleOff" Type="bit" Nullable="false" />
     <Property Name="Created" Type="datetime" Nullable="false" />
@@ -288,7 +288,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_RoomImage_Room">
+  <Association Name="FK_RoomImage_Room1">
     <End Role="Room" Type="Self.Room" Multiplicity="1" />
     <End Role="RoomImage" Type="Self.RoomImage" Multiplicity="*" />
     <ReferentialConstraint>
@@ -341,7 +341,7 @@
       <End Role="Hotel" EntitySet="Hotel" />
       <End Role="Room" EntitySet="Room" />
     </AssociationSet>
-    <AssociationSet Name="FK_RoomImage_Room" Association="Self.FK_RoomImage_Room">
+    <AssociationSet Name="FK_RoomImage_Room1" Association="Self.FK_RoomImage_Room1">
       <End Role="Room" EntitySet="Room" />
       <End Role="RoomImage" EntitySet="RoomImage" />
     </AssociationSet>

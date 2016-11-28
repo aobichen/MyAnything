@@ -12,7 +12,7 @@ ul > li:before,.booking h2 span
 
 .social li a:hover,.social li a:focus,.pager .current,.pager a:hover,.contact:before,.header .ribbon,.destinations article .ribbon:hover,.view-type .active,.tags li:hover,.inner-nav li:hover,.inner-nav li.active,.inner-nav li.active:hover,.chart dd span,.infoBox,.lb-wrap,.ui-slider-horizontal .ui-slider-handle ,.image-overlay:before 	
 {
-	background:#CC0000 !important;
+	background:#AE0000 !important;
 }
 
 .gradient-button,button, 
@@ -56,10 +56,10 @@ input[type="submit"],
 .descending:hover:before,
 .descending:focus:before,
 .infoBox:after 								
-{border-color:#CC0000 transparent transparent transparent;}
+{border-color:#AE0000 transparent transparent transparent;}
 
 .header .ribbon:after					
-{border-color: transparent #CC0000 transparent transparent;}
+{border-color: transparent #AE0000 transparent transparent;}
 
 .inner-nav li.active a:after 			{border-color: transparent transparent transparent #AE0000;}
 

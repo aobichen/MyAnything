@@ -52,7 +52,7 @@ namespace Anything.Controllers
                 {
                     ID = o.ID,
                     Address = o.Address,
-                    options = o.ServiceOptions,
+                    options = o.Facility,
                     Images = o.HotelImage.ToList(),
                     Name = o.Name,
                     Feature = o.Feature,
@@ -60,10 +60,12 @@ namespace Anything.Controllers
                     Tel = o.Tel,
                     Scenics = o.Scenics,
                     City = o.City,
-                    Area = o.Area
+                    Area = o.Area,
+                    Facilities = o.Facility,
+                   
                 }).FirstOrDefault();
 
-            var Facilities = model.options.Split(',').Select(int.Parse).ToList();
+            var Facilities = model.Facilities.Split(',').Select(int.Parse).ToList();
             //model.Facilities = _db.ServiceOption.Where(o => Facilities.Contains(o.ID)).Select(p => p.Text).ToList();
 
             var Date = Session["CheckInDate"] == null ? DateTime.Now.AddDays(1):(DateTime)Session["CheckInDate"];
@@ -104,7 +106,7 @@ namespace Anything.Controllers
             model.Rooms = model.Rooms.Where(o => o.Quantity >= o.Amt).ToList();
 
             ViewBag.NearHotels = _db.Hotel.Where(o => o.City == model.City && o.ID != id).OrderBy(o => Guid.NewGuid()).Take(5).ToList();
-            var sce = model.Scenics.Split(',').Select(int.Parse).ToList();
+            var sce = string.IsNullOrEmpty(model.Scenics) ? new List<int>() : model.Scenics.Split(',').Select(int.Parse).ToList();
             ViewBag.Scenics = _db.Scenic.Where(o => sce.Contains(o.ID)).Select(o => o.Name).ToList(); ;
             return View(model);
         }

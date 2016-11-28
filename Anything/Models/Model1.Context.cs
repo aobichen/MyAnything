@@ -29,17 +29,17 @@ namespace Anything.Models
         public virtual DbSet<City> City { get; set; }
         public virtual DbSet<CodeFile> CodeFile { get; set; }
         public virtual DbSet<Facility> Facility { get; set; }
-        public virtual DbSet<Hotel> Hotel { get; set; }
         public virtual DbSet<HotelImage> HotelImage { get; set; }
         public virtual DbSet<ImageStore> ImageStore { get; set; }
         public virtual DbSet<MyBouns> MyBouns { get; set; }
         public virtual DbSet<News> News { get; set; }
         public virtual DbSet<OrderMaster> OrderMaster { get; set; }
         public virtual DbSet<PayGo> PayGo { get; set; }
-        public virtual DbSet<Room> Room { get; set; }
         public virtual DbSet<RoomImage> RoomImage { get; set; }
         public virtual DbSet<RoomPrice> RoomPrice { get; set; }
         public virtual DbSet<Scenic> Scenic { get; set; }
         public virtual DbSet<TEST> TEST { get; set; }
+        public virtual DbSet<Hotel> Hotel { get; set; }
+        public virtual DbSet<Room> Room { get; set; }
     }
 }

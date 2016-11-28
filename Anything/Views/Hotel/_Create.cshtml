@@ -163,33 +163,16 @@
                                 <div class="f-item full-width">
                                     <label>服務設施</label>
                                     @{
-        if (ViewBag.ServiceOptions != null)
-        {
-            <div class="full-width">
-                @foreach (var item in (List<Anything.ViewModels.ServiceOptionCheckbox>)ViewBag.ServiceOptions)
-                {
-                    <div class="one-fifth">
-                        <div class="checkbox">
-                            <label>
-                                    @if (item.Checked) 
-                                    { 
-                                    <input name="ServiceOptions" checked type="checkbox" value="@item.ID" />@item.Text
-                                    }
-                                    else 
-                                    { 
-                                     <input name="ServiceOptions" type="checkbox" value="@item.ID" />@item.Text
-                                    }
-                                        </label>
-                        </div>
-                    </div>
-                }
-            </div>
-        }
+                                        if (ViewBag.Facility != null)
+                                        {
+                                            <div class="full-width">
+                                                @Html.CheckBoxList("Facility",(List<SelectListItem>)ViewBag.Facility,null,Position.Vertical,10)
+                                                </div>
+                                        }
                                     }
 
-
-                                    @Html.ValidationMessageFor(model => model.ServiceOptions, "", new { @class = "text-danger" })
-                                </div>
+                                     @Html.ValidationMessageFor(model => model.Facility, "", new { @class = "text-danger" })
+                                 </div>
                             </div>
                         </div>
                     </div>
@@ -213,24 +196,7 @@
                                                 if (ViewBag.Scenics != null)
                                                 {
                                                     <div class="full-width">
-                                                        @foreach (var item in (List<Anything.ViewModels.ScenicsCheckbox>)ViewBag.Scenics)
-                                                        {
-                                                            <div class="one-fifth">
-                                                                <div class="checkbox">
-                                                                    @if (item.Checked)
-                                                                    {
-                                                                        <label>
-                                                                            <input name="Scenics" checked type="checkbox" value="@item.ID" />@item.Name
-                                                                        </label>
-                                                                    }
-                                                                    else { 
-                                                                        <label>
-                                                                        <input name="Scenics" type="checkbox" value="@item.ID" />@item.Name
-                                                                        </label>
-                                                                    }
-                                                                </div>
-                                                            </div>
-                                                        }
+                                                      @Html.CheckBoxList("Scenics", (List<SelectListItem>)ViewBag.Scenics, null, Position.Vertical, 10)
                                                     </div>
                                                 }
                                     }

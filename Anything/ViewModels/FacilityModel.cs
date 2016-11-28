@@ -26,6 +26,7 @@ namespace Anything.ViewModels
         public void Facility()
         {
             var Items = _db.Facility.ToList();
+            
             if (SelectListItems == null)
             {
                 SelectListItems = new List<SelectListItem>();

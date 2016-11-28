@@ -391,6 +391,7 @@
     <Content Include="Content\style.css" />
     <Content Include="Content\theme.css" />
     <Content Include="Content\custom.css" />
+    <Content Include="images\myanythinglogo.png" />
     <Content Include="Scripts\custom.js" />
     <Content Include="Content\custom.min.css" />
     <Content Include="Scripts\custom.min.js" />
@@ -1190,7 +1191,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\My\Models\" />
     <Folder Include="Areas\System\Models\" />
-    <Folder Include="Views\VIPManage\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

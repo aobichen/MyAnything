@@ -22,33 +22,50 @@ namespace Anything.ViewModels
         }
 
         public int ID { get; set; }
+        [Required]
         public int HotelId { get; set; }
+         [Required]
         public string Name { get; set; }
+
+         [Required]
+        [DisplayFormat(DataFormatString="{0:#.##}", ApplyFormatInEditMode=true)]
         public decimal FixedPrice { get; set; }
+
+         [Required]
+         [DisplayFormat(DataFormatString = "{0:#.##}", ApplyFormatInEditMode = true)]
         public decimal HolidayPrice { get; set; }
+
+         [Required]
+         [DisplayFormat(DataFormatString = "{0:#.##}", ApplyFormatInEditMode = true)]
         public decimal DayPrice { get; set; }
 
-       
+        [Required]
         public int Quantity { get; set; }
 
         [UIHint("tinymce_jquery_full"), AllowHtml]
         public string Notice { get; set; }
         public bool Enabled { get; set; }
 
+        
         public DateTime Created { get; set; }
 
         public int Creator { get; set; }
         public DateTime Modified { get; set; }
-        public string SessionKey { get; set; }
+        //public string SessionKey { get; set; }
 
+         [Required]
         public int MaxPerson { get; set; }
+         [Required]
         public int BedAmount { get; set; }
         public int BedType { get; set; }
         public int RoomType { get; set; }
         public string RoomBed { get; set; }
 
+        [Required]
         public string Feature { get; set; }
         public int UserId { get; set; }
+
+        public string ImgKey { get; set; }
 
         public bool HasBreakfast { get; set; }
         public void Create()
@@ -74,19 +91,17 @@ namespace Anything.ViewModels
                 BedAmount = BedAmount,
                 HasBreakfast = HasBreakfast,
                 MaxPerson = MaxPerson,
-                RoomBed = RoomBed,
+                Modify = UserId,
                 RoomType = RoomType,
-                Feature = Feature
+                Feature = Feature,
+                RoomBed = RoomBed
             });
             db.SaveChanges();
         }
         public void Edit()
         {
             var PersonBed = new List<int>();
-            //PersonBed.Add(Person);
-            //PersonBed.Add(int.Parse(BedType));
-            //PersonBed.Add(Beds);
-            //[房型,床型,數量]
+           
             RoomBed = string.Join(",", PersonBed);
             using (var db = new MyAnythingEntities())
             {
@@ -106,7 +121,16 @@ namespace Anything.ViewModels
                 result.BedAmount = BedAmount;
                 result.BedType = BedType;
                 result.Feature = Feature;
-                result.RoomImage = RoomImages();
+                result.ID = ID;
+                
+                db.SaveChanges();
+
+                var RoomImage = RoomImages();
+                foreach (var img in RoomImage)
+                {
+                    img.RoomId = result.ID;
+                }
+                db.RoomImage.AddRange(RoomImage);
                 db.SaveChanges();
             }
         }
@@ -116,9 +140,9 @@ namespace Anything.ViewModels
         {
             var RoomImage = new List<RoomImage>();
 
-            if (!string.IsNullOrEmpty(SessionKey))
+            if (!string.IsNullOrEmpty(ImgKey))
             {
-                RoomImage = (List<RoomImage>)HttpContext.Current.Session[SessionKey];
+                RoomImage = (List<RoomImage>)HttpContext.Current.Session[ImgKey];
 
                 if (ID > 0)
                 {
@@ -126,22 +150,35 @@ namespace Anything.ViewModels
 
                     RoomImage = RoomImage.Where(o => !Images.Contains(o.Name)).ToList();
                 }
-
+                if (RoomImage==null || RoomImage.Count <= 0) {
+                    return new List<RoomImage>();
+                }
+                var Today = DateTime.Now;
                 var UserFolder = System.Configuration.ConfigurationManager.AppSettings["UserFolder"];
+                var DirectoryPath = Path.Combine(UserFolder, Today.ToString("yyyyMMdd"));
+                var DirectoryServerPath = HttpContext.Current.Server.MapPath(DirectoryPath);
+                if (!Directory.Exists(DirectoryServerPath))
+                {
+                    Directory.CreateDirectory(DirectoryServerPath);
+                }
 
                 for (var i = 0; i < RoomImage.Count; i++)
                 {
-                    var fileName = Guid.NewGuid().ToString();
-                    // var Extension = Path.GetExtension(fileName);
-                    var webPath = Path.Combine(UserFolder, fileName + ".jpg");
-                    var path = Path.Combine(HttpContext.Current.Server.MapPath(UserFolder), fileName + ".jpg");
+                    var FileName = Guid.NewGuid().GetHashCode().ToString("x");
+                    var Extension = Path.GetExtension(RoomImage[i].Name);
+                    var WebPath = Path.Combine(DirectoryPath, FileName + Extension);
+                    var ServerPath = Path.Combine(DirectoryServerPath, FileName + Extension);
                     MemoryStream ms = new MemoryStream(RoomImage[i].Image);
-                    var returnImage = System.Drawing.Image.FromStream(ms);
+                    var Image = System.Drawing.Image.FromStream(ms);
+                    Image.Save(ServerPath);
                     RoomImage[i].Sort = i + 1;
                     RoomImage[i].Enabled = true;
-                    RoomImage[i].Path = path;
-                }
+                    RoomImage[i].Path = WebPath;
+                    RoomImage[i].Name = FileName;
+                    
+                }       
             }
+                
             return RoomImage;
         }
     }

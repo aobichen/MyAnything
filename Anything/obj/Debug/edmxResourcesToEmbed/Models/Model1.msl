@@ -44,30 +44,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Hotel">
-      <EntityTypeMapping TypeName="MyAnythingModel.Hotel">
-        <MappingFragment StoreEntitySet="Hotel">
-          <ScalarProperty Name="Tel" ColumnName="Tel" />
-          <ScalarProperty Name="Modified" ColumnName="Modified" />
-          <ScalarProperty Name="Created" ColumnName="Created" />
-          <ScalarProperty Name="SaleOff" ColumnName="SaleOff" />
-          <ScalarProperty Name="Enabled" ColumnName="Enabled" />
-          <ScalarProperty Name="Scenics" ColumnName="Scenics" />
-          <ScalarProperty Name="ServiceOptions" ColumnName="ServiceOptions" />
-          <ScalarProperty Name="Information" ColumnName="Information" />
-          <ScalarProperty Name="Feature" ColumnName="Feature" />
-          <ScalarProperty Name="Introduce" ColumnName="Introduce" />
-          <ScalarProperty Name="WebSite" ColumnName="WebSite" />
-          <ScalarProperty Name="Address" ColumnName="Address" />
-          <ScalarProperty Name="Area" ColumnName="Area" />
-          <ScalarProperty Name="City" ColumnName="City" />
-          <ScalarProperty Name="Location" ColumnName="Location" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="UserId" ColumnName="UserId" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="HotelImage">
       <EntityTypeMapping TypeName="MyAnythingModel.HotelImage">
         <MappingFragment StoreEntitySet="HotelImage">
@@ -197,32 +173,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Room">
-      <EntityTypeMapping TypeName="MyAnythingModel.Room">
-        <MappingFragment StoreEntitySet="Room">
-          <ScalarProperty Name="RoomType" ColumnName="RoomType" />
-          <ScalarProperty Name="HasBreakfast" ColumnName="HasBreakfast" />
-          <ScalarProperty Name="Enabled" ColumnName="Enabled" />
-          <ScalarProperty Name="Modify" ColumnName="Modify" />
-          <ScalarProperty Name="Modified" ColumnName="Modified" />
-          <ScalarProperty Name="Creator" ColumnName="Creator" />
-          <ScalarProperty Name="Created" ColumnName="Created" />
-          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-          <ScalarProperty Name="DayPrice" ColumnName="DayPrice" />
-          <ScalarProperty Name="HolidayPrice" ColumnName="HolidayPrice" />
-          <ScalarProperty Name="FixedPrice" ColumnName="FixedPrice" />
-          <ScalarProperty Name="Feature" ColumnName="Feature" />
-          <ScalarProperty Name="RoomBed" ColumnName="RoomBed" />
-          <ScalarProperty Name="BedType" ColumnName="BedType" />
-          <ScalarProperty Name="BedAmount" ColumnName="BedAmount" />
-          <ScalarProperty Name="MaxPerson" ColumnName="MaxPerson" />
-          <ScalarProperty Name="Notice" ColumnName="Notice" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="HotelId" ColumnName="HotelId" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="RoomImage">
       <EntityTypeMapping TypeName="MyAnythingModel.RoomImage">
         <MappingFragment StoreEntitySet="RoomImage">
@@ -265,6 +215,56 @@
         <MappingFragment StoreEntitySet="TEST">
           <ScalarProperty Name="Created" ColumnName="Created" />
           <ScalarProperty Name="Message" ColumnName="Message" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Hotel">
+      <EntityTypeMapping TypeName="MyAnythingModel.Hotel">
+        <MappingFragment StoreEntitySet="Hotel">
+          <ScalarProperty Name="Tel" ColumnName="Tel" />
+          <ScalarProperty Name="Modified" ColumnName="Modified" />
+          <ScalarProperty Name="Created" ColumnName="Created" />
+          <ScalarProperty Name="SaleOff" ColumnName="SaleOff" />
+          <ScalarProperty Name="Enabled" ColumnName="Enabled" />
+          <ScalarProperty Name="Scenics" ColumnName="Scenics" />
+          <ScalarProperty Name="Facility" ColumnName="Facility" />
+          <ScalarProperty Name="Information" ColumnName="Information" />
+          <ScalarProperty Name="Feature" ColumnName="Feature" />
+          <ScalarProperty Name="Introduce" ColumnName="Introduce" />
+          <ScalarProperty Name="WebSite" ColumnName="WebSite" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Area" ColumnName="Area" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="Location" ColumnName="Location" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Room">
+      <EntityTypeMapping TypeName="MyAnythingModel.Room">
+        <MappingFragment StoreEntitySet="Room">
+          <ScalarProperty Name="RoomType" ColumnName="RoomType" />
+          <ScalarProperty Name="HasBreakfast" ColumnName="HasBreakfast" />
+          <ScalarProperty Name="Enabled" ColumnName="Enabled" />
+          <ScalarProperty Name="Modify" ColumnName="Modify" />
+          <ScalarProperty Name="Modified" ColumnName="Modified" />
+          <ScalarProperty Name="Creator" ColumnName="Creator" />
+          <ScalarProperty Name="Created" ColumnName="Created" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="DayPrice" ColumnName="DayPrice" />
+          <ScalarProperty Name="HolidayPrice" ColumnName="HolidayPrice" />
+          <ScalarProperty Name="FixedPrice" ColumnName="FixedPrice" />
+          <ScalarProperty Name="Feature" ColumnName="Feature" />
+          <ScalarProperty Name="RoomBed" ColumnName="RoomBed" />
+          <ScalarProperty Name="BedType" ColumnName="BedType" />
+          <ScalarProperty Name="BedAmount" ColumnName="BedAmount" />
+          <ScalarProperty Name="MaxPerson" ColumnName="MaxPerson" />
+          <ScalarProperty Name="Notice" ColumnName="Notice" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="HotelId" ColumnName="HotelId" />
           <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>

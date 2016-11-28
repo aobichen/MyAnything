@@ -46,8 +46,8 @@ namespace Anything.ViewModels
 
         [UIHint("tinymce_jquery_full"), AllowHtml]
         public string Information { get; set; }
-        public string ServiceOptions { get; set; }
-        public string Scenics { get; set; }
+        public List<string> Facility { get; set; }
+        public List<string> Scenics { get; set; }
         public bool Enabled { get; set; }
 
         public bool SaleOff { get; set; }
@@ -76,8 +76,8 @@ namespace Anything.ViewModels
                  Hotel.Modified = Now;
                  Hotel.Name = Name;
                  Hotel.SaleOff = SaleOff;
-                 Hotel.Scenics = Scenics;
-                 Hotel.ServiceOptions = ServiceOptions;
+                 Hotel.Scenics = string.Join(",", Scenics);
+                 Hotel.Facility = string.Join(",", Facility);
                  Hotel.Tel = Tel;
                  Hotel.UserId = UserId;
                  Hotel.WebSite = WebSite;
@@ -103,8 +103,8 @@ namespace Anything.ViewModels
              Hotel.Modified = Now;
              Hotel.Name = Name;
              Hotel.SaleOff = SaleOff;
-             Hotel.Scenics = Scenics;
-             Hotel.ServiceOptions = ServiceOptions;
+             Hotel.Scenics = string.Join(",", Scenics);
+             Hotel.Facility = string.Join(",", Facility);
              Hotel.Tel = Tel;
              Hotel.UserId = UserId;
              Hotel.WebSite = WebSite;
@@ -175,7 +175,7 @@ namespace Anything.ViewModels
 
         public int Area { get; set; }
         public string options { get; set; }
-        public List<string> Facilities { get; set; }
+        public string Facilities { get; set; }
         public List<HotelImage> Images { get; set; }
 
         public List<RoomModel> Rooms { get; set; }
