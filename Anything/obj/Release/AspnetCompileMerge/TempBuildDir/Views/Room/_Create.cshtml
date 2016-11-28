@@ -3,171 +3,190 @@
     fieldset h2 {
         color: #5fc8c2;
     }
+
+   
+    .mce-tinymce button:hover{
+        border-radius:0;
+        background: transparent;
+    }
 </style>
-@using (Html.BeginForm())
-{
-    @Html.HiddenFor(model=>model.HotelId)
 
-    <div class="wrap">
-        <!--基本資料-->
-        <div class="row">
-            <!--three-fourth content-->
-            <div class="full-width">
-                <fieldset>
-                    <h2><span>01 </span>基本資料</h2>
-                    <div class="panel panel-grassgreen">
-                        <div class="panel-body">
-                            <div class="row">
-                                <div class="f-item full-width">
-                                    <label>名稱</label>
-                                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+<div class="full-width">
+    <div class="static-content booking">
+        @Html.AntiForgeryToken()
+        <div class="full-width">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            
+           @using (Html.BeginForm())
+           {
+            @Html.HiddenFor(model => model.HotelId)
+            @Html.HiddenFor(model => model.ImgKey)
+            <div class="wrap">
+                <!--基本資料-->
+                <div class="row">
+                    <!--three-fourth content-->
+                    <div class="full-width">
+                        <fieldset>
+                            <h2><span>01 </span>基本資料</h2>
+                            <div class="panel panel-grassgreen">
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="f-item full-width">
+                                            <label>名稱</label>
+                                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="f-item full-width">
+                                            <label>房型</label>
+                                            @Html.DropDownList("RoomType", (SelectList)ViewBag.RoomType)
+
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="f-item one-half">
+                                            <label>床型</label>
+                                            @Html.DropDownList("BedType", (SelectList)ViewBag.BedType)
+
+                                        </div>
+                                        <div class="f-item one-half">
+                                            <label>數量</label>
+                                            @Html.EditorFor(model => model.BedAmount, new { htmlAttributes = new { @class = "form-control" } })
+
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="f-item full-width">
+                                            <label>人數上限</label>
+                                            @Html.EditorFor(model => model.MaxPerson, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.MaxPerson, "", new { @class = "text-danger" })
+
+                                        </div>
+                                    </div>
                                 </div>
-
                             </div>
+                        </fieldset>
 
-                            <div class="row">
-                                <div class="f-item full-width">
-                                    <label>房型</label>
-                                    @Html.DropDownList("RoomType", (SelectList)ViewBag.RoomType)
+                    </div>
+
+                    <div class="full-width">
+                        <fieldset>
+                            <h2><span>02 </span>房型價格</h2>
+                            <div class="panel panel-grassgreen">
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="f-item full-width">
+                                            <label>定價</label>
+                                            @Html.EditorFor(model => model.FixedPrice, new { @placeholder = "定價", @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.FixedPrice, "", new { @class = "text-danger" })
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="f-item full-width">
+                                            <label>假日房價</label>
+                                            @Html.EditorFor(model => model.HolidayPrice, new { @placeholder = "假日房價", @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.HolidayPrice, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+
+                                    <div class="row">
+                                        <div class="f-item full-width">
+                                            <label>平日房價</label>
+                                            @Html.EditorFor(model => model.DayPrice, new { @placeholder = "平日房價", @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.DayPrice, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+
+                                    <div class="row">
+                                        <div class="f-item full-width">
+                                            <label>數量</label>
+                                            @Html.EditorFor(model => model.Quantity, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+
+                    </div>
+
+                    <div class="full-width">
+                        <fieldset>
+                            <h2><span>03 </span>房型介紹</h2>
+                            <div class="panel panel-grassgreen">
+                                <div class="panel-body">
+
+                                    <div class="row">
+                                        <div class="f-item full-width">
+                                            <label>房型介紹</label>
+                                            @Html.TextAreaFor(model => model.Feature, new { @class = "form-control" })
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="f-item full-width">
+                                            <label>注意事項</label>
+                                            @Html.TextAreaFor(model => model.Notice, new { @class = "form-control", @id = "Information" })
+
+                                        </div>
+
+                                    </div>
 
                                 </div>
                             </div>
+                        </fieldset>
 
-                            <div class="row">
-                                <div class="f-item one-half">
-                                    <label>床型</label>
-                                    @Html.DropDownList("BedType", (SelectList)ViewBag.BedType)
+                    </div>
 
-                                </div>
-                                <div class="f-item one-half">
-                                    <label>數量</label>
-                                    @Html.EditorFor(model => model.BedAmount, new { htmlAttributes = new { @class = "form-control" } })
+                    <div class="full-width">
+                        <fieldset>
+                            <h2><span>04 </span>環境照片</h2>
+                            <div class="panel panel-grassgreen">
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="f-item full-width">
+                                            <label>圖片上傳</label>
+                                            @Html.Partial("_RoomImageUpload")
 
-                                </div>
-                            </div>
+                                        </div>
 
-                            <div class="row">
-                                <div class="f-item full-width">
-                                    <label>人數上限</label>
-                                    @Html.EditorFor(model => model.MaxPerson, new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(model => model.MaxPerson, "", new { @class = "text-danger" })
+                                    </div>
 
                                 </div>
                             </div>
+                        </fieldset>
+
+                    </div>
+
+                    <div class="full-width">
+                        <div class="col-lg-offset-10">
+                            <label>
+                                提供訂房
+                                @Html.EditorFor(model => model.Enabled)
+                                @Html.ValidationMessageFor(model => model.Enabled, "", new { @class = "text-danger" })
+                            </label>
+                            <button type="submit" class="gradient-butto">
+                                確定
+                            </button>
                         </div>
                     </div>
-                </fieldset>
-
-            </div>
-
-            <div class="full-width">
-                <fieldset>
-                    <h2><span>02 </span>價位</h2>
-                    <div class="panel panel-grassgreen">
-                        <div class="panel-body">
-                            <div class="row">
-                                <div class="f-item full-width">
-                                    <label>定價</label>
-                                    @Html.TextBoxFor(model => model.FixedPrice, new { @placeholder = "定價", @class = "form-control" })
-                                    @Html.ValidationMessageFor(model => model.FixedPrice, "", new { @class = "text-danger" })
-                                </div>
-
-                            </div>
-
-                            <div class="row">
-                                <div class="f-item full-width">
-                                    <label>假日房價</label>
-                                    @Html.TextBoxFor(model => model.HolidayPrice, new { @placeholder = "假日房價", @class = "form-control" })
-
-                                </div>
-                            </div>
-
-
-                            <div class="row">
-                                <div class="f-item full-width">
-                                    <label>平日房價</label>
-                                    @Html.TextBoxFor(model => model.DayPrice, new { @placeholder = "平日房價", @class = "form-control" })
-
-                                </div>
-                            </div>
-
-                           
-                            <div class="row">
-                                <div class="f-item full-width">
-                                    <label>數量</label>
-                                    @Html.TextBoxFor(model => model.Quantity, new { @class = "form-control" })
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </fieldset>
-
-            </div>
-
-            <div class="full-width">
-                <fieldset>
-                    <h2><span>03 </span>房型介紹</h2>
-                    <div class="panel panel-grassgreen">
-                        <div class="panel-body">
-
-                            <div class="row">
-                                <div class="f-item full-width">
-                                    <label>房型介紹</label>
-                                    @Html.TextAreaFor(model => model.Feature, new { @class = "form-control"})
-
-                                </div>
-
-                            </div>
-
-                            <div class="row">
-                                <div class="f-item full-width">
-                                    <label>注意事項</label>
-                                    @Html.TextAreaFor(model => model.Notice, new { @class = "form-control", @id = "Information" })
-
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </div>
-                </fieldset>
-
-            </div>
-
-            <div class="full-width">
-                <fieldset>
-                    <h2><span>04 </span>環境照片</h2>
-                    <div class="panel panel-grassgreen">
-                        <div class="panel-body">
-                            <div class="row">
-                                <div class="f-item full-width">
-                                    <label>圖片上傳</label>
-                                    @Html.Partial("_RoomImageUpload")
-
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </div>
-                </fieldset>
-
-            </div>
-
-            <div class="full-width">
-                <div class="col-lg-offset-10">
-                    <label>
-                        開始營業
-                        @Html.EditorFor(model => model.Enabled)
-                        @Html.ValidationMessageFor(model => model.Enabled, "", new { @class = "text-danger" })
-                    </label>
-                    <button type="submit" class="gradient-butto">
-                        確定
-                    </button>
                 </div>
             </div>
+           }
+
+
         </div>
     </div>
-}
+</div>
+

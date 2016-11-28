@@ -258,7 +258,6 @@
           <ScalarProperty Name="HolidayPrice" ColumnName="HolidayPrice" />
           <ScalarProperty Name="FixedPrice" ColumnName="FixedPrice" />
           <ScalarProperty Name="Feature" ColumnName="Feature" />
-          <ScalarProperty Name="RoomBed" ColumnName="RoomBed" />
           <ScalarProperty Name="BedType" ColumnName="BedType" />
           <ScalarProperty Name="BedAmount" ColumnName="BedAmount" />
           <ScalarProperty Name="MaxPerson" ColumnName="MaxPerson" />

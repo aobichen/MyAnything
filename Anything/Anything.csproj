@@ -289,6 +289,7 @@
     <Compile Include="Models\TEST.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\BounsModel.cs" />
     <Compile Include="ViewModels\FacilityModel.cs" />
     <Compile Include="ViewModels\PayGoViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -307,7 +307,6 @@
     <Property Name="MaxPerson" Type="Int32" Nullable="false" />
     <Property Name="BedAmount" Type="Int32" Nullable="false" />
     <Property Name="BedType" Type="Int32" Nullable="false" />
-    <Property Name="RoomBed" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="true" />
     <Property Name="Feature" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
     <Property Name="FixedPrice" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
     <Property Name="HolidayPrice" Type="Decimal" Nullable="false" Precision="10" Scale="2" />

@@ -13,10 +13,10 @@
             <figure class="left" id="@id">
                 @foreach (var img in item.Images)
                 {
-                    var base64 = Convert.ToBase64String(img.Image);
-                    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-                    <a href="@imgSrc@Url.Action("Image","Room",new {id=img.ID})" data-sub-html="<p>@item.Name</p>">
-                        <img src="@imgSrc" alt="" />
+                    //var base64 = Convert.ToBase64String(img.Image);
+                    //var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                    <a href="@img.Path" data-sub-html="<p>@item.Name</p>">
+                        <img src="@img.Path" alt="" />
 
 					    <span class="image-overlay"></span>
                     		</a>

@@ -9,6 +9,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using System.Drawing;
+using PagedList;
 namespace Anything.Controllers
 {
     
@@ -32,16 +33,26 @@ namespace Anything.Controllers
         //
         // GET: /Hotel/
         [Authorize(Roles = "Hotel,Admin")]
-        public ActionResult Index()
+        public ActionResult Index(int Page=1)
         {
-            if (!User.Identity.IsAuthenticated || CurrentUser == null || CurrentUser.Id == 0)
-            {
-                return RedirectToAction("Index", "Home");
-            }
 
-            var hotel = _db.Hotel.Where(o => o.UserId == CurrentUser.Id).ToList();
+            var hotel = _db.Hotel.Where(o => o.UserId == CurrentUser.Id)
+                .Select(o => new HotelListModel
+                {
+                    ID = o.ID,
+                    Enabled = o.Enabled,
+                    Location = o.Location,
+                    Name = o.Name,
+                    Qty = o.Room.Count
+                }).ToList();
 
-            return View(hotel);
+            var currentPage = Page < 1 ? 1 : Page;
+            var PageSize = 10;
+
+            var PageModel = hotel.ToPagedList(currentPage, PageSize);
+            ViewData.Model = PageModel;
+            
+            return View();
         }
 
         [Authorize(Roles = "Hotel,Admin")]

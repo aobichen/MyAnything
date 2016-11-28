@@ -67,7 +67,7 @@ namespace Anything.ViewModels
                  Hotel.Area = Area;
                  Hotel.City = City;
                  Hotel.Created = Now;
-                 Hotel.Enabled = true;
+                 Hotel.Enabled = Enabled;
                  Hotel.Feature = Feature;
                  Hotel.HotelImage = HotelImages();
                  Hotel.Information = Information;
@@ -210,6 +210,7 @@ namespace Anything.ViewModels
         
 
          //[Required]
+        [DisplayFormat(DataFormatString="{0:#,##0}",ApplyFormatInEditMode=true)]
         public decimal FixedPrice { get; set; }
          //[Required]
         public decimal HolidayPrice { get; set; }
@@ -438,6 +439,15 @@ namespace Anything.ViewModels
         }
     }
 
+    public class HotelListModel
+    {
+        public int ID { get; set; }
+        public string Location { get; set; }
+        public string Name { get; set; }
+
+        public int Qty { get; set; }
+        public bool Enabled { get; set; }
+    }
 
     public class RoomSumModel
     {

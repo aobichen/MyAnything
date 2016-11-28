@@ -1,12 +1,4 @@
-﻿<script src="~/Content/fullcalendar-3.0.1/jquery.min.js"></script>
-<script src="~/Content/fullcalendar-3.0.1/jquery-ui.min.js"></script>
-<script src="~/Content/fullcalendar-3.0.1/moment.min.js"></script>
-<script src="~/Content/fullcalendar-3.0.1/fullcalendar.min.js"></script>
-<link href="~/Content/fullcalendar-3.0.1/fullcalendar.min.css" rel="stylesheet" />
-<link href="~/Content/fullcalendar-3.0.1/fullcalendar.print.css" media="print" rel="stylesheet" />
-
-<script src="~/Content/Admin/js/bootstrap-switch.min.js"></script>
-<link href="~/Content/Admin/css/bootstrap-switch.min.css" rel="stylesheet" />
+﻿
 <style type="text/css">
   select.holiday{
       background-color:#E8FFF5;
@@ -19,18 +11,7 @@
          color:#000000;
     }
 
-    .fc-button,fc-icon{
-        background-color:#007979;
-        border-radius:0;
-    }
-
-    .fc-button:focus{
-        background-color:#00AEAE;
-       
-    }
-
-   
-
+    
     th.fc-fri,td.fc-fri{
         background-color:#FFECF5;
     }
@@ -52,30 +33,32 @@
 
   .message.active{
       display:block;
-     color:red;
+     
      font-weight:bold;
-transition: all 2s;
--moz-transition: all 2s; /* Firefox 4 */
--webkit-transition: all 2s; /* Safari 和 Chrome */
--o-transition: all 2s; /* Opera */
+    transition: all 2s;
+    -moz-transition: all 2s; /* Firefox 4 */
+    -webkit-transition: all 2s; /* Safari 和 Chrome */
+    -o-transition: all 2s; /* Opera */
   }
 
-  button{
-      background-color:blue;
-  }
+ 
+  
 </style>
 @{
     var room = (Anything.Models.Room)ViewBag.Room;
 }
-<p class="message">已儲存!</p>
+<p class="message alert alert-success">已儲存!</p>
 <div class="panel panel-default">
    <input id="roomid" type="hidden" value="@room.ID" />
-                <div class="panel-heading">
-                    <h2><strong>
+    <div class="panel-heading">
+                    <h2 class="alert-warning">
+        <strong>
                             @room.Name
-                        </strong></h2>
+                        </strong>
+                    </h2>
                    
                 </div>
+
     <div class="panel-body">
         <div class="col-lg-12">
             <button type="button" class="btn btn-primary" id="save">
@@ -83,14 +66,15 @@ transition: all 2s;
             </button>
         </div>
     </div>
-                <div class="panel-body">
+
+    <div class="panel-body">
                     <!-- Widget content -->
                     <!-- Below line produces calendar. I am using FullCalendar plugin. -->
                     <div class="col-lg-12">
                         <div id="calendar"></div>
                     </div>
                 </div>
-            </div>
+</div>
 
 
 

@@ -1,16 +1,4 @@
-﻿@{
-    var CurrentCity = 0;
-    if (ViewBag.CurrentCity != null)
-    {
-        CurrentCity = (int)ViewBag.CurrentCity;
-    }
-    var City = new Anything.Helper.Caches().TWCity;
-    ViewBag.Area = new Anything.Helper.Caches().TWArea;
-    SelectList selectList = new SelectList(City, "ID", "City", CurrentCity);
-    
-    ViewBag.City = selectList;
-    
-}
+﻿
 <style type="text/css">
     #area option {
         display: none;
@@ -24,15 +12,15 @@
         <select id="area" name="Area">
 
             @{
-                foreach (var item in (List<Anything.Models.Area_TW>)ViewBag.Area)
+                foreach (var item in (List<Anything.Models.Area>)ViewBag.Area)
                 {
                     if (ViewBag.CurrentArea != null && (int)ViewBag.CurrentArea == item.ID)
                     {
-                        <option data-cid="@item.CID" selected="selected" value="@item.ID">@item.Area</option>
+                        <option data-cid="@item.CID" selected="selected" value="@item.ID">@item.Name</option>
                     }
                     else
                     {
-                        <option data-cid="@item.CID" value="@item.ID">@item.Area</option>
+                        <option data-cid="@item.CID" value="@item.ID">@item.Name</option>
                     }
                 }
             }

@@ -1,65 +1,93 @@
-﻿@model IEnumerable<Anything.Models.Room>
+﻿
+@model PagedList.IPagedList<Anything.ViewModels.RoomModel>
+ 
+<div class="row">
+    <div class="full-width">
+        <p class="full-width">
+            <a class="btn btn-success" href="@Url.Action("Create", "Room", new { id = ViewBag.HotelID })">
+                <i class="glyphicon glyphicon-plus-sign" aria-hidden="true"></i>
+                新增
+            </a>
+        </p>
+        <div class="full-width">
+            <table class="table">
+                <tr>
 
-<p>
-    @Html.ActionLink("Create New", "Create", new { id = (int)ViewBag.HotelId }, new { @class="btn btn-primary" })
-</p>
-<div class="full-width">
-    <table class="table">
-        <tr>
+                    <th>
+                        房型
+                    </th>
+                    <th>
+                        定價
+                    </th>
+                    <th>
+                        平日房價
+                    </th>
+                    <th>
+                        假日房價
+                    </th>
 
-            <th>
-                房型
-            </th>
-            <th>
-                定價
-            </th>
-            <th>
-                平日房價
-            </th>
-            <th>
-                假日房價
-            </th>
-           
-            <th>
-                數量
-            </th>
+                    <th>
+                        數量
+                    </th>
 
-            <th>
-                服務中
-            </th>
-            <th></th>
-        </tr>
+                    <th>
+                        狀態
+                    </th>
+                    <th></th>
+                </tr>
 
-        @foreach (var item in Model)
-    {
-            <tr>
+                @foreach (var item in Model)
+            {
+                    <tr>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @item.FixedPrice
-                </td>
-                <td>
-                    @item.DayPrice
-                </td>
-                <td>
-                    @item.HolidayPrice
-                </td>
-              
-                <td>
-                    @item.Quantity
-                </td>
+                        <td>
+                            @item.Name
+                        </td>
+                        <td>
+                            @item.FixedPrice.ToString("#.##")
+                        </td>
+                        <td>
+                            @item.DayPrice.ToString("#.##")
+                        </td>
+                        <td>
+                            @item.HolidayPrice.ToString("#.##")
+                        </td>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.Enabled)
-                </td>
-                <td>
-                    @Html.ActionLink("編輯", "Edit", new { id = item.ID }) 
-                   @Html.ActionLink("設定價格", "SetPrice", new { id = item.ID }) 
-                </td>
-            </tr>
-    }
+                        <td>
+                            @item.Quantity
+                        </td>
 
-    </table>
+                        <td>
+                            @if(item.Enabled){
+                            <i class="glyphicon glyphicon-ok-circle alert-success" title="開放"></i>
+                            }else{
+                                <i class="glyphicon glyphicon-ban-circle alert-danger" title="關閉"></i>
+
+                            }
+                               
+                        </td>
+                        <td>
+                            <div class="btn-group">
+
+                                <a class="btn btn-primary" href="@Url.Action("Edit", "Room", new { id = item.ID })">
+                                    <i class="glyphicon glyphicon-edit" aria-hidden="true"></i>
+                                </a>
+                                <a class="btn btn-danger" target="_blank" href="@Url.Action("SetPrice", "Room", new { id = item.ID })">
+                                    <i class="glyphicon glyphicon-calendar" aria-hidden="true"></i>
+                                </a>
+                            </div>
+
+                        </td>
+                    </tr>
+            }
+
+            </table>
+        </div>
+        <div class="full-width">
+            @if (Model != null && Model.Count > 0)
+            {
+                @Html.PagedListPager(Model, Page => Url.Action("Index", new { Page }))
+            }
+        </div>
+    </div>
 </div>

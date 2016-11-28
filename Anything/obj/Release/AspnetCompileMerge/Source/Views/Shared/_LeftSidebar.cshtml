@@ -1,4 +1,10 @@
 ﻿<h4>條件設定</h4>
+<style type="text/css">
+    div.checker {
+        float: none;
+    }
+</style>
+
 <dl>
     <!--Departure times-->
     @*<dt>價格區間</dt>
@@ -11,30 +17,40 @@
     </dd>*@
     <!--//Departure times-->
     <!--Stops-->
-@if (ViewBag.Options != null && ((List<Anything.Models.ServiceOption>)ViewBag.Options).Count > 0) {
-    <dt>服務設施</dt>
-    <dd>
-        @{
-    var items = (List<Anything.Models.ServiceOption>)ViewBag.Options;
-       foreach (var item in items) { 
-            <div class="checkbox">
-                <input type="checkbox" id="@item.ID" name="options" />
-                <label for="item.ID">@item.Text</label>
-            </div>
-        }
-    }
-
+   
+@if (ViewBag.Facility != null)
+{
+    using (Html.BeginForm()) { 
+        <dt>服務設施</dt>
+        <dd>
+           @Html.Partial("_Facility")
+           
+                <button type="submit" class="gradient-button">
+                    確定
+                </button>
+                
 </dd>
+       
+    }
 }
     <!--//Stops-->
     <!--Airlines-->
-    <dt>熱門景點</dt>
-    <dd>
-        <div class="checkbox">
-            <input type="checkbox" id="ch32" name="airlines" />
-            <label for="ch32">British Airways</label>
-        </div>
-       
-    </dd>
+    @if (ViewBag.Scenic != null)
+    {
+        using (Html.BeginForm())
+        {
+            <dt>熱門景點</dt>
+            <dd>
+                @Html.Partial("_Scenic")
+                
+                    <button type="submit" class="gradient-button ">
+                        確定
+                    </button>
+                
+            </dd>
+
+        }
+    }
+    
     
 </dl>

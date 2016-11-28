@@ -31,11 +31,11 @@
                                 <a href="@Url.Action("Detail", new { id= item.ID })" title="">
                                 @if (item.Images.Count > 0)
                                 {
-                                    <img style="height:180px;" src="@Url.Action("Image","Hotel",new {id=item.Images[0].ID})" alt="" />
+                                    <img src="@Url.Action("Image","Hotel",new {id=item.Images[0].ID})" alt="" />
                                 }
                                 else
                                 {
-                                    <img style="height:180px;" src="~/images/uploads/img.jpg" />
+                                    <img src="~/images/uploads/img.jpg" />
                                 }
                             </a>
 
@@ -50,7 +50,7 @@
                                 @*<span class="address">London  •  <a href="#">Show on map</a></span>*@
                                 <span class="address">@item.Location</span>
                                 @*<span class="rating"> 8 /10</span>*@
-                                <span class="price">價格  <em>$ @item.FixedPrice</em> </span>
+                                <span class="price">價格  <em>$ @item.FixedPrice.ToString("#,##0")</em> </span>
                                 <div class="description">
                                     <p>
                                     @item.Feature

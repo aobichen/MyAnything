@@ -1,12 +1,26 @@
 ﻿
-@model IEnumerable<Anything.Models.Hotel>
+@model IEnumerable<Anything.ViewModels.HotelListModel>
+
+<nav class="breadcrumbs">
+    @if (Model == null || Model.Count() <= 0)
+    {
+        <p class="full-width">
+            <a class="btn btn-success" href="@Url.Action("Edit", "Hotel")">
+                <i class="glyphicon glyphicon-plus-sign" aria-hidden="true"></i>
+                新增
+            </a>
+        </p>
+
+    }
+</nav>
 
 
-@if (Model==null || Model.Count() <= 0) { 
-<p>
-    @Html.ActionLink("新增", "Edit", "Hotel",null, new {@class="btn btn-primary" })
+<p class="full-width">
+    <a class="btn btn-default disabled" href="javascript:void(0)">
+        <i class="glyphicon glyphicon-ban-circle" aria-hidden="true"></i>
+        新增
+    </a>
 </p>
-}
 <table class="table table-bordered table-condensed table-hover table-striped alert-success">
     <tr>
         
@@ -38,16 +52,23 @@
                 @Html.DisplayFor(modelItem => item.Location)
             </td>
             <td>
-                @item.Room.Count()
+                @item.Qty
             </td>
             <td>
-                @Html.EditorFor(modelItem => item.SaleOff)
+                @Html.EditorFor(modelItem => item.Enabled)
             </td>
            
             <td>
-                @Html.ActionLink("編輯", "Edit", new { id = item.ID }) |
-                @Html.ActionLink("新增房型", "Index", "Room", new { id = item.ID }, null)
-                
+                <div class="btn-group">
+
+                    <a class="btn btn-primary" href="@Url.Action("Edit", "Hotel", new { id = item.ID })">
+                        <i class="glyphicon glyphicon-edit" aria-hidden="true"></i>
+                    </a>
+                    <a class="btn btn-danger" target="_blank" href="@Url.Action("Index", "Room", new { id = item.ID })">
+                        <i class="fa fa-bed" aria-hidden="true"></i>
+                    </a>
+                </div>
+              
             </td>
         </tr>
     }

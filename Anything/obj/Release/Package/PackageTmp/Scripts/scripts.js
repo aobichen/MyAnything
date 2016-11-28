@@ -44,7 +44,7 @@
 			// MOBILE MENU
 			$('#nav').slimmenu({
 				resizeWidth: '1040',
-				collapserTitle: 'Main Menu',
+				collapserTitle: 'MyAnything',
 				animSpeed: 'medium',
 				easingEffect: null,
 				indentChildren: false,

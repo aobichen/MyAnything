@@ -50,7 +50,7 @@
                                 @*<span class="address">London  •  <a href="#">Show on map</a></span>*@
                                 <span class="address">@item.Location</span>
                                 @*<span class="rating"> 8 /10</span>*@
-                                <span class="price">價格  <em>$ @item.FixedPrice</em> </span>
+                                <span class="price">價格  <em>$ @item.FixedPrice.ToString("#,##0")</em> </span>
                                 <div class="description">
                                     <p>
                                     @item.Feature

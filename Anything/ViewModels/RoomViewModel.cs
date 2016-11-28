@@ -54,6 +54,7 @@ namespace Anything.ViewModels
         //public string SessionKey { get; set; }
 
          [Required]
+         [DisplayFormat(DataFormatString = "{0:#.##}", ApplyFormatInEditMode = true)]
         public int MaxPerson { get; set; }
          [Required]
         public int BedAmount { get; set; }
@@ -73,29 +74,29 @@ namespace Anything.ViewModels
             
             //[房型,床型,數量]
             var Now = DateTime.Now;
-            db.Room.Add(new Room
-            {
-                Quantity = Quantity,              
-                HotelId = HotelId,
-                Created = Now,
-                HolidayPrice = HolidayPrice,
-                FixedPrice = FixedPrice,
-                DayPrice = DayPrice,
-                Creator = UserId,
-                Enabled = true,
-                Notice = Notice,
-                Modified = Now,
-                Name = Name,
-                BedType=BedType,
-                RoomImage = RoomImages(),
-                BedAmount = BedAmount,
-                HasBreakfast = HasBreakfast,
-                MaxPerson = MaxPerson,
-                Modify = UserId,
-                RoomType = RoomType,
-                Feature = Feature,
-                RoomBed = RoomBed
-            });
+            var result = new Room();
+            result.HotelId = HotelId;
+            result.Notice = Notice;
+            result.Created = Now;
+            result.Modified = Now;
+            result.Creator = Creator;
+            result.Name = Name;
+            result.FixedPrice = FixedPrice;
+            result.HolidayPrice = HolidayPrice;
+            result.DayPrice = DayPrice;
+            result.Quantity = Quantity;
+            result.MaxPerson = MaxPerson;
+            result.Enabled = Enabled;
+            result.RoomType = RoomType;
+            //result.RoomBed = RoomBed;
+            result.BedAmount = BedAmount;
+            result.BedType = BedType;
+            result.Feature = string.IsNullOrEmpty(Feature) ? string.Empty : Feature;
+            result.HasBreakfast = HasBreakfast;
+            result.Modify = Creator;
+            //result.RoomBed = string.Empty;
+            result.RoomImage = RoomImages();
+            db.Room.Add(result);
             db.SaveChanges();
         }
         public void Edit()
@@ -109,6 +110,7 @@ namespace Anything.ViewModels
                 result.HotelId = HotelId;
                 result.Notice = Notice;
                 result.Modified = DateTime.Now;
+                result.Modify = Creator;
                 result.Name = Name;
                 result.FixedPrice = FixedPrice;
                 result.HolidayPrice = HolidayPrice;
@@ -116,14 +118,16 @@ namespace Anything.ViewModels
                 result.Quantity = Quantity;
                 result.MaxPerson = MaxPerson;
                 result.Enabled = Enabled;
-                result.RoomType = RoomType;
-                result.RoomBed = RoomBed;
+                result.RoomType = RoomType;               
                 result.BedAmount = BedAmount;
                 result.BedType = BedType;
-                result.Feature = Feature;
+                result.Feature = string.IsNullOrEmpty(Feature) ? string.Empty :Feature;
+                result.HasBreakfast = HasBreakfast;
+                
+               
                 result.ID = ID;
                 
-                db.SaveChanges();
+                //db.SaveChanges();
 
                 var RoomImage = RoomImages();
                 foreach (var img in RoomImage)
@@ -188,10 +192,16 @@ namespace Anything.ViewModels
         public int ID { get; set; }
         public int Amt { get; set; }
         public string Name { get; set; }
+        [DisplayFormat(DataFormatString = "{0:#.##}", ApplyFormatInEditMode = true)]
         public decimal FixedPrice { get; set; }
+        [DisplayFormat(DataFormatString = "{0:#,##0}", ApplyFormatInEditMode = true)]
         public decimal HolidayPrice { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:#,##0}", ApplyFormatInEditMode = true)]
         public decimal DayPrice { get; set; }
         public string Feature { get; set; }
+
+        public bool Enabled { get; set; }
 
         public string RoomType { get; set; }
 
@@ -202,5 +212,11 @@ namespace Anything.ViewModels
         public int BedAmount { get; set; }
         public int Quantity { get; set; }
         public List<RoomImage> Images { get; set; }
+    }
+
+    public class RoomPageModel
+    {
+        public int ID { get; set; }
+        public int Page { get; set; }
     }
 }

@@ -28,7 +28,6 @@ namespace Anything.Models
         public int MaxPerson { get; set; }
         public int BedAmount { get; set; }
         public int BedType { get; set; }
-        public string RoomBed { get; set; }
         public string Feature { get; set; }
         public decimal FixedPrice { get; set; }
         public decimal HolidayPrice { get; set; }

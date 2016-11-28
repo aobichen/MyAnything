@@ -18,14 +18,14 @@
         @*<script type="text/javascript" src="~/Scripts/jquery-1.10.2.min.js"></script>
         <script type="text/javascript" src="~/Scripts/jquery-ui.min.js"></script>*@
        
-    @*@Scripts.Render("~/Scripts/lightslider.min.js", 
-        "~/Content/jquery-localize/dist/jquery.localize.min.js",
-        "~/Scripts/jquery.cookie.js",
-        "~/Scripts/jquery.uniform.min.js",
-        "~/Scripts/jquery.slimmenu.min.js")
-
+        @*@Scripts.Render("~/Scripts/lightslider.min.js",
+                "~/Content/jquery-localize/dist/jquery.localize.min.js",
+                "~/Scripts/jquery.cookie.js",
+                "~/Scripts/jquery.uniform.min.js",
+                "~/Scripts/jquery.slimmenu.min.js")
        
-        <script type="text/javascript" src="~/Scripts/scripts.js"></script>*@
+
+                <script type="text/javascript" src="~/Scripts/scripts.js"></script>*@
     <link rel="shortcut icon" href="images/favicon.ico" />
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -33,6 +33,17 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    
+    <style type="text/css">
+        .pagination > li:before {
+            display: none;
+            clear: both;
+        }
+
+         .pagination > li a {
+           color:#428bca;
+        }
+    </style>
     @RenderSection("scripts", required: false)
 </head>
 <body>

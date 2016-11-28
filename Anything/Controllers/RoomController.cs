@@ -7,30 +7,43 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using PagedList;
 namespace Anything.Controllers
 {
    
     public class RoomController : BaseController
     {
         // GET: Room
-        public ActionResult Index(int id)
+        [Authorize]
+        public ActionResult Index(int id,int Page=1)
         {
-            if (!_db.Hotel.Any(o => o.ID == id))
+            
+            var Hotel = _db.Hotel.Where(o => o.ID == id && o.UserId == CurrentUser.Id).FirstOrDefault();
+            if (Hotel == null)
             {
                 return RedirectToAction("Index", "Hotel");
             }
 
-            var Hotel = _db.Hotel.Find(id);
-            if (Hotel.UserId != CurrentUser.Id)
-            {
-                return RedirectToAction("Index", "Hotel");
-            }
 
-            var rooms = _db.Room.Where(o => o.HotelId == id).ToList();
+            var rooms = _db.Room.Where(o => o.HotelId == id).Select(o => new RoomModel
+            {
+                Name = o.Name,
+                Quantity = o.Quantity,
+                Enabled = o.Enabled,
+                FixedPrice = o.FixedPrice,
+                DayPrice = o.DayPrice,
+                HolidayPrice = o.HolidayPrice,
+                ID = o.ID
+            }).ToList();
+
+            
             ViewBag.HotelId = id;
+            var currentPage =  Page < 1 ? 1 : Page;
+            var PageSize = 10;
 
-            return View(rooms);
+            var PageModel = rooms.ToPagedList(currentPage, PageSize);
+            ViewData.Model = PageModel;
+            return View();
         }
 
         public ActionResult Create(int id)
@@ -126,7 +139,8 @@ namespace Anything.Controllers
                              Notice = r.Notice,
                              Name = r.Name,
                              MaxPerson = r.MaxPerson,
-                             BedAmount = r.BedAmount
+                             BedAmount = r.BedAmount,
+                             Feature = r.Feature
                          }).FirstOrDefault();
             
             var key = Guid.NewGuid().GetHashCode().ToString("x");
@@ -146,6 +160,7 @@ namespace Anything.Controllers
         public ActionResult Edit(RoomCreateViewModel model)
         {
             var room = _db.Room.Find(model.ID);
+            model.Creator = CurrentUser.Id;
             if (room == null || room.Hotel.UserId != CurrentUser.Id)
             {
                 return RedirectToAction("", "Home");

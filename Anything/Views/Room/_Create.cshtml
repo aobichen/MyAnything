@@ -82,7 +82,7 @@
                                     <div class="row">
                                         <div class="f-item full-width">
                                             <label>定價</label>
-                                            @Html.TextBoxFor(model => model.FixedPrice, new { @placeholder = "定價", @class = "form-control" })
+                                            @Html.EditorFor(model => model.FixedPrice, new { @placeholder = "定價", @class = "form-control" })
                                             @Html.ValidationMessageFor(model => model.FixedPrice, "", new { @class = "text-danger" })
                                         </div>
 
@@ -91,8 +91,8 @@
                                     <div class="row">
                                         <div class="f-item full-width">
                                             <label>假日房價</label>
-                                            @Html.TextBoxFor(model => model.HolidayPrice, new { @placeholder = "假日房價", @class = "form-control" })
-
+                                            @Html.EditorFor(model => model.HolidayPrice, new { @placeholder = "假日房價", @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.HolidayPrice, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
 
@@ -100,8 +100,8 @@
                                     <div class="row">
                                         <div class="f-item full-width">
                                             <label>平日房價</label>
-                                            @Html.TextBoxFor(model => model.DayPrice, new { @placeholder = "平日房價", @class = "form-control" })
-
+                                            @Html.EditorFor(model => model.DayPrice, new { @placeholder = "平日房價", @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.DayPrice, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
 
@@ -109,8 +109,8 @@
                                     <div class="row">
                                         <div class="f-item full-width">
                                             <label>數量</label>
-                                            @Html.TextBoxFor(model => model.Quantity, new { @class = "form-control" })
-
+                                            @Html.EditorFor(model => model.Quantity, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
                                 </div>
@@ -172,7 +172,7 @@
                     <div class="full-width">
                         <div class="col-lg-offset-10">
                             <label>
-                                開始營業
+                                提供訂房
                                 @Html.EditorFor(model => model.Enabled)
                                 @Html.ValidationMessageFor(model => model.Enabled, "", new { @class = "text-danger" })
                             </label>

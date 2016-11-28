@@ -1,14 +1,5 @@
 ﻿
-@{
-    var Location = new Anything.Helper.Caches().TWLocation;
-    var CurrentLocation = string.Empty;
-    if (ViewBag.CurrentLocation != null)
-    {
-        CurrentLocation = (string)ViewBag.CurrentLocation;
-    }
-    SelectList selectList = new SelectList(Location, "Location", "Location", CurrentLocation);
-    ViewBag.Location = selectList;
-}
+
 <style type="text/css">
     #area option {
         display: none;
@@ -16,7 +7,7 @@
 </style>
 <div id="LocationDropDownList">
 
-    @Html.DropDownList("Location",null, new { id = "Location" })
+    @Html.DropDownList("Location")
    
     <input type="hidden" id="SelectLocation" name="SelectLocation" />
    

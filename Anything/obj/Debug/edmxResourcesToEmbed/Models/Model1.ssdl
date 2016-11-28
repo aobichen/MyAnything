@@ -196,7 +196,6 @@
     <Property Name="MaxPerson" Type="int" Nullable="false" />
     <Property Name="BedAmount" Type="int" Nullable="false" />
     <Property Name="BedType" Type="int" Nullable="false" />
-    <Property Name="RoomBed" Type="nvarchar" MaxLength="6" Nullable="false" />
     <Property Name="Feature" Type="nvarchar" MaxLength="150" Nullable="false" />
     <Property Name="FixedPrice" Type="decimal" Precision="10" Scale="2" Nullable="false" />
     <Property Name="HolidayPrice" Type="decimal" Precision="10" Scale="2" Nullable="false" />
