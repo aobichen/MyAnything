@@ -30,9 +30,9 @@ namespace Anything.Models
         public System.DateTime Modified { get; set; }
         public int Modify { get; set; }
         public string PayVendor { get; set; }
-        public Nullable<double> ShareBonus { get; set; }
-        public Nullable<double> BoughtBonus { get; set; }
-        public Nullable<double> SystemBonus { get; set; }
+        public Nullable<double> CashFlow { get; set; }
+        public Nullable<double> Paltform { get; set; }
+        public Nullable<double> BuyFeedBack { get; set; }
         public string TradeNo { get; set; }
         public string TradeStatus { get; set; }
         public string PaymentType { get; set; }
@@ -40,5 +40,6 @@ namespace Anything.Models
         public int Creator { get; set; }
         public string Email { get; set; }
         public string Name { get; set; }
+        public Nullable<double> UpperUser { get; set; }
     }
 }

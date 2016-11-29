@@ -43,7 +43,7 @@
         </td>
         @if (User.IsInRole("Admin") || User.IsInRole("AdManager")) { 
             <td>
-                @Anything.Helper.Helpers.Member.Email(item.Creator.Value)
+                @Anything.Helpers.Helpers.Member.Email(item.Creator.Value)
             </td>
         }
         <td>

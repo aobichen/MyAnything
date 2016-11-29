@@ -31,7 +31,8 @@ namespace Anything
             routes.MapRoute(
                name: "Booking",
                url: "Booking/{id}",
-               defaults: new { controller = "Home", action = "Booking", id = UrlParameter.Optional }
+               defaults: new { controller = "Home", action = "Booking", id = UrlParameter.Optional },
+              namespaces: new string[] { "Anything.Controllers" }
            );
 
          //   routes.MapRoute(

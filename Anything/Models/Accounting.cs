@@ -12,19 +12,20 @@ namespace Anything.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class MyBouns
+    public partial class Accounting
     {
         public int ID { get; set; }
-        public System.DateTime PayTime { get; set; }
+        public int OrderId { get; set; }
         public decimal OrderAmt { get; set; }
-        public decimal Bouns { get; set; }
-        public Nullable<int> ParentID { get; set; }
-        public System.DateTime Created { get; set; }
-        public int OrderID { get; set; }
-        public int UserID { get; set; }
-        public string Status { get; set; }
-        public decimal AmtMinLimit { get; set; }
-        public int UseMonth { get; set; }
+        public System.DateTime PayTime { get; set; }
+        public decimal CashFlowAmt { get; set; }
+        public decimal PlatformAmt { get; set; }
+        public decimal BuyFeedbackAmt { get; set; }
+        public decimal ProfitAmt { get; set; }
+        public int ApplyUserID { get; set; }
         public string MerchantOrderNo { get; set; }
+        public decimal UpperUserAmt { get; set; }
+        public int UpperQty { get; set; }
+        public string Status { get; set; }
     }
 }

@@ -1,5 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="MyAnythingModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Accounting">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OrderId" Type="int" Nullable="false" />
+    <Property Name="OrderAmt" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="PayTime" Type="datetime" Nullable="false" />
+    <Property Name="CashFlowAmt" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="PlatformAmt" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="BuyFeedbackAmt" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="ProfitAmt" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="ApplyUserID" Type="int" Nullable="false" />
+    <Property Name="MerchantOrderNo" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="UpperUserAmt" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="UpperQty" Type="int" Nullable="false" />
+    <Property Name="Status" Type="nvarchar" MaxLength="2" />
+  </EntityType>
   <EntityType Name="Area">
     <Key>
       <PropertyRef Name="ID" />
@@ -95,16 +113,17 @@
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="PayTime" Type="datetime" />
-    <Property Name="OrderAmt" Type="decimal" Precision="10" Scale="2" />
-    <Property Name="Bouns" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="PayTime" Type="datetime" Nullable="false" />
+    <Property Name="OrderAmt" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="Bouns" Type="decimal" Precision="10" Scale="2" Nullable="false" />
     <Property Name="ParentID" Type="int" />
-    <Property Name="Created" Type="datetime" />
-    <Property Name="OrderID" Type="int" />
-    <Property Name="UserID" Type="int" />
-    <Property Name="Status" Type="nvarchar" MaxLength="50" />
-    <Property Name="AmtMinLimit" Type="decimal" Precision="10" Scale="2" />
-    <Property Name="UseMonth" Type="int" />
+    <Property Name="Created" Type="datetime" Nullable="false" />
+    <Property Name="OrderID" Type="int" Nullable="false" />
+    <Property Name="UserID" Type="int" Nullable="false" />
+    <Property Name="Status" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="AmtMinLimit" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="UseMonth" Type="int" Nullable="false" />
+    <Property Name="MerchantOrderNo" Type="nvarchar" MaxLength="20" Nullable="false" />
   </EntityType>
   <EntityType Name="News">
     <Key>
@@ -142,9 +161,9 @@
     <Property Name="Modified" Type="datetime" Nullable="false" />
     <Property Name="Modify" Type="int" Nullable="false" />
     <Property Name="PayVendor" Type="nvarchar" MaxLength="100" Nullable="false" />
-    <Property Name="ShareBonus" Type="float" />
-    <Property Name="BoughtBonus" Type="float" />
-    <Property Name="SystemBonus" Type="float" />
+    <Property Name="CashFlow" Type="float" />
+    <Property Name="Paltform" Type="float" />
+    <Property Name="BuyFeedBack" Type="float" />
     <Property Name="TradeNo" Type="nvarchar" MaxLength="20" />
     <Property Name="TradeStatus" Type="nvarchar" MaxLength="10" />
     <Property Name="PaymentType" Type="nvarchar" MaxLength="20" />
@@ -152,6 +171,7 @@
     <Property Name="Creator" Type="int" Nullable="false" />
     <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
     <Property Name="Name" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="UpperUser" Type="float" />
   </EntityType>
   <EntityType Name="PayGo">
     <Key>
@@ -243,6 +263,22 @@
     <Property Name="City" Type="nvarchar" MaxLength="10" Nullable="false" />
     <Property Name="CityId" Type="int" Nullable="false" />
   </EntityType>
+  <EntityType Name="SystemField">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ItemCode" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="ItemValue" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ItemDescription" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="ItemUnit" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="ItemType" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="Enabled" Type="bit" Nullable="false" />
+    <Property Name="Creator" Type="int" />
+    <Property Name="Created" Type="datetime" />
+    <Property Name="Modified" Type="datetime" />
+    <Property Name="Modify" Type="int" />
+  </EntityType>
   <EntityType Name="TEST">
     <Key>
       <PropertyRef Name="ID" />
@@ -312,6 +348,7 @@
     </ReferentialConstraint>
   </Association>
   <EntityContainer Name="MyAnythingModelStoreContainer">
+    <EntitySet Name="Accounting" EntityType="Self.Accounting" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Area" EntityType="Self.Area" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="City" EntityType="Self.City" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CodeFile" EntityType="Self.CodeFile" Schema="dbo" store:Type="Tables" />
@@ -327,6 +364,7 @@
     <EntitySet Name="RoomImage" EntityType="Self.RoomImage" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="RoomPrice" EntityType="Self.RoomPrice" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Scenic" EntityType="Self.Scenic" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SystemField" EntityType="Self.SystemField" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TEST" EntityType="Self.TEST" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK__Area_TW__CID__29572725" Association="Self.FK__Area_TW__CID__29572725">
       <End Role="City" EntitySet="City" />

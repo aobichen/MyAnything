@@ -21,8 +21,7 @@ namespace Anything.Controllers
 
             var model = JsonConvert.DeserializeObject<PayGoRespond>(str);
             var result = JsonConvert.DeserializeObject<PayResult>(model.Result);
-            // _db.TEST.Add(new TEST { Message = result.PaymentType, Created = DateTime.Now });
-            // _db.SaveChanges();
+            
             string PaymentType = result.PaymentType;
             DateTime? PayTime = string.IsNullOrEmpty(result.PayTime) ? (DateTime?)null : Convert.ToDateTime(result.PayTime);
             var Order = _db.OrderMaster.Where(o => o.MerchantOrderNo == result.MerchantOrderNo).FirstOrDefault();
@@ -32,8 +31,7 @@ namespace Anything.Controllers
 
                 if (PayGo == null)
                 {
-                    //_db.TEST.Add(new TEST { Message = result.PaymentType, Created = DateTime.Now });
-
+                    
                     #region ## 新增 ##
 
                     var p = new PayGo
@@ -74,7 +72,7 @@ namespace Anything.Controllers
                 }
                 else
                 {
-                    //_db.TEST.Add(new TEST { Message = "A" + result.PaymentType, Created = DateTime.Now });
+                 
                     #region ## 更新 ##
                     PayGo.Amt = result.Amt;
                     PayGo.Auth = result.Auth == null ? string.Empty : result.Auth;
@@ -103,11 +101,26 @@ namespace Anything.Controllers
                     PayGo.TradeNo = result.TradeNo == null ? string.Empty : result.TradeNo;
                     PayGo.PaymentType = PaymentType;
                     PayGo.IP = string.IsNullOrEmpty(result.IP) ? "192.168.0.1" : result.IP;
-                    //_db.TEST.Add(new TEST { Message = Newtonsoft.Json.JsonConvert.SerializeObject(PayGo), Created = DateTime.Now });
+                    
                     _db.SaveChanges();
                     #endregion
                 }
 
+                if (model.Status.Equals("SUCCESS") &&
+                           !string.IsNullOrEmpty(result.PayTime) &&
+                           PayTime > DateTime.MinValue
+                           && !_db.MyBouns.Any(o => o.MerchantOrderNo == Order.MerchantOrderNo))
+                {
+                    var Bouns = new BounsViewModel();
+                    Bouns.MerchantOrderNo = Order.MerchantOrderNo;
+                    Bouns.OrderID = Order.ID;
+                    Bouns.PayTime = PayTime;
+                    Bouns.Status = model.Status;
+                    Bouns.OrderAmt = Order.Amount;
+                    Bouns.UseMonth = DateTime.Now.Month + 1;
+                    Bouns.UserID = Order.UserId;
+                    Bouns.Create();
+                }
             }
 
             var PayModel = (from order in _db.OrderMaster
@@ -152,11 +165,10 @@ namespace Anything.Controllers
         public ActionResult PaySuccess()
         {
             var str = Request["JSONData"];
-            
+            _db.TEST.Add(new TEST { Message = str,Created = DateTime.Now });
+            _db.SaveChanges();
             var model = JsonConvert.DeserializeObject<PayGoRespond>(str);
-            var result = JsonConvert.DeserializeObject<PayResult>(model.Result);
-           // _db.TEST.Add(new TEST { Message = result.PaymentType, Created = DateTime.Now });
-           // _db.SaveChanges();
+            var result = JsonConvert.DeserializeObject<PayResult>(model.Result);          
             string PaymentType = result.PaymentType;
             DateTime? PayTime = string.IsNullOrEmpty(result.PayTime) ? (DateTime?)null : Convert.ToDateTime(result.PayTime);
             var Order = _db.OrderMaster.Where(o => o.MerchantOrderNo == result.MerchantOrderNo).FirstOrDefault();
@@ -166,8 +178,7 @@ namespace Anything.Controllers
 
                 if (PayGo == null)
                 {
-                    //_db.TEST.Add(new TEST { Message = result.PaymentType, Created = DateTime.Now });
-
+                   
                     #region ## 新增 ##
 
                     var p = new PayGo
@@ -208,7 +219,7 @@ namespace Anything.Controllers
                 }
                 else
                 {
-                    //_db.TEST.Add(new TEST { Message = "A" + result.PaymentType, Created = DateTime.Now });
+                   
                     #region ## 更新 ##
                     PayGo.Amt = result.Amt;
                     PayGo.Auth = result.Auth == null ? string.Empty : result.Auth;
@@ -241,7 +252,21 @@ namespace Anything.Controllers
                     _db.SaveChanges();
                     #endregion
                 }
-
+                if (model.Status.Equals("SUCCESS") &&
+                            !string.IsNullOrEmpty(result.PayTime) &&
+                            PayTime > DateTime.MinValue
+                            && !_db.MyBouns.Any(o => o.MerchantOrderNo == Order.MerchantOrderNo))
+                {
+                    var Bouns = new BounsViewModel();
+                    Bouns.MerchantOrderNo = Order.MerchantOrderNo;
+                    Bouns.OrderID = Order.ID;
+                    Bouns.PayTime = PayTime;
+                    Bouns.Status = model.Status;
+                    Bouns.OrderAmt = Order.Amount;
+                    Bouns.UseMonth = DateTime.Now.Month + 1;
+                    Bouns.UserID = Order.UserId;
+                    Bouns.Create();
+                }
             }
 
             var PayModel = (from order in _db.OrderMaster
@@ -300,8 +325,7 @@ namespace Anything.Controllers
 
                 if (PayGo == null)
                 {
-                    //_db.TEST.Add(new TEST { Message = result.PaymentType, Created = DateTime.Now });
-
+                   
                     #region ## 新增 ##
 
                     var p = new PayGo
@@ -342,7 +366,7 @@ namespace Anything.Controllers
                 }
                 else
                 {
-                    //_db.TEST.Add(new TEST { Message = "A" + result.PaymentType, Created = DateTime.Now });
+                    
                     #region ## 更新 ##
                     PayGo.Amt = result.Amt;
                     PayGo.Auth = result.Auth == null ? string.Empty : result.Auth;
@@ -376,6 +400,21 @@ namespace Anything.Controllers
                     #endregion
                 }
 
+                if (model.Status.Equals("SUCCESS") &&
+                            !string.IsNullOrEmpty(result.PayTime) &&
+                            PayTime > DateTime.MinValue
+                            && !_db.MyBouns.Any(o => o.MerchantOrderNo == Order.MerchantOrderNo))
+                {
+                    var Bouns = new BounsViewModel();
+                    Bouns.MerchantOrderNo = Order.MerchantOrderNo;
+                    Bouns.OrderID = Order.ID;
+                    Bouns.PayTime = PayTime;
+                    Bouns.Status = model.Status;
+                    Bouns.OrderAmt = Order.Amount;
+                    Bouns.UseMonth = DateTime.Now.Month + 1;
+                    Bouns.UserID = Order.UserId;
+                    Bouns.Create();
+                }
             }
 
             var PayModel = (from order in _db.OrderMaster
