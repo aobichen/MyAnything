@@ -94,6 +94,7 @@
     <EntitySetMapping Name="PayGo">
       <EntityTypeMapping TypeName="MyAnythingModel.PayGo">
         <MappingFragment StoreEntitySet="PayGo">
+          <ScalarProperty Name="CreditCarStatus" ColumnName="CreditCarStatus" />
           <ScalarProperty Name="PaymentType" ColumnName="PaymentType" />
           <ScalarProperty Name="RespondType" ColumnName="RespondType" />
           <ScalarProperty Name="Barcode_3" ColumnName="Barcode_3" />

@@ -209,6 +209,7 @@
           <Property Name="Barcode_3" Type="nvarchar" MaxLength="20" />
           <Property Name="RespondType" Type="nvarchar" MaxLength="10" />
           <Property Name="PaymentType" Type="nvarchar" MaxLength="10" />
+          <Property Name="CreditCarStatus" Type="nvarchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="Room">
           <Key>
@@ -553,6 +554,7 @@
           <Property Name="Barcode_3" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="RespondType" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="PaymentType" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="CreditCarStatus" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="RoomImage">
           <Key>
@@ -892,6 +894,7 @@
           <EntitySetMapping Name="PayGo">
             <EntityTypeMapping TypeName="MyAnythingModel.PayGo">
               <MappingFragment StoreEntitySet="PayGo">
+                <ScalarProperty Name="CreditCarStatus" ColumnName="CreditCarStatus" />
                 <ScalarProperty Name="PaymentType" ColumnName="PaymentType" />
                 <ScalarProperty Name="RespondType" ColumnName="RespondType" />
                 <ScalarProperty Name="Barcode_3" ColumnName="Barcode_3" />

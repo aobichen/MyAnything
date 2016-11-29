@@ -204,6 +204,7 @@
     <Property Name="Barcode_3" Type="nvarchar" MaxLength="20" />
     <Property Name="RespondType" Type="nvarchar" MaxLength="10" />
     <Property Name="PaymentType" Type="nvarchar" MaxLength="10" />
+    <Property Name="CreditCarStatus" Type="nvarchar" MaxLength="10" />
   </EntityType>
   <EntityType Name="Room">
     <Key>

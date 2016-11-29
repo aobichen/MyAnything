@@ -157,6 +157,7 @@
     <Property Name="Barcode_3" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
     <Property Name="RespondType" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
     <Property Name="PaymentType" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="CreditCarStatus" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="RoomImage">
     <Key>
