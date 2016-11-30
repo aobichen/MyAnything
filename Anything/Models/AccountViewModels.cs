@@ -115,6 +115,8 @@ namespace Anything.Models
         public string ConfirmPassword { get; set; }
 
         public string Code { get; set; }
+
+        public string ReturnUrl { get; set; }
     }
 
     public class ForgotPasswordViewModel

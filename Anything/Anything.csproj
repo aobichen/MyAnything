@@ -195,6 +195,7 @@
     <Compile Include="Areas\My\Controllers\HotelController.cs" />
     <Compile Include="Areas\My\MyAreaRegistration.cs" />
     <Compile Include="Areas\System\BundleConfig.cs" />
+    <Compile Include="Areas\System\Controllers\BonusController.cs" />
     <Compile Include="Areas\System\Controllers\HomeController.cs" />
     <Compile Include="Areas\System\RouteConfig.cs" />
     <Compile Include="Areas\System\SystemAreaRegistration.cs" />
@@ -292,10 +293,12 @@
     <Compile Include="Models\SystemField.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SystemLog.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\TEST.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\BounsModel.cs" />
     <Compile Include="ViewModels\BounsViewModel.cs" />
     <Compile Include="ViewModels\FacilityModel.cs" />
     <Compile Include="ViewModels\PayGoViewModel.cs" />
@@ -396,6 +399,7 @@
     <Content Include="Content\Pictures\header-bg2.jpg" />
     <Content Include="Content\Pictures\header-bg3.jpg" />
     <Content Include="Content\Pictures\offical.jpg" />
+    <Content Include="Content\style-rtl.css" />
     <Content Include="Content\style.css" />
     <Content Include="Content\theme.css" />
     <Content Include="Content\custom.css" />
@@ -547,6 +551,9 @@
     <Content Include="Areas\My\Views\_ViewStart.cshtml" />
     <Content Include="Areas\My\Views\Hotel\Index.cshtml" />
     <Content Include="Areas\My\Views\Hotel\_List.cshtml" />
+    <Content Include="Areas\System\Views\Home\_SignInLog.cshtml" />
+    <Content Include="Areas\System\Views\Home\_ChangePassword.cshtml" />
+    <Content Include="Areas\System\Views\Shared\_SidebarMenu.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\infobox.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -1194,11 +1201,13 @@
     <Content Include="Views\Order\_Detail.cshtml" />
     <Content Include="Views\Shared\_Facility.cshtml" />
     <Content Include="Views\Shared\_Scenic.cshtml" />
+    <Content Include="Views\Shared\_ExternalLoginsListPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\My\Models\" />
     <Folder Include="Areas\System\Models\" />
+    <Folder Include="Areas\System\Views\Bonus\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -1229,7 +1238,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>1180</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:1180/</IISUrl>
+          <IISUrl>http://localhost:1129/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

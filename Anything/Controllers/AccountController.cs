@@ -134,7 +134,20 @@ namespace Anything.Controllers
             if (user != null && status.Equals(PasswordVerificationResult.Success))
             {
                 //SignIn(user,model.RememberMe);
-               await SignInAsync(user, model.RememberMe);
+                await SignInAsync(user, model.RememberMe);
+
+                _db.SystemLog.Add(new SystemLog
+                {
+                    Created = DateTime.Now,
+                    Creator = model.Email,
+                    IP = IPaddress,
+                    LogCode = "Time",
+                    LogType = "SignIn",
+                    LogDescription = "登入時間",
+                    LogValue = DateTime.Now.ToString()
+                });
+                _db.SaveChanges();
+
                 return RedirectToLocal(returnUrl);
             }
                         
@@ -151,6 +164,7 @@ namespace Anything.Controllers
         /// <param name="RememberMe"></param>
         private void SignIn(ApplicationUser user,bool RememberMe)
         {
+            
                    CustomPrincipalSerializeModel serializeModel = new CustomPrincipalSerializeModel();
 
                     serializeModel.ID = user.Id;
@@ -451,20 +465,42 @@ namespace Anything.Controllers
         {
             if (!ModelState.IsValid)
             {
+                TempData["ViewData"] = ViewData;
+                if (!string.IsNullOrEmpty(model.ReturnUrl))
+                {
+                    return Redirect(model.ReturnUrl);
+                }
                 return View(model);
             }
             var user = await UserManager.FindByEmailAsync(model.Email);
             if (user == null)
             {
+                ModelState.AddModelError("","使用者不存在");
+                if (!string.IsNullOrEmpty(model.ReturnUrl))
+                {
+                    return Redirect(model.ReturnUrl);
+                }
                 // Don't reveal that the user does not exist
                 return RedirectToAction("ResetPasswordConfirmation", "Account");
             }
-            var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
+
+            var code = await UserManager.GeneratePasswordResetTokenAsync(CurrentUser.Id);
+            var result = await UserManager.ResetPasswordAsync(user.Id, code, model.Password);
             if (result.Succeeded)
             {
+                if (!string.IsNullOrEmpty(model.ReturnUrl))
+                {
+                    TempData["SuccessMessage"] = "密碼已變更，下次請使用新密碼";
+                    return Redirect(model.ReturnUrl);
+                }
                 return RedirectToAction("ResetPasswordConfirmation", "Account");
             }
             AddErrors(result);
+            TempData["ViewData"] = ViewData;
+            if (!string.IsNullOrEmpty(model.ReturnUrl))
+            {
+                return Redirect(model.ReturnUrl);
+            }
             return View();
         }
 
@@ -483,6 +519,8 @@ namespace Anything.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ExternalLogin(string provider, string returnUrl)
         {
+            FormsAuthentication.SignOut();
+            AuthenticationManager.SignOut();
             // Request a redirect to the external login provider
             return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
         }
@@ -532,6 +570,14 @@ namespace Anything.Controllers
             {
                 return RedirectToAction("Login");
             }
+
+            if (loginInfo.Login.LoginProvider == "Facebook")
+            {
+                var identity = AuthenticationManager.GetExternalIdentity(DefaultAuthenticationTypes.ExternalCookie);
+                var access_token = identity.FindFirstValue("FacebookAccessToken");
+                //var fb = 
+            }
+
 
             // Sign in the user with this external login provider if the user already has a login
             var result = await SignInManager.ExternalSignInAsync(loginInfo, isPersistent: false);

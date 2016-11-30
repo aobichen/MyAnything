@@ -51,6 +51,10 @@ namespace Anything.Controllers
         private int UserId { get; set; }
         protected string RecommendCode { get; set; }
 
+        protected string IPaddress { 
+            get {
+                return Request.UserHostAddress;
+        } }
         
         //private ApplicationUserManager _userManager;
         //public ApplicationUserManager UserManager

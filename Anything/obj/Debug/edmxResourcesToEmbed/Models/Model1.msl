@@ -256,9 +256,28 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="MyBouns">
+      <EntityTypeMapping TypeName="MyAnythingModel.MyBouns">
+        <MappingFragment StoreEntitySet="MyBouns">
+          <ScalarProperty Name="MerchantOrderNo" ColumnName="MerchantOrderNo" />
+          <ScalarProperty Name="UseMonth" ColumnName="UseMonth" />
+          <ScalarProperty Name="AmtMinLimit" ColumnName="AmtMinLimit" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+          <ScalarProperty Name="Created" ColumnName="Created" />
+          <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+          <ScalarProperty Name="Bouns" ColumnName="Bouns" />
+          <ScalarProperty Name="OrderAmt" ColumnName="OrderAmt" />
+          <ScalarProperty Name="PayTime" ColumnName="PayTime" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="OrderMaster">
       <EntityTypeMapping TypeName="MyAnythingModel.OrderMaster">
         <MappingFragment StoreEntitySet="OrderMaster">
+          <ScalarProperty Name="LoginType" ColumnName="LoginType" />
           <ScalarProperty Name="UpperUser" ColumnName="UpperUser" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Email" ColumnName="Email" />
@@ -289,20 +308,16 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="MyBouns">
-      <EntityTypeMapping TypeName="MyAnythingModel.MyBouns">
-        <MappingFragment StoreEntitySet="MyBouns">
-          <ScalarProperty Name="MerchantOrderNo" ColumnName="MerchantOrderNo" />
-          <ScalarProperty Name="UseMonth" ColumnName="UseMonth" />
-          <ScalarProperty Name="AmtMinLimit" ColumnName="AmtMinLimit" />
-          <ScalarProperty Name="Status" ColumnName="Status" />
-          <ScalarProperty Name="UserID" ColumnName="UserID" />
-          <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+    <EntitySetMapping Name="SystemLog">
+      <EntityTypeMapping TypeName="MyAnythingModel.SystemLog">
+        <MappingFragment StoreEntitySet="SystemLog">
+          <ScalarProperty Name="IP" ColumnName="IP" />
+          <ScalarProperty Name="Creator" ColumnName="Creator" />
           <ScalarProperty Name="Created" ColumnName="Created" />
-          <ScalarProperty Name="ParentID" ColumnName="ParentID" />
-          <ScalarProperty Name="Bouns" ColumnName="Bouns" />
-          <ScalarProperty Name="OrderAmt" ColumnName="OrderAmt" />
-          <ScalarProperty Name="PayTime" ColumnName="PayTime" />
+          <ScalarProperty Name="LogValue" ColumnName="LogValue" />
+          <ScalarProperty Name="LogDescription" ColumnName="LogDescription" />
+          <ScalarProperty Name="LogType" ColumnName="LogType" />
+          <ScalarProperty Name="LogCode" ColumnName="LogCode" />
           <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>

@@ -175,5 +175,36 @@ namespace Anything.ViewModels
         }
     }
 
+    public class BounsModel
+    {
+        public string CarshFlow { get; set; }
+        public string Platform { get; set; }
+        public string HotelPromo { get; set; }
+        public string BuyFeedback { get; set; }
+        public string UpperUser { get; set; }
+       
+        public string AmtMinLimit { get; set; }
+
+        public void Edit()
+        {
+            using (var db = new MyAnythingEntities())
+            {
+                var model = db.SystemField.Where(o => o.ItemCode == "BS").ToList();
+                var CarshFlowModel = model.Where(o => o.ItemType == "CarshFlow").FirstOrDefault().ItemValue;
+                CarshFlowModel =  CarshFlow;
+                var PlatformModel = model.Where(o => o.ItemType == "Platform").FirstOrDefault().ItemValue;
+                PlatformModel = Platform;
+                var HotelPromoModel = model.Where(o => o.ItemType == "HotelPromo").FirstOrDefault().ItemValue;
+                HotelPromoModel = HotelPromo;
+                var BuyFeedbackModel = model.Where(o => o.ItemType == "BuyFeedback").FirstOrDefault().ItemValue;
+                BuyFeedbackModel = BuyFeedback;
+                var UpperUserModel = model.Where(o => o.ItemType == "UpperUser").FirstOrDefault().ItemValue;
+                UpperUserModel = UpperUser;
+                var AmtMinLimitModel = model.Where(o => o.ItemType == "AmtMinLimit").FirstOrDefault().ItemValue;
+                AmtMinLimitModel = AmtMinLimit;
+                db.SaveChanges();
+            }
+        }
+    }
     
 }

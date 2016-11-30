@@ -7,7 +7,7 @@ using System.Web;
 using System.Configuration;
 using System.Net;
 using System.IO;
-using System.Security.Cryptography;
+
 namespace Anything.ViewModels
 {
     public class Pay2Go

@@ -16,7 +16,7 @@ namespace Anything.Models
     {
         public int ID { get; set; }
         public string MerchantOrderNo { get; set; }
-        public int UserId { get; set; }
+        public Nullable<int> UserId { get; set; }
         public int ProductId { get; set; }
         public string ProductName { get; set; }
         public int Quantity { get; set; }
@@ -41,5 +41,6 @@ namespace Anything.Models
         public string Email { get; set; }
         public string Name { get; set; }
         public Nullable<double> UpperUser { get; set; }
+        public string LoginType { get; set; }
     }
 }

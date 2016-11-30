@@ -5,6 +5,7 @@ using Microsoft.Owin.Security.Cookies;
 using Anything.Models;
 using Owin;
 using System;
+using Microsoft.Owin.Security.Facebook;
 
 namespace Anything
 {
@@ -29,7 +30,7 @@ namespace Anything
                 Provider = new CookieAuthenticationProvider
                 {
                     // Enables the application to validate the security stamp when the user logs in.
-                    // This is a security feature which is used when you change a password or add an external login to your account.  
+                    // This is a security feature which is used when you change a password or add an aal login to your account.  
                     OnValidateIdentity = SecurityStampValidator.OnValidateIdentity<ApplicationUserManager, ApplicationUser, int>(
                         validateInterval: TimeSpan.FromMinutes(30),
                         regenerateIdentityCallback: (manager, user) => user.GenerateUserIdentityAsync(manager),
@@ -55,9 +56,22 @@ namespace Anything
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            //app.UseFacebookAuthentication(new FacebookAuthenticationOptions()
+            //{
+            //    AppId = "542882635921919",
+            //    AppSecret = "c3c83cafaa2cb103c67206f2f6b207f5",
+            //    Provider = new FacebookAuthenticationProvider()
+            //    {
+            //        OnAuthenticated = context =>
+            //        {
+            //            context.Identity.AddClaim(new System.Security.Claims.Claim("FacebookAccessToken", context.AccessToken));
+            //            return Task.FromResult(true);
+            //        }
+            //    }
+            //});
+            app.UseFacebookAuthentication(
+               appId: "542882635921919",
+               appSecret: "c3c83cafaa2cb103c67206f2f6b207f5");
 
             //app.UseGoogleAuthentication(
             //    clientId: "",

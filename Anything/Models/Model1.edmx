@@ -152,7 +152,7 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="MerchantOrderNo" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="int" />
           <Property Name="ProductId" Type="int" Nullable="false" />
           <Property Name="ProductName" Type="nvarchar" MaxLength="300" Nullable="false" />
           <Property Name="Quantity" Type="int" Nullable="false" />
@@ -174,9 +174,10 @@
           <Property Name="PaymentType" Type="nvarchar" MaxLength="20" />
           <Property Name="ProductType" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Creator" Type="int" Nullable="false" />
-          <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="150" />
           <Property Name="Name" Type="nvarchar" MaxLength="150" Nullable="false" />
           <Property Name="UpperUser" Type="float" />
+          <Property Name="LoginType" Type="nvarchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="PayGo">
           <Key>
@@ -285,6 +286,19 @@
           <Property Name="Modified" Type="datetime" />
           <Property Name="Modify" Type="int" />
         </EntityType>
+        <EntityType Name="SystemLog">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LogCode" Type="nvarchar" MaxLength="5" />
+          <Property Name="LogType" Type="nvarchar" MaxLength="50" />
+          <Property Name="LogDescription" Type="nvarchar" MaxLength="1000" />
+          <Property Name="LogValue" Type="nvarchar(max)" />
+          <Property Name="Created" Type="datetime" />
+          <Property Name="Creator" Type="nvarchar" MaxLength="250" />
+          <Property Name="IP" Type="nvarchar" MaxLength="30" />
+        </EntityType>
         <EntityType Name="TEST">
           <Key>
             <PropertyRef Name="ID" />
@@ -371,6 +385,7 @@
           <EntitySet Name="RoomPrice" EntityType="Self.RoomPrice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Scenic" EntityType="Self.Scenic" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SystemField" EntityType="Self.SystemField" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SystemLog" EntityType="Self.SystemLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TEST" EntityType="Self.TEST" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__Area_TW__CID__29572725" Association="Self.FK__Area_TW__CID__29572725">
             <End Role="City" EntitySet="City" />
@@ -434,8 +449,9 @@
           </AssociationSet>
           <EntitySet Name="Accounting" EntityType="MyAnythingModel.Accounting" />
           <EntitySet Name="SystemField" EntityType="MyAnythingModel.SystemField" />
-          <EntitySet Name="OrderMaster" EntityType="MyAnythingModel.OrderMaster" />
           <EntitySet Name="MyBouns" EntityType="MyAnythingModel.MyBouns" />
+          <EntitySet Name="OrderMaster" EntityType="MyAnythingModel.OrderMaster" />
+          <EntitySet Name="SystemLog" EntityType="MyAnythingModel.SystemLog" />
           </EntityContainer>
         <EntityType Name="Area">
           <Key>
@@ -746,13 +762,30 @@
           <Property Name="Modified" Type="DateTime" Precision="3" />
           <Property Name="Modify" Type="Int32" />
         </EntityType>
+        <EntityType Name="MyBouns">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PayTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="OrderAmt" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="Bouns" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="ParentID" Type="Int32" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="OrderID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="AmtMinLimit" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="UseMonth" Type="Int32" Nullable="false" />
+          <Property Name="MerchantOrderNo" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
         <EntityType Name="OrderMaster">
           <Key>
             <PropertyRef Name="MerchantOrderNo" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="MerchantOrderNo" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int32" />
           <Property Name="ProductId" Type="Int32" Nullable="false" />
           <Property Name="ProductName" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
           <Property Name="Quantity" Type="Int32" Nullable="false" />
@@ -774,26 +807,23 @@
           <Property Name="PaymentType" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="ProductType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Creator" Type="Int32" Nullable="false" />
-          <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="UpperUser" Type="Double" />
+          <Property Name="LoginType" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="MyBouns">
+        <EntityType Name="SystemLog">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PayTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="OrderAmt" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
-          <Property Name="Bouns" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
-          <Property Name="ParentID" Type="Int32" />
-          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="OrderID" Type="Int32" Nullable="false" />
-          <Property Name="UserID" Type="Int32" Nullable="false" />
-          <Property Name="Status" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="AmtMinLimit" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
-          <Property Name="UseMonth" Type="Int32" Nullable="false" />
-          <Property Name="MerchantOrderNo" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="LogCode" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="LogType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LogDescription" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="LogValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Created" Type="DateTime" Precision="3" />
+          <Property Name="Creator" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="IP" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -1056,9 +1086,28 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="MyBouns">
+            <EntityTypeMapping TypeName="MyAnythingModel.MyBouns">
+              <MappingFragment StoreEntitySet="MyBouns">
+                <ScalarProperty Name="MerchantOrderNo" ColumnName="MerchantOrderNo" />
+                <ScalarProperty Name="UseMonth" ColumnName="UseMonth" />
+                <ScalarProperty Name="AmtMinLimit" ColumnName="AmtMinLimit" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+                <ScalarProperty Name="Bouns" ColumnName="Bouns" />
+                <ScalarProperty Name="OrderAmt" ColumnName="OrderAmt" />
+                <ScalarProperty Name="PayTime" ColumnName="PayTime" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="OrderMaster">
             <EntityTypeMapping TypeName="MyAnythingModel.OrderMaster">
               <MappingFragment StoreEntitySet="OrderMaster">
+                <ScalarProperty Name="LoginType" ColumnName="LoginType" />
                 <ScalarProperty Name="UpperUser" ColumnName="UpperUser" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
@@ -1089,20 +1138,16 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="MyBouns">
-            <EntityTypeMapping TypeName="MyAnythingModel.MyBouns">
-              <MappingFragment StoreEntitySet="MyBouns">
-                <ScalarProperty Name="MerchantOrderNo" ColumnName="MerchantOrderNo" />
-                <ScalarProperty Name="UseMonth" ColumnName="UseMonth" />
-                <ScalarProperty Name="AmtMinLimit" ColumnName="AmtMinLimit" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+          <EntitySetMapping Name="SystemLog">
+            <EntityTypeMapping TypeName="MyAnythingModel.SystemLog">
+              <MappingFragment StoreEntitySet="SystemLog">
+                <ScalarProperty Name="IP" ColumnName="IP" />
+                <ScalarProperty Name="Creator" ColumnName="Creator" />
                 <ScalarProperty Name="Created" ColumnName="Created" />
-                <ScalarProperty Name="ParentID" ColumnName="ParentID" />
-                <ScalarProperty Name="Bouns" ColumnName="Bouns" />
-                <ScalarProperty Name="OrderAmt" ColumnName="OrderAmt" />
-                <ScalarProperty Name="PayTime" ColumnName="PayTime" />
+                <ScalarProperty Name="LogValue" ColumnName="LogValue" />
+                <ScalarProperty Name="LogDescription" ColumnName="LogDescription" />
+                <ScalarProperty Name="LogType" ColumnName="LogType" />
+                <ScalarProperty Name="LogCode" ColumnName="LogCode" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

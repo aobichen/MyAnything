@@ -41,7 +41,8 @@ namespace Anything.Models
         public virtual DbSet<Room> Room { get; set; }
         public virtual DbSet<Accounting> Accounting { get; set; }
         public virtual DbSet<SystemField> SystemField { get; set; }
-        public virtual DbSet<OrderMaster> OrderMaster { get; set; }
         public virtual DbSet<MyBouns> MyBouns { get; set; }
+        public virtual DbSet<OrderMaster> OrderMaster { get; set; }
+        public virtual DbSet<SystemLog> SystemLog { get; set; }
     }
 }

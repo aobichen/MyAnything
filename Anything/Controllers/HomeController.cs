@@ -15,6 +15,7 @@ namespace Anything.Controllers
     
         public ActionResult Index(HomeSearchViewModel model = null,string username = null)
         {
+            
             var Now = DateTime.Now;
             Session["CheckInDate"] = Now.AddDays(1);
             Session["CheckOutDate"] = Now.AddDays(2);
