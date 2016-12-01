@@ -80,17 +80,7 @@ namespace Anything.ViewModels
                 
 
                 var Today = DateTime.Now;
-                var b = new MyBouns();
-                    b.AmtMinLimit = (decimal)MinAmt;
-                   b.Bouns = (decimal)BuyAmt;
-                   b.Created = Today;
-                   b.OrderAmt = OrderAmt.Value;
-                   b.OrderID = OrderID.Value;
-                   b.PayTime = PayTime.Value;
-                   b.Status = Status;
-                   b.UseMonth = UseMonth.Value;
-                   b.UserID = UserID.Value;
-                   b.MerchantOrderNo = MerchantOrderNo;
+               
                
                 db.MyBouns.Add(new MyBouns
                 {
@@ -107,8 +97,7 @@ namespace Anything.ViewModels
                     ParentID =0
                 });
 
-                db.TEST.Add(new TEST { Message = JsonConvert.SerializeObject(b) ,Created = DateTime.Now});
-                db.SaveChanges();
+               
                 var UpperUsers = new UpperUserModel().GETUpperUserList(UserID.Value);
                 var avgAmt = UpperAmt / UpperUsers.Count;
                 foreach (var item in UpperUsers)
@@ -175,7 +164,7 @@ namespace Anything.ViewModels
         }
     }
 
-    public class BounsModel
+    public class BounsForSysModel
     {
         public string CarshFlow { get; set; }
         public string Platform { get; set; }
@@ -185,23 +174,46 @@ namespace Anything.ViewModels
        
         public string AmtMinLimit { get; set; }
 
+        public BounsForSysModel Query()
+        {
+            var Result = new BounsForSysModel();
+            using (var db = new MyAnythingEntities())
+            {
+                var model = db.SystemField.Where(o => o.ItemCode == "BS").ToList();
+                var CarshFlowModel = model.Where(o => o.ItemType == "CarshFlow").FirstOrDefault().ItemValue;
+                Result.CarshFlow = CarshFlowModel;
+                var PlatformModel = model.Where(o => o.ItemType == "Platform").FirstOrDefault().ItemValue;
+                Result.Platform = PlatformModel;
+                var HotelPromoModel = model.Where(o => o.ItemType == "HotelPromo").FirstOrDefault().ItemValue;
+                Result.HotelPromo = HotelPromoModel;
+                var BuyFeedbackModel = model.Where(o => o.ItemType == "BuyFeedback").FirstOrDefault().ItemValue;
+                Result.BuyFeedback = BuyFeedbackModel;
+                var UpperUserModel = model.Where(o => o.ItemType == "UpperUser").FirstOrDefault().ItemValue;
+                Result.UpperUser = UpperUserModel;
+                var AmtMinLimitModel = model.Where(o => o.ItemType == "AmtMinLimit").FirstOrDefault().ItemValue;
+                Result.AmtMinLimit = AmtMinLimitModel;
+            }
+            return Result;
+        }
+
         public void Edit()
         {
             using (var db = new MyAnythingEntities())
             {
                 var model = db.SystemField.Where(o => o.ItemCode == "BS").ToList();
-                var CarshFlowModel = model.Where(o => o.ItemType == "CarshFlow").FirstOrDefault().ItemValue;
-                CarshFlowModel =  CarshFlow;
-                var PlatformModel = model.Where(o => o.ItemType == "Platform").FirstOrDefault().ItemValue;
-                PlatformModel = Platform;
-                var HotelPromoModel = model.Where(o => o.ItemType == "HotelPromo").FirstOrDefault().ItemValue;
-                HotelPromoModel = HotelPromo;
-                var BuyFeedbackModel = model.Where(o => o.ItemType == "BuyFeedback").FirstOrDefault().ItemValue;
-                BuyFeedbackModel = BuyFeedback;
-                var UpperUserModel = model.Where(o => o.ItemType == "UpperUser").FirstOrDefault().ItemValue;
-                UpperUserModel = UpperUser;
-                var AmtMinLimitModel = model.Where(o => o.ItemType == "AmtMinLimit").FirstOrDefault().ItemValue;
-                AmtMinLimitModel = AmtMinLimit;
+                var CarshFlowModel = model.Where(o => o.ItemType == "CarshFlow").FirstOrDefault();
+                CarshFlowModel.ItemValue =  CarshFlow;
+                var PlatformModel = model.Where(o => o.ItemType == "Platform").FirstOrDefault();
+                PlatformModel.ItemValue = Platform;
+                var HotelPromoModel = model.Where(o => o.ItemType == "HotelPromo").FirstOrDefault();
+                HotelPromoModel.ItemValue = HotelPromo;
+                var BuyFeedbackModel = model.Where(o => o.ItemType == "BuyFeedback").FirstOrDefault();
+                BuyFeedbackModel.ItemValue = BuyFeedback;
+                var UpperUserModel = model.Where(o => o.ItemType == "UpperUser").FirstOrDefault();
+                UpperUserModel.ItemValue = UpperUser;
+                var AmtMinLimitModel = model.Where(o => o.ItemType == "AmtMinLimit").FirstOrDefault();
+                AmtMinLimitModel.ItemValue = AmtMinLimit;
+               
                 db.SaveChanges();
             }
         }

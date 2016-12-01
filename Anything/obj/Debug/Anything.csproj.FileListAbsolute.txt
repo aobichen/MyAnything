@@ -695,7 +695,6 @@ C:\Users\aobi\Downloads\MyAnything\Anything\bin\zh-Hant\Microsoft.Owin.Security.
 C:\Users\aobi\Downloads\MyAnything\Anything\obj\Debug\Anything.csprojResolveAssemblyReference.cache
 C:\Users\aobi\Downloads\MyAnything\Anything\obj\Debug\Anything.dll
 C:\Users\aobi\Downloads\MyAnything\Anything\obj\Debug\Anything.pdb
-C:\Users\Aobi\Documents\SOHOProject\MYAnything\Anything\bin\Anything.dll.config
 C:\Users\Aobi\Documents\SOHOProject\MYAnything\Anything\bin\Anything.dll
 C:\Users\Aobi\Documents\SOHOProject\MYAnything\Anything\bin\Anything.pdb
 C:\Users\Aobi\Documents\SOHOProject\MYAnything\Anything\bin\Antlr3.Runtime.dll
@@ -873,7 +872,9 @@ C:\Users\aobi\Documents\SOHOProjects\MyAnything\Anything\obj\Debug\Anything.pdb
 C:\Users\Aobi\Documents\SOHOProject\MYAnything\Anything\bin\System.Web.Cors.dll
 C:\Users\Aobi\Documents\SOHOProject\MYAnything\Anything\bin\System.Web.Http.Cors.dll
 C:\Users\Aobi\Documents\SOHOProject\MYAnything\Anything\bin\System.Web.Http.Cors.xml
-C:\Users\Aobi\Documents\SOHOProject\MYAnything\Anything\obj\Debug\Anything.csprojResolveAssemblyReference.cache
 C:\Users\aobi\Documents\SOHOProjects\MyAnything\Anything\obj\Debug\Anything.csprojResolveAssemblyReference.cache
 C:\Users\aobi\Documents\SOHOProjects\MyAnything\Anything\bin\Facebook.dll
 C:\Users\aobi\Documents\SOHOProjects\MyAnything\Anything\bin\Facebook.xml
+C:\Users\Aobi\Documents\SOHOProject\MYAnything\Anything\bin\Facebook.dll
+C:\Users\Aobi\Documents\SOHOProject\MYAnything\Anything\bin\Facebook.xml
+C:\Users\Aobi\Documents\SOHOProject\MYAnything\Anything\bin\Anything.dll.config
