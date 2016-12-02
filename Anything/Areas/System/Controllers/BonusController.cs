@@ -13,14 +13,14 @@ namespace Anything.Areas.System.Controllers
         // GET: System/Bonus
         public ActionResult Index()
         {
-            var model = new BounsForSysModel();
+            var model = new BonusForSysModel();
             var result = model.Query();
             ViewData.Model = model.Query();
             return View();
         }
 
         [HttpPost]
-        public ActionResult Index(BounsForSysModel model)
+        public ActionResult Index(BonusForSysModel model)
         {
             if (ModelState.IsValid)
             {

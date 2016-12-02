@@ -108,22 +108,25 @@
     <Property Name="Created" Type="datetime" Nullable="false" />
     <Property Name="Creator" Type="int" />
   </EntityType>
-  <EntityType Name="MyBouns">
+  <EntityType Name="MyBonus">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="PayTime" Type="datetime" Nullable="false" />
     <Property Name="OrderAmt" Type="decimal" Precision="10" Scale="2" Nullable="false" />
-    <Property Name="Bouns" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="Bonus" Type="decimal" Precision="10" Scale="2" Nullable="false" />
     <Property Name="ParentID" Type="int" />
     <Property Name="Created" Type="datetime" Nullable="false" />
     <Property Name="OrderID" Type="int" Nullable="false" />
     <Property Name="UserID" Type="int" Nullable="false" />
-    <Property Name="Status" Type="nvarchar" MaxLength="20" Nullable="false" />
-    <Property Name="AmtMinLimit" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="PayStatus" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="AmtMinLimit" Type="int" Nullable="false" />
     <Property Name="UseMonth" Type="int" Nullable="false" />
     <Property Name="MerchantOrderNo" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="BonusType" Type="nvarchar" MaxLength="10" />
+    <Property Name="BonusStatus" Type="nvarchar" MaxLength="30" />
+    <Property Name="Notified" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="News">
     <Key>
@@ -286,7 +289,7 @@
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="LogCode" Type="nvarchar" MaxLength="5" />
+    <Property Name="LogCode" Type="nvarchar" MaxLength="10" />
     <Property Name="LogType" Type="nvarchar" MaxLength="50" />
     <Property Name="LogDescription" Type="nvarchar" MaxLength="1000" />
     <Property Name="LogValue" Type="nvarchar(max)" />
@@ -371,7 +374,7 @@
     <EntitySet Name="Hotel" EntityType="Self.Hotel" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="HotelImage" EntityType="Self.HotelImage" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ImageStore" EntityType="Self.ImageStore" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="MyBouns" EntityType="Self.MyBouns" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MyBonus" EntityType="Self.MyBonus" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="News" EntityType="Self.News" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="OrderMaster" EntityType="Self.OrderMaster" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PayGo" EntityType="Self.PayGo" Schema="dbo" store:Type="Tables" />

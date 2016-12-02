@@ -1,4 +1,4 @@
-﻿@model Anything.ViewModels.BounsForSysModel
+﻿@model Anything.ViewModels.BonusForSysModel
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
@@ -29,90 +29,85 @@
                     @Html.ValidationSummary("", new { @class = "text-danger" })
 
                      <div class="form-horizontal form-label-left">
-        @Html.AntiForgeryToken()
+                        @Html.AntiForgeryToken()
 
-        <div class="form-group">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
-                消費回饋紅利 <span class="required"></span>
-            </label>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                <div class="input-group">
-                    @Html.TextBoxFor(m => m.BuyFeedback, new { @class = "form-control col-md-7 col-xs-12", @required = "required" })
-                    <span class="input-group-addon">%</span>
-                </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                            平台手續費:與產品售價比例 <span class="required"></span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="input-group">
+                                @Html.TextBoxFor(m => m.TotalFee, new { @class = "form-control col-md-7 col-xs-12", @required = "required" })
+                                <span class="input-group-addon">%</span>
+                            </div>
                 
              
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
-                介紹人平均紅利(最多六個介紹人) <span class="required">*</span>
-            </label>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                <div class="input-group">
-                    @Html.TextBoxFor(m => m.UpperUser, new { @class = "form-control col-md-7 col-xs-12", @required = "required" })
-                    <span class="input-group-addon">%</span>
-                </div>
-               
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
-                下月可使用紅利，當月需滿足最低消費金額 <span class="required">*</span>
-            </label>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                <div class="input-group">
-                    @Html.TextBoxFor(m => m.AmtMinLimit, new { @class = "form-control col-md-7 col-xs-12", @required = "required" })
-                    <span class="input-group-addon">元</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
-                民宿推薦紅利 <span class="required">*</span>
-            </label>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                <div class="input-group">
-                    @Html.TextBoxFor(m => m.HotelPromo, new { @class = "form-control col-md-7 col-xs-12", @required = "required" })
-                    <span class="input-group-addon">%</span>
-                </div>
-               
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">
-                金流手續費 <span class="required">*</span>
-            </label>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                <div class="input-group">
-                    @Html.TextBoxFor(m => m.CarshFlow, new { @class = "form-control col-md-7 col-xs-12", @required = "required" })
-                    <span class="input-group-addon">%</span>
-                </div>
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">
-                平台手續費<span class="required">*</span>
-            </label>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                <div class="input-group">
-                    @Html.TextBoxFor(m => m.Platform, new { @class = "form-control col-md-7 col-xs-12", @required = "required" })
-                    <span class="input-group-addon">%</span>
-                </div>
-            </div>
-        </div>
+                        </div>
+                    </div>
 
 
-        <div class="ln_solid"></div>
-        <div class="form-group">
-            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                         <div class="form-group">
+                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                 消費回饋紅利:平台手續費下所佔比例 <span class="required"></span>
+                             </label>
+                             <div class="col-md-6 col-sm-6 col-xs-12">
+                                 <div class="input-group">
+                                     @Html.TextBoxFor(m => m.BuyFee, new { @class = "form-control col-md-7 col-xs-12", @required = "required" })
+                                     <span class="input-group-addon">%</span>
+                                 </div>
 
-                <button type="submit" class="btn btn-success">Submit</button>
-            </div>
-        </div>
 
-    </div>
+                             </div>
+                             </div>
+
+                             <div class="form-group">
+                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                     介紹人(人數六)平均紅利:平台手續費下所佔比例 <span class="required">*</span>
+                                 </label>
+                                 <div class="col-md-6 col-sm-6 col-xs-12">
+                                     <div class="input-group">
+                                         @Html.TextBoxFor(m => m.UpperFee, new { @class = "form-control col-md-7 col-xs-12", @required = "required" })
+                                         <span class="input-group-addon">%</span>
+                                     </div>
+
+                                 </div>
+                             </div>
+
+                             <div class="form-group">
+                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                     下月可使用紅利，當月需滿足最低消費金額 <span class="required">*</span>
+                                 </label>
+                                 <div class="col-md-6 col-sm-6 col-xs-12">
+                                     <div class="input-group">
+                                         @Html.TextBoxFor(m => m.MinLimitAmt, new { @class = "form-control col-md-7 col-xs-12", @required = "required" })
+                                         <span class="input-group-addon">元</span>
+                                     </div>
+                                 </div>
+                             </div>
+
+                             <div class="form-group">
+                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                     民宿推薦紅利:平台手續費下所佔比例 <span class="required">*</span>
+                                 </label>
+                                 <div class="col-md-6 col-sm-6 col-xs-12">
+                                     <div class="input-group">
+                                         @Html.TextBoxFor(m => m.HotelPromoFee, new { @class = "form-control col-md-7 col-xs-12", @required = "required" })
+                                         <span class="input-group-addon">%</span>
+                                     </div>
+
+                                 </div>
+                             </div>
+                           
+
+                             <div class="ln_solid"></div>
+                             <div class="form-group">
+                                 <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+
+                                     <button type="submit" class="btn btn-success">Submit</button>
+                                 </div>
+                             </div>
+
+                         </div>
                 }
             </div>
         </div>

@@ -272,7 +272,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\MyBouns.cs">
+    <Compile Include="Models\MyBonus.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\News.cs">
@@ -305,7 +305,7 @@
     <Compile Include="Models\TEST.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\BounsViewModel.cs" />
+    <Compile Include="ViewModels\BonusViewModel.cs" />
     <Compile Include="ViewModels\FacilityModel.cs" />
     <Compile Include="ViewModels\PayGoViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

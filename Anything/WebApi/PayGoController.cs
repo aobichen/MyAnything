@@ -121,15 +121,15 @@ namespace Anything.WebApi
             //                PayTime > DateTime.MinValue
             //                && !db.MyBouns.Any(o=>o.MerchantOrderNo == Order.MerchantOrderNo))
             //            {
-            //                var Bouns = new BounsViewModel();
-            //                Bouns.MerchantOrderNo = Order.MerchantOrderNo;
-            //                Bouns.OrderID = Order.ID;
-            //                Bouns.PayTime = PayTime;
-            //                Bouns.Status = model.Status;
-            //                Bouns.OrderAmt = Order.Amount;
-            //                Bouns.UseMonth = DateTime.Now.Month + 1;
-            //                Bouns.UserID = Order.UserId;
-            //                Bouns.Create();
+            //                var Bouns = new BonusViewModel();
+            //                Bonus.MerchantOrderNo = Order.MerchantOrderNo;
+            //                Bonus.OrderID = Order.ID;
+            //                Bonus.PayTime = PayTime;
+            //                Bonus.Status = model.Status;
+            //                Bonus.OrderAmt = Order.Amount;
+            //                Bonus.UseMonth = DateTime.Now.Month + 1;
+            //                Bonus.UserID = Order.UserId;
+            //                Bonus.Create();
             //            }
             //        }
 
@@ -238,16 +238,16 @@ namespace Anything.WebApi
         //                if (model.Status.Equals("SUCCESS") &&
         //                    !string.IsNullOrEmpty(result.PayTime) &&
         //                    PayTime > DateTime.MinValue
-        //                    && !db.MyBouns.Any(o => o.MerchantOrderNo == Order.MerchantOrderNo))
+        //                    && !db.MyBonus.Any(o => o.MerchantOrderNo == Order.MerchantOrderNo))
         //                {
-        //                    var Bouns = new BounsViewModel();
-        //                    Bouns.MerchantOrderNo = Order.MerchantOrderNo;
-        //                    Bouns.OrderID = Order.ID;
-        //                    Bouns.PayTime = PayTime;
-        //                    Bouns.Status = model.Status;
-        //                    Bouns.OrderAmt = Order.Amount;
-        //                    Bouns.UseMonth = DateTime.Now.Month + 1;
-        //                    Bouns.Create();
+        //                    var Bonus = new BonusViewModel();
+        //                    Bonus.MerchantOrderNo = Order.MerchantOrderNo;
+        //                    Bonus.OrderID = Order.ID;
+        //                    Bonus.PayTime = PayTime;
+        //                    Bonus.Status = model.Status;
+        //                    Bonus.OrderAmt = Order.Amount;
+        //                    Bonus.UseMonth = DateTime.Now.Month + 1;
+        //                    Bonus.Create();
         //                }
         //            }
 
@@ -356,16 +356,16 @@ namespace Anything.WebApi
         //                if (model.Status.Equals("SUCCESS") &&
         //                    !string.IsNullOrEmpty(result.PayTime) &&
         //                    PayTime > DateTime.MinValue
-        //                    && !db.MyBouns.Any(o => o.MerchantOrderNo == Order.MerchantOrderNo))
+        //                    && !db.MyBonus.Any(o => o.MerchantOrderNo == Order.MerchantOrderNo))
         //                {
-        //                    var Bouns = new BounsViewModel();
-        //                    Bouns.MerchantOrderNo = Order.MerchantOrderNo;
-        //                    Bouns.OrderID = Order.ID;
-        //                    Bouns.PayTime = PayTime;
-        //                    Bouns.Status = model.Status;
-        //                    Bouns.OrderAmt = Order.Amount;
-        //                    Bouns.UseMonth = DateTime.Now.Month + 1;
-        //                    Bouns.Create();
+        //                    var Bonus = new BonusViewModel();
+        //                    Bonus.MerchantOrderNo = Order.MerchantOrderNo;
+        //                    Bonus.OrderID = Order.ID;
+        //                    Bonus.PayTime = PayTime;
+        //                    Bonus.Status = model.Status;
+        //                    Bonus.OrderAmt = Order.Amount;
+        //                    Bonus.UseMonth = DateTime.Now.Month + 1;
+        //                    Bonus.Create();
         //                }
         //            }
 
