@@ -42,5 +42,8 @@ namespace Anything.Models
         public string Name { get; set; }
         public Nullable<double> UpperUser { get; set; }
         public string LoginType { get; set; }
+        public decimal BonusAmt { get; set; }
+        public decimal PayAmt { get; set; }
+        public string Status { get; set; }
     }
 }

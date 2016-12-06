@@ -40,6 +40,9 @@ namespace Anything.ViewModels
         public int Quantity { get; set; }
 
         public decimal UnitPrice { get; set; }
+
+         [DisplayFormat(DataFormatString = "{0:#.##}", ApplyFormatInEditMode = true)]
+        public decimal Bonus { get; set; }
     }
 
     public class BookingInfo
@@ -64,4 +67,6 @@ namespace Anything.ViewModels
         public BookingModel Booking { get; set; }
         public PayGoRequest PayGoRequest { get; set; }
     }
+
+    
 }

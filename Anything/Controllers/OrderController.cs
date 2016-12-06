@@ -152,7 +152,7 @@ namespace Anything.Controllers
                                 Barcode_3 = pay.Barcode_3,
                                 PayerAccount5Code = pay.PayAccount5Code,
                                 PayBankCode = pay.PayBankCode
-
+                                
                             }).FirstOrDefault();
 
 
@@ -165,8 +165,7 @@ namespace Anything.Controllers
         public ActionResult PaySuccess()
         {
             var str = Request["JSONData"];
-            _db.TEST.Add(new TEST { Message = str,Created = DateTime.Now });
-            _db.SaveChanges();
+            
             var model = JsonConvert.DeserializeObject<PayGoRespond>(str);
             var result = JsonConvert.DeserializeObject<PayResult>(model.Result);          
             string PaymentType = result.PaymentType;

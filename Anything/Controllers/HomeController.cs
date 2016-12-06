@@ -216,6 +216,13 @@ namespace Anything.Controllers
             Booking.RoomType = _db.CodeFile.Find(Room.RoomType).ItemDescription ;
             var Sum = _db.OrderMaster.Where(o => o.ProductId == Room.ID && (CheckInDate >= o.CheckIn && CheckInDate < o.CheckOut)).Select(o => o.Quantity).DefaultIfEmpty(0).Sum();
             Booking.Quantity = Room.Quantity - Sum;
+            var Today = DateTime.Now;
+            var MyBonus = _db.MyBonus.Where(o => o.UserID == CurrentUser.Id && o.BonusType == BonusStatusEnum.CanUse.ToString() && o.UseMonth == Today.Month).ToList();
+            Booking.Bonus = 0;
+            if (MyBonus != null && MyBonus.Count > 0)
+            {
+                Booking.Bonus = MyBonus.Sum(o => o.Bonus);
+            }
             return View(Booking);
         }
 
@@ -381,10 +388,15 @@ namespace Anything.Controllers
             BookingCommit BookCommit = new BookingCommit();
             BookCommit.Booking = model;
             BookCommit.PayGoRequest = PayGo;
+
+            var PayAmt = PayGo.Amt - model.Bonus;
+
             var order = new OrderMaster
             {
                 Address = model.info.Address,
                 Amount = PayGo.Amt,
+                PayAmt = PayAmt,
+                BonusAmt = model.Bonus,
                 CheckIn = model.CheckInDate,
                 CheckOut = model.CheckOutDate,
                 MerchantOrderNo = PayGo.MerchantOrderNo,
@@ -401,7 +413,8 @@ namespace Anything.Controllers
                 Tel = model.info.Phone,
                 UserId = CurrentUser.Id,
                 Email = model.info.Email,
-                Name = model.info.Name
+                Name = model.info.Name,
+                Status = OrderType.Unpaid.ToString()
             };
             _db.OrderMaster.Add(order);
             _db.SaveChanges();

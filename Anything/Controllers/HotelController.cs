@@ -23,8 +23,16 @@ namespace Anything.Controllers
             ViewBag.City = selectList;
             
             var Areas = new Caches().TWArea;
+            
             //SelectList Areas = new SelectList(City, "ID", "Name", 0);
-            ViewBag.Area = Areas;
+            var AreaList = Areas.Select(o => new DropDownListItem
+            {
+                DataAttr = o.CID.ToString(),
+                Selected = false,
+                Text = o.Name,
+                Value = o.ID.ToString()
+            }).ToList();
+            ViewBag.Area = AreaList;
 
             var Location = new Caches().TWLocation;
             SelectList Locations = new SelectList(Location, "Location", "Location", 0);

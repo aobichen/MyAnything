@@ -26,6 +26,8 @@ public static class CheckBoxListExtensions
         return htmlHelper.CheckBoxList(name, listInfo, (IDictionary<string, object>)null, 0);
     }
 
+   
+
     /// <summary>
     /// CheckBoxList.
     /// </summary>
@@ -86,6 +88,7 @@ public static class CheckBoxListExtensions
             builder.MergeAttribute("type", "checkbox");
             builder.MergeAttribute("value", info.Value);
             builder.MergeAttribute("name", name);
+            
             sb.Append(builder.ToString(TagRenderMode.Normal));
 
             TagBuilder labelBuilder = new TagBuilder("label");
@@ -100,6 +103,8 @@ public static class CheckBoxListExtensions
         }
         return MvcHtmlString.Create(sb.ToString());
     }
+
+   
     #endregion
 
     #region -- CheckBoxListVertical --
@@ -185,6 +190,8 @@ public static class CheckBoxListExtensions
         sb.Append(wrapClose);
         return MvcHtmlString.Create(sb.ToString());
     }
+
+
     #endregion
 
     #region -- CheckBoxList (Horizonal, Vertical) --
@@ -303,18 +310,7 @@ public static class CheckBoxListExtensions
     }
     #endregion
 }
-public class CheckBoxListInfo
-{
-    public string Value { get; private set; }
-    public string DisplayText { get; private set; }
-    public bool IsChecked { get; private set; }
-    public CheckBoxListInfo(string value, string displayText, bool isChecked)
-    {
-        this.Value = value;
-        this.DisplayText = displayText;
-        this.IsChecked = isChecked;
-    }
-}
+
 
 public enum Position
 {

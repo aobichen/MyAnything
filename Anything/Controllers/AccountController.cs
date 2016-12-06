@@ -13,6 +13,7 @@ using Newtonsoft.Json;
 using System.Web.Security;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Anything.Helpers;
+using System.Collections.Generic;
 
 namespace Anything.Controllers
 {
@@ -264,9 +265,13 @@ namespace Anything.Controllers
             //var Recommend = string.Empty;
             if (string.IsNullOrEmpty(model.Recommend))
             {
-                Recommend = OfficalRecommendCode;
+                model.Recommend = OfficalRecommendCode;
             }
-            model.Recommend = Recommend;
+            else
+            {
+                model.Recommend = GetRecommendUserCode(model.Recommend);
+            }
+            //model.Recommend = Recommend;
             model.UserCode = new Anything.Helpers.BaseDLL().GetUserCode(model.UserName);
             model.UserType = "User";
             if (ModelState.IsValid)
@@ -297,6 +302,64 @@ namespace Anything.Controllers
             return View(model);
         }
 
+
+        private string GetRecommendUserCode(string Recommend)
+        {
+            var RecommendUserCode = string.Empty;
+            var RecommendUsers = Account_db.Users.Where(o => o.Recommend == Recommend && o.UserType == "User").ToList();
+            if (RecommendUsers.Count < 6)
+            {
+                RecommendUserCode = Recommend;
+            }
+            else
+            {
+
+                var Recommends = RecommendUsers.Select(o => o.UserCode).ToList();
+                RecommendUserCode = GetRecommendForList(Recommends);
+            }
+            return RecommendUserCode;
+        }
+
+
+        private string GetRecommendForList(List<string> Recommends)
+        {
+            var RecommendUsers = new List<RecommendUsers>();
+            var RecommendList = new List<string>();
+            var OverUser = false;
+            foreach (var item in Recommends)
+            {
+                var Users = Account_db.Users.Where(o => o.Recommend == item && o.UserType == "User").ToList();
+                foreach (var sub in Users)
+                {
+                    RecommendList.Add(sub.UserCode);
+                }
+                if (OverUser == false && Users.Count < 6)
+                {                                       
+                    OverUser = true;
+                }
+                RecommendUsers.Add(new RecommendUsers { Count = Users.Count, Recommend = item });
+            }
+
+            var R_Recommend = string.Empty;
+
+            if (OverUser)
+            {
+                var min = RecommendUsers.Min(o => o.Count);
+                R_Recommend = RecommendUsers.Where(o => o.Count == min).FirstOrDefault().Recommend;
+            }
+            else
+            {
+                R_Recommend = GetRecommendForList(RecommendList);
+            }
+            return R_Recommend;
+        }
+
+
+        public class RecommendUsers
+        {
+            public string Recommend { get; set; }
+            public int Count { get; set; }
+        }
 
         [AllowAnonymous]
         public ActionResult Register()

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Newtonsoft.Json;
+using Anything.Helpers;
 
 
 namespace Anything.ViewModels
@@ -80,7 +81,12 @@ namespace Anything.ViewModels
                 
 
                 var Today = DateTime.Now;
-               
+
+                var Order = db.OrderMaster.Where(o => o.MerchantOrderNo == MerchantOrderNo).FirstOrDefault();
+                if (Order != null)
+                {
+                    Order.Status = OrderType.Paid.ToString();
+                }
                
                 db.MyBonus.Add(new MyBonus
                 {

@@ -259,6 +259,9 @@
     <EntitySetMapping Name="OrderMaster">
       <EntityTypeMapping TypeName="MyAnythingModel.OrderMaster">
         <MappingFragment StoreEntitySet="OrderMaster">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="PayAmt" ColumnName="PayAmt" />
+          <ScalarProperty Name="BonusAmt" ColumnName="BonusAmt" />
           <ScalarProperty Name="LoginType" ColumnName="LoginType" />
           <ScalarProperty Name="UpperUser" ColumnName="UpperUser" />
           <ScalarProperty Name="Name" ColumnName="Name" />

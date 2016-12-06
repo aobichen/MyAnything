@@ -225,6 +225,8 @@
     <Compile Include="Helpers\Caches.cs" />
     <Compile Include="Helpers\CheckBoxListExtensions.cs" />
     <Compile Include="Helpers\CodeFiles.cs" />
+    <Compile Include="Helpers\DropDownListExtensions.cs" />
+    <Compile Include="Helpers\Enums.cs" />
     <Compile Include="Helpers\Helpers.cs" />
     <Compile Include="Helpers\ImageHandle.cs" />
     <Compile Include="Models\Accounting.cs">
@@ -333,6 +335,8 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.min.js" />
+    <Content Include="Content\custom-backend.css" />
+    <Content Include="Content\custom-red.css" />
     <Content Include="Content\font-awesome-4.6.3\css\font-awesome.css" />
     <Content Include="Content\font-awesome-4.6.3\css\font-awesome.min.css" />
     <Content Include="Content\font-awesome-4.6.3\fonts\fontawesome-webfont.svg" />

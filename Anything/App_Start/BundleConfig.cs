@@ -32,10 +32,11 @@ namespace Anything
 
 
 
-            bundles.Add(new StyleBundle("~/Content/css").Include(                                     
+            bundles.Add(new StyleBundle("~/Content/css").Include(
+                                      "~/Content/theme.css",                   
                       "~/Content/style.css",
                       "~/Content/lightslider.min.css",
-                      "~/Content/theme.css",
+
                       "~/Content/font-awesome-4.6.3/css/font-awesome.min.css",
                       "~/Content/bootstrap.css"));
         }
