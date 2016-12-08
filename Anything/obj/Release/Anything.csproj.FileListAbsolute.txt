@@ -441,3 +441,5 @@ C:\Users\aobi\Documents\SOHOProjects\MyAnything\Anything\bin\System.Web.Http.Cor
 C:\Users\Aobi\Documents\SOHOProject\MYAnything\Anything\bin\System.Web.Cors.dll
 C:\Users\Aobi\Documents\SOHOProject\MYAnything\Anything\bin\System.Web.Http.Cors.dll
 C:\Users\Aobi\Documents\SOHOProject\MYAnything\Anything\bin\System.Web.Http.Cors.xml
+C:\Users\aobi\Documents\SOHOProjects\MyAnything\Anything\bin\Facebook.dll
+C:\Users\aobi\Documents\SOHOProjects\MyAnything\Anything\bin\Facebook.xml

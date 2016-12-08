@@ -9,6 +9,14 @@ namespace Anything.Helpers
     {
         None = 0,
         Unpaid,
-        Paid
+        Paid,
+        Expired
+    }
+
+    public enum RoomPriceType
+    {
+        Day = 0,
+        Holiday,
+        Fixed       
     }
 }

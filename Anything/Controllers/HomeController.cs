@@ -47,7 +47,7 @@ namespace Anything.Controllers
 
         public ActionResult Detail(int id)
         {
-            
+            var RoomAmt = new RoomAmt();
             var model = _db.Hotel.Where(o => o.ID == id).Select(o =>
                 new HotelDetail
                 {
@@ -72,11 +72,7 @@ namespace Anything.Controllers
             var Date = Session["CheckInDate"] == null ? DateTime.Now.AddDays(1):(DateTime)Session["CheckInDate"];
             var DayOfWeek = Date.DayOfWeek.ToString("d");
             var IsHoliday = false;
-            if (DayOfWeek == "5" || DayOfWeek == "6")
-            {
-                IsHoliday = true;
-            }
-
+            
             model.Rooms = (from r in _db.Room
                            join code in _db.CodeFile
                                on r.BedType equals code.ID
@@ -91,6 +87,7 @@ namespace Anything.Controllers
                                Name = r.Name,
                                FixedPrice = r.FixedPrice,
                                HolidayPrice = r.HolidayPrice,
+                               //CurrentPrice = RoomAmt.CurrentAmt(r.ID),
                                Quantity = r.Quantity,
                                RoomType = code2.ItemDescription,
                                DayPrice = IsHoliday ? r.HolidayPrice : r.DayPrice,
@@ -105,7 +102,9 @@ namespace Anything.Controllers
                            }).ToList();
 
             model.Rooms = model.Rooms.Where(o => o.Quantity >= o.Amt).ToList();
-
+            foreach(var item in model.Rooms){
+                item.CurrentPrice = RoomAmt.CurrentAmt(item.ID);
+            }
             ViewBag.NearHotels = _db.Hotel.Where(o => o.City == model.City && o.ID != id).OrderBy(o => Guid.NewGuid()).Take(5).ToList();
             var sce = string.IsNullOrEmpty(model.Scenics) ? new List<int>() : model.Scenics.Split(',').Select(int.Parse).ToList();
             ViewBag.Scenics = _db.Scenic.Where(o => sce.Contains(o.ID)).Select(o => o.Name).ToList(); ;
@@ -119,7 +118,7 @@ namespace Anything.Controllers
            
             var Room = _db.Room.Find(id);
             var CheckInDate = Session["CheckInDate"] == null ? DateTime.Now.AddDays(1) : (DateTime)Session["CheckInDate"];
-            var CheckOutDate = Session["CheckOutDate"] == null ? CheckInDate.AddDays(1): (DateTime)Session["CheckOutDate"];
+            var CheckOutDate = Session["CheckOutDate"] == null ? CheckInDate.AddDays(2): (DateTime)Session["CheckOutDate"];
             var DateSpans = new TimeSpan(CheckOutDate.Ticks - CheckInDate.Ticks).Days;
             var Dates = new List<DateTime>();
             for (var i = 0; i < DateSpans; i++)
@@ -127,90 +126,17 @@ namespace Anything.Controllers
                 Dates.Add(CheckInDate.AddDays(i));
             }
 
-            //var MaxDate = CheckInDate.AddDays(10);
-            var MaxDate = CheckOutDate;
-            var Prices = new List<DatePrices>();
-            decimal Total = 0;
-            decimal UnitPrice = 0;
-            #region
-            for (DateTime date = CheckInDate; MaxDate.CompareTo(date) > 0; date = date.AddDays(1.0))
-            {
-                var d = (int)date.DayOfWeek;
-                if (d == 5 || d == 6)
-                {
-                    var price = Room.HolidayPrice;
-                    var PriceFrom = _db.RoomPrice.Where(o => (o.Date.Year == date.Year && o.Date.Month == date.Month && o.Date.Day == date.Day)
-                             && o.ROOMID == Room.ID).FirstOrDefault();
-                    if (PriceFrom != null)
-                    {
-                        switch (PriceFrom.DayType)
-                        {
-                            case "0":
-                                price = Room.DayPrice;
-                                break;
-                            case "1":
-                                price = Room.HolidayPrice;
-                                break;
-                            case "2":
-                                price = Room.FixedPrice;
-                                break;
-                        }
-
-                    }
-
-                    var Checked = Dates.Where(o => o.Year == date.Year && o.Month == date.Month && o.Date == date.Date).Any();
-
-                    if (Checked)
-                    {
-                        Total += price;
-                    }
-                    UnitPrice = price;
-                    Prices.Add(new DatePrices { Date = date.ToShortDateString(), Price = price.ToString("#,##0"), Checked = Checked });
-                }
-                else
-                {
-                    var price = Room.DayPrice;
-                    var PriceFrom = _db.RoomPrice.Where(o => (o.Date.Year == date.Year && o.Date.Month == date.Month && o.Date.Day == date.Day)
-                            && o.ROOMID == Room.ID).FirstOrDefault();
-                    if (PriceFrom != null)
-                    {
-                        switch (PriceFrom.DayType)
-                        {
-                            case "0":
-                                price = Room.DayPrice;
-                                break;
-                            case "1":
-                                price = Room.HolidayPrice;
-                                break;
-                            case "2":
-                                price = Room.FixedPrice;
-                                break;
-                        }
-
-                    }
-
-                    var Checked = Dates.Where(o => o.Year == date.Year && o.Month == date.Month && o.Date == date.Date).Any();
-                    if (Checked)
-                    {
-                        Total += price;
-                    }
-
-                    UnitPrice = price;
-                    Prices.Add(new DatePrices { Date = date.ToShortDateString(), Price = price.ToString("#,##0"), Checked = Checked });
-                }
-            }
-            //ViewBag.PriceList = Prices;
-            #endregion
-
+            var amt = new RoomAmt().CurrentAmt(id);
+           
             var Booking = new BookingModel();
-            Booking.UnitPrice = UnitPrice;
+            Booking.UnitPrice = amt;
             Booking.Address = Room.Hotel.Address;
-            Booking.BedType = _db.CodeFile.Find(Room.BedType).ItemDescription + "X" +Room.BedAmount;
+            Booking.BedType = _db.CodeFile.Find(Room.BedType).ItemDescription + "/" +Room.BedAmount;
             Booking.Name = Room.Name;
             Booking.ID = Room.ID;
             Booking.MaxPeople = Room.MaxPerson;
             Booking.Tel = Room.Hotel.Tel;
-            Booking.Total = Total;
+            Booking.Total = amt;
             Booking.CheckInDate = CheckInDate;
             Booking.CheckOutDate = CheckOutDate;
             Booking.RoomType = _db.CodeFile.Find(Room.RoomType).ItemDescription ;
@@ -227,8 +153,15 @@ namespace Anything.Controllers
         }
 
         [HttpPost]
-        public ActionResult Booking(BookingModel model)
+        public ActionResult Booking([Bind(Exclude = "Bonus")]BookingModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                
+                ViewData.Model = model;
+                return View();
+            }
+          
             var Room = _db.Room.Find(model.ID);
             //var DateTims = model.DateList.Split(',');
             model.CheckInDate = Session["CheckInDate"] == null ? DateTime.Now.AddDays(1) : (DateTime)Session["CheckInDate"];
@@ -247,65 +180,9 @@ namespace Anything.Controllers
             //var Dates = model.DateList.Split(',').Select(DateTime.Parse).ToList();
             var CheckInDate = model.CheckInDate;
             var CheckOutDate = model.CheckOutDate;
-            decimal Total = 0;
+            decimal Total = new RoomAmt().CurrentAmt(Room.ID);
            
-            #region ## 檢查 ##
-            for (DateTime date = CheckInDate; CheckOutDate.CompareTo(date) > 0; date = date.AddDays(1.0))
-            {
-                var d = (int)date.DayOfWeek;
-                if (d == 5 || d == 6)
-                {
-                    var price = Room.HolidayPrice;
-                    var PriceFrom = _db.RoomPrice.Where(o => (o.Date.Year == date.Year && o.Date.Month == date.Month && o.Date.Day == date.Day)
-                             && o.ROOMID == Room.ID).FirstOrDefault();
-                    if (PriceFrom != null)
-                    {
-                        switch (PriceFrom.DayType)
-                        {
-                            case "0":
-                                price = Room.DayPrice;
-                                break;
-                            case "1":
-                                price = Room.HolidayPrice;
-                                break;
-                            case "2":
-                                price = Room.FixedPrice;
-                                break;
-                        }
-
-                    }
-
-
-                    Total += price;
-
-                }
-                else
-                {
-                    var price = Room.DayPrice;
-                    var PriceFrom = _db.RoomPrice.Where(o => (o.Date.Year == date.Year && o.Date.Month == date.Month && o.Date.Day == date.Day)
-                            && o.ROOMID == Room.ID).FirstOrDefault();
-                    if (PriceFrom != null)
-                    {
-                        switch (PriceFrom.DayType)
-                        {
-                            case "0":
-                                price = Room.DayPrice;
-                                break;
-                            case "1":
-                                price = Room.HolidayPrice;
-                                break;
-                            case "2":
-                                price = Room.FixedPrice;
-                                break;
-                        }
-
-                    }
-
-                    Total += price;
-                }
-            }
-            //ViewBag.PriceList = Prices;
-            #endregion
+            
 
             var PayGo = new PayGoRequest();
             var Now = DateTime.Now;
@@ -315,18 +192,16 @@ namespace Anything.Controllers
             PayGo.Amt = Convert.ToInt16(Total) * model.Quantity;
             //PayGo.Amt = 30;
             PayGo.TradeLimit = 120;
-            PayGo.ItemDesc = string.Format("{0}/{1}/{2}",Room.Name,Total,CurrentUser.Id);
+            PayGo.ItemDesc = string.Format("{0}{1}房型，NT.{2}元整/訂購人{3}",Room.Hotel.Name,Room.Name,Total,CurrentUser.Email);
             PayGo.Email = model.info.Email;
             PayGo.EmailModify = 0;
             PayGo.LoginType = 0;
             PayGo.OrderComment = "";           
             PayGo.CheckValue = new Pay2Go().CheckValue(PayGo.Amt, PayGo.MerchantOrderNo, PayGo.TimeStamp);        
             PayGo.RespondType = "JSON";
-            var ExpireDateTimeSpan = new TimeSpan(CheckInDate.Ticks - Now.Ticks).Days;
-            var ExpireTimeSpan = new TimeSpan(CheckInDate.Ticks - Now.Ticks).Hours;
-            
 
-            PayGo.ExpireDate = Now.AddDays(1).ToString("yyyyMMdd");
+            var ExpireDate = Now.AddDays(2).ToString("yyyy-MM-dd");
+            PayGo.ExpireDate = Now.AddDays(2).ToString("yyyyMMdd");
             PayGo.ExpireTime = "";
             var PaymentType = string.Empty;
 
@@ -342,7 +217,7 @@ namespace Anything.Controllers
                     PaymentType = "信用卡一次付清";
                     break;
                 case 2:
-                     PayGo.CREDIT = 0;
+                    PayGo.CREDIT = 0;
                     PayGo.InstFlag = "3";
                     PayGo.WEBATM = 0;
                     PayGo.VACC = 0;
@@ -414,7 +289,8 @@ namespace Anything.Controllers
                 UserId = CurrentUser.Id,
                 Email = model.info.Email,
                 Name = model.info.Name,
-                Status = OrderType.Unpaid.ToString()
+                Status = OrderType.Unpaid.ToString(),
+                ExpireDate = PayGo.CREDIT == 1 ? (DateTime?)null : DateTime.Parse(ExpireDate)
             };
             _db.OrderMaster.Add(order);
             _db.SaveChanges();

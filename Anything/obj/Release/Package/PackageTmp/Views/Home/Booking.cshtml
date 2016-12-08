@@ -33,6 +33,7 @@
                             <div class="f-item full-width">
                                 <label for="first_name">姓名</label>
                                 @Html.EditorFor(model => model.info.Name)
+                                @Html.ValidationMessageFor(model => model.info.Name,"", new { @class = "text-danger" })
                                 @*<input type="text" id="first_name" name="first_name" />*@
                             </div>
                             
@@ -42,6 +43,7 @@
                             <div class="f-item full-width">
                                 <label for="email">Email信箱</label>
                                 @Html.EditorFor(model => model.info.Email)
+                                @Html.ValidationMessageFor(model => model.info.Email,"" ,new { @class = "text-danger" })
                             </div>
                             
                         </div>
@@ -49,8 +51,9 @@
                         <div class="row">
                            
                             <div class="f-item full-width">
-                                <label for="address">聯絡電話</label>
+                                <label for="Phone">聯絡電話</label>
                                 @Html.EditorFor(model => model.info.Phone)
+                                @Html.ValidationMessageFor(model => model.info.Phone,"", new { @class = "text-danger" })
                             </div>
                         </div>
 
@@ -67,6 +70,7 @@
                             <div class="f-item full-width">
                                 <label for="address">完整地址</label>
                                 @Html.EditorFor(model => model.info.Address)
+                                @Html.ValidationMessageFor(model => model.info.Address,"", new { @class = "text-danger" })
                             </div>
 
                         </div>
@@ -140,25 +144,41 @@
                         1 night, 1 room, max. 2 people. 
                         </dd>*@
                     </dl>
-                    <div class="price">
-                        @if (Model.Quantity <= 0)
-                        {
-                            <p class="alert alert-danger"><span>客滿</span></p>
-                        }
-                        else
-                        {
-                            <select name="Quantity" class="form-control">
-                                @for (var i = 1; i <= Model.Quantity;i++)
-                                {
-                                    <option value="@i">@i</option>
-                                }
-                            </select>
-                        }
-                    </div>
+
+                    <dl class="booking-info">
+                       
+                        <dt>數量</dt>
+                        <dd>
+                            @if (Model.Quantity <= 0)
+                            {
+                                <p class="alert alert-danger"><span>客滿</span></p>
+                            }
+                            else
+                            {
+                                <select name="Quantity" class="form-control">
+                                    @for (var i = 1; i <= Model.Quantity; i++)
+                                    {
+                                        <option value="@i">@i</option>
+                                    }
+                                </select>
+                            }
+
+                        </dd>
+                        <dt>紅利</dt>
+                        <dd id="currentbonus">@Model.Bonus</dd>
+                        <dt>使用紅利</dt>
+                        <dd>@Html.EditorFor(m => m.Bonus)</dd>
+                        
+                       
+                           
+</dl>
+                    
                     <div class="price">
                         <input type="hidden" id="UnitPrice" value="@Model.Total.ToString("#.##")" />
                         <p class="total">總金額:  NT. <span>@Model.Total.ToString("#.##")</span></p>
                         @*<p>VAT (20%) included</p>*@
+                        
+                      
                     </div>
                 </article>
                 <!--//Booking details-->
@@ -203,7 +223,8 @@
         let Quantity = $('select[name=Quantity]');
         let UnitPrice = $('#UnitPrice').val();
         let Total = $('.total').find('span');
-        
+        let Bonus = $('#Bonus');
+        let CurrentBonus = $('#currentbonus');
         let Qty = parseInt(Quantity.val());
         let Price = parseInt(UnitPrice);
         Total.text(Qty * Price);
@@ -213,6 +234,29 @@
             let Qty = parseInt(self.val());
             let Price = parseInt(UnitPrice);
             Total.text(Qty * Price);
+        });
+
+        //var theAmt = $('Bonus').val();
+
+        Bonus.on('change', function () {
+            let self = $(this);
+            //var theAmt = self.val();
+           
+            let currentAmt = Total.text();
+            let currentBonusAmt = parseFloat(CurrentBonus.text());
+            var bonus = self.val();
+            
+            if (parseFloat(bonus) > parseFloat(currentBonusAmt)) {
+               
+                self.val(0);
+                return false;
+            }
+            
+            console.log("V");
+            let Amt = parseFloat(currentAmt) - parseFloat(bonus);
+
+            Total.val(Amt); 
+
         });
         //var total_input = $('#Total');
         //var dateList = $('#DateList');

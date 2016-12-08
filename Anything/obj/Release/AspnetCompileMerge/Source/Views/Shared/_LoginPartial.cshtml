@@ -6,14 +6,21 @@
             @*<li class="active"><a href="javascript:void(0);" title="My Account">My Account</a></li>*@
             @if (Request.IsAuthenticated)
             {
+               
                 //using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
-               // {
-                    //@Html.AntiForgeryToken()
+                // {
+                //@Html.AntiForgeryToken()
 
                     <li class="active"><a href="javascript:void(0);" title="My Account">@User.Identity.Name</a></li>
+                if (User.IsInRole("Admin"))
+                {
+                    <li class="active"><a href="@Url.Action("/", new { area = "System"})" title="系統">系統管理</a></li>
+                }
                     <li class="active"><a href="@Url.Action("LogOff","Account")" title="Sign Out">登出</a></li>
 
                // }
+
+               
 
                 @*<li class="active"><a href="my_account.html" title="Settings">Settings</a></li>*@
             }

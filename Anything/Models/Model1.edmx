@@ -184,6 +184,7 @@
           <Property Name="BonusAmt" Type="decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="PayAmt" Type="decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="Status" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="ExpireDate" Type="datetime" />
         </EntityType>
         <EntityType Name="PayGo">
           <Key>
@@ -217,6 +218,7 @@
           <Property Name="RespondType" Type="nvarchar" MaxLength="10" />
           <Property Name="PaymentType" Type="nvarchar" MaxLength="10" />
           <Property Name="CreditCarStatus" Type="nvarchar" MaxLength="10" />
+          <Property Name="BankCode" Type="nvarchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="Room">
           <Key>
@@ -426,7 +428,6 @@
           <EntitySet Name="HotelImage" EntityType="MyAnythingModel.HotelImage" />
           <EntitySet Name="ImageStore" EntityType="MyAnythingModel.ImageStore" />
           <EntitySet Name="News" EntityType="MyAnythingModel.News" />
-          <EntitySet Name="PayGo" EntityType="MyAnythingModel.PayGo" />
           <EntitySet Name="RoomImage" EntityType="MyAnythingModel.RoomImage" />
           <EntitySet Name="RoomPrice" EntityType="MyAnythingModel.RoomPrice" />
           <EntitySet Name="Scenic" EntityType="MyAnythingModel.Scenic" />
@@ -458,6 +459,7 @@
           <EntitySet Name="OrderMaster" EntityType="MyAnythingModel.OrderMaster" />
           <EntitySet Name="SystemLog" EntityType="MyAnythingModel.SystemLog" />
           <EntitySet Name="MyBonus" EntityType="MyAnythingModel.MyBonus" />
+          <EntitySet Name="PayGo" EntityType="MyAnythingModel.PayGo" />
           </EntityContainer>
         <EntityType Name="Area">
           <Key>
@@ -544,39 +546,6 @@
           <Property Name="Href" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="Enabled" Type="Boolean" Nullable="false" />
           <Property Name="Deleted" Type="Boolean" Nullable="false" />
-        </EntityType>
-        <EntityType Name="PayGo">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MerchantOrderNo" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="Status" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="Message" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="MerchantID" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
-          <Property Name="Amt" Type="Int32" Nullable="false" />
-          <Property Name="TradeNo" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="PayTime" Type="DateTime" Precision="3" />
-          <Property Name="IP" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
-          <Property Name="EscrowBank" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="RespondCode" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
-          <Property Name="Auth" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
-          <Property Name="Card6No" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
-          <Property Name="Card4No" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
-          <Property Name="Inst" Type="Int32" />
-          <Property Name="InstFirst" Type="Int32" />
-          <Property Name="InstEach" Type="Int32" />
-          <Property Name="TokenUseStatus" Type="Int32" />
-          <Property Name="RedAmt" Type="Int32" />
-          <Property Name="PayBankCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="PayAccount5Code" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
-          <Property Name="CodeNo" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="Barcode_1" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="Barcode_2" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="Barcode_3" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="RespondType" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="PaymentType" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="CreditCarStatus" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="RoomImage">
           <Key>
@@ -803,6 +772,7 @@
           <Property Name="BonusAmt" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
           <Property Name="PayAmt" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
           <Property Name="Status" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="ExpireDate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="SystemLog">
           <Key>
@@ -836,6 +806,40 @@
           <Property Name="BonusType" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="BonusStatus" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="Notified" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PayGo">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MerchantOrderNo" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Message" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MerchantID" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="Amt" Type="Int32" Nullable="false" />
+          <Property Name="TradeNo" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="PayTime" Type="DateTime" Precision="3" />
+          <Property Name="IP" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="EscrowBank" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="RespondCode" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="Auth" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+          <Property Name="Card6No" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+          <Property Name="Card4No" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Name="Inst" Type="Int32" />
+          <Property Name="InstFirst" Type="Int32" />
+          <Property Name="InstEach" Type="Int32" />
+          <Property Name="TokenUseStatus" Type="Int32" />
+          <Property Name="RedAmt" Type="Int32" />
+          <Property Name="PayBankCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="PayAccount5Code" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="CodeNo" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Barcode_1" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Barcode_2" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Barcode_3" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="RespondType" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="PaymentType" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="CreditCarStatus" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="BankCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -929,40 +933,6 @@
                 <ScalarProperty Name="BeginDate" ColumnName="BeginDate" />
                 <ScalarProperty Name="Body" ColumnName="Body" />
                 <ScalarProperty Name="Titile" ColumnName="Titile" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PayGo">
-            <EntityTypeMapping TypeName="MyAnythingModel.PayGo">
-              <MappingFragment StoreEntitySet="PayGo">
-                <ScalarProperty Name="CreditCarStatus" ColumnName="CreditCarStatus" />
-                <ScalarProperty Name="PaymentType" ColumnName="PaymentType" />
-                <ScalarProperty Name="RespondType" ColumnName="RespondType" />
-                <ScalarProperty Name="Barcode_3" ColumnName="Barcode_3" />
-                <ScalarProperty Name="Barcode_2" ColumnName="Barcode_2" />
-                <ScalarProperty Name="Barcode_1" ColumnName="Barcode_1" />
-                <ScalarProperty Name="CodeNo" ColumnName="CodeNo" />
-                <ScalarProperty Name="PayAccount5Code" ColumnName="PayAccount5Code" />
-                <ScalarProperty Name="PayBankCode" ColumnName="PayBankCode" />
-                <ScalarProperty Name="RedAmt" ColumnName="RedAmt" />
-                <ScalarProperty Name="TokenUseStatus" ColumnName="TokenUseStatus" />
-                <ScalarProperty Name="InstEach" ColumnName="InstEach" />
-                <ScalarProperty Name="InstFirst" ColumnName="InstFirst" />
-                <ScalarProperty Name="Inst" ColumnName="Inst" />
-                <ScalarProperty Name="Card4No" ColumnName="Card4No" />
-                <ScalarProperty Name="Card6No" ColumnName="Card6No" />
-                <ScalarProperty Name="Auth" ColumnName="Auth" />
-                <ScalarProperty Name="RespondCode" ColumnName="RespondCode" />
-                <ScalarProperty Name="EscrowBank" ColumnName="EscrowBank" />
-                <ScalarProperty Name="IP" ColumnName="IP" />
-                <ScalarProperty Name="PayTime" ColumnName="PayTime" />
-                <ScalarProperty Name="TradeNo" ColumnName="TradeNo" />
-                <ScalarProperty Name="Amt" ColumnName="Amt" />
-                <ScalarProperty Name="MerchantID" ColumnName="MerchantID" />
-                <ScalarProperty Name="Message" ColumnName="Message" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="MerchantOrderNo" ColumnName="MerchantOrderNo" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1101,6 +1071,7 @@
           <EntitySetMapping Name="OrderMaster">
             <EntityTypeMapping TypeName="MyAnythingModel.OrderMaster">
               <MappingFragment StoreEntitySet="OrderMaster">
+                <ScalarProperty Name="ExpireDate" ColumnName="ExpireDate" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="PayAmt" ColumnName="PayAmt" />
                 <ScalarProperty Name="BonusAmt" ColumnName="BonusAmt" />
@@ -1166,6 +1137,41 @@
                 <ScalarProperty Name="Bonus" ColumnName="Bonus" />
                 <ScalarProperty Name="OrderAmt" ColumnName="OrderAmt" />
                 <ScalarProperty Name="PayTime" ColumnName="PayTime" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PayGo">
+            <EntityTypeMapping TypeName="MyAnythingModel.PayGo">
+              <MappingFragment StoreEntitySet="PayGo">
+                <ScalarProperty Name="BankCode" ColumnName="BankCode" />
+                <ScalarProperty Name="CreditCarStatus" ColumnName="CreditCarStatus" />
+                <ScalarProperty Name="PaymentType" ColumnName="PaymentType" />
+                <ScalarProperty Name="RespondType" ColumnName="RespondType" />
+                <ScalarProperty Name="Barcode_3" ColumnName="Barcode_3" />
+                <ScalarProperty Name="Barcode_2" ColumnName="Barcode_2" />
+                <ScalarProperty Name="Barcode_1" ColumnName="Barcode_1" />
+                <ScalarProperty Name="CodeNo" ColumnName="CodeNo" />
+                <ScalarProperty Name="PayAccount5Code" ColumnName="PayAccount5Code" />
+                <ScalarProperty Name="PayBankCode" ColumnName="PayBankCode" />
+                <ScalarProperty Name="RedAmt" ColumnName="RedAmt" />
+                <ScalarProperty Name="TokenUseStatus" ColumnName="TokenUseStatus" />
+                <ScalarProperty Name="InstEach" ColumnName="InstEach" />
+                <ScalarProperty Name="InstFirst" ColumnName="InstFirst" />
+                <ScalarProperty Name="Inst" ColumnName="Inst" />
+                <ScalarProperty Name="Card4No" ColumnName="Card4No" />
+                <ScalarProperty Name="Card6No" ColumnName="Card6No" />
+                <ScalarProperty Name="Auth" ColumnName="Auth" />
+                <ScalarProperty Name="RespondCode" ColumnName="RespondCode" />
+                <ScalarProperty Name="EscrowBank" ColumnName="EscrowBank" />
+                <ScalarProperty Name="IP" ColumnName="IP" />
+                <ScalarProperty Name="PayTime" ColumnName="PayTime" />
+                <ScalarProperty Name="TradeNo" ColumnName="TradeNo" />
+                <ScalarProperty Name="Amt" ColumnName="Amt" />
+                <ScalarProperty Name="MerchantID" ColumnName="MerchantID" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="MerchantOrderNo" ColumnName="MerchantOrderNo" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

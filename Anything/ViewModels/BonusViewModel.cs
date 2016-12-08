@@ -82,6 +82,7 @@ namespace Anything.ViewModels
 
                 var Today = DateTime.Now;
 
+                //更新付款狀態為已付款
                 var Order = db.OrderMaster.Where(o => o.MerchantOrderNo == MerchantOrderNo).FirstOrDefault();
                 if (Order != null)
                 {
@@ -132,6 +133,27 @@ namespace Anything.ViewModels
 
                 db.SaveChanges();
                 
+            }
+        }
+
+        /// <summary>
+        /// 更新繳費期限過期的訂單
+        /// </summary>
+        public void UpdateExpired()
+        {
+            var unPaid = OrderType.Unpaid.ToString();
+            using (var db = new MyAnythingEntities())
+            {
+                var Today = DateTime.Now;
+                var ExpiredOrder = db.OrderMaster.Where(o => o.Status == unPaid && (o.ExpireDate.Value.Year >= Today.Year && o.ExpireDate.Value.Month >= Today.Month && o.ExpireDate.Value.Date >= Today.Date)).ToList();
+                if (ExpiredOrder != null && ExpiredOrder.Count > 0)
+                {
+                    foreach (var item in ExpiredOrder)
+                    {
+                        item.Status = OrderType.Expired.ToString();
+                    }
+                    db.SaveChanges();
+                }
             }
         }
 

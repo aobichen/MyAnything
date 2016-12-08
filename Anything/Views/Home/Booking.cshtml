@@ -33,6 +33,7 @@
                             <div class="f-item full-width">
                                 <label for="first_name">姓名</label>
                                 @Html.EditorFor(model => model.info.Name)
+                                @Html.ValidationMessageFor(model => model.info.Name,"", new { @class = "text-danger" })
                                 @*<input type="text" id="first_name" name="first_name" />*@
                             </div>
                             
@@ -42,6 +43,7 @@
                             <div class="f-item full-width">
                                 <label for="email">Email信箱</label>
                                 @Html.EditorFor(model => model.info.Email)
+                                @Html.ValidationMessageFor(model => model.info.Email,"" ,new { @class = "text-danger" })
                             </div>
                             
                         </div>
@@ -49,8 +51,9 @@
                         <div class="row">
                            
                             <div class="f-item full-width">
-                                <label for="address">聯絡電話</label>
+                                <label for="Phone">聯絡電話</label>
                                 @Html.EditorFor(model => model.info.Phone)
+                                @Html.ValidationMessageFor(model => model.info.Phone,"", new { @class = "text-danger" })
                             </div>
                         </div>
 
@@ -67,6 +70,7 @@
                             <div class="f-item full-width">
                                 <label for="address">完整地址</label>
                                 @Html.EditorFor(model => model.info.Address)
+                                @Html.ValidationMessageFor(model => model.info.Address,"", new { @class = "text-danger" })
                             </div>
 
                         </div>

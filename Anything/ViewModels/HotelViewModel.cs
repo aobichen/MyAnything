@@ -273,87 +273,19 @@ namespace Anything.ViewModels
                               //FixedPrice = rp.Room.FixedPrice
                               //SellPrice = rp.Price
                           }).Take(take).ToList();
-
+            var RoomAmt = new RoomAmt();
             foreach (var m in result)
             {
-                var day = model.BeginDate.DayOfWeek.ToString();
-                if (day == "5" || day == "6")
+                var Amts = new List<decimal>();
+                var Rooms = _db.Room.Where(o=>o.HotelId == m.ID).ToList();
+                foreach (var item in Rooms)
                 {
-                    var room = _db.Hotel.Find(m.ID).Room;
+                    Amts.Add(RoomAmt.CurrentAmt(item.ID));
                     
-                    //var room = _db.Hotel.Find(m.ID).Room;
-                    if(room==null || room.Count<=0){
-                        m.FixedPrice = 99999;
-                    }else{
-                        var r = room.ToList()[0];
-                        m.FixedPrice = r.FixedPrice;
-                        m.HolidayPrice = r.HolidayPrice;
-                        m.DayPrice = r.DayPrice;
-                        var p = _db.RoomPrice.Where(o => (o.Date.Year == model.BeginDate.Year && o.Date.Month == model.BeginDate.Month && o.Date.Day == model.BeginDate.Day) 
-                            && o.ROOMID == r.ID).FirstOrDefault();
-                        if (p == null)
-                        {
-                            m.FixedPrice = m.HolidayPrice;
-                        }
-                        else
-                        {
-                            switch (p.DayType)
-                            {
-                                case "0":
-                                    m.FixedPrice = m.DayPrice;
-                                    break;
-                                case "1":
-                                    m.FixedPrice = m.HolidayPrice;
-                                    break;
-                                case "2":
-                                    m.FixedPrice = m.FixedPrice;
-                                    break;
-                            }
-                        }
-                    }
-
                 }
-                else
-                {
-                    var room = _db.Hotel.Find(m.ID).Room;
 
-                    //var room = _db.Hotel.Find(m.ID).Room;
-                    if (room == null || room.Count <= 0)
-                    {
-                        m.FixedPrice = 99999;
-                    }
-                    else
-                    {
-                        var r = room.ToList()[0];
-                        m.FixedPrice = r.FixedPrice;
-                        m.HolidayPrice = r.HolidayPrice;
-                        m.DayPrice = r.DayPrice;
-                        var p = _db.RoomPrice.Where(o => 
-                            (o.Date.Year == model.BeginDate.Year 
-                            && o.Date.Month == model.BeginDate.Month 
-                            && o.Date.Day == model.BeginDate.Day)
-                            && o.ROOMID == r.ID).FirstOrDefault();
-                        if (p == null)
-                        {
-                            m.FixedPrice = m.DayPrice;
-                        }
-                        else
-                        {
-                            switch (p.DayType)
-                            {
-                                case "0":
-                                    m.FixedPrice = m.DayPrice;
-                                    break;
-                                case "1":
-                                    m.FixedPrice = m.HolidayPrice;
-                                    break;
-                                case "2":
-                                    m.FixedPrice = m.FixedPrice;
-                                    break;
-                            }
-                        }
-                    }
-                }
+                m.FixedPrice = Amts.Min();
+                
                 //var price = m
             }
 
@@ -435,6 +367,7 @@ namespace Anything.ViewModels
             //r_result.HotelItems = result.Take(take).ToList(); ;
             //r_result.HasMore = result.Count() > r_result.HotelItems.Count ? true : false;
             //r_result.BeforeItems = (from items in r_result.HotelItems select items.ID).ToList();
+            _db.Dispose();
             return result;
         }
     }

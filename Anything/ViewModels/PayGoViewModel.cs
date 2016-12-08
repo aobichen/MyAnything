@@ -106,12 +106,13 @@ namespace Anything.ViewModels
         public string ECI { get; set; }
         public int TokenUseStatus { get; set; }
         public int RedAmt { get; set; }
+        public string PayBankCode { get; set; }
         public string BankCode { get; set; }
         public string PayerAccount5Code { get; set; }
         public string CodeNo { get; set; }
-        public string Barcode1 { get; set; }
-        public string Barcode2 { get; set; }
-        public string Barcode3 { get; set; }
+        public string Barcode_1 { get; set; }
+        public string Barcode_2 { get; set; }
+        public string Barcode_3 { get; set; }
 
 
         public string RespondCode { get; set; }

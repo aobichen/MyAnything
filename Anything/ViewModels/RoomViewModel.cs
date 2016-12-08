@@ -199,6 +199,10 @@ namespace Anything.ViewModels
 
         [DisplayFormat(DataFormatString = "{0:#,##0}", ApplyFormatInEditMode = true)]
         public decimal DayPrice { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:#.##}", ApplyFormatInEditMode = true)]
+        public decimal CurrentPrice { get; set; }
+
         public string Feature { get; set; }
 
         public bool Enabled { get; set; }

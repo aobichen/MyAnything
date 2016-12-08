@@ -42,5 +42,6 @@ namespace Anything.Models
         public string RespondType { get; set; }
         public string PaymentType { get; set; }
         public string CreditCarStatus { get; set; }
+        public string BankCode { get; set; }
     }
 }

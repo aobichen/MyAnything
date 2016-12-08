@@ -28,11 +28,7 @@ namespace Anything.ViewModels
         //public Decimal Total { get; set; }
 
         public string MerchantTradeNo { get; set; }
-        //public string PayMethod { get; set; }
-        //public string PayStatus { get; set; }
-        //public string Status { get; set; }
-        //public int Bonus { get; set; }
-        //public string PayName { get; set; }
+       
         //訂購人資料
         public string Name { get; set; }
        // public string Tel { get; set; }
@@ -47,7 +43,7 @@ namespace Anything.ViewModels
         public string Key { get; set; }
 
         public string CodeNo { get; set; }
-
+        public string BankCode { get; set; }
         public string PayBankCode { get; set; }
         public string PayerAccount5Code { get; set; }
         public string Barcode_1 { get; set; }

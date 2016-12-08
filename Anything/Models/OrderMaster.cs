@@ -45,5 +45,6 @@ namespace Anything.Models
         public decimal BonusAmt { get; set; }
         public decimal PayAmt { get; set; }
         public string Status { get; set; }
+        public Nullable<System.DateTime> ExpireDate { get; set; }
     }
 }

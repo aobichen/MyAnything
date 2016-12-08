@@ -9,22 +9,8 @@
         @Html.DropDownList("City", null, new { id = "City" })
     </div>
     <div class="one-half">
-        <select id="area" name="Area">
-
-            @{
-                foreach (var item in (List<Anything.Models.Area>)ViewBag.Area)
-                {
-                    if (ViewBag.CurrentArea != null && (int)ViewBag.CurrentArea == item.ID)
-                    {
-                        <option data-cid="@item.CID" selected="selected" value="@item.ID">@item.Name</option>
-                    }
-                    else
-                    {
-                        <option data-cid="@item.CID" value="@item.ID">@item.Name</option>
-                    }
-                }
-            }
-        </select>
+       @Html.DropDownItemList("Area", (List<DropDownListItem>)ViewBag.Area, new { id = "area" })
+        
     </div>
     <input type="hidden" id="SelectCity" name="SelectCity" />
     <input type="hidden" id="SelectArea" name="SelectArea" />
@@ -52,7 +38,7 @@
             area.find("option").hide();
             if (SelectValue != "") {
                 SelectCity.val(SelectText);
-                area.find("option[data-cid='" + SelectValue + "']").show();
+                area.find("option[data-id='" + SelectValue + "']").show();
             }
 
             if (SelectValue == "0") {
