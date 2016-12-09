@@ -786,7 +786,6 @@ C:\Users\Aobi\Documents\SOHOProject\MYAnything\Anything\bin\zh-Hant\Microsoft.Ow
 C:\Users\Aobi\Documents\SOHOProject\MYAnything\Anything\bin\zh-Hant\Microsoft.Owin.Security.MicrosoftAccount.resources.dll
 C:\Users\Aobi\Documents\SOHOProject\MYAnything\Anything\obj\Debug\Anything.dll
 C:\Users\Aobi\Documents\SOHOProject\MYAnything\Anything\obj\Debug\Anything.pdb
-C:\Users\Aobi\Documents\SOHOProject\MYAnything\Anything\obj\Debug\Anything.csprojResolveAssemblyReference.cache
 C:\Users\aobi\Documents\SOHOProjects\MyAnything\Anything\bin\Anything.dll.config
 C:\Users\aobi\Documents\SOHOProjects\MyAnything\Anything\bin\Anything.dll
 C:\Users\aobi\Documents\SOHOProjects\MyAnything\Anything\bin\Anything.pdb

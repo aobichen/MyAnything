@@ -13,10 +13,14 @@ namespace Anything.Helpers
         Expired
     }
 
+   
+
     public enum RoomPriceType
     {
         Day = 0,
         Holiday,
         Fixed       
     }
+
+   
 }
