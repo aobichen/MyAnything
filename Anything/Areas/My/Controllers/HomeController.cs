@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using PagedList;
 namespace Anything.Areas.My.Controllers
 {
+    [Authorize]
     public class HomeController : BaseController
     {
         // GET: My/Home
@@ -25,7 +26,7 @@ namespace Anything.Areas.My.Controllers
             HotelOrder.SearchKey = Searchkey;
             var HotelOrders = HotelOrder.List();
             var currentPage = Page < 1 ? 1 : Page;
-            var PageSize = 2;
+            var PageSize = 25;
 
             var PageModel = HotelOrders.ToPagedList(currentPage, PageSize);
             ViewBag.HotelOrders = PageModel;

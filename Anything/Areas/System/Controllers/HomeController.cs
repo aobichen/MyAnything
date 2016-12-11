@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace Anything.Areas.System.Controllers
 {
+    [Authorize(Roles="Admin,System")]
     public class HomeController : BaseController
     {
         // GET: System/Home

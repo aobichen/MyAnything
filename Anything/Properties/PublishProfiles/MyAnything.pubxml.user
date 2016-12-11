@@ -10,10 +10,10 @@
   </PropertyGroup>
   <ItemGroup>
     <File Include="Areas/My/Views/Home/Index.cshtml">
-      <publishTime>12/08/2016 18:51:55</publishTime>
+      <publishTime>12/09/2016 18:50:46</publishTime>
     </File>
     <File Include="Areas/My/Views/Home/_HotelList.cshtml">
-      <publishTime>12/08/2016 18:53:23</publishTime>
+      <publishTime>12/09/2016 19:12:33</publishTime>
     </File>
     <File Include="Areas/My/Views/Home/_OrderList.cshtml">
       <publishTime>12/08/2016 18:53:54</publishTime>
@@ -25,7 +25,7 @@
       <publishTime>11/26/2016 13:59:22</publishTime>
     </File>
     <File Include="Areas/My/Views/Shared/_Layout.cshtml">
-      <publishTime>12/04/2016 23:33:47</publishTime>
+      <publishTime>12/10/2016 19:02:44</publishTime>
     </File>
     <File Include="Areas/My/Views/web.config">
       <publishTime>11/26/2016 09:25:40</publishTime>
@@ -55,10 +55,10 @@
       <publishTime>11/30/2016 22:15:55</publishTime>
     </File>
     <File Include="Areas/System/Views/Shared/_Layout.cshtml">
-      <publishTime>12/04/2016 23:33:47</publishTime>
+      <publishTime>12/10/2016 19:04:28</publishTime>
     </File>
     <File Include="Areas/System/Views/Shared/_SidebarMenu.cshtml">
-      <publishTime>12/04/2016 14:06:52</publishTime>
+      <publishTime>12/10/2016 19:01:29</publishTime>
     </File>
     <File Include="Areas/System/Views/web.config">
       <publishTime>11/24/2016 18:48:58</publishTime>
@@ -73,13 +73,13 @@
       <publishTime>09/27/2016 18:20:02</publishTime>
     </File>
     <File Include="bin/Anything.dll">
-      <publishTime>12/08/2016 23:54:33</publishTime>
+      <publishTime>12/11/2016 15:00:48</publishTime>
     </File>
     <File Include="bin/App_global.asax.compiled">
-      <publishTime>12/08/2016 23:54:50</publishTime>
+      <publishTime>12/11/2016 15:00:55</publishTime>
     </File>
     <File Include="bin/App_global.asax.dll">
-      <publishTime>12/08/2016 23:54:50</publishTime>
+      <publishTime>12/11/2016 15:00:55</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>09/27/2016 18:20:03</publishTime>
@@ -2851,7 +2851,7 @@
       <publishTime>11/24/2016 17:18:21</publishTime>
     </File>
     <File Include="favicon.ico">
-      <publishTime>10/07/2016 18:33:33</publishTime>
+      <publishTime>10/19/2016 16:28:04</publishTime>
     </File>
     <File Include="fonts/ElegantIcons.eot">
       <publishTime>10/19/2016 08:37:12</publishTime>
@@ -3028,7 +3028,7 @@
       <publishTime>10/19/2016 11:25:24</publishTime>
     </File>
     <File Include="images/myanythinglogo.png">
-      <publishTime>11/28/2016 19:59:11</publishTime>
+      <publishTime>12/10/2016 19:06:50</publishTime>
     </File>
     <File Include="images/settings.png">
       <publishTime>10/19/2016 11:25:24</publishTime>
@@ -3061,13 +3061,13 @@
       <publishTime>11/03/2016 18:59:36</publishTime>
     </File>
     <File Include="Models/Model1.edmx.diagram">
-      <publishTime>12/08/2016 23:50:23</publishTime>
+      <publishTime>12/10/2016 18:41:27</publishTime>
     </File>
     <File Include="packages.config">
       <publishTime>11/30/2016 22:17:42</publishTime>
     </File>
     <File Include="PrecompiledApp.config">
-      <publishTime>12/08/2016 23:54:47</publishTime>
+      <publishTime>12/11/2016 15:00:52</publishTime>
     </File>
     <File Include="Scripts/Base.js">
       <publishTime>11/28/2016 19:59:11</publishTime>
@@ -4756,7 +4756,7 @@
       <publishTime>11/28/2016 20:29:01</publishTime>
     </File>
     <File Include="Views/Hotel/_List.cshtml">
-      <publishTime>11/28/2016 22:58:47</publishTime>
+      <publishTime>12/11/2016 14:32:19</publishTime>
     </File>
     <File Include="Views/Manage/AddPhoneNumber.cshtml">
       <publishTime>09/27/2016 18:20:02</publishTime>
@@ -4879,7 +4879,7 @@
       <publishTime>09/27/2016 18:20:02</publishTime>
     </File>
     <File Include="Views/Shared/_Header.cshtml">
-      <publishTime>11/28/2016 23:45:25</publishTime>
+      <publishTime>12/10/2016 19:10:01</publishTime>
     </File>
     <File Include="Views/Shared/_HeadOfficalAd.cshtml">
       <publishTime>10/11/2016 22:17:21</publishTime>
@@ -4894,7 +4894,7 @@
       <publishTime>10/19/2016 16:42:58</publishTime>
     </File>
     <File Include="Views/Shared/_LeftSidebar.cshtml">
-      <publishTime>11/27/2016 18:18:59</publishTime>
+      <publishTime>12/11/2016 10:31:40</publishTime>
     </File>
     <File Include="Views/Shared/_LeftSlide.cshtml">
       <publishTime>09/27/2016 18:20:02</publishTime>
@@ -4909,7 +4909,7 @@
       <publishTime>11/30/2016 22:15:55</publishTime>
     </File>
     <File Include="Views/Shared/_MainSearch.cshtml">
-      <publishTime>11/26/2016 14:07:13</publishTime>
+      <publishTime>12/11/2016 10:54:17</publishTime>
     </File>
     <File Include="Views/Shared/_PayMethod.cshtml">
       <publishTime>10/07/2016 18:33:33</publishTime>
@@ -4996,7 +4996,7 @@
       <publishTime>09/27/2016 18:20:02</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>12/08/2016 18:45:03</publishTime>
+      <publishTime>12/10/2016 19:30:18</publishTime>
     </File>
   </ItemGroup>
 </Project>

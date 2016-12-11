@@ -16,7 +16,7 @@ namespace Anything.ViewModels
         public int UserId { get; set; }
         
         public int Quantity { get; set; }
-        public int Amount { get; set; }
+        public decimal Amount { get; set; }
 
         [DisplayFormat(DataFormatString="{0:yyyy-MM-dd}",ApplyFormatInEditMode=true)]
         public System.DateTime CheckIn { get; set; }

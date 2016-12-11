@@ -71,11 +71,21 @@ namespace Anything.ViewModels
                     MinAmt = double.Parse(AmtMinLimit.ItemValue);
                 }
 
-                var TotalAmt = (double)OrderAmt * (Total * 0.01);
-                var BuyAmt = TotalAmt * (TotalAmt * 0.01);
-                var HotelAmt = (double)OrderAmt * (Hotel * 0.01);
+                //平台總比例裡的5%為發送的部分
+                var TotalPercent = 0.5;
+                //發送金額 = 訂單金額 * 總比例(13.5)*0.01
+                var TotalAmt = ((double)OrderAmt * (Total * 0.01)) * TotalPercent;
 
-                var UpperAmt = ((double)OrderAmt * (Upper * 0.01))/6;
+                //db.TEST.Add(new TEST { Created = DateTime.Now, Message = string.Format("TotalAmt:{0}",TotalAmt) });
+                //消費帳號紅利 = 發送金額 * 0.3
+                var BuyAmt = Math.Floor(TotalAmt * (Buy * 0.01));
+                //db.TEST.Add(new TEST { Created = DateTime.Now, Message = string.Format("BuyAmt:{0}", BuyAmt) });
+                //民宿推薦帳號紅利 = 發送金額 * 0.05
+                var HotelAmt = Math.Floor(TotalAmt * (Hotel * 0.01));
+                db.TEST.Add(new TEST { Created = DateTime.Now, Message = string.Format("HotelAmt:{0}", HotelAmt) });
+                //上線平均紅利 = (發送金額 * 0.3)/6
+                var UpperAmt = Math.Floor((TotalAmt * (Upper * 0.01)) / 6);
+                //db.TEST.Add(new TEST { Created = DateTime.Now, Message = string.Format("UpperAmt:{0}", UpperAmt) });
 
                 var LimitAmt = MinAmt;
                 
@@ -134,6 +144,7 @@ namespace Anything.ViewModels
                 db.SaveChanges();
                 
             }
+            //UpdateExpired();
         }
 
         /// <summary>

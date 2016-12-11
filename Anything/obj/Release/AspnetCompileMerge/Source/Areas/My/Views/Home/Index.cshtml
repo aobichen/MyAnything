@@ -3,5 +3,5 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+@Html.Partial("_HotelList", (PagedList.IPagedList<Anything.Areas.My.Models.HotelOrderModel>)ViewBag.HotelOrders)
 

@@ -20,7 +20,7 @@ namespace Anything.Models
         public int ProductId { get; set; }
         public string ProductName { get; set; }
         public int Quantity { get; set; }
-        public int Amount { get; set; }
+        public decimal Amount { get; set; }
         public System.DateTime CheckIn { get; set; }
         public System.DateTime CheckOut { get; set; }
         public string Tel { get; set; }
@@ -30,9 +30,6 @@ namespace Anything.Models
         public System.DateTime Modified { get; set; }
         public int Modify { get; set; }
         public string PayVendor { get; set; }
-        public Nullable<double> CashFlow { get; set; }
-        public Nullable<double> Paltform { get; set; }
-        public Nullable<double> BuyFeedBack { get; set; }
         public string TradeNo { get; set; }
         public string TradeStatus { get; set; }
         public string PaymentType { get; set; }
@@ -40,8 +37,6 @@ namespace Anything.Models
         public int Creator { get; set; }
         public string Email { get; set; }
         public string Name { get; set; }
-        public Nullable<double> UpperUser { get; set; }
-        public string LoginType { get; set; }
         public decimal BonusAmt { get; set; }
         public decimal PayAmt { get; set; }
         public string Status { get; set; }

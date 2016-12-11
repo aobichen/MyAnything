@@ -59,21 +59,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="ImageStore">
-      <EntityTypeMapping TypeName="MyAnythingModel.ImageStore">
-        <MappingFragment StoreEntitySet="ImageStore">
-          <ScalarProperty Name="Creator" ColumnName="Creator" />
-          <ScalarProperty Name="Created" ColumnName="Created" />
-          <ScalarProperty Name="Deleted" ColumnName="Deleted" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="Type" ColumnName="Type" />
-          <ScalarProperty Name="Extension" ColumnName="Extension" />
-          <ScalarProperty Name="Path" ColumnName="Path" />
-          <ScalarProperty Name="Image" ColumnName="Image" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="News">
       <EntityTypeMapping TypeName="MyAnythingModel.News">
         <MappingFragment StoreEntitySet="News">
@@ -186,25 +171,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Accounting">
-      <EntityTypeMapping TypeName="MyAnythingModel.Accounting">
-        <MappingFragment StoreEntitySet="Accounting">
-          <ScalarProperty Name="Status" ColumnName="Status" />
-          <ScalarProperty Name="UpperQty" ColumnName="UpperQty" />
-          <ScalarProperty Name="UpperUserAmt" ColumnName="UpperUserAmt" />
-          <ScalarProperty Name="MerchantOrderNo" ColumnName="MerchantOrderNo" />
-          <ScalarProperty Name="ApplyUserID" ColumnName="ApplyUserID" />
-          <ScalarProperty Name="ProfitAmt" ColumnName="ProfitAmt" />
-          <ScalarProperty Name="BuyFeedbackAmt" ColumnName="BuyFeedbackAmt" />
-          <ScalarProperty Name="PlatformAmt" ColumnName="PlatformAmt" />
-          <ScalarProperty Name="CashFlowAmt" ColumnName="CashFlowAmt" />
-          <ScalarProperty Name="PayTime" ColumnName="PayTime" />
-          <ScalarProperty Name="OrderAmt" ColumnName="OrderAmt" />
-          <ScalarProperty Name="OrderId" ColumnName="OrderId" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="SystemField">
       <EntityTypeMapping TypeName="MyAnythingModel.SystemField">
         <MappingFragment StoreEntitySet="SystemField">
@@ -218,44 +184,6 @@
           <ScalarProperty Name="ItemDescription" ColumnName="ItemDescription" />
           <ScalarProperty Name="ItemValue" ColumnName="ItemValue" />
           <ScalarProperty Name="ItemCode" ColumnName="ItemCode" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="OrderMaster">
-      <EntityTypeMapping TypeName="MyAnythingModel.OrderMaster">
-        <MappingFragment StoreEntitySet="OrderMaster">
-          <ScalarProperty Name="ExpireDate" ColumnName="ExpireDate" />
-          <ScalarProperty Name="Status" ColumnName="Status" />
-          <ScalarProperty Name="PayAmt" ColumnName="PayAmt" />
-          <ScalarProperty Name="BonusAmt" ColumnName="BonusAmt" />
-          <ScalarProperty Name="LoginType" ColumnName="LoginType" />
-          <ScalarProperty Name="UpperUser" ColumnName="UpperUser" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="Email" ColumnName="Email" />
-          <ScalarProperty Name="Creator" ColumnName="Creator" />
-          <ScalarProperty Name="ProductType" ColumnName="ProductType" />
-          <ScalarProperty Name="PaymentType" ColumnName="PaymentType" />
-          <ScalarProperty Name="TradeStatus" ColumnName="TradeStatus" />
-          <ScalarProperty Name="TradeNo" ColumnName="TradeNo" />
-          <ScalarProperty Name="BuyFeedBack" ColumnName="BuyFeedBack" />
-          <ScalarProperty Name="Paltform" ColumnName="Paltform" />
-          <ScalarProperty Name="CashFlow" ColumnName="CashFlow" />
-          <ScalarProperty Name="PayVendor" ColumnName="PayVendor" />
-          <ScalarProperty Name="Modify" ColumnName="Modify" />
-          <ScalarProperty Name="Modified" ColumnName="Modified" />
-          <ScalarProperty Name="Remark" ColumnName="Remark" />
-          <ScalarProperty Name="Created" ColumnName="Created" />
-          <ScalarProperty Name="Address" ColumnName="Address" />
-          <ScalarProperty Name="Tel" ColumnName="Tel" />
-          <ScalarProperty Name="CheckOut" ColumnName="CheckOut" />
-          <ScalarProperty Name="CheckIn" ColumnName="CheckIn" />
-          <ScalarProperty Name="Amount" ColumnName="Amount" />
-          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-          <ScalarProperty Name="ProductName" ColumnName="ProductName" />
-          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
-          <ScalarProperty Name="UserId" ColumnName="UserId" />
-          <ScalarProperty Name="MerchantOrderNo" ColumnName="MerchantOrderNo" />
           <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -325,6 +253,39 @@
           <ScalarProperty Name="MerchantID" ColumnName="MerchantID" />
           <ScalarProperty Name="Message" ColumnName="Message" />
           <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="MerchantOrderNo" ColumnName="MerchantOrderNo" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OrderMaster">
+      <EntityTypeMapping TypeName="MyAnythingModel.OrderMaster">
+        <MappingFragment StoreEntitySet="OrderMaster">
+          <ScalarProperty Name="ExpireDate" ColumnName="ExpireDate" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="PayAmt" ColumnName="PayAmt" />
+          <ScalarProperty Name="BonusAmt" ColumnName="BonusAmt" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Creator" ColumnName="Creator" />
+          <ScalarProperty Name="ProductType" ColumnName="ProductType" />
+          <ScalarProperty Name="PaymentType" ColumnName="PaymentType" />
+          <ScalarProperty Name="TradeStatus" ColumnName="TradeStatus" />
+          <ScalarProperty Name="TradeNo" ColumnName="TradeNo" />
+          <ScalarProperty Name="PayVendor" ColumnName="PayVendor" />
+          <ScalarProperty Name="Modify" ColumnName="Modify" />
+          <ScalarProperty Name="Modified" ColumnName="Modified" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="Created" ColumnName="Created" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Tel" ColumnName="Tel" />
+          <ScalarProperty Name="CheckOut" ColumnName="CheckOut" />
+          <ScalarProperty Name="CheckIn" ColumnName="CheckIn" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="MerchantOrderNo" ColumnName="MerchantOrderNo" />
           <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>

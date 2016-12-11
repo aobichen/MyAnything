@@ -28,7 +28,7 @@ using System.Web;
                EndDate = DateTime.Parse(Current.Session["CheckOutDate"].ToString());
            }
 
-           var day = BeginDate.DayOfWeek.ToString();
+           var day = ((int)BeginDate.DayOfWeek).ToString();
            if (day == "5" || day == "6")
            {
                var Room = _db.Room.Find(RoomId);

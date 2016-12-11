@@ -11,9 +11,9 @@ namespace Anything.Controllers
 {
     public class HomeController : BaseController
     {
-        
-    
-        public ActionResult Index(HomeSearchViewModel model = null,string username = null)
+
+
+        public ActionResult Index(HotelSearchViewModel model = null, string username = null)
         {
             
             var Now = DateTime.Now;
@@ -62,12 +62,12 @@ namespace Anything.Controllers
                     Scenics = o.Scenics,
                     City = o.City,
                     Area = o.Area,
-                    Facilities = o.Facility,
+                    Facility = o.Facility,
                    
                 }).FirstOrDefault();
 
-            var Facilities = model.Facilities.Split(',').Select(int.Parse).ToList();
-            //model.Facilities = _db.ServiceOption.Where(o => Facilities.Contains(o.ID)).Select(p => p.Text).ToList();
+            var Facilities = model.Facility.Split(',').Select(int.Parse).ToList();
+            model.Facilities = _db.Facility.Where(o => Facilities.Contains(o.ID)).Select(p => p.Text).ToList();
 
             var Date = Session["CheckInDate"] == null ? DateTime.Now.AddDays(1):(DateTime)Session["CheckInDate"];
             var DayOfWeek = Date.DayOfWeek.ToString("d");

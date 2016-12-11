@@ -17,40 +17,70 @@
     </dd>*@
     <!--//Departure times-->
     <!--Stops-->
+    <dt>價位</dt>
+        <dd>
+            <div class="col-md-12">
+                <label><input name="price" type="checkbox" value="1" />0~999</label>
+                <br />
+                <label><input name="price" type="checkbox" value="2" />999~1999</label>
+                <br />
+                <label><input name="price" type="checkbox" value="3" />2000~2999</label>
+                <br />
+                <label><input name="price" type="checkbox" value="4" />3000~3999</label>
+                <br />
+                <label><input name="price" type="checkbox" value="5" />4000~4999</label>
+                <br />
+                <label><input name="price" type="checkbox" value="6" />5000以上</label>
+                </div>
+                <button type="submit" class="btn btn-danger btn-xs">
+                    確定
+                </button>
+</dd>
+    
    
 @if (ViewBag.Facility != null)
 {
-    using (Html.BeginForm()) { 
-        <dt>服務設施</dt>
+     
+        <dt class="">服務設施</dt>
         <dd>
            @Html.Partial("_Facility")
            
-                <button type="submit" class="gradient-button">
-                    確定
-                </button>
+            <button type="submit" class="btn btn-danger btn-xs">
+                確定
+            </button>
                 
 </dd>
        
-    }
+    
 }
     <!--//Stops-->
     <!--Airlines-->
     @if (ViewBag.Scenic != null)
     {
-        using (Html.BeginForm())
-        {
+       
             <dt>熱門景點</dt>
             <dd>
                 @Html.Partial("_Scenic")
                 
-                    <button type="submit" class="gradient-button ">
-                        確定
-                    </button>
+                <button type="submit" class="btn btn-danger btn-xs">
+                    確定
+                </button>
                 
             </dd>
 
-        }
+        
     }
     
     
 </dl>
+<script type="text/javascript">
+    jQuery(function () {
+        //const dt = $('dt');
+        //$(dt[0]).addClass('active');
+        //const active = $('dt[class="active"]');
+       
+       // let dd = active.next('dd');
+        //dd.css({'display':'block'});
+       
+    })
+</script>

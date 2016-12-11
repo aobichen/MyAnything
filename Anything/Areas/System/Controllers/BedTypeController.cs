@@ -9,6 +9,7 @@ using PagedList;
 using Anything.Areas.System.Models;
 namespace Anything.Areas.System.Controllers
 {
+     [Authorize(Roles = "Admin,System")]
     public class BedTypeController : BaseController
     {
         // GET: System/BedType

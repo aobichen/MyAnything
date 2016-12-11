@@ -1,23 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="MyAnythingModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityType Name="Accounting">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="OrderId" Type="int" Nullable="false" />
-    <Property Name="OrderAmt" Type="decimal" Precision="10" Scale="2" Nullable="false" />
-    <Property Name="PayTime" Type="datetime" Nullable="false" />
-    <Property Name="CashFlowAmt" Type="decimal" Precision="10" Scale="2" Nullable="false" />
-    <Property Name="PlatformAmt" Type="decimal" Precision="10" Scale="2" Nullable="false" />
-    <Property Name="BuyFeedbackAmt" Type="decimal" Precision="10" Scale="2" Nullable="false" />
-    <Property Name="ProfitAmt" Type="decimal" Precision="10" Scale="2" Nullable="false" />
-    <Property Name="ApplyUserID" Type="int" Nullable="false" />
-    <Property Name="MerchantOrderNo" Type="nvarchar" MaxLength="20" Nullable="false" />
-    <Property Name="UpperUserAmt" Type="decimal" Precision="10" Scale="2" Nullable="false" />
-    <Property Name="UpperQty" Type="int" Nullable="false" />
-    <Property Name="Status" Type="nvarchar" MaxLength="2" />
-  </EntityType>
   <EntityType Name="Area">
     <Key>
       <PropertyRef Name="ID" />
@@ -94,20 +76,6 @@
     <Property Name="Enabled" Type="bit" />
     <Property Name="Extension" Type="nvarchar" MaxLength="5" />
   </EntityType>
-  <EntityType Name="ImageStore">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Image" Type="image" />
-    <Property Name="Path" Type="nvarchar" MaxLength="500" />
-    <Property Name="Extension" Type="nvarchar" MaxLength="5" />
-    <Property Name="Type" Type="nvarchar" MaxLength="10" />
-    <Property Name="Name" Type="nvarchar" MaxLength="50" />
-    <Property Name="Deleted" Type="bit" />
-    <Property Name="Created" Type="datetime" Nullable="false" />
-    <Property Name="Creator" Type="int" />
-  </EntityType>
   <EntityType Name="MyBonus">
     <Key>
       <PropertyRef Name="ID" />
@@ -154,7 +122,7 @@
     <Property Name="ProductId" Type="int" Nullable="false" />
     <Property Name="ProductName" Type="nvarchar" MaxLength="300" Nullable="false" />
     <Property Name="Quantity" Type="int" Nullable="false" />
-    <Property Name="Amount" Type="int" Nullable="false" />
+    <Property Name="Amount" Type="decimal" Precision="10" Scale="2" Nullable="false" />
     <Property Name="CheckIn" Type="datetime" Nullable="false" />
     <Property Name="CheckOut" Type="datetime" Nullable="false" />
     <Property Name="Tel" Type="nvarchar" MaxLength="20" Nullable="false" />
@@ -164,9 +132,6 @@
     <Property Name="Modified" Type="datetime" Nullable="false" />
     <Property Name="Modify" Type="int" Nullable="false" />
     <Property Name="PayVendor" Type="nvarchar" MaxLength="100" Nullable="false" />
-    <Property Name="CashFlow" Type="float" />
-    <Property Name="Paltform" Type="float" />
-    <Property Name="BuyFeedBack" Type="float" />
     <Property Name="TradeNo" Type="nvarchar" MaxLength="20" />
     <Property Name="TradeStatus" Type="nvarchar" MaxLength="10" />
     <Property Name="PaymentType" Type="nvarchar" MaxLength="20" />
@@ -174,8 +139,6 @@
     <Property Name="Creator" Type="int" Nullable="false" />
     <Property Name="Email" Type="nvarchar" MaxLength="150" />
     <Property Name="Name" Type="nvarchar" MaxLength="150" Nullable="false" />
-    <Property Name="UpperUser" Type="float" />
-    <Property Name="LoginType" Type="nvarchar" MaxLength="10" />
     <Property Name="BonusAmt" Type="decimal" Precision="10" Scale="2" Nullable="false" />
     <Property Name="PayAmt" Type="decimal" Precision="10" Scale="2" Nullable="false" />
     <Property Name="Status" Type="nvarchar" MaxLength="15" Nullable="false" />
@@ -371,14 +334,12 @@
     </ReferentialConstraint>
   </Association>
   <EntityContainer Name="MyAnythingModelStoreContainer">
-    <EntitySet Name="Accounting" EntityType="Self.Accounting" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Area" EntityType="Self.Area" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="City" EntityType="Self.City" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CodeFile" EntityType="Self.CodeFile" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Facility" EntityType="Self.Facility" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Hotel" EntityType="Self.Hotel" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="HotelImage" EntityType="Self.HotelImage" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="ImageStore" EntityType="Self.ImageStore" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MyBonus" EntityType="Self.MyBonus" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="News" EntityType="Self.News" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="OrderMaster" EntityType="Self.OrderMaster" Schema="dbo" store:Type="Tables" />
