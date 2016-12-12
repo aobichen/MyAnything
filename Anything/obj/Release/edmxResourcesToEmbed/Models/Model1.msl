@@ -202,27 +202,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="MyBonus">
-      <EntityTypeMapping TypeName="MyAnythingModel.MyBonus">
-        <MappingFragment StoreEntitySet="MyBonus">
-          <ScalarProperty Name="Notified" ColumnName="Notified" />
-          <ScalarProperty Name="BonusStatus" ColumnName="BonusStatus" />
-          <ScalarProperty Name="BonusType" ColumnName="BonusType" />
-          <ScalarProperty Name="MerchantOrderNo" ColumnName="MerchantOrderNo" />
-          <ScalarProperty Name="UseMonth" ColumnName="UseMonth" />
-          <ScalarProperty Name="AmtMinLimit" ColumnName="AmtMinLimit" />
-          <ScalarProperty Name="PayStatus" ColumnName="PayStatus" />
-          <ScalarProperty Name="UserID" ColumnName="UserID" />
-          <ScalarProperty Name="OrderID" ColumnName="OrderID" />
-          <ScalarProperty Name="Created" ColumnName="Created" />
-          <ScalarProperty Name="ParentID" ColumnName="ParentID" />
-          <ScalarProperty Name="Bonus" ColumnName="Bonus" />
-          <ScalarProperty Name="OrderAmt" ColumnName="OrderAmt" />
-          <ScalarProperty Name="PayTime" ColumnName="PayTime" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="PayGo">
       <EntityTypeMapping TypeName="MyAnythingModel.PayGo">
         <MappingFragment StoreEntitySet="PayGo">
@@ -287,6 +266,27 @@
           <ScalarProperty Name="ProductId" ColumnName="ProductId" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="MerchantOrderNo" ColumnName="MerchantOrderNo" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MyBonus">
+      <EntityTypeMapping TypeName="MyAnythingModel.MyBonus">
+        <MappingFragment StoreEntitySet="MyBonus">
+          <ScalarProperty Name="Notified" ColumnName="Notified" />
+          <ScalarProperty Name="BonusStatus" ColumnName="BonusStatus" />
+          <ScalarProperty Name="BonusType" ColumnName="BonusType" />
+          <ScalarProperty Name="MerchantOrderNo" ColumnName="MerchantOrderNo" />
+          <ScalarProperty Name="UseMonth" ColumnName="UseMonth" />
+          <ScalarProperty Name="AmtMinLimit" ColumnName="AmtMinLimit" />
+          <ScalarProperty Name="PayStatus" ColumnName="PayStatus" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+          <ScalarProperty Name="Created" ColumnName="Created" />
+          <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+          <ScalarProperty Name="Bonus" ColumnName="Bonus" />
+          <ScalarProperty Name="OrderAmt" ColumnName="OrderAmt" />
+          <ScalarProperty Name="PayTime" ColumnName="PayTime" />
           <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>

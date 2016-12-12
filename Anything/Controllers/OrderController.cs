@@ -55,6 +55,7 @@ namespace Anything.Controllers
         {
             string PaymentType = result.PaymentType;
             DateTime? PayTime = string.IsNullOrEmpty(result.PayTime) ? (DateTime?)null : Convert.ToDateTime(result.PayTime);
+           
             var Order = _db.OrderMaster.Where(o => o.MerchantOrderNo == result.MerchantOrderNo).FirstOrDefault();
             if (Order != null)
             {
@@ -139,7 +140,7 @@ namespace Anything.Controllers
                     #endregion
                 }
 
-                if (model.Status.Equals("SUCCESS") &&
+                if (model.Status.ToUpper().Equals("SUCCESS") &&
                            !string.IsNullOrEmpty(result.PayTime) &&
                            PayTime > DateTime.MinValue
                            && !_db.MyBonus.Any(o => o.MerchantOrderNo == Order.MerchantOrderNo))
@@ -153,6 +154,15 @@ namespace Anything.Controllers
                     Bonus.UseMonth = DateTime.Now.Month + 1;
                     Bonus.UserID = Order.UserId;
                     Bonus.Create();
+                }
+            }
+            else if (!model.Status.ToUpper().Equals("SUCCESS") && result.PaymentType.ToUpper().Equals("CREDIT"))
+            {
+                var UsedBonus = _db.Bonus.Where(o=>o.MerchantOrderNo == result.MerchantOrderNo).FirstOrDefault();
+                if (UsedBonus != null)
+                {
+                    _db.Bonus.Remove(UsedBonus);
+                    _db.SaveChanges();
                 }
             }
 

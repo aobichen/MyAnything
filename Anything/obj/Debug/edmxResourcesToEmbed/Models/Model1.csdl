@@ -35,9 +35,9 @@
     </AssociationSet>
     <EntitySet Name="SystemField" EntityType="MyAnythingModel.SystemField" />
     <EntitySet Name="SystemLog" EntityType="MyAnythingModel.SystemLog" />
-    <EntitySet Name="MyBonus" EntityType="MyAnythingModel.MyBonus" />
     <EntitySet Name="PayGo" EntityType="MyAnythingModel.PayGo" />
     <EntitySet Name="OrderMaster" EntityType="MyAnythingModel.OrderMaster" />
+    <EntitySet Name="MyBonus" EntityType="MyAnythingModel.MyBonus" />
   </EntityContainer>
   <EntityType Name="Area">
     <Key>
@@ -296,26 +296,6 @@
     <Property Name="Creator" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="IP" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
   </EntityType>
-  <EntityType Name="MyBonus">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="PayTime" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="OrderAmt" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
-    <Property Name="Bonus" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
-    <Property Name="ParentID" Type="Int32" />
-    <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="OrderID" Type="Int32" Nullable="false" />
-    <Property Name="UserID" Type="Int32" Nullable="false" />
-    <Property Name="PayStatus" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-    <Property Name="AmtMinLimit" Type="Int32" Nullable="false" />
-    <Property Name="UseMonth" Type="Int32" Nullable="false" />
-    <Property Name="MerchantOrderNo" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-    <Property Name="BonusType" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-    <Property Name="BonusStatus" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-    <Property Name="Notified" Type="Boolean" Nullable="false" />
-  </EntityType>
   <EntityType Name="PayGo">
     <Key>
       <PropertyRef Name="ID" />
@@ -381,5 +361,25 @@
     <Property Name="PayAmt" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
     <Property Name="Status" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
     <Property Name="ExpireDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="MyBonus">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PayTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="OrderAmt" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+    <Property Name="Bonus" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+    <Property Name="ParentID" Type="Int32" />
+    <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="OrderID" Type="Int32" Nullable="false" />
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <Property Name="PayStatus" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="AmtMinLimit" Type="Int32" Nullable="false" />
+    <Property Name="UseMonth" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="MerchantOrderNo" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="BonusType" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="BonusStatus" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="Notified" Type="Boolean" Nullable="false" />
   </EntityType>
 </Schema>

@@ -24,9 +24,9 @@
         <AssociationConnector Association="MyAnythingModel.FK_RoomPrice_Room" />
         <EntityTypeShape EntityType="MyAnythingModel.SystemField" Width="1.5" PointX="7.375" PointY="11.75" />
         <EntityTypeShape EntityType="MyAnythingModel.SystemLog" Width="1.5" PointX="14.375" PointY="0.75" />
-        <EntityTypeShape EntityType="MyAnythingModel.MyBonus" Width="1.5" PointX="9.375" PointY="11.75" />
         <EntityTypeShape EntityType="MyAnythingModel.PayGo" Width="1.5" PointX="0.75" PointY="11.75" />
         <EntityTypeShape EntityType="MyAnythingModel.OrderMaster" Width="1.5" PointX="11.375" PointY="11.75" />
+        <EntityTypeShape EntityType="MyAnythingModel.MyBonus" Width="1.5" PointX="3.375" PointY="11.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

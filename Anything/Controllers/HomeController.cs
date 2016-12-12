@@ -143,12 +143,28 @@ namespace Anything.Controllers
             var Sum = _db.OrderMaster.Where(o => o.ProductId == Room.ID && (CheckInDate >= o.CheckIn && CheckInDate < o.CheckOut)).Select(o => o.Quantity).DefaultIfEmpty(0).Sum();
             Booking.Quantity = Room.Quantity - Sum;
             var Today = DateTime.Now;
-            var MyBonus = _db.MyBonus.Where(o => o.UserID == CurrentUser.Id && o.BonusType == BonusStatusEnum.CanUse.ToString() && o.UseMonth == Today.Month).ToList();
+
+            var My_Bonus = 0M;
+            var Used_Bonus = 0M;
+            
+            //紅利
             Booking.Bonus = 0;
+            //目前使用者紅利
+            var MyBonus = _db.MyBonus.Where(o => o.UserID == CurrentUser.Id && o.BonusStatus == BonusStatusEnum.CanUse.ToString()).ToList();
+            //已使用的紅利
+            var UsedBonus = _db.Bonus.Where(o=>o.UserId == CurrentUser.Id).ToList();
+            
+            if (UsedBonus != null && UsedBonus.Count > 0)
+            {
+                Used_Bonus = UsedBonus.Sum(o => o.Amt);
+            }
+
             if (MyBonus != null && MyBonus.Count > 0)
             {
-                Booking.Bonus = MyBonus.Sum(o => o.Bonus);
+                My_Bonus = MyBonus.Sum(o => o.Bonus);               
             }
+
+            Booking.Bonus = My_Bonus - Used_Bonus;
             return View(Booking);
         }
 
@@ -293,7 +309,14 @@ namespace Anything.Controllers
                 ExpireDate = PayGo.CREDIT == 1 ? (DateTime?)null : DateTime.Parse(ExpireDate)
             };
             _db.OrderMaster.Add(order);
+
+            if (model.Bonus > 0)
+            {
+                _db.Bonus.Add(new Bonus { Amt = model.Bonus, UserId = CurrentUser.Id, Created = Now, Creator = CurrentUser.Id, MerchantOrderNo = order.MerchantOrderNo });
+            }
+
             _db.SaveChanges();
+            
             return View("PayCommit", BookCommit);
         }
 

@@ -13,6 +13,17 @@
           <Property Name="CID" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="Bonus">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="Amt" Type="decimal" Precision="10" Scale="1" Nullable="false" />
+          <Property Name="MerchantOrderNo" Type="nvarchar" MaxLength="20" />
+          <Property Name="Created" Type="datetime" Nullable="false" />
+          <Property Name="Creator" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="City">
           <Key>
             <PropertyRef Name="ID" />
@@ -95,9 +106,9 @@
           <Property Name="UserID" Type="int" Nullable="false" />
           <Property Name="PayStatus" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="AmtMinLimit" Type="int" Nullable="false" />
-          <Property Name="UseMonth" Type="int" Nullable="false" />
+          <Property Name="UseMonth" Type="datetime" Nullable="false" />
           <Property Name="MerchantOrderNo" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="BonusType" Type="nvarchar" MaxLength="10" />
+          <Property Name="BonusType" Type="nvarchar" MaxLength="20" />
           <Property Name="BonusStatus" Type="nvarchar" MaxLength="30" />
           <Property Name="Notified" Type="bit" Nullable="false" />
         </EntityType>
@@ -340,6 +351,7 @@
         </Association>
         <EntityContainer Name="MyAnythingModelStoreContainer">
           <EntitySet Name="Area" EntityType="Self.Area" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Bonus" EntityType="Self.Bonus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="City" EntityType="Self.City" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CodeFile" EntityType="Self.CodeFile" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Facility" EntityType="Self.Facility" Schema="dbo" store:Type="Tables" />
@@ -416,9 +428,10 @@
           </AssociationSet>
           <EntitySet Name="SystemField" EntityType="MyAnythingModel.SystemField" />
           <EntitySet Name="SystemLog" EntityType="MyAnythingModel.SystemLog" />
-          <EntitySet Name="MyBonus" EntityType="MyAnythingModel.MyBonus" />
           <EntitySet Name="PayGo" EntityType="MyAnythingModel.PayGo" />
           <EntitySet Name="OrderMaster" EntityType="MyAnythingModel.OrderMaster" />
+          <EntitySet Name="MyBonus" EntityType="MyAnythingModel.MyBonus" />
+          <EntitySet Name="Bonus" EntityType="MyAnythingModel.Bonus" />
           </EntityContainer>
         <EntityType Name="Area">
           <Key>
@@ -677,26 +690,6 @@
           <Property Name="Creator" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="IP" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="MyBonus">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PayTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="OrderAmt" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
-          <Property Name="Bonus" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
-          <Property Name="ParentID" Type="Int32" />
-          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="OrderID" Type="Int32" Nullable="false" />
-          <Property Name="UserID" Type="Int32" Nullable="false" />
-          <Property Name="PayStatus" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="AmtMinLimit" Type="Int32" Nullable="false" />
-          <Property Name="UseMonth" Type="Int32" Nullable="false" />
-          <Property Name="MerchantOrderNo" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="BonusType" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="BonusStatus" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="Notified" Type="Boolean" Nullable="false" />
-        </EntityType>
         <EntityType Name="PayGo">
           <Key>
             <PropertyRef Name="ID" />
@@ -762,6 +755,37 @@
           <Property Name="PayAmt" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
           <Property Name="Status" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
           <Property Name="ExpireDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="MyBonus">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PayTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="OrderAmt" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="Bonus" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="ParentID" Type="Int32" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="OrderID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="PayStatus" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="AmtMinLimit" Type="Int32" Nullable="false" />
+          <Property Name="UseMonth" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="MerchantOrderNo" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="BonusType" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="BonusStatus" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Notified" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Bonus">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="Amt" Type="Decimal" Nullable="false" Precision="10" Scale="1" />
+          <Property Name="MerchantOrderNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Creator" Type="Int32" Nullable="false" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -970,27 +994,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="MyBonus">
-            <EntityTypeMapping TypeName="MyAnythingModel.MyBonus">
-              <MappingFragment StoreEntitySet="MyBonus">
-                <ScalarProperty Name="Notified" ColumnName="Notified" />
-                <ScalarProperty Name="BonusStatus" ColumnName="BonusStatus" />
-                <ScalarProperty Name="BonusType" ColumnName="BonusType" />
-                <ScalarProperty Name="MerchantOrderNo" ColumnName="MerchantOrderNo" />
-                <ScalarProperty Name="UseMonth" ColumnName="UseMonth" />
-                <ScalarProperty Name="AmtMinLimit" ColumnName="AmtMinLimit" />
-                <ScalarProperty Name="PayStatus" ColumnName="PayStatus" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
-                <ScalarProperty Name="Created" ColumnName="Created" />
-                <ScalarProperty Name="ParentID" ColumnName="ParentID" />
-                <ScalarProperty Name="Bonus" ColumnName="Bonus" />
-                <ScalarProperty Name="OrderAmt" ColumnName="OrderAmt" />
-                <ScalarProperty Name="PayTime" ColumnName="PayTime" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="PayGo">
             <EntityTypeMapping TypeName="MyAnythingModel.PayGo">
               <MappingFragment StoreEntitySet="PayGo">
@@ -1055,6 +1058,39 @@
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="MerchantOrderNo" ColumnName="MerchantOrderNo" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MyBonus">
+            <EntityTypeMapping TypeName="MyAnythingModel.MyBonus">
+              <MappingFragment StoreEntitySet="MyBonus">
+                <ScalarProperty Name="Notified" ColumnName="Notified" />
+                <ScalarProperty Name="BonusStatus" ColumnName="BonusStatus" />
+                <ScalarProperty Name="BonusType" ColumnName="BonusType" />
+                <ScalarProperty Name="MerchantOrderNo" ColumnName="MerchantOrderNo" />
+                <ScalarProperty Name="UseMonth" ColumnName="UseMonth" />
+                <ScalarProperty Name="AmtMinLimit" ColumnName="AmtMinLimit" />
+                <ScalarProperty Name="PayStatus" ColumnName="PayStatus" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+                <ScalarProperty Name="Bonus" ColumnName="Bonus" />
+                <ScalarProperty Name="OrderAmt" ColumnName="OrderAmt" />
+                <ScalarProperty Name="PayTime" ColumnName="PayTime" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Bonus">
+            <EntityTypeMapping TypeName="MyAnythingModel.Bonus">
+              <MappingFragment StoreEntitySet="Bonus">
+                <ScalarProperty Name="Creator" ColumnName="Creator" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="MerchantOrderNo" ColumnName="MerchantOrderNo" />
+                <ScalarProperty Name="Amt" ColumnName="Amt" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

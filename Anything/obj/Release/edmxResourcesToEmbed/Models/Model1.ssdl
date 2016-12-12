@@ -90,9 +90,9 @@
     <Property Name="UserID" Type="int" Nullable="false" />
     <Property Name="PayStatus" Type="nvarchar" MaxLength="20" Nullable="false" />
     <Property Name="AmtMinLimit" Type="int" Nullable="false" />
-    <Property Name="UseMonth" Type="int" Nullable="false" />
+    <Property Name="UseMonth" Type="datetime" Nullable="false" />
     <Property Name="MerchantOrderNo" Type="nvarchar" MaxLength="20" Nullable="false" />
-    <Property Name="BonusType" Type="nvarchar" MaxLength="10" />
+    <Property Name="BonusType" Type="nvarchar" MaxLength="20" />
     <Property Name="BonusStatus" Type="nvarchar" MaxLength="30" />
     <Property Name="Notified" Type="bit" Nullable="false" />
   </EntityType>

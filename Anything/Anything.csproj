@@ -196,8 +196,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\My\Controllers\BonusController.cs" />
     <Compile Include="Areas\My\Controllers\HomeController.cs" />
     <Compile Include="Areas\My\Controllers\HotelController.cs" />
+    <Compile Include="Areas\My\Models\MyBonusModel.cs" />
     <Compile Include="Areas\My\Models\MyOrderModel.cs" />
     <Compile Include="Areas\My\MyAreaRegistration.cs" />
     <Compile Include="Areas\System\BundleConfig.cs" />
@@ -238,6 +240,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Areas\System\Models\BedTypeModel.cs" />
+    <Compile Include="Models\Bonus.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\City.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -316,6 +321,7 @@
     <Compile Include="ViewModels\RoomPriceViewModel.cs" />
     <Compile Include="ViewModels\RoomViewModel.cs" />
     <Compile Include="ViewModels\ScenicModel.cs" />
+    <Compile Include="WebApi\BonusController.cs" />
     <Compile Include="WebApi\DefaultController.cs" />
     <Compile Include="WebApi\ImageUploadController.cs" />
     <Compile Include="WebApi\PayGoController.cs" />
@@ -565,6 +571,8 @@
     <Content Include="Areas\My\Views\Home\Index.cshtml" />
     <Content Include="Areas\My\Views\Home\_HotelList.cshtml" />
     <Content Include="Areas\My\Views\Home\_OrderList.cshtml" />
+    <Content Include="Areas\My\Views\Bonus\Index.cshtml" />
+    <Content Include="Areas\My\Views\Bonus\_List.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\infobox.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

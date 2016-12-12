@@ -24,7 +24,7 @@ namespace Anything.Models
         public int UserID { get; set; }
         public string PayStatus { get; set; }
         public int AmtMinLimit { get; set; }
-        public int UseMonth { get; set; }
+        public System.DateTime UseMonth { get; set; }
         public string MerchantOrderNo { get; set; }
         public string BonusType { get; set; }
         public string BonusStatus { get; set; }
