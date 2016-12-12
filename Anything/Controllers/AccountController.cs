@@ -259,7 +259,7 @@ namespace Anything.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Join(RegisterViewModel model)
         {
-            var Recommend = Session["RecommendCode"] == null ? OfficalRecommendCode : Session["RecommendCode"].ToString();
+            var Recommend = Session["RecommendCode"] == null ? string.Empty : Session["RecommendCode"].ToString();
             ViewBag.Recommend = Recommend;
             AddRoles();
             //var Recommend = string.Empty;
@@ -365,7 +365,7 @@ namespace Anything.Controllers
         public ActionResult Register()
         {
             AuthenticationManager.SignOut();
-            var Recommend = Session["RecommendCode"] == null ? OfficalRecommendCode : Session["RecommendCode"].ToString();
+            var Recommend = Session["RecommendCode"] == null ? string.Empty : Session["RecommendCode"].ToString();
           
             ViewBag.Recommend = Recommend;
             return View();
@@ -378,7 +378,7 @@ namespace Anything.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
-            var Recommend = Session["RecommendCode"] == null ? OfficalRecommendCode : Session["RecommendCode"].ToString();
+            var Recommend = Session["RecommendCode"] == null ? string.Empty : Session["RecommendCode"].ToString();
             ViewBag.Recommend = Recommend;
             AddRoles();
             //var Recommend = string.Empty;

@@ -5,7 +5,7 @@
     }
 </style>
 
-<dl>
+<dl id="left-search">
     <!--Departure times-->
     @*<dt>價格區間</dt>
     <dd>
@@ -75,6 +75,11 @@
 </dl>
 <script type="text/javascript">
     jQuery(function () {
+        const leftmenu = $('#left-search');
+        var dts = leftmenu.find('dt');
+       
+        $(dts[0]).trigger('click');
+        $(dts[1]).trigger('click');
         //const dt = $('dt');
         //$(dt[0]).addClass('active');
         //const active = $('dt[class="active"]');

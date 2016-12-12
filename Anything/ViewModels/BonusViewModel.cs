@@ -57,7 +57,7 @@ namespace Anything.ViewModels
                     Hotel = double.Parse(HotelPromo.ItemValue);
                 }
 
-                var UpperUser = Bonus.Where(o => o.ItemType == "UpperUser").FirstOrDefault();
+                var UpperUser = Bonus.Where(o => o.ItemType == "UpperFee").FirstOrDefault();
                 double Upper = 0;
                 if (UpperUser != null)
                 {
@@ -75,28 +75,45 @@ namespace Anything.ViewModels
                 var TotalPercent = 0.5;
                 //發送金額 = 訂單金額 * 總比例(13.5)*0.01
                 var TotalAmt = ((double)OrderAmt * (Total * 0.01)) * TotalPercent;
-
-                //db.TEST.Add(new TEST { Created = DateTime.Now, Message = string.Format("TotalAmt:{0}",TotalAmt) });
+                db.TEST.Add(new TEST { Created = DateTime.Now, Message = string.Format("TotalAmt1:{0}", Total*0.01) });
+                db.TEST.Add(new TEST { Created = DateTime.Now, Message = string.Format("TotalAmt:{0}",TotalAmt) });
                 //消費帳號紅利 = 發送金額 * 0.3
                 var BuyAmt = Math.Floor(TotalAmt * (Buy * 0.01));
-                //db.TEST.Add(new TEST { Created = DateTime.Now, Message = string.Format("BuyAmt:{0}", BuyAmt) });
+                db.TEST.Add(new TEST { Created = DateTime.Now, Message = string.Format("BuyAmt1:{0}", Buy * 0.01) });
+                db.TEST.Add(new TEST { Created = DateTime.Now, Message = string.Format("BuyAmt:{0}", BuyAmt) });
                 //民宿推薦帳號紅利 = 發送金額 * 0.05
                 var HotelAmt = Math.Floor(TotalAmt * (Hotel * 0.01));
+                db.TEST.Add(new TEST { Created = DateTime.Now, Message = string.Format("HotelAmt1:{0}", Hotel * 0.01) });
                 db.TEST.Add(new TEST { Created = DateTime.Now, Message = string.Format("HotelAmt:{0}", HotelAmt) });
                 //上線平均紅利 = (發送金額 * 0.3)/6
                 var UpperAmt = Math.Floor((TotalAmt * (Upper * 0.01)) / 6);
-                //db.TEST.Add(new TEST { Created = DateTime.Now, Message = string.Format("UpperAmt:{0}", UpperAmt) });
+                db.TEST.Add(new TEST { Created = DateTime.Now, Message = string.Format("HotelAmt1:{0}", Upper * 0.01) });
+                db.TEST.Add(new TEST { Created = DateTime.Now, Message = string.Format("UpperAmt:{0}", UpperAmt) });
 
                 var LimitAmt = MinAmt;
                 
 
                 var Today = DateTime.Now;
 
+                var HotelRecommandID = 0;
                 //更新付款狀態為已付款
                 var Order = db.OrderMaster.Where(o => o.MerchantOrderNo == MerchantOrderNo).FirstOrDefault();
                 if (Order != null)
                 {
                     Order.Status = OrderType.Paid.ToString();
+                    var Room = db.Room.Find(Order.ID);
+                    using (var _db = new ApplicationDbContext())
+                    {
+                        var user = _db.Users.Where(o=>o.Id == Room.Hotel.ID).FirstOrDefault();
+                        if (user != null && !string.IsNullOrEmpty(user.Recommend))
+                        {
+                            var Recommand = _db.Users.Where(o => o.UserCode == user.Recommend).FirstOrDefault();
+                            if (Recommand != null)
+                            {
+                                HotelRecommandID = Recommand.Id;
+                            }
+                        }
+                    }
                 }
                
                 db.MyBonus.Add(new MyBonus
@@ -116,6 +133,27 @@ namespace Anything.ViewModels
                     BonusStatus = BonusStatusEnum.CurrentBonus.ToString(),
                     Notified = false
                 });
+
+                if (HotelRecommandID > 0)
+                {
+                    db.MyBonus.Add(new MyBonus
+                    {
+                        AmtMinLimit = (int)MinAmt,
+                        Bonus = (decimal)HotelAmt,
+                        Created = Today,
+                        OrderAmt = OrderAmt.Value,
+                        OrderID = OrderID.Value,
+                        PayTime = PayTime.Value,
+                        PayStatus = Status,
+                        UseMonth = UseMonth.Value,
+                        UserID = HotelRecommandID,
+                        MerchantOrderNo = MerchantOrderNo,
+                        ParentID = 0,
+                        BonusType = BonusTypeEnum.Purchasing.ToString(),
+                        BonusStatus = BonusStatusEnum.CurrentBonus.ToString(),
+                        Notified = false
+                    });
+                }
 
                
                 var UpperUsers = new UpperUserModel().GETUpperUserList(UserID.Value);

@@ -261,15 +261,13 @@ namespace Anything.ViewModels
         public List<HotelsViewModel> GetHotels(HotelSearchViewModel model)
         {
 
-            var Facilities = string.Empty;
+            
             if(model.Facility==null){
                 model.Facility = new List<string>();
 
             }
-            else
-            {
-                Facilities = string.Join(",", model.Facility);
-            }
+
+          
 
             if (model.Scenic == null)
             {
@@ -330,7 +328,9 @@ namespace Anything.ViewModels
                           (
                           (string.IsNullOrEmpty(model.Word) || 
                           (h.Name.Contains(model.Word))) &&
-                          (model.City <= 0 || h.City ==model.City) 
+                          (model.City <= 0 || h.City ==model.City) &&
+                          (model.Facility.Count <= 0 || model.Facility.All(w => h.Facility.Contains(w))) &&
+                          (model.Scenic.Count <= 0 || model.Scenic.All(w => h.Scenics.Contains(w)))
                           
                           )
                           select new HotelsViewModel
@@ -344,11 +344,7 @@ namespace Anything.ViewModels
                               Images = h.HotelImage.ToList(),
                               Facility = h.Facility,
                               Scenic = h.Scenics
-                              //HolidayPrice = h.Room[0].HolidayPrice,
-                              //DayPrice = rp.Room.DayPrice,
-                              //FixedPrice = rp.Room.FixedPrice
-                              //SellPrice = rp.Price
-                          }).Take(take).ToList();
+                          }).OrderBy(o => Guid.NewGuid()).Take(take).ToList();
             var RoomAmt = new RoomAmt();
             var r_result = new List<HotelsViewModel>();
             foreach (var m in result)
@@ -363,34 +359,13 @@ namespace Anything.ViewModels
 
                 m.FixedPrice = Amts.Min();
 
-                //if (model.Facility.Count > 0 && model.Scenic.Count > 0)
-                //{
-                //    var f = m.Facility.Split(',').ToList();
-                //    var s = m.Scenic.Split(',').ToList();
-                //    if (f.Contains(m.Facility) && s.Contains(m.Scenic))
-                //    {
-                //        r_result.Add(m);
-                //    }
-                //}
-                //else if (model.Facility.Count > 0)
-                //{
-                //    var f = m.Facility.Split(',').ToList();
-                    
-                //    if (f.Contains(m.Facility))
-                //    {
-                //        r_result.Add(m);
-                //    }
-                //}
-
-                
-                //var price = m
             }
 
            
             _db.Dispose();
 
             if(!string.IsNullOrEmpty(model.Price)){
-            result = result.Where(o=>o.FixedPrice >= MinPrice && o.FixedPrice <= MaxPrice).ToList();
+                result = result.Where(o=>o.FixedPrice >= MinPrice && o.FixedPrice <= MaxPrice).Take(30).ToList();
             }
             return result;
         }
