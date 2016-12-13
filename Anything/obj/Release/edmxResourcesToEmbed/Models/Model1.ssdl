@@ -8,6 +8,17 @@
     <Property Name="CID" Type="int" Nullable="false" />
     <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
   </EntityType>
+  <EntityType Name="Bonus">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="Amt" Type="decimal" Precision="10" Scale="1" Nullable="false" />
+    <Property Name="MerchantOrderNo" Type="nvarchar" MaxLength="20" />
+    <Property Name="Created" Type="datetime" Nullable="false" />
+    <Property Name="Creator" Type="int" Nullable="false" />
+  </EntityType>
   <EntityType Name="City">
     <Key>
       <PropertyRef Name="ID" />
@@ -335,6 +346,7 @@
   </Association>
   <EntityContainer Name="MyAnythingModelStoreContainer">
     <EntitySet Name="Area" EntityType="Self.Area" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Bonus" EntityType="Self.Bonus" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="City" EntityType="Self.City" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CodeFile" EntityType="Self.CodeFile" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Facility" EntityType="Self.Facility" Schema="dbo" store:Type="Tables" />

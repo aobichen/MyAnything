@@ -27,6 +27,7 @@
         <EntityTypeShape EntityType="MyAnythingModel.PayGo" Width="1.5" PointX="0.75" PointY="11.75" />
         <EntityTypeShape EntityType="MyAnythingModel.OrderMaster" Width="1.5" PointX="11.375" PointY="11.75" />
         <EntityTypeShape EntityType="MyAnythingModel.MyBonus" Width="1.5" PointX="3.375" PointY="11.75" />
+        <EntityTypeShape EntityType="MyAnythingModel.Bonus" Width="1.5" PointX="13.375" PointY="9.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -261,7 +261,6 @@ C:\Users\Aobi\Documents\MYSPACE\MyAnything\Anything\bin\zh-Hant\Microsoft.Owin.S
 C:\Users\Aobi\Documents\MYSPACE\MyAnything\Anything\obj\Release\Anything.csprojResolveAssemblyReference.cache
 C:\Users\Aobi\Documents\MYSPACE\MyAnything\Anything\obj\Release\Anything.dll
 C:\Users\Aobi\Documents\MYSPACE\MyAnything\Anything\obj\Release\Anything.pdb
-C:\Users\aobi\Documents\SOHOProjects\MyAnything\Anything\bin\Anything.dll.config
 C:\Users\aobi\Documents\SOHOProjects\MyAnything\Anything\bin\Anything.dll
 C:\Users\aobi\Documents\SOHOProjects\MyAnything\Anything\bin\Anything.pdb
 C:\Users\aobi\Documents\SOHOProjects\MyAnything\Anything\bin\Antlr3.Runtime.dll
@@ -445,3 +444,4 @@ C:\Users\aobi\Documents\SOHOProjects\MyAnything\Anything\bin\Facebook.dll
 C:\Users\aobi\Documents\SOHOProjects\MyAnything\Anything\bin\Facebook.xml
 C:\Users\Aobi\Documents\SOHOProject\MYAnything\Anything\bin\Facebook.dll
 C:\Users\Aobi\Documents\SOHOProject\MYAnything\Anything\bin\Facebook.xml
+C:\Users\aobi\Documents\SOHOProjects\MyAnything\Anything\bin\Anything.dll.config

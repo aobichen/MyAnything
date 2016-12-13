@@ -20,5 +20,6 @@ namespace Anything.Models
         public string MerchantOrderNo { get; set; }
         public System.DateTime Created { get; set; }
         public int Creator { get; set; }
+        public string Status { get; set; }
     }
 }

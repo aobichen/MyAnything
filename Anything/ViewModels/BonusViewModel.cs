@@ -33,6 +33,13 @@ namespace Anything.ViewModels
         {
             using (var db = new MyAnythingEntities())
             {
+                var UsedBonus = db.Bonus.Where(o => o.MerchantOrderNo == MerchantOrderNo).FirstOrDefault();
+                if (UsedBonus != null)
+                {
+                    UsedBonus.Status = "active";
+                    db.SaveChanges();
+                }
+
                 var Bonus = db.SystemField.Where(o => o.ItemCode == "BS").ToList();
                 var TotalFee = Bonus.Where(o => o.ItemType == "TotalFee").FirstOrDefault();
                 double Total = 0;

@@ -9,6 +9,12 @@
     <_PublishTargetUrl>C:\Users\Aobi\Documents\Public\anything</_PublishTargetUrl>
   </PropertyGroup>
   <ItemGroup>
+    <File Include="Areas/My/Views/Bonus/Index.cshtml">
+      <publishTime>12/12/2016 20:42:45</publishTime>
+    </File>
+    <File Include="Areas/My/Views/Bonus/_List.cshtml">
+      <publishTime>12/12/2016 20:44:01</publishTime>
+    </File>
     <File Include="Areas/My/Views/Home/Index.cshtml">
       <publishTime>12/09/2016 18:50:46</publishTime>
     </File>
@@ -73,13 +79,13 @@
       <publishTime>09/27/2016 18:20:02</publishTime>
     </File>
     <File Include="bin/Anything.dll">
-      <publishTime>12/12/2016 20:34:52</publishTime>
+      <publishTime>12/12/2016 22:15:24</publishTime>
     </File>
     <File Include="bin/App_global.asax.compiled">
-      <publishTime>12/12/2016 20:35:11</publishTime>
+      <publishTime>12/12/2016 22:16:21</publishTime>
     </File>
     <File Include="bin/App_global.asax.dll">
-      <publishTime>12/12/2016 20:35:11</publishTime>
+      <publishTime>12/12/2016 22:16:21</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>09/27/2016 18:20:03</publishTime>
@@ -3061,16 +3067,16 @@
       <publishTime>11/03/2016 18:59:36</publishTime>
     </File>
     <File Include="Models/Model1.edmx.diagram">
-      <publishTime>12/12/2016 20:34:37</publishTime>
+      <publishTime>12/12/2016 21:53:05</publishTime>
     </File>
     <File Include="packages.config">
       <publishTime>11/30/2016 22:17:42</publishTime>
     </File>
     <File Include="PrecompiledApp.config">
-      <publishTime>12/12/2016 20:35:05</publishTime>
+      <publishTime>12/12/2016 22:16:19</publishTime>
     </File>
     <File Include="Scripts/Base.js">
-      <publishTime>11/28/2016 19:59:11</publishTime>
+      <publishTime>12/12/2016 21:25:06</publishTime>
     </File>
     <File Include="Scripts/bootstrap.js">
       <publishTime>10/19/2016 10:41:07</publishTime>
@@ -4714,7 +4720,7 @@
       <publishTime>09/27/2016 18:20:02</publishTime>
     </File>
     <File Include="Views/Home/Booking.cshtml">
-      <publishTime>12/08/2016 22:57:49</publishTime>
+      <publishTime>12/12/2016 21:38:40</publishTime>
     </File>
     <File Include="Views/Home/Contact.cshtml">
       <publishTime>09/27/2016 18:20:02</publishTime>
@@ -4888,7 +4894,7 @@
       <publishTime>12/06/2016 22:58:19</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>12/06/2016 22:50:08</publishTime>
+      <publishTime>12/12/2016 21:25:06</publishTime>
     </File>
     <File Include="Views/Shared/_LayoutHome.cshtml">
       <publishTime>10/19/2016 16:42:58</publishTime>
@@ -4996,7 +5002,7 @@
       <publishTime>09/27/2016 18:20:02</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>12/12/2016 19:21:48</publishTime>
+      <publishTime>12/12/2016 22:15:39</publishTime>
     </File>
   </ItemGroup>
 </Project>

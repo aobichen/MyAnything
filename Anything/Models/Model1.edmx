@@ -23,6 +23,7 @@
           <Property Name="MerchantOrderNo" Type="nvarchar" MaxLength="20" />
           <Property Name="Created" Type="datetime" Nullable="false" />
           <Property Name="Creator" Type="int" Nullable="false" />
+          <Property Name="Status" Type="nvarchar" MaxLength="15" />
         </EntityType>
         <EntityType Name="City">
           <Key>
@@ -786,6 +787,7 @@
           <Property Name="MerchantOrderNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Creator" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -1086,6 +1088,7 @@
           <EntitySetMapping Name="Bonus">
             <EntityTypeMapping TypeName="MyAnythingModel.Bonus">
               <MappingFragment StoreEntitySet="Bonus">
+                <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="Creator" ColumnName="Creator" />
                 <ScalarProperty Name="Created" ColumnName="Created" />
                 <ScalarProperty Name="MerchantOrderNo" ColumnName="MerchantOrderNo" />

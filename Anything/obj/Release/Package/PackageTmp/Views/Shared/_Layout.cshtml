@@ -9,7 +9,7 @@
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-
+    <script src="~/Scripts/Base.js"></script>
     @*<link rel="stylesheet" href="~/Content/theme.css" />
     <link href="~/Content/font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet" />*@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800|Roboto+Slab:400,700&subset=latin,latin-ext,greek-ext,greek,cyrillic,vietnamese,cyrillic-ext">
@@ -74,8 +74,8 @@
             (function ($) {
                 $(document).ready(function () {
 
-
-
+                    BonusUpdate();
+                    ExpireDate();
                     $('.form').hide();
                     $('#form1').show();
                     //$('.f-item:nth-child(1)').addClass('active');

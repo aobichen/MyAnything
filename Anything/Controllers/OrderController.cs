@@ -145,6 +145,9 @@ namespace Anything.Controllers
                            PayTime > DateTime.MinValue
                            && !_db.MyBonus.Any(o => o.MerchantOrderNo == Order.MerchantOrderNo))
                 {
+
+
+
                     var Bonus = new BonusViewModel();
                     Bonus.MerchantOrderNo = Order.MerchantOrderNo;
                     Bonus.OrderID = Order.ID;
@@ -156,15 +159,7 @@ namespace Anything.Controllers
                     Bonus.Create();
                 }
             }
-            else if (!model.Status.ToUpper().Equals("SUCCESS") && result.PaymentType.ToUpper().Equals("CREDIT"))
-            {
-                var UsedBonus = _db.Bonus.Where(o=>o.MerchantOrderNo == result.MerchantOrderNo).FirstOrDefault();
-                if (UsedBonus != null)
-                {
-                    _db.Bonus.Remove(UsedBonus);
-                    _db.SaveChanges();
-                }
-            }
+            
 
             var PayModel = (from order in _db.OrderMaster
                             //join h in _db.Hotel

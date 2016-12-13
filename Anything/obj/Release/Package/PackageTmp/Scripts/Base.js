@@ -61,6 +61,42 @@ function IsLeapYear(year) {
 
 }
 
+
+
+function BonusUpdate() {
+    $.ajax({
+        type: "POST",
+        url: '/Bonus/Update',
+        data: null,
+        dataType: "json",
+        cache: false,
+
+        success: function (xhr) {
+            console.log(xhr);
+        },
+        error: function (xhr) {
+            console.log("ERROR");
+        }
+    });
+}
+
+function ExpireDate() {
+    $.ajax({
+        type: "POST",
+        url: '/Order/ExpireDate',
+        data: null,
+        dataType: "json",
+        cache: false,
+
+        success: function (xhr) {
+            console.log(xhr);
+        },
+        error: function (xhr) {
+            console.log("ERROR");
+        }
+    });
+}
+
 function QueryAllPay() {
     $.ajax({
         type: "POST",

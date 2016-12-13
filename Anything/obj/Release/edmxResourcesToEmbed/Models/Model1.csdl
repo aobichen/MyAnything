@@ -38,6 +38,7 @@
     <EntitySet Name="PayGo" EntityType="MyAnythingModel.PayGo" />
     <EntitySet Name="OrderMaster" EntityType="MyAnythingModel.OrderMaster" />
     <EntitySet Name="MyBonus" EntityType="MyAnythingModel.MyBonus" />
+    <EntitySet Name="Bonus" EntityType="MyAnythingModel.Bonus" />
   </EntityContainer>
   <EntityType Name="Area">
     <Key>
@@ -381,5 +382,16 @@
     <Property Name="BonusType" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
     <Property Name="BonusStatus" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
     <Property Name="Notified" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Bonus">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="Amt" Type="Decimal" Nullable="false" Precision="10" Scale="1" />
+    <Property Name="MerchantOrderNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Creator" Type="Int32" Nullable="false" />
   </EntityType>
 </Schema>
