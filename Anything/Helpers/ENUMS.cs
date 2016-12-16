@@ -58,6 +58,28 @@ namespace Anything.Helpers
           }
           return value;
       }
+
+      public static string ParsePayStatusType(string status)
+      {
+          //var StatusEnum = BonusStatusEnum.
+          var value = string.Empty;
+          switch (status)
+          {
+              case "Paid":
+                  value = "已付款";
+                  break;
+              case "Expired":
+                  value = "付款期限已過";
+                  break;
+              case "Unpaid":
+                  value = "位付款";
+                  break;
+
+             
+          }
+          
+          return value;
+      }
    }
     
    

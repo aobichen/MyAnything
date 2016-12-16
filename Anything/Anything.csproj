@@ -334,6 +334,8 @@
     <Content Include="Content\bootstrap-datetimepicker\js\bootstrap-datetimepicker.min.js" />
     <Content Include="Content\bootstrap-datetimepicker\js\locales\bootstrap-datetimepicker.zh-CN.js" />
     <Content Include="Content\bootstrap-datetimepicker\js\locales\bootstrap-datetimepicker.zh-TW.js" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.min.js" />
@@ -415,6 +417,10 @@
     <Content Include="Content\style.css" />
     <Content Include="Content\theme.css" />
     <Content Include="Content\custom.css" />
+    <Content Include="Content\vendor\bootstrap-theme.css" />
+    <Content Include="Content\vendor\bootstrap-theme.min.css" />
+    <Content Include="Content\vendor\bootstrap.css" />
+    <Content Include="Content\vendor\bootstrap.min.css" />
     <Content Include="images\myanythinglogo.png" />
     <Content Include="Scripts\custom.js" />
     <Content Include="Content\custom.min.css" />
@@ -573,6 +579,12 @@
     <Content Include="Areas\My\Views\Home\_OrderList.cshtml" />
     <Content Include="Areas\My\Views\Bonus\Index.cshtml" />
     <Content Include="Areas\My\Views\Bonus\_List.cshtml" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\vendor\bootstrap-theme.css.map" />
+    <Content Include="Content\vendor\bootstrap-theme.min.css.map" />
+    <Content Include="Content\vendor\bootstrap.css.map" />
+    <Content Include="Content\vendor\bootstrap.min.css.map" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\infobox.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

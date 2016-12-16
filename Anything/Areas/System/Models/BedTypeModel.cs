@@ -16,11 +16,15 @@ namespace Anything.Areas.System.Models
         public bool Enabled { get; set; }
         public string TypeText { get; set; }
 
-        public List<CodeFile> Query()
+        public List<BedTypeModel> Query()
         {
             using (var db = new MyAnythingEntities())
             {
-                var model = db.CodeFile.Where(o => o.ItemCode == "Beds").ToList();
+                var model = db.CodeFile.Where(o => o.ItemType == "Beds").Select(o => new BedTypeModel { ID = o.ID,
+                    ItemCode = o.ItemCode,
+                    ItemDescription = o.ItemDescription
+                    
+                }).ToList();
                 return model;
             }
         }

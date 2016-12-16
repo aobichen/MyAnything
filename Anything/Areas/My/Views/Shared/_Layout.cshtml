@@ -7,7 +7,7 @@
     
     
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/vendor/bootstrap.css" rel="stylesheet" />
     
     <link href="~/Content/font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet" />
    
@@ -28,19 +28,7 @@
                     <div class="clearfix"></div>
 
                     <!-- menu profile quick info -->
-                    @if (Request.IsAuthenticated)
-                       {
-                        <div class="profile">
-                        <div class="profile_pic">
-                            @*<img src="images/img.jpg" alt="..." class="img-circle profile_img">*@
-                        </div>
-                        <div class="profile_info">
-                            
-                            <h2>@User.Identity.Name</h2>
-                        </div>
-                    </div>
-                        }
-                    
+                  
                     <!-- /menu profile quick info -->
 
                     <br />
@@ -48,7 +36,7 @@
                     <!-- sidebar menu -->
                     <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
                         <div class="menu_section">
-                            <h3>的資訊後台</h3>
+                            <h3></h3>
                             <ul class="nav side-menu">
                                 <li>
                                     <a><i class="fa fa-home"></i> Home @*<span class="fa fa-chevron-down"></span>*@</a>

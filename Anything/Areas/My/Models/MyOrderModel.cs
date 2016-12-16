@@ -18,9 +18,9 @@ namespace Anything.Areas.My.Models
         public string MerchantOrderNo { get; set; }
 
         public int Quantity { get; set; }
-        public decimal Amt { get; set; }
-        public decimal OrderAmt { get; set; }
-        public decimal Bonus { get; set; }
+        public decimal Total { get; set; }
+        public decimal PayAmt { get; set; }
+        public decimal PayBonus { get; set; }
         public string PaymentType { get; set; }
         public string PayStatus { get; set; }
         public DateTime CheckInDate { get; set; }

@@ -2,6 +2,12 @@
 @{
     ViewBag.Title = "Index";
 }
+@if (((PagedList.IPagedList<Anything.Areas.My.Models.HotelOrderModel>)ViewBag.HotelOrders) != null && ((PagedList.IPagedList<Anything.Areas.My.Models.HotelOrderModel>)ViewBag.HotelOrders).Count > 0)
+{
+    @Html.Partial("_HotelList", (PagedList.IPagedList<Anything.Areas.My.Models.HotelOrderModel>)ViewBag.HotelOrders)
+}
 
-@Html.Partial("_HotelList", (PagedList.IPagedList<Anything.Areas.My.Models.HotelOrderModel>)ViewBag.HotelOrders)
+   
+
+    @Html.Partial("_OrderList", (PagedList.IPagedList<Anything.Areas.My.Models.MyOrderModel>)ViewBag.MyOrders)
 
