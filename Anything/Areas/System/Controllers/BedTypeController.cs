@@ -23,5 +23,24 @@ namespace Anything.Areas.System.Controllers
             ViewData.Model = result;
             return View();
         }
+
+        public ActionResult Edit(int? id)        
+        {
+            if (id.HasValue)
+            {
+                var model = new BedTypeModel().Single(id.Value);
+                ViewData.Model = model;
+                return View();
+            }
+            return View();
+        }
+
+         [HttpPost]
+        public ActionResult Edit(BedTypeModel model)
+        {
+            
+                model.Edit();
+                return RedirectToAction("Index");
+        }
     }
 }

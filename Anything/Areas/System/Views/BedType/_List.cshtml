@@ -2,6 +2,11 @@
 @model PagedList.IPagedList<Anything.Areas.System.Models.BedTypeModel>
 
 <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="col-md-12">
+        <a class="btn btn-primary" href="@Url.Action("Edit", "BedType", new {area = "System" })">
+        新增
+        </a>
+    </div>
     <div class="x_panel">
         <div class="x_title">
             <h2>床型</h2>
@@ -27,6 +32,9 @@
                                     床型
                                 </th>
                                 <th>
+                                    描述
+                                </th>
+                                <th>
                                     
                                 </th>
 
@@ -38,10 +46,13 @@
                                 <tr>
                                   
                                     <td>
+                                        @item.ItemCode
+                                    </td>
+                                    <td>
                                         @item.ItemDescription
                                     </td>
                                     <td>
-                                       <a class="btn btn-primary btn-sm" href="@Url.Action("Edit","BedType", new {id=@item.ID})">
+                                       <a class="btn btn-primary btn-sm" href="@Url.Action("Edit","BedType", new {area = "System",id=@item.ID})">
                                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                        </a>
                                     </td>

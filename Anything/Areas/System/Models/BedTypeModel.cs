@@ -29,20 +29,36 @@ namespace Anything.Areas.System.Models
             }
         }
 
+        public BedTypeModel Single(int id)
+        {
+            var model = new BedTypeModel();
+            using (var db = new MyAnythingEntities())
+            {
+                 model = db.CodeFile.Where(o => o.ItemType == "Beds" && o.ID == id).Select(o => new BedTypeModel
+                {
+                    ID = o.ID,
+                    ItemCode = o.ItemCode,
+                    ItemDescription = o.ItemDescription
+
+                }).FirstOrDefault();
+            }
+            return model;
+        }
+
         public void Edit(){
             using(var db = new  MyAnythingEntities())
             {
                 if (ID > 0)
                 {
-                    var model = db.CodeFile.Where(o => o.ID == ID && o.ItemCode == "Beds").FirstOrDefault();
+                    var model = db.CodeFile.Where(o => o.ID == ID && o.ItemType == "Beds").FirstOrDefault();
                     if (model != null)
                     {
                         model.ItemDescription = ItemDescription;
                         model.ItemType = ItemType;
-                        model.Remark = Remark;
+                        model.Remark = model.Remark;
                         model.ItemCode = ItemCode;
-                        model.Enabled = Enabled;
-                        model.TypeText = TypeText;
+                        model.Enabled = model.Enabled;
+                        model.TypeText = model.TypeText;
                         db.SaveChanges();
                     }
                 }
@@ -50,11 +66,11 @@ namespace Anything.Areas.System.Models
                 {
                     var model = new CodeFile();
                     model.ItemDescription = ItemDescription;
-                    model.ItemType = ItemType;
-                    model.Remark = Remark;
+                    model.ItemType = "Beds";
+                    model.Remark = string.Empty;
                     model.ItemCode = ItemCode;
-                    model.Enabled = Enabled;
-                    model.TypeText = TypeText;
+                    model.Enabled = true;
+                    model.TypeText = "床型";
                     db.CodeFile.Add(model);
                     db.SaveChanges();
                 }

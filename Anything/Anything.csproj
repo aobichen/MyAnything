@@ -585,6 +585,8 @@
     <Content Include="Content\vendor\bootstrap-theme.min.css.map" />
     <Content Include="Content\vendor\bootstrap.css.map" />
     <Content Include="Content\vendor\bootstrap.min.css.map" />
+    <Content Include="Areas\System\Views\BedType\Edit.cshtml" />
+    <Content Include="Areas\System\Views\BedType\_Edit.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\infobox.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

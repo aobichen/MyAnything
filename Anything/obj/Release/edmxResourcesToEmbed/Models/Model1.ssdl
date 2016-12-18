@@ -18,6 +18,7 @@
     <Property Name="MerchantOrderNo" Type="nvarchar" MaxLength="20" />
     <Property Name="Created" Type="datetime" Nullable="false" />
     <Property Name="Creator" Type="int" Nullable="false" />
+    <Property Name="Status" Type="nvarchar" MaxLength="15" />
   </EntityType>
   <EntityType Name="City">
     <Key>

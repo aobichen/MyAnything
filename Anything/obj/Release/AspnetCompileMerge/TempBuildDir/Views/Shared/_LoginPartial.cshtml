@@ -11,7 +11,7 @@
                 // {
                 //@Html.AntiForgeryToken()
 
-                    <li class="active"><a href="javascript:void(0);" title="My Account">@User.Identity.Name</a></li>
+                    <li class="active"><a href="@Url.Action("/", "Home", new { area = "My"})" title="My Account">@User.Identity.Name</a></li>
                 if (User.IsInRole("Admin"))
                 {
                     <li class="active"><a href="@Url.Action("/", new { area = "System"})" title="系統">系統管理</a></li>
