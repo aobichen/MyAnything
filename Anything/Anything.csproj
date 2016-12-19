@@ -193,6 +193,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\IdentityForUserConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
@@ -209,6 +210,7 @@
     <Compile Include="Areas\System\RouteConfig.cs" />
     <Compile Include="Areas\System\SystemAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AccountForUserController.cs" />
     <Compile Include="Controllers\AnythingController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CityAreaController.cs" />
@@ -259,6 +261,7 @@
     <Compile Include="Models\HotelImage.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\IdentityForUserModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Model1.Context.cs">
@@ -1234,6 +1237,20 @@
     <Content Include="Views\Shared\_Facility.cshtml" />
     <Content Include="Views\Shared\_Scenic.cshtml" />
     <Content Include="Views\Shared\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\AccountForUser\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\AccountForUser\ConfirmEmail.cshtml" />
+    <Content Include="Views\AccountForUser\DisplayEmail.cshtml" />
+    <Content Include="Views\AccountForUser\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\AccountForUser\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\AccountForUser\ForgotPassword.cshtml" />
+    <Content Include="Views\AccountForUser\ForgotPasswordConfirmation.cshtml" />
+    <Content Include="Views\AccountForUser\Join.cshtml" />
+    <Content Include="Views\AccountForUser\Login.cshtml" />
+    <Content Include="Views\AccountForUser\Register.cshtml" />
+    <Content Include="Views\AccountForUser\ResetPassword.cshtml" />
+    <Content Include="Views\AccountForUser\ResetPasswordConfirmation.cshtml" />
+    <Content Include="Views\AccountForUser\SendCode.cshtml" />
+    <Content Include="Views\AccountForUser\VerifyCode.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
