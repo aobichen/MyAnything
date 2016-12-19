@@ -20,41 +20,43 @@ namespace Anything.Controllers
 
     public class AccountForUserController : BaseController
     {
+
         private string OfficalRecommendCode { get; set; }
         public AccountForUserController()
         {
+            
             OfficalRecommendCode = System.Configuration.ConfigurationManager.AppSettings["OfficalRecommendCode"].ToString();
         }
 
-        public AccountForUserController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        public AccountForUserController(ApplicationUserManager2 userManager2, ApplicationSignInManager2 signInManager2)
         {
-            UserManager = userManager;
-            SignInManager = signInManager;
+            UserManager2 = userManager2;
+            SignInManager2 = signInManager2;
         }
 
-        private ApplicationUserManager _userManager;
-        public ApplicationUserManager UserManager
+        private ApplicationUserManager2 _userManager2;
+        public ApplicationUserManager2 UserManager2
         {
             get
             {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                return _userManager2 ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager2>();
             }
             private set
             {
-                _userManager = value;
+                _userManager2= value;
             }
         }
 
-        private ApplicationRoleManager _roleManager;
-        public ApplicationRoleManager RoleManager
+        private ApplicationRoleManager2 _roleManager2;
+        public ApplicationRoleManager2 RoleManager2
         {
             get
             {
-                return _roleManager ?? HttpContext.GetOwinContext().Get<ApplicationRoleManager>();
+                return _roleManager2 ?? HttpContext.GetOwinContext().Get<ApplicationRoleManager2>();
             }
             private set
             {
-                _roleManager = value;
+                _roleManager2 = value;
             }
         }
 
@@ -69,15 +71,15 @@ namespace Anything.Controllers
             return View();
         }
 
-        private ApplicationSignInManager _signInManager;
+        private ApplicationSignInManager2 _signInManager2;
 
-        public ApplicationSignInManager SignInManager
+        public ApplicationSignInManager2 SignInManager2
         {
             get
             {
-                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+                return _signInManager2 ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager2>();
             }
-            private set { _signInManager = value; }
+            private set { _signInManager2 = value; }
         }
 
         //
@@ -107,7 +109,7 @@ namespace Anything.Controllers
             }
 
             //使用者是否存在
-            var user = await UserManager.FindByEmailAsync(model.Email);
+            var user = await UserManager2.FindByEmailAsync(model.Email);
             if (user == null)
             {
                 ModelState.AddModelError("", "無效的帳號密碼");
@@ -115,7 +117,7 @@ namespace Anything.Controllers
             }
 
             //密碼檢查
-            PasswordVerificationResult status = UserManager.PasswordHasher.VerifyHashedPassword(user.PasswordHash, model.Password);
+            PasswordVerificationResult status = UserManager2.PasswordHasher.VerifyHashedPassword(user.PasswordHash, model.Password);
 
             if (user == null || !status.Equals(PasswordVerificationResult.Success))
             {
@@ -173,7 +175,7 @@ namespace Anything.Controllers
             serializeModel.Email = user.Email;
             serializeModel.UserCode = user.UserCode;
             serializeModel.UserType = user.UserType;
-            var UserRoles = (from rr in RoleManager.Roles.ToList()
+            var UserRoles = (from rr in RoleManager2.Roles.ToList()
                              join r1 in user.Roles on rr.Id equals r1.RoleId
                              select rr.Name).ToList();
 
@@ -204,14 +206,14 @@ namespace Anything.Controllers
         public async Task<ActionResult> VerifyCode(string provider, string returnUrl)
         {
             // Require that the user has already logged in via username/password or external login
-            if (!await SignInManager.HasBeenVerifiedAsync())
+            if (!await SignInManager2.HasBeenVerifiedAsync())
             {
                 return View("Error");
             }
-            var user = await UserManager.FindByIdAsync(await SignInManager.GetVerifiedUserIdAsync());
+            var user = await UserManager2.FindByIdAsync(await SignInManager2.GetVerifiedUserIdAsync());
             if (user != null)
             {
-                ViewBag.Status = "For DEMO purposes the current " + provider + " code is: " + await UserManager.GenerateTwoFactorTokenAsync(user.Id, provider);
+                ViewBag.Status = "For DEMO purposes the current " + provider + " code is: " + await UserManager2.GenerateTwoFactorTokenAsync(user.Id, provider);
             }
             return View(new VerifyCodeViewModel { Provider = provider, ReturnUrl = returnUrl });
         }
@@ -228,7 +230,7 @@ namespace Anything.Controllers
                 return View(model);
             }
 
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: false, rememberBrowser: model.RememberBrowser);
+            var result = await SignInManager2.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: false, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -261,7 +263,7 @@ namespace Anything.Controllers
         {
             var Recommend = Session["RecommendCode"] == null ? string.Empty : Session["RecommendCode"].ToString();
             ViewBag.Recommend = Recommend;
-            AddRoles();
+            //AddRoles();
             //var Recommend = string.Empty;
             if (string.IsNullOrEmpty(model.Recommend))
             {
@@ -276,22 +278,22 @@ namespace Anything.Controllers
             model.UserType = "User";
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email, UserType = model.UserType, UserCode = model.UserCode, Recommend = model.Recommend };
-                var result = await UserManager.CreateAsync(user, model.Password);
+                var user = new ApplicationUser2 { UserName = model.UserName, Email = model.Email, UserType = model.UserType, UserCode = model.UserCode, Recommend = model.Recommend };
+                var result = await UserManager2.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)
                 {
                     var roleName = model.UserType;
-                    if (!RoleManager.RoleExists(roleName))
+                    if (!RoleManager2.RoleExists(roleName))
                     {
-                        var role = new Role(roleName);
-                        await RoleManager.CreateAsync(role);
+                        var role = new Role2(roleName);
+                        await RoleManager2.CreateAsync(role);
                     }
 
-                    UserManager.AddToRole(user.Id, model.UserType);
-                    var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    UserManager2.AddToRole(user.Id, model.UserType);
+                    var code = await UserManager2.GenerateEmailConfirmationTokenAsync(user.Id);
                     var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    await UserManager.SendEmailAsync(user.Id, "MYAnything 信箱驗證", "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
+                    await UserManager2.SendEmailAsync(user.Id, "MYAnything 信箱驗證", "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
                     ViewBag.Link = callbackUrl;
                     return View("DisplayEmail");
                 }
@@ -380,56 +382,52 @@ namespace Anything.Controllers
         {
             var Recommend = Session["RecommendCode"] == null ? string.Empty : Session["RecommendCode"].ToString();
             ViewBag.Recommend = Recommend;
-            AddRoles();
+            //AddRoles();
             //var Recommend = string.Empty;
             //if (string.IsNullOrEmpty(model.Recommend))
             //{
             //    Recommend = OfficalRecommendCode;
             //}
 
-            if (Recommend != OfficalRecommendCode)
-            {
-                var user = Account_db.Users.Where(o => o.UserCode == Recommend).FirstOrDefault();
-                if (user != null && user.UserType.ToUpper() == "HOTEL")
-                {
-                    ModelState.AddModelError("", "旅館推薦人必須為旅客身分");
-                    return View();
-                }
-            }
+            //if (Recommend != OfficalRecommendCode)
+            //{
+            //    var user = Account_db.Users.Where(o => o.UserCode == Recommend).FirstOrDefault();
+            //    if (user != null && user.UserType.ToUpper() == "USER")
+            //    {
+            //        ModelState.AddModelError("", "旅館推薦人必須為旅客身分");
+            //        return View();
+            //    }
+            //}
             model.Recommend = Recommend;
             model.UserCode = new Anything.Helpers.BaseDLL().GetUserCode(model.UserName);
 
-            model.UserType = "Hotel";
-            var TypeOfUser = "User";
+            model.UserType = "User";
+           
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email, UserType = model.UserType, UserCode = model.UserCode, Recommend = model.Recommend };
-                var result = await UserManager.CreateAsync(user, model.Password);
+                var user = new ApplicationUser2 { UserName = model.UserName, Email = model.Email, UserType = model.UserType, UserCode = model.UserCode, Recommend = model.Recommend };
+                var result = await UserManager2.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)
                 {
                     var roleName = model.UserType;
-                    if (!RoleManager.RoleExists(roleName))
+                    if (!RoleManager2.RoleExists(roleName))
                     {
-                        var role = new Role(roleName);
-                        await RoleManager.CreateAsync(role);
+                        var role = new Role2(roleName);
+                        await RoleManager2.CreateAsync(role);
                     }
 
 
-                    if (!RoleManager.RoleExists(TypeOfUser))
-                    {
-                        var role = new Role(TypeOfUser);
-                        await RoleManager.CreateAsync(role);
-                    }
+                  
 
-                    UserManager.AddToRole(user.Id, model.UserType);
-                    UserManager.AddToRole(user.Id, TypeOfUser);
-                    var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    UserManager2.AddToRole(user.Id, model.UserType);
+                   
+                    var code = await UserManager2.GenerateEmailConfirmationTokenAsync(user.Id);
                     var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
 
                     var link = string.Format("信箱驗證連結網址<a href='{0}'>完成驗證</a>", callbackUrl);
 
-                    await UserManager.SendEmailAsync(user.Id, "MYAnything 信箱驗證", link);
+                    await UserManager2.SendEmailAsync(user.Id, "MYAnything 信箱驗證", link);
                     ViewBag.Link = callbackUrl;
                     return View("DisplayEmail");
                 }
@@ -440,18 +438,18 @@ namespace Anything.Controllers
             return View(model);
         }
 
-        private void AddRoles()
-        {
-            var SystemRoles = new string[] { "User", "Hotel", "Admin", "AdManager", "Accountant" };
-            foreach (var r in SystemRoles)
-            {
-                if (!RoleManager.RoleExists(r))
-                {
-                    var role = new Role(r);
-                    RoleManager.Create(role);
-                }
-            }
-        }
+        //private void AddRoles()
+        //{
+        //    var SystemRoles = new string[] { "User",  "Admin", "AdManager", "Accountant" };
+        //    foreach (var r in SystemRoles)
+        //    {
+        //        if (!RoleManager2.RoleExists(r))
+        //        {
+        //            var role = new Role2(r);
+        //            RoleManager2.Create(role);
+        //        }
+        //    }
+        //}
 
         //
         // GET: /Account/ConfirmEmail
@@ -462,7 +460,7 @@ namespace Anything.Controllers
             {
                 return View("Error");
             }
-            var result = await UserManager.ConfirmEmailAsync(userId, code);
+            var result = await UserManager2.ConfirmEmailAsync(userId, code);
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
 
@@ -484,17 +482,17 @@ namespace Anything.Controllers
             if (ModelState.IsValid)
             {
                 //var user = await UserManager.FindByNameAsync(model.Email);
-                var user = await UserManager.FindByEmailAsync(model.Email);
-                if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
+                var user = await UserManager2.FindByEmailAsync(model.Email);
+                if (user == null || !(await UserManager2.IsEmailConfirmedAsync(user.Id)))
                 {
                     // Don't reveal that the user does not exist or is not confirmed
                     ModelState.AddModelError("", "無效的帳號");
                     return View("ForgotPasswordConfirmation");
                 }
 
-                var code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+                var code = await UserManager2.GeneratePasswordResetTokenAsync(user.Id);
                 var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking here: <a href=\"" + callbackUrl + "\">link</a>");
+                await UserManager2.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking here: <a href=\"" + callbackUrl + "\">link</a>");
                 ViewBag.Link = callbackUrl;
                 return View("ForgotPasswordConfirmation");
             }
@@ -535,7 +533,7 @@ namespace Anything.Controllers
                 }
                 return View(model);
             }
-            var user = await UserManager.FindByEmailAsync(model.Email);
+            var user = await UserManager2.FindByEmailAsync(model.Email);
             if (user == null)
             {
                 ModelState.AddModelError("", "使用者不存在");
@@ -547,8 +545,8 @@ namespace Anything.Controllers
                 return RedirectToAction("ResetPasswordConfirmation", "Account");
             }
 
-            var code = await UserManager.GeneratePasswordResetTokenAsync(CurrentUser.Id);
-            var result = await UserManager.ResetPasswordAsync(user.Id, code, model.Password);
+            var code = await UserManager2.GeneratePasswordResetTokenAsync(CurrentUser.Id);
+            var result = await UserManager2.ResetPasswordAsync(user.Id, code, model.Password);
             if (result.Succeeded)
             {
                 if (!string.IsNullOrEmpty(model.ReturnUrl))
@@ -593,12 +591,12 @@ namespace Anything.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> SendCode(string returnUrl)
         {
-            var userId = await SignInManager.GetVerifiedUserIdAsync();
+            var userId = await SignInManager2.GetVerifiedUserIdAsync();
             if (userId <= 0)
             {
                 return View("Error");
             }
-            var userFactors = await UserManager.GetValidTwoFactorProvidersAsync(userId);
+            var userFactors = await UserManager2.GetValidTwoFactorProvidersAsync(userId);
             var factorOptions = userFactors.Select(purpose => new SelectListItem { Text = purpose, Value = purpose }).ToList();
             return View(new SendCodeViewModel { Providers = factorOptions, ReturnUrl = returnUrl });
         }
@@ -616,7 +614,7 @@ namespace Anything.Controllers
             }
 
             // Generate the token and send it
-            if (!await SignInManager.SendTwoFactorCodeAsync(model.SelectedProvider))
+            if (!await SignInManager2.SendTwoFactorCodeAsync(model.SelectedProvider))
             {
                 return View("Error");
             }
@@ -643,7 +641,7 @@ namespace Anything.Controllers
 
 
             // Sign in the user with this external login provider if the user already has a login
-            var result = await SignInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
+            var result = await SignInManager2.ExternalSignInAsync(loginInfo, isPersistent: false);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -681,14 +679,14 @@ namespace Anything.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await UserManager.CreateAsync(user);
+                var user = new ApplicationUser2 { UserName = model.Email, Email = model.Email };
+                var result = await UserManager2.CreateAsync(user);
                 if (result.Succeeded)
                 {
-                    result = await UserManager.AddLoginAsync(user.Id, info.Login);
+                    result = await UserManager2.AddLoginAsync(user.Id, info.Login);
                     if (result.Succeeded)
                     {
-                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                        await SignInManager2.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                         return RedirectToLocal(returnUrl);
                     }
                 }
@@ -739,12 +737,12 @@ namespace Anything.Controllers
             }
         }
 
-        private async Task SignInAsync(ApplicationUser user, bool isPersistent)
+        private async Task SignInAsync(ApplicationUser2 user, bool isPersistent)
         {
 
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
 
-            var identity = await UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
+            var identity = await UserManager2.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
             AuthenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = isPersistent }, identity);
         }
         private void AddErrors(IdentityResult result)

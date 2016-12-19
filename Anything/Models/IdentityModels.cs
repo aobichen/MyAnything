@@ -35,6 +35,8 @@ namespace Anything.Models
         }
     }
 
+
+
     public class RoleStore : RoleStore<Role, int, UserRole>
     {
         public RoleStore(ApplicationDbContext context)
@@ -63,6 +65,7 @@ namespace Anything.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser, Role, int,
     UserLogin, UserRole, UserClaim>
     {
+       
         public ApplicationDbContext()
             : base("DefaultConnection")
         {
