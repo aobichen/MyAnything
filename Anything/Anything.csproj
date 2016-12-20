@@ -197,6 +197,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\Hotel\HotelAreaRegistration.cs" />
     <Compile Include="Areas\My\Controllers\BonusController.cs" />
     <Compile Include="Areas\My\Controllers\HomeController.cs" />
     <Compile Include="Areas\My\Controllers\HotelController.cs" />
@@ -424,6 +425,8 @@
     <Content Include="Content\vendor\bootstrap-theme.min.css" />
     <Content Include="Content\vendor\bootstrap.css" />
     <Content Include="Content\vendor\bootstrap.min.css" />
+    <Content Include="images\backgrounds\bg3.jpg" />
+    <Content Include="images\backgrounds\bg4.jpg" />
     <Content Include="images\myanythinglogo.png" />
     <Content Include="Scripts\custom.js" />
     <Content Include="Content\custom.min.css" />
@@ -590,6 +593,7 @@
     <Content Include="Content\vendor\bootstrap.min.css.map" />
     <Content Include="Areas\System\Views\BedType\Edit.cshtml" />
     <Content Include="Areas\System\Views\BedType\_Edit.cshtml" />
+    <Content Include="Areas\Hotel\Views\web.config" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\infobox.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -1251,9 +1255,14 @@
     <Content Include="Views\AccountForUser\ResetPasswordConfirmation.cshtml" />
     <Content Include="Views\AccountForUser\SendCode.cshtml" />
     <Content Include="Views\AccountForUser\VerifyCode.cshtml" />
+    <Content Include="Views\Home\Account.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Hotel\Controllers\" />
+    <Folder Include="Areas\Hotel\Models\" />
+    <Folder Include="Areas\Hotel\Views\Shared\" />
+    <Folder Include="AuthorizeFilters\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

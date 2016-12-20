@@ -7,7 +7,7 @@
     <div class="wrap">
         <div class="row">
             <!--column-->
-            <article class="one-fourth">
+            <article class="one-third">
                 <h6>旅客註冊</h6>
                 <nav>
                     <ul>
@@ -25,10 +25,20 @@
             </article>
             <!--//column-->
             <!--column-->
-            <article class="one-fourth">
+            <article class="one-third">
                 <h6><a href="@Url.Action("Register","Account")">民宿註冊</a></h6>
                 <nav>
                     <ul>
+                        <li>
+                            <a href="@Url.Action("Login","Account")">
+                                <span>
+                                    民宿登入
+                                </span>
+                                <span class="glyphicon glyphicon-user">
+
+                                </span>
+                            </a>
+                        </li>
                         <li>
                             <a href="@Url.Action("Index","Hotel")">
                                 <span>
@@ -39,6 +49,8 @@
                                 </span>
                             </a>
                         </li>
+
+
                         <li>
                             <a href="@Url.Action("Index", "Advertising")">
                                 <span>
@@ -67,7 +79,7 @@
             </article>
             <!--//column-->
             <!--column-->
-            <article class="one-fourth">
+            <article class="one-third">
                 <h6>Follow us</h6>
                 <ul class="social">
                     <li><a href="#" title="facebook"><i class="fa fa-fw fa-facebook"></i></a></li>
@@ -79,7 +91,7 @@
             </article>
             <!--//column-->
             <!--column-->
-            <article class="one-fourth">
+            @*<article class="one-fourth">
                 <h6>Don’t miss our exclusive offers</h6>
                 <form id="newsletter" action="newsletter.php" method="post">
                     <fieldset>
@@ -87,7 +99,7 @@
                         <input type="submit" id="newsletter_submit" name="newsletter_submit" value="Signup" class="gradient-button" />
                     </fieldset>
                 </form>
-            </article>
+            </article>*@
             <!--//column-->
 
             <div class="bottom full-width">

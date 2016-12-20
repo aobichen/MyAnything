@@ -489,7 +489,7 @@ namespace Anything.Controllers
                 {
                     // Don't reveal that the user does not exist or is not confirmed
                     ModelState.AddModelError("", "無效的帳號");
-                    return View("ForgotPasswordConfirmation");
+                    return View();
                 }
 
                 var code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
@@ -544,11 +544,18 @@ namespace Anything.Controllers
                     return Redirect(model.ReturnUrl);
                 }
                 // Don't reveal that the user does not exist
-                return RedirectToAction("ResetPasswordConfirmation", "Account");
+                return View();
             }
 
-            var code = await UserManager.GeneratePasswordResetTokenAsync(CurrentUser.Id);
-            var result = await UserManager.ResetPasswordAsync(user.Id, code, model.Password);
+            //var code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+
+            //if (string.IsNullOrEmpty(model.Code) || !code.Equals(model.Code))
+            //{
+            //    TempData["SuccessMessage"] = "密碼已變更，下次請使用新密碼";
+            //    return Redirect(model.ReturnUrl);
+            //}
+
+            var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
             if (result.Succeeded)
             {
                 if (!string.IsNullOrEmpty(model.ReturnUrl))

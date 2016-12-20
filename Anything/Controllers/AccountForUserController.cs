@@ -438,20 +438,7 @@ namespace Anything.Controllers
             return View(model);
         }
 
-        //private void AddRoles()
-        //{
-        //    var SystemRoles = new string[] { "User",  "Admin", "AdManager", "Accountant" };
-        //    foreach (var r in SystemRoles)
-        //    {
-        //        if (!RoleManager2.RoleExists(r))
-        //        {
-        //            var role = new Role2(r);
-        //            RoleManager2.Create(role);
-        //        }
-        //    }
-        //}
-
-        //
+       
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]
         public async Task<ActionResult> ConfirmEmail(int userId, string code)
@@ -487,7 +474,7 @@ namespace Anything.Controllers
                 {
                     // Don't reveal that the user does not exist or is not confirmed
                     ModelState.AddModelError("", "無效的帳號");
-                    return View("ForgotPasswordConfirmation");
+                    return View();
                 }
 
                 var code = await UserManager2.GeneratePasswordResetTokenAsync(user.Id);
@@ -542,11 +529,18 @@ namespace Anything.Controllers
                     return Redirect(model.ReturnUrl);
                 }
                 // Don't reveal that the user does not exist
-                return RedirectToAction("ResetPasswordConfirmation", "Account");
+                return View();
             }
 
-            var code = await UserManager2.GeneratePasswordResetTokenAsync(CurrentUser.Id);
-            var result = await UserManager2.ResetPasswordAsync(user.Id, code, model.Password);
+            //var code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+
+            //if (string.IsNullOrEmpty(model.Code) || !code.Equals(model.Code))
+            //{
+            //    TempData["SuccessMessage"] = "密碼已變更，下次請使用新密碼";
+            //    return Redirect(model.ReturnUrl);
+            //}
+
+            var result = await UserManager2.ResetPasswordAsync(user.Id, model.Code, model.Password);
             if (result.Succeeded)
             {
                 if (!string.IsNullOrEmpty(model.ReturnUrl))
