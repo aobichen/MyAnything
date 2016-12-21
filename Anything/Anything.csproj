@@ -594,6 +594,7 @@
     <Content Include="Areas\System\Views\BedType\Edit.cshtml" />
     <Content Include="Areas\System\Views\BedType\_Edit.cshtml" />
     <Content Include="Areas\Hotel\Views\web.config" />
+    <Content Include="AnythingConfig\Web.config" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\infobox.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -1247,6 +1248,13 @@
     <Content Include="Views\AccountForUser\SendCode.cshtml" />
     <Content Include="Views\AccountForUser\VerifyCode.cshtml" />
     <Content Include="Views\Home\Account.cshtml" />
+    <Content Include="Web.config" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

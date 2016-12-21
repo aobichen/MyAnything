@@ -14,6 +14,7 @@ using System.Web.Security;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Anything.Helpers;
 using System.Collections.Generic;
+using Facebook;
 
 namespace Anything.Controllers
 {
@@ -615,11 +616,24 @@ namespace Anything.Controllers
             return RedirectToAction("VerifyCode", new { Provider = model.SelectedProvider, ReturnUrl = model.ReturnUrl });
         }
 
+        
+        
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult FBRegister(string provider, string returnUrl)
+        {
+            return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "AccountForUser", new { ReturnUrl = returnUrl }));
+            //return View();
+        }
+
         //
         // GET: /Account/ExternalLoginCallback
         [AllowAnonymous]
         public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
         {
+            
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
             if (loginInfo == null)
             {
@@ -630,6 +644,9 @@ namespace Anything.Controllers
             {
                 var identity = AuthenticationManager.GetExternalIdentity(DefaultAuthenticationTypes.ExternalCookie);
                 var access_token = identity.FindFirstValue("FacebookAccessToken");
+                var fb = new FacebookClient(access_token);
+                dynamic myInfo = fb.Get("/me?fields=email"); // specify the email field
+                loginInfo.Email = myInfo.email;
                 //var fb = 
             }
 
@@ -698,7 +715,7 @@ namespace Anything.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut();
-            //FormsAuthentication.SignOut();
+            FormsAuthentication.SignOut();
             return RedirectToAction("Index", "Home");
         }
 

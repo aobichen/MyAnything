@@ -1,6 +1,8 @@
 ﻿@model Anything.Models.RegisterViewModel
+@using Microsoft.Owin.Security
 @{
     ViewBag.Title = "會員註冊";
+    var loginProviders = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes();
 }
 
 <style>
@@ -132,46 +134,60 @@
 <div class="login-img3-body">
 
     <div class="container">
+        <div class="login-form">
 
-        @using (Html.BeginForm("Register", "AccountForUser", FormMethod.Post, new { @class = "login-form" }))
-        {
-            @Html.AntiForgeryToken()
-            @Html.ValidationSummary("", new { @class = "text-danger" })
             <div class="login-wrap">
                 <p class="login-img"><i class="fa fa-power-off"></i></p>
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @placeholder = "Username", @autofocus = "" })
+                @using (Html.BeginForm("Register", "AccountForUser", FormMethod.Post, new { @class = "" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary("", new { @class = "text-danger" })
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @placeholder = "Username", @autofocus = "" })
 
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                        </span>
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "Email" })
+
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Password" })
+
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", @placeholder = "Confrim Password" })
+
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-thumbs-o-up"></i></span>
+                        @Html.TextBoxFor(m => m.Recommend, new { @class = "form-control", @placeholder = "推薦碼", @Value = @ViewBag.Recommend })
+
+                    </div>
+
+
+                    <button class="btn btn-primary btn-lg btn-block" type="submit">確定</button>
+                }
+
+                <div class="full-width">
+@using (Html.BeginForm("FBRegister", "AccountForUser", FormMethod.Post, new { @class = "" }))
+                {
+    @Html.AntiForgeryToken()
+
+                    foreach (AuthenticationDescription p in loginProviders)
+                    {
+                        <button type="submit" class="btn btn-default" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="使用 @p.Caption 帳戶登入">@p.AuthenticationType</button>
+                    }
+                }
                 </div>
-                <div class="input-group">
-                    <span class="input-group-addon">
-                        <i class="fa fa-envelope" aria-hidden="true"></i>
-                    </span>
-                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "Email" })
-
-                </div>
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-key"></i></span>
-                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Password" })
-
-                </div>
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-key"></i></span>
-                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", @placeholder = "Confrim Password" })
-
-                </div>
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-thumbs-o-up"></i></span>
-                    @Html.TextBoxFor(m => m.Recommend, new { @class = "form-control", @placeholder = "推薦碼", @Value = @ViewBag.Recommend })
-
-                </div>
-
-                <button class="btn btn-primary btn-lg btn-block" type="submit">確定</button>
-                @*<button class="btn btn-info btn-lg btn-block" type="submit">Signup</button>*@
             </div>
-
-        }
+        </div>
+        
     </div>
 
 

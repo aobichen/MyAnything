@@ -6,6 +6,7 @@ using Anything.Models;
 using Owin;
 using System;
 using Microsoft.Owin.Security.Facebook;
+using System.Threading.Tasks;
 
 namespace Anything
 {
@@ -61,22 +62,23 @@ namespace Anything
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(new FacebookAuthenticationOptions()
-            //{
-            //    AppId = "542882635921919",
-            //    AppSecret = "c3c83cafaa2cb103c67206f2f6b207f5",
-            //    Provider = new FacebookAuthenticationProvider()
-            //    {
-            //        OnAuthenticated = context =>
-            //        {
-            //            context.Identity.AddClaim(new System.Security.Claims.Claim("FacebookAccessToken", context.AccessToken));
-            //            return Task.FromResult(true);
-            //        }
-            //    }
-            //});
-            app.UseFacebookAuthentication(
-               appId: "542882635921919",
-               appSecret: "c3c83cafaa2cb103c67206f2f6b207f5");
+            app.UseFacebookAuthentication(new FacebookAuthenticationOptions
+            {
+                AppId = "542882635921919",
+                AppSecret = "c3c83cafaa2cb103c67206f2f6b207f5",
+                Scope = { "email" },
+                Provider = new FacebookAuthenticationProvider
+                {
+                    OnAuthenticated = context =>
+                    {
+                        context.Identity.AddClaim(new System.Security.Claims.Claim("FacebookAccessToken", context.AccessToken));
+                        return Task.FromResult(true);
+                    }
+                }
+            });
+            //app.UseFacebookAuthentication(
+            //   appId: "542882635921919",
+            //   appSecret: "c3c83cafaa2cb103c67206f2f6b207f5");
 
             //app.UseGoogleAuthentication(
             //    clientId: "",
