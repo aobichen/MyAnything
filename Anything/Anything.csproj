@@ -197,6 +197,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\Hotel\Controllers\HomeController.cs" />
     <Compile Include="Areas\Hotel\HotelAreaRegistration.cs" />
     <Compile Include="Areas\My\Controllers\BonusController.cs" />
     <Compile Include="Areas\My\Controllers\HomeController.cs" />
@@ -207,7 +208,9 @@
     <Compile Include="Areas\System\BundleConfig.cs" />
     <Compile Include="Areas\System\Controllers\BedTypeController.cs" />
     <Compile Include="Areas\System\Controllers\BonusController.cs" />
+    <Compile Include="Areas\System\Controllers\FacilityController.cs" />
     <Compile Include="Areas\System\Controllers\HomeController.cs" />
+    <Compile Include="Areas\System\Models\FacilityViewModel.cs" />
     <Compile Include="Areas\System\RouteConfig.cs" />
     <Compile Include="Areas\System\SystemAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -344,6 +347,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.min.js" />
     <Content Include="Content\custom-backend.css" />
+    <Content Include="Content\custom-hotel.css" />
     <Content Include="Content\custom-red.css" />
     <Content Include="Content\font-awesome-4.6.3\css\font-awesome.css" />
     <Content Include="Content\font-awesome-4.6.3\css\font-awesome.min.css" />
@@ -594,7 +598,14 @@
     <Content Include="Areas\System\Views\BedType\Edit.cshtml" />
     <Content Include="Areas\System\Views\BedType\_Edit.cshtml" />
     <Content Include="Areas\Hotel\Views\web.config" />
-    <Content Include="AnythingConfig\Web.config" />
+    <Content Include="Areas\Hotel\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Hotel\Views\Home\_HotelList.cshtml" />
+    <Content Include="Areas\Hotel\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Hotel\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\System\Views\Facility\Index.cshtml" />
+    <Content Include="Areas\System\Views\Facility\_List.cshtml" />
+    <Content Include="Areas\System\Views\Facility\Edit.cshtml" />
+    <Content Include="Areas\System\Views\Facility\_Create.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\infobox.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -1248,7 +1259,9 @@
     <Content Include="Views\AccountForUser\SendCode.cshtml" />
     <Content Include="Views\AccountForUser\VerifyCode.cshtml" />
     <Content Include="Views\Home\Account.cshtml" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1258,9 +1271,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Hotel\Controllers\" />
     <Folder Include="Areas\Hotel\Models\" />
-    <Folder Include="Areas\Hotel\Views\Shared\" />
     <Folder Include="AuthorizeFilters\" />
   </ItemGroup>
   <ItemGroup>

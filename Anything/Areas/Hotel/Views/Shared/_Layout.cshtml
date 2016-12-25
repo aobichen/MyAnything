@@ -1,0 +1,195 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyAnything</title>
+    
+    
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <link href="~/Content/vendor/bootstrap.css" rel="stylesheet" />
+    
+    <link href="~/Content/font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet" />
+   
+    <link href="~/Content/custom-hotel.css" rel="stylesheet">
+    
+    
+</head>
+
+<body class="nav-md">
+    <div class="container body">
+        <div class="main_container">
+            <div class="col-md-3 left_col">
+                <div class="left_col scroll-view">
+                    <div class="navbar nav_title" style="border: 0;">
+                        <a href="index.html" class="site_title"><i class="fa fa-rocket" aria-hidden="true"></i> <span>MyAnything</span></a>
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                    <!-- menu profile quick info -->
+                  
+                    <!-- /menu profile quick info -->
+
+                    <br />
+
+                    <!-- sidebar menu -->
+                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                        <div class="menu_section">
+                            <h3></h3>
+                            <ul class="nav side-menu">
+                                <li>
+                                    <a><i class="fa fa-home"></i> Home @*<span class="fa fa-chevron-down"></span>*@</a>
+                                    @*<ul class="nav child_menu">
+                                        <li><a href="index.html">Dashboard</a></li>
+                                        <li><a href="index2.html">Dashboard2</a></li>
+                                        <li><a href="index3.html">Dashboard3</a></li>
+                                    </ul>*@
+                                </li>
+                              
+                            </ul>
+                        </div>
+                        
+
+                    </div>
+                   
+                </div>
+            </div>
+
+            <!-- top navigation -->
+            <div class="top_nav">
+                <div class="nav_menu">
+                    <nav>
+    <div class="nav toggle">
+        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+    </div>
+    @if (Request.IsAuthenticated)
+{
+        <ul class="nav navbar-nav navbar-right">
+            <li class="">
+                <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    @*<img src="images/img.jpg" alt="">*@@User.Identity.Name
+                    <span class=" fa fa-angle-down"></span>
+                </a>
+                @*<ul class="dropdown-menu dropdown-usermenu pull-right">
+                        <li><a href="javascript:;"> Profile</a></li>
+                        <li>
+                            <a href="javascript:;">
+                                <span class="badge bg-red pull-right">50%</span>
+                                <span>Settings</span>
+                            </a>
+                        </li>
+                        <li><a href="javascript:;">Help</a></li>
+                        <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                    </ul>*@
+            </li>
+
+            @*<li role="presentation" class="dropdown">
+                    <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+                        <i class="fa fa-envelope-o"></i>
+                        <span class="badge bg-green">6</span>
+                    </a>
+                    <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
+                        <li>
+                            <a>
+                                <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                                <span>
+                                    <span>John Smith</span>
+                                    <span class="time">3 mins ago</span>
+                                </span>
+                                <span class="message">
+                                    Film festivals used to be do-or-die moments for movie makers. They were where...
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a>
+                                <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                                <span>
+                                    <span>John Smith</span>
+                                    <span class="time">3 mins ago</span>
+                                </span>
+                                <span class="message">
+                                    Film festivals used to be do-or-die moments for movie makers. They were where...
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a>
+                                <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                                <span>
+                                    <span>John Smith</span>
+                                    <span class="time">3 mins ago</span>
+                                </span>
+                                <span class="message">
+                                    Film festivals used to be do-or-die moments for movie makers. They were where...
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a>
+                                <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                                <span>
+                                    <span>John Smith</span>
+                                    <span class="time">3 mins ago</span>
+                                </span>
+                                <span class="message">
+                                    Film festivals used to be do-or-die moments for movie makers. They were where...
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <div class="text-center">
+                                <a>
+                                    <strong>See All Alerts</strong>
+                                    <i class="fa fa-angle-right"></i>
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </li>*@
+        </ul>
+}
+else
+{
+        <ul class="nav navbar-nav navbar-right">
+            <li class="">
+            <a id="btnlogin" href="javascript:void(0);" title="登入">登入</a>
+                </li>
+                </ul>
+                }
+
+    </nav>
+                </div>
+            </div>
+            <!-- /top navigation -->
+            <!-- page content -->
+            <div class="right_col" role="main">
+              @RenderBody()
+            </div>
+            <!-- /page content -->
+            <!-- footer content -->
+            <footer>
+                <div class="pull-right">
+                    MyAnything
+                </div>
+                <div class="clearfix"></div>
+            </footer>
+            <!-- /footer content -->
+        </div>
+    </div>
+   
+
+    
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jQuery-Smart-Wizard/js/jquery.smartWizard.js"></script>
+    <script src="~/Content/bootstrap.min.js"></script> 
+    <script src="~/Scripts/custom.min.js"></script>
+  
+    @*<div class="lightbox" style="display:none;">
+        @Html.Partial("_LoginLightbox", new Anything.Models.LoginViewModel())
+    </div>*@
+    
+</body>
+
+</html>

@@ -131,7 +131,7 @@
 
     <div class="container">
 
-        @using (Html.BeginForm("Login", "AccountForUser", FormMethod.Post, new { @class = "login-form" }))
+        @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "login-form" }))
         {
             @Html.AntiForgeryToken()
             @Html.ValidationSummary("", new { @class = "text-danger" })

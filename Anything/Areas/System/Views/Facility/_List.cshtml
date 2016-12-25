@@ -1,0 +1,104 @@
+﻿
+@using PagedList.Mvc;
+@model PagedList.IPagedList<Anything.Areas.System.Models.FacilityViewModel>
+
+<div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="col-md-12">
+        <a class="btn btn-primary" href="@Url.Action("Edit", "Facility", new {area = "System" })">
+            新增
+        </a>
+    </div>
+    <div class="x_panel">
+        <div class="x_title">
+            <h2>床型</h2>
+            <ul class="nav navbar-right panel_toolbox">
+                <li>
+                    <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                </li>
+
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+
+        <div class="x_content">
+
+            <div class="table-responsive">
+                @if (Model != null)
+                {
+
+                    <table class="table table-striped jambo_table bulk_action">
+                        <thead>
+                            <tr>
+                                <th>
+                                    設施
+                                </th>
+                                <th>
+                                    描述
+                                </th>
+                                <th>
+                                    啟用
+                                </th>
+                                <th>
+                                    前台顯示
+                                </th>
+                                <th>
+
+                                </th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+
+                                    <td>
+                                        @item.Text
+                                    </td>
+                                    <td>
+                                        @item.Description
+                                    </td>
+                                    <td>
+                                        @if (item.Enabled)
+                                        {
+                                            <input type="checkbox" checked="checked" disabled="disabled" />
+                                        }
+                                        else
+                                        {
+                                            <input type="checkbox" disabled="disabled" />
+                                        }
+                                       
+                                    </td>
+                                    <td>
+                                        @if (item.Show)
+                                        {
+                                            <input type="checkbox" checked="checked" disabled="disabled" />
+                                        }
+                                        else
+                                        {
+                                            <input type="checkbox" disabled="disabled" />
+                                        }
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-primary btn-sm" href="@Url.Action("Edit","Facility", new {area = "System",id=@item.ID})">
+                                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+
+                    </table>
+                    <div class="col-md-12">
+                        @if (Model != null && Model.Count > 0)
+                        {
+                            @Html.PagedListPager(Model, Page => Url.Action("Index", new { Page }))
+                        }
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -80,9 +80,9 @@ namespace Anything
             //   appId: "542882635921919",
             //   appSecret: "c3c83cafaa2cb103c67206f2f6b207f5");
 
-            //app.UseGoogleAuthentication(
-            //    clientId: "",
-            //    clientSecret: "");
+            app.UseGoogleAuthentication(
+                clientId: "282991990800-ckk03apre2o6cd9rqcl3pgvht5v82cce.apps.googleusercontent.com",
+                clientSecret: "C6qtTadhz3wW5fFFwY2sdpnf");
         }
     }
 }

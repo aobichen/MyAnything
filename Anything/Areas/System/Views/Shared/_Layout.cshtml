@@ -92,7 +92,7 @@
             <!-- footer content -->
             <footer>
                 <div class="pull-right">
-                    Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+                    MyAnything
                 </div>
                 <div class="clearfix"></div>
             </footer>
@@ -105,11 +105,15 @@
     <script src="~/Content/bootstrap.min.js"></script> 
     <script src="~/Scripts/custom.min.js"></script>
   
-    <script type="text/javascript">
+    @*<script type="text/javascript">
         jQuery(function () {
-
+            let a = 'current-page';
+            let current_page_title = $('#current_page_title');
+            let current_li = $('li[id="' + current_page_title + '"]');
+            console.log(current_li.length);
+            current_li.closest('.child_menu').show();
         })
-    </script>
+    </script>*@
     
 </body>
 

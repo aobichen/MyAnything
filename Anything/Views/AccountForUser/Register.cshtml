@@ -138,6 +138,34 @@
 
             <div class="login-wrap">
                 <p class="login-img"><i class="fa fa-power-off"></i></p>
+
+                <style type="text/css">
+                    #Google {
+                        background-color: #AE0000;
+                        color: #fff;
+                    }
+
+                    #Facebook {
+                        background-color: #005AB5;
+                        color: #fff;
+                    }
+                </style>
+                <div class="row">
+                    <div class="full-width">
+
+                        @using (Html.BeginForm("FBRegister", "AccountForUser", FormMethod.Post, new { @class = "" }))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            foreach (AuthenticationDescription p in loginProviders)
+                            {
+
+                                <button type="submit" class="btn btn-default" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="使用 @p.Caption 帳戶登入">@p.AuthenticationType</button>
+                            }
+                        }
+                    </div>
+                </div>
+
                 @using (Html.BeginForm("Register", "AccountForUser", FormMethod.Post, new { @class = "" }))
                 {
                     @Html.AntiForgeryToken()
@@ -173,18 +201,7 @@
 
                     <button class="btn btn-primary btn-lg btn-block" type="submit">確定</button>
                 }
-
-                <div class="full-width">
-@using (Html.BeginForm("FBRegister", "AccountForUser", FormMethod.Post, new { @class = "" }))
-                {
-    @Html.AntiForgeryToken()
-
-                    foreach (AuthenticationDescription p in loginProviders)
-                    {
-                        <button type="submit" class="btn btn-default" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="使用 @p.Caption 帳戶登入">@p.AuthenticationType</button>
-                    }
-                }
-                </div>
+                    
             </div>
         </div>
         

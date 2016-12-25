@@ -243,66 +243,9 @@ namespace Anything.Controllers
         }
 
        
-        [AllowAnonymous]
-        public ActionResult Join()
-        {
-            AuthenticationManager.SignOut();
-            var Recommend = Session["RecommendCode"] == null ? OfficalRecommendCode : Session["RecommendCode"].ToString();
-            ViewBag.Recommend = Recommend;
-            return View();         
-        }
+        
 
-        //
-        // POST: /Account/Register
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Join(RegisterViewModel model)
-        {
-            var Recommend = Session["RecommendCode"] == null ? string.Empty : Session["RecommendCode"].ToString();
-            ViewBag.Recommend = Recommend;
-            AddRoles();
-            //var Recommend = string.Empty;
-            if (string.IsNullOrEmpty(model.Recommend))
-            {
-                model.Recommend = OfficalRecommendCode;
-            }
-            else
-            {
-                model.Recommend = GetRecommendUserCode(model.Recommend);
-            }
-            //model.Recommend = Recommend;
-            model.UserCode = new Anything.Helpers.BaseDLL().GetUserCode(model.UserName);
-            model.UserType = "User";
-            if (ModelState.IsValid)
-            {
-                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email, UserType = model.UserType, UserCode = model.UserCode,Recommend = model.Recommend };
-                var result = await UserManager.CreateAsync(user, model.Password);
-                
-                if (result.Succeeded)
-                {
-                    var roleName = model.UserType;
-                    if (!RoleManager.RoleExists(roleName))
-                    {
-                        var role = new Role(roleName);
-                       await RoleManager.CreateAsync(role);
-                    }
-
-                    UserManager.AddToRole(user.Id, model.UserType);
-                    var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    await UserManager.SendEmailAsync(user.Id, "MYAnything 信箱驗證", "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
-                    ViewBag.Link = callbackUrl;
-                    return View("DisplayEmail");
-                }
-                AddErrors(result);
-            }
-
-            // If we got this far, something failed, redisplay form
-            return View(model);
-        }
-
-
+        
         private string GetRecommendUserCode(string Recommend)
         {
             var RecommendUserCode = string.Empty;
@@ -400,7 +343,7 @@ namespace Anything.Controllers
             model.UserCode = new Anything.Helpers.BaseDLL().GetUserCode(model.UserName);
             
             model.UserType = "Hotel";
-            var TypeOfUser = "User";
+           
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.UserName, Email = model.Email, UserType = model.UserType, UserCode = model.UserCode,Recommend = model.Recommend };
@@ -416,14 +359,9 @@ namespace Anything.Controllers
                     }
 
 
-                    if (!RoleManager.RoleExists(TypeOfUser))
-                    {
-                        var role = new Role(TypeOfUser);
-                        await RoleManager.CreateAsync(role);
-                    }
-
+                    
                     UserManager.AddToRole(user.Id, model.UserType);
-                    UserManager.AddToRole(user.Id, TypeOfUser);
+                  
                     var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
 
