@@ -7,6 +7,7 @@ using Owin;
 using System;
 using Microsoft.Owin.Security.Facebook;
 using System.Threading.Tasks;
+using Microsoft.Owin.Security.Google;
 
 namespace Anything
 {
@@ -64,8 +65,8 @@ namespace Anything
 
             app.UseFacebookAuthentication(new FacebookAuthenticationOptions
             {
-                AppId = "542882635921919",
-                AppSecret = "c3c83cafaa2cb103c67206f2f6b207f5",
+                AppId = System.Configuration.ConfigurationManager.AppSettings["FacebookID"],
+                AppSecret = System.Configuration.ConfigurationManager.AppSettings["FacebookKey"],
                 Scope = { "email" },
                 Provider = new FacebookAuthenticationProvider
                 {
@@ -80,9 +81,14 @@ namespace Anything
             //   appId: "542882635921919",
             //   appSecret: "c3c83cafaa2cb103c67206f2f6b207f5");
 
-            app.UseGoogleAuthentication(
-                clientId: "282991990800-ckk03apre2o6cd9rqcl3pgvht5v82cce.apps.googleusercontent.com",
-                clientSecret: "C6qtTadhz3wW5fFFwY2sdpnf");
+          app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = System.Configuration.ConfigurationManager.AppSettings["GoogleID"],
+                ClientSecret = System.Configuration.ConfigurationManager.AppSettings["GoogleKey"],
+                CallbackPath = new PathString("/signin-google")
+            });
+
+           
         }
     }
 }

@@ -14,6 +14,7 @@ using System.Web.Security;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Anything.Helpers;
 using System.Collections.Generic;
+using Facebook;
 
 namespace Anything.Controllers
 {
@@ -570,9 +571,9 @@ namespace Anything.Controllers
 
         //
         // GET: /Account/ExternalLoginCallback
-        [AllowAnonymous]
         public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
         {
+
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
             if (loginInfo == null)
             {
@@ -583,27 +584,50 @@ namespace Anything.Controllers
             {
                 var identity = AuthenticationManager.GetExternalIdentity(DefaultAuthenticationTypes.ExternalCookie);
                 var access_token = identity.FindFirstValue("FacebookAccessToken");
+                var fb = new FacebookClient(access_token);
+                dynamic myInfo = fb.Get("/me?fields=email"); // specify the email field
+                loginInfo.Email = myInfo.email;
                 //var fb = 
             }
 
+            if (loginInfo.Login.LoginProvider == "Google")
+            {
+                var identity = AuthenticationManager.GetExternalIdentity(DefaultAuthenticationTypes.ExternalCookie);
+                var access_token = identity.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email);
+                var email = access_token.Value;
+                loginInfo.Email = email;
+                //var fb = 
+            }
+
+            var user = UserManager.FindByEmail(loginInfo.Email);
+            if (user == null)
+            {
+                Session["SingInEmail"] = loginInfo.Email;
+                return RedirectToAction("Register");
+            }
+            else
+            {
+                Session["SingInEmail"] = loginInfo.Email;
+                return RedirectToAction("Login");
+            }
 
             // Sign in the user with this external login provider if the user already has a login
-            var result = await SignInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
-            switch (result)
-            {
-                case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl });
-                case SignInStatus.Failure:
-                default:
-                    // If the user does not have an account, then prompt the user to create an account
-                    ViewBag.ReturnUrl = returnUrl;
-                    ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
-                    return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
-            }
+            //var result = await SignInManager2.ExternalSignInAsync(loginInfo, isPersistent: false);
+            //switch (result)
+            //{
+            //    case SignInStatus.Success:
+            //        return RedirectToLocal(returnUrl);
+            //    case SignInStatus.LockedOut:
+            //        return View("Lockout");
+            //    case SignInStatus.RequiresVerification:
+            //        return RedirectToAction("SendCode", new { ReturnUrl = returnUrl });
+            //    case SignInStatus.Failure:
+            //    default:
+            //        // If the user does not have an account, then prompt the user to create an account
+            //        ViewBag.ReturnUrl = returnUrl;
+            //        ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
+            //        return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
+            //}
         }
 
         //
@@ -642,6 +666,16 @@ namespace Anything.Controllers
 
             ViewBag.ReturnUrl = returnUrl;
             return View(model);
+        }
+
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult SocialRegister(string provider, string returnUrl)
+        {
+            return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
+            //return View();
         }
 
         //

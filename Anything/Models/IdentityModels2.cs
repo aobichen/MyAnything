@@ -67,7 +67,7 @@ namespace Anything.Models
     {
 
         public ApplicationDbContext2()
-            : base("HotelUserConnection")
+            : base("MyAnythingHotelUsers")
         {
             //Database.SetInitializer<ApplicationDbContext>(new ApplicationDbInitializer());
             //this.Database.Initialize(true);

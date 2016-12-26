@@ -63,14 +63,7 @@ namespace Anything.Controllers
 
         //
         // GET: /Account/Login
-        [AllowAnonymous]
-        public ActionResult Login(string returnUrl)
-        {
-            AuthenticationManager.SignOut();
-            ViewBag.ReturnUrl = returnUrl;
-
-            return View();
-        }
+       
 
         private ApplicationSignInManager2 _signInManager2;
 
@@ -81,6 +74,17 @@ namespace Anything.Controllers
                 return _signInManager2 ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager2>();
             }
             private set { _signInManager2 = value; }
+        }
+
+        [AllowAnonymous]
+        public ActionResult Login(string returnUrl)
+        {
+            AuthenticationManager.SignOut();
+            ViewBag.ReturnUrl = returnUrl;
+            var model = new LoginViewModel();
+            model.Email = Session["SingInEmail"] == null ? string.Empty : Session["SingInEmail"].ToString();
+            ViewData.Model = model;
+            return View();
         }
 
         //
@@ -371,6 +375,10 @@ namespace Anything.Controllers
             var Recommend = Session["RecommendCode"] == null ? string.Empty : Session["RecommendCode"].ToString();
 
             ViewBag.Recommend = Recommend;
+
+            var model = new RegisterViewModel();
+            model.Email = Session["SingInEmail"] == null ? string.Empty : Session["SingInEmail"].ToString();
+            ViewData.Model = model;
             return View();
         }
 
@@ -383,22 +391,8 @@ namespace Anything.Controllers
         {
             var Recommend = Session["RecommendCode"] == null ? string.Empty : Session["RecommendCode"].ToString();
             ViewBag.Recommend = Recommend;
-            //AddRoles();
-            //var Recommend = string.Empty;
-            //if (string.IsNullOrEmpty(model.Recommend))
-            //{
-            //    Recommend = OfficalRecommendCode;
-            //}
 
-            //if (Recommend != OfficalRecommendCode)
-            //{
-            //    var user = Account_db.Users.Where(o => o.UserCode == Recommend).FirstOrDefault();
-            //    if (user != null && user.UserType.ToUpper() == "USER")
-            //    {
-            //        ModelState.AddModelError("", "旅館推薦人必須為旅客身分");
-            //        return View();
-            //    }
-            //}
+           
             model.Recommend = Recommend;
             model.UserCode = new Anything.Helpers.BaseDLL().GetUserCode(model.UserName);
 
@@ -622,7 +616,7 @@ namespace Anything.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult FBRegister(string provider, string returnUrl)
+        public ActionResult SocialRegister(string provider, string returnUrl)
         {
             return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "AccountForUser", new { ReturnUrl = returnUrl }));
             //return View();
@@ -653,24 +647,44 @@ namespace Anything.Controllers
                 //var fb = 
             }
 
+            if (loginInfo.Login.LoginProvider == "Google")
+            {
+                var identity = AuthenticationManager.GetExternalIdentity(DefaultAuthenticationTypes.ExternalCookie);
+                var access_token = identity.Claims.FirstOrDefault(c=>c.Type == ClaimTypes.Email);
+                var email = access_token.Value;
+                loginInfo.Email = email;
+                //var fb = 
+            }
+
+            var user = UserManager2.FindByEmail(loginInfo.Email);
+            if (user == null)
+            {
+                Session["SingInEmail"] = loginInfo.Email;
+                return RedirectToAction("Register");
+            }
+            else
+            {
+                Session["SingInEmail"] = loginInfo.Email;
+                return RedirectToAction("Login");
+            }
 
             // Sign in the user with this external login provider if the user already has a login
-            var result = await SignInManager2.ExternalSignInAsync(loginInfo, isPersistent: false);
-            switch (result)
-            {
-                case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl });
-                case SignInStatus.Failure:
-                default:
-                    // If the user does not have an account, then prompt the user to create an account
-                    ViewBag.ReturnUrl = returnUrl;
-                    ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
-                    return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
-            }
+            //var result = await SignInManager2.ExternalSignInAsync(loginInfo, isPersistent: false);
+            //switch (result)
+            //{
+            //    case SignInStatus.Success:
+            //        return RedirectToLocal(returnUrl);
+            //    case SignInStatus.LockedOut:
+            //        return View("Lockout");
+            //    case SignInStatus.RequiresVerification:
+            //        return RedirectToAction("SendCode", new { ReturnUrl = returnUrl });
+            //    case SignInStatus.Failure:
+            //    default:
+            //        // If the user does not have an account, then prompt the user to create an account
+            //        ViewBag.ReturnUrl = returnUrl;
+            //        ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
+            //        return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
+            //}
         }
 
         //
