@@ -7,7 +7,7 @@
 
 <style>
     .login-img3-body {
-        background: url(../images/backgrounds/bg3.jpg) no-repeat center center fixed;
+        background: url(../images/backgrounds/bg4.jpg) no-repeat center center fixed;
         -moz-background-size: 100% 100%; /*  Firefox 3.6 */
         -o-background-size: 100% 100%; /* Opera 9.5 */
         -webkit-background-size: 100% 100%; /* Safari 3.0 */
@@ -150,7 +150,7 @@
                 <div class="row">
                     <div class="full-width">
 
-                        @using (Html.BeginForm("SocialRegister", "AccountForUser", FormMethod.Post, new { @class = "" }))
+                        @using (Html.BeginForm("SocialRegister", "Account", FormMethod.Post, new { @class = "" }))
                         {
                             @Html.AntiForgeryToken()
 
@@ -162,7 +162,7 @@
                         }
                     </div>
                 </div>
-                @using (Html.BeginForm("Login", "AccountForUser", FormMethod.Post, new { @class = "" }))
+                @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "" }))
                 {
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary("", new { @class = "text-danger" })
@@ -207,7 +207,7 @@
                         </div>
                         <div class="f-item one-half">
 
-                            <a href="@Url.Action("ForgotPassword","AccountForUser")" title="Forgot password?">忘記密碼?</a>
+                            <a href="@Url.Action("ForgotPassword","Account")" title="Forgot password?">忘記密碼?</a>
 
 
                         </div>
