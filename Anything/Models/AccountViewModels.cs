@@ -119,6 +119,7 @@ namespace Anything.Models
         public string ReturnUrl { get; set; }
     }
 
+    
     public class ForgotPasswordViewModel
     {
         [Required]

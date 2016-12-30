@@ -1,0 +1,212 @@
+﻿@model Anything.Models.RegisterViewModel
+@using Microsoft.Owin.Security
+@{
+    ViewBag.Title = "會員註冊";
+    var loginProviders = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes();
+}
+
+<style>
+    .login-img3-body {
+        background: url(../images/backgrounds/bg1.jpg) no-repeat center center fixed;
+        -moz-background-size: 100% 100%; /*  Firefox 3.6 */
+        -o-background-size: 100% 100%; /* Opera 9.5 */
+        -webkit-background-size: 100% 100%; /* Safari 3.0 */
+        background-size: 100% 100%; /*  Firefox 4.0 and other CSS3-compliant browsers */
+        /*filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='scale.jpg', sizingMethod='scale');*/ /* for < ie9 */
+    }
+
+        .login-img3-body .login-form {
+            border: 1px solid #B0B6BE;
+            background: rgba(213,215,222,0.9);
+            margin-bottom: 200px;
+        }
+
+    .login-form {
+        max-width: 350px;
+        margin: 100px auto 0;
+        background: #d5d7de;
+    }
+
+    .login-wrap {
+        padding: 20px;
+    }
+
+    .login-img3-body .login-form p, .login-img2-body .login-form p {
+        color: #34aadc;
+    }
+
+    .login-form .login-img {
+        font-size: 50px;
+        font-weight: 300;
+    }
+
+    .login-form p {
+        text-align: center;
+        color: #b6b6b6;
+        font-size: 16px;
+        font-weight: 300;
+    }
+
+    .login-form .btn {
+        border-radius: 0;
+    }
+
+    .btn-block {
+        display: block;
+        width: 100%;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .login-form .input-group {
+        padding-bottom: 15px;
+    }
+
+    .login-form .input-group-addon {
+        padding: 6px 12px;
+        font-size: 16px;
+        color: #8b9199;
+        font-weight: normal;
+        line-height: 1;
+        text-align: center;
+        background-color: #ffffff;
+        border: none;
+        border-radius: 0;
+    }
+
+
+
+    .login-form input[type="text"], .login-form input[type="password"] {
+        border: none;
+        box-shadow: none;
+        font-size: 16px;
+        border-radius: 0;
+    }
+
+    .login-form .form-control {
+        position: relative;
+        font-size: 16px;
+        height: auto;
+        padding: 10px;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+    .btn-primary {
+        color: #fff;
+        background: #007aff;
+        border-color: #007aff;
+    }
+
+        .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open .dropdown-toggle.btn-primary {
+            color: #007aff;
+            border-color: #007aff;
+            background: transparent;
+        }
+
+    .btn-info {
+        color: #fff;
+        background: #34aadc;
+        border-color: #34aadc;
+    }
+
+        .btn-info:hover, .btn-info:focus, .btn-info:active, .btn-info.active, .open .dropdown-toggle.btn-info {
+            color: #34aadc;
+            background: transparent;
+            border-color: #34aadc;
+        }
+
+    .login-form a {
+        color: #688a7e !important;
+    }
+
+
+
+    a, a:hover, a:focus {
+        text-decoration: none;
+        outline: none;
+        outline: 0;
+    }
+</style>
+
+
+<div class="login-img3-body">
+
+    <div class="container">
+        <div class="login-form">
+
+            <div class="login-wrap">
+                <p class="login-img"><i class="fa fa-power-off"></i></p>
+
+                <style type="text/css">
+                    #Google {
+                        background-color: #AE0000;
+                        color: #fff;
+                    }
+
+                    #Facebook {
+                        background-color: #005AB5;
+                        color: #fff;
+                    }
+                </style>
+                <div class="row">
+                    <div class="full-width">
+
+                        @using (Html.BeginForm("SocialRegister", "AccountForUser", FormMethod.Post, new { @class = "" }))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            foreach (AuthenticationDescription p in loginProviders)
+                            {
+
+                                <button type="submit" class="btn btn-default" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="使用 @p.Caption 帳戶登入">@p.AuthenticationType</button>
+                            }
+                        }
+                    </div>
+                </div>
+
+                @using (Html.BeginForm("Register", "AccountForUser", FormMethod.Post, new { @class = "" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary("", new { @class = "text-danger" })
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @placeholder = "Username", @autofocus = "" })
+
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                        </span>
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "Email" })
+
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Password" })
+
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", @placeholder = "Confrim Password" })
+
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-thumbs-o-up"></i></span>
+                        @Html.TextBoxFor(m => m.Recommend, new { @class = "form-control", @placeholder = "推薦碼", @Value = @ViewBag.Recommend })
+
+                    </div>
+
+
+                    <button class="btn btn-primary btn-lg btn-block" type="submit">確定</button>
+                }
+                    
+            </div>
+        </div>
+        
+    </div>
+
+
+</div>
+

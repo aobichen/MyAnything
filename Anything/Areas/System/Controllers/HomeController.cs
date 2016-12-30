@@ -18,7 +18,7 @@ namespace Anything.Areas.System.Controllers
             {
                 ViewData = (ViewDataDictionary)TempData["ViewData"];
             }
-            ViewBag.UserName = CurrentUser.UserName;
+            ViewBag.UserName = CurrentUser.Name;
             var Logs = _db.SystemLog.Where(o => o.Creator == CurrentUser.Email && o.LogCode == "Time" && o.LogType == "SignIn").OrderBy(o => o.Created).ToList();
             var Login = new SystemLog();
             var IsFirst = "0";

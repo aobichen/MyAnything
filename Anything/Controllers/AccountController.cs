@@ -88,7 +88,9 @@ namespace Anything.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
+            
             FormsAuthentication.SignOut();
+            AuthenticationManager.SignOut();
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -135,8 +137,39 @@ namespace Anything.Controllers
 
             if (user != null && status.Equals(PasswordVerificationResult.Success))
             {
-                //SignIn(user,model.RememberMe);
                 await SignInAsync(user, model.RememberMe);
+
+                CustomPrincipalSerializeModel serializeModel = new CustomPrincipalSerializeModel();
+
+                serializeModel.ID = user.Id;
+                serializeModel.Name = user.UserName;
+                serializeModel.Email = user.Email;
+                serializeModel.UserCode = user.UserCode;
+                serializeModel.UserType = user.UserType;
+                var UserRoles = (from rr in RoleManager.Roles.ToList()
+                                 join r1 in user.Roles on rr.Id equals r1.RoleId
+                                 select rr.Name).ToList();
+
+                //var r = (from uRoles in user.Roles
+                //        join rr in RoleManager.Roles.ToList() on uRoles.RoleId == rr.RoleId).to
+
+
+                serializeModel.roles = string.Join(",", UserRoles);
+                // serializeModel.roles = "Admin";
+                var ExpireDateTime = DateTime.Now.AddDays(3);
+                if (model.RememberMe)
+                {
+                    ExpireDateTime = DateTime.Now.AddDays(15);
+                }
+
+                string userData = JsonConvert.SerializeObject(serializeModel);
+                FormsAuthenticationTicket authTicket = null;
+                authTicket = new FormsAuthenticationTicket(1, user.UserName, DateTime.Now, DateTime.Now.AddDays(15), false, userData);
+
+                string encTicket = FormsAuthentication.Encrypt(authTicket);
+                HttpCookie faCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encTicket) { Expires = authTicket.Expiration, Path = "/" };
+                System.Web.HttpContext.Current.Response.Cookies.Add(faCookie);
+
 
                 _db.SystemLog.Add(new SystemLog
                 {
@@ -521,6 +554,77 @@ namespace Anything.Controllers
             return View();
         }
 
+        [Authorize]
+        public ActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<ActionResult> ChangePassword(ResetPasswordViewModel model)
+        {
+            
+            if (!ModelState.IsValid)
+            {
+                TempData["ViewData"] = ViewData;
+                if (!string.IsNullOrEmpty(model.ReturnUrl))
+                {
+                    return Redirect(model.ReturnUrl);
+                }
+                return View(model);
+            }
+
+
+            var user = await UserManager.FindByEmailAsync(model.Email);
+
+
+            if (user == null)
+            {
+                TempData["ErrorMessage"] = "密碼變更，使用者不存在";
+                ModelState.AddModelError("", "使用者不存在");
+                if (!string.IsNullOrEmpty(model.ReturnUrl))
+                {
+                    return Redirect(model.ReturnUrl);
+                }
+                // Don't reveal that the user does not exist
+                FormsAuthentication.SignOut();
+                AuthenticationManager.SignOut();
+                return Redirect("~/Home/Account");
+            }
+            else
+            {
+               if(CurrentUser.Id != user.Id){
+                   TempData["ErrorMessage"] = "密碼變更，帳號不符";
+                    ModelState.AddModelError("", "帳號不符");
+                    FormsAuthentication.SignOut();
+                    AuthenticationManager.SignOut();
+                    return Redirect("~/Home/Account");
+               }
+            }
+
+            var code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+
+
+            var result = await UserManager.ResetPasswordAsync(user.Id, code, model.Password);
+            if (result.Succeeded)
+            {
+                if (!string.IsNullOrEmpty(model.ReturnUrl))
+                {
+                    TempData["SuccessMessage"] = "密碼已變更，下次請使用新密碼";
+                    return Redirect(model.ReturnUrl);
+                }
+                return RedirectToAction("ResetPasswordConfirmation", "Account");
+            }
+            AddErrors(result);
+            TempData["ViewData"] = ViewData;
+            if (!string.IsNullOrEmpty(model.ReturnUrl))
+            {
+                return Redirect(model.ReturnUrl);
+            }
+            return View();
+        }
+
         //
         // POST: /Account/ExternalLogin
         [HttpPost]
@@ -685,7 +789,7 @@ namespace Anything.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut();
-            //FormsAuthentication.SignOut();
+            FormsAuthentication.SignOut();
             return RedirectToAction("Index", "Home");
         }
 

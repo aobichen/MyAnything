@@ -39,14 +39,20 @@
                             <h3></h3>
                             <ul class="nav side-menu">
                                 <li>
-                                    <a><i class="fa fa-home"></i> Home @*<span class="fa fa-chevron-down"></span>*@</a>
+                                    <a><i class="fa fa-home"></i> 訂單 @*<span class="fa fa-chevron-down"></span>*@</a>
                                     @*<ul class="nav child_menu">
                                         <li><a href="index.html">Dashboard</a></li>
                                         <li><a href="index2.html">Dashboard2</a></li>
                                         <li><a href="index3.html">Dashboard3</a></li>
                                     </ul>*@
                                 </li>
-                              
+                                <li>
+                                    <a><i class="glyphicon glyphicon-user"></i> 帳號 <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li><a href="@Url.Action("ChangePassword","Account")">變更密碼</a></li>
+
+                                    </ul>
+                                </li>
                             </ul>
                         </div>
                         
@@ -171,7 +177,7 @@ else
             <!-- footer content -->
             <footer>
                 <div class="pull-right">
-                    Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+                    MyAnything
                 </div>
                 <div class="clearfix"></div>
             </footer>
@@ -186,9 +192,9 @@ else
     <script src="~/Content/bootstrap.min.js"></script> 
     <script src="~/Scripts/custom.min.js"></script>
   
-    <div class="lightbox" style="display:none;">
+    @*<div class="lightbox" style="display:none;">
         @Html.Partial("_LoginLightbox", new Anything.Models.LoginViewModel())
-    </div>
+    </div>*@
     
 </body>
 

@@ -197,8 +197,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\Hotel\Controllers\AccountController.cs" />
     <Compile Include="Areas\Hotel\Controllers\HomeController.cs" />
     <Compile Include="Areas\Hotel\HotelAreaRegistration.cs" />
+    <Compile Include="Areas\My\Controllers\AccountController.cs" />
     <Compile Include="Areas\My\Controllers\BonusController.cs" />
     <Compile Include="Areas\My\Controllers\HomeController.cs" />
     <Compile Include="Areas\My\Controllers\HotelController.cs" />
@@ -612,6 +614,11 @@
     <Content Include="Areas\System\Views\RoomType\_List.cshtml" />
     <Content Include="Areas\System\Views\RoomType\Edit.cshtml" />
     <Content Include="Areas\System\Views\RoomType\_Create.cshtml" />
+    <Content Include="Areas\My\Views\Shared\_ChangePassword.cshtml" />
+    <Content Include="Areas\Hotel\Views\Shared\_ChangePassword.cshtml" />
+    <Content Include="Areas\Hotel\Views\Account\ChangePassword.cshtml" />
+    <Content Include="Areas\My\Views\Account\Index.cshtml" />
+    <Content Include="Areas\My\Views\Account\ChangePassword.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\infobox.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

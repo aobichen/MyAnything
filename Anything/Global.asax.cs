@@ -39,7 +39,7 @@ namespace Anything
                     FormsAuthenticationTicket authTicket = FormsAuthentication.Decrypt(authCookie.Value);
                     CustomPrincipalSerializeModel serializeModel = JsonConvert.DeserializeObject<CustomPrincipalSerializeModel>(authTicket.UserData);
                     CustomPrincipal newUser = new CustomPrincipal(authTicket.Name);
-                    newUser.ID = serializeModel.ID;
+                    newUser.Id = serializeModel.ID;
                     newUser.Name = serializeModel.Name;
                     newUser.Email = serializeModel.Email;
                     newUser.roles = serializeModel.roles;

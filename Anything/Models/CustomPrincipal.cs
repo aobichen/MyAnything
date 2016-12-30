@@ -27,7 +27,7 @@ namespace Anything.Models
             this.Identity = new GenericIdentity(Username);
         }
 
-        public int ID { get; set; }
+        public int Id { get; set; }
         public string Email { get; set; }
         public string Name { get; set; }
         public string roles { get; set; }

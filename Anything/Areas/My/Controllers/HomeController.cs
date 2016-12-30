@@ -36,6 +36,7 @@ namespace Anything.Areas.My.Controllers
             ViewBag.HotelOrders = PageModel;
             }
 
+            var cur = CurrentUser.Id;
             if (User.IsInRole("User"))
             {
 

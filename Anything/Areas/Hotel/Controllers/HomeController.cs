@@ -8,7 +8,7 @@ using System.Web.Mvc;
 using PagedList;
 namespace Anything.Areas.Hotel.Controllers
 {
-    [Authorize(Roles="Hotel,Admin")]
+    [Authorize(Roles="Hotel,Admin,System")]
     public class HomeController : BaseController
     {
         // GET: Hotel/Home

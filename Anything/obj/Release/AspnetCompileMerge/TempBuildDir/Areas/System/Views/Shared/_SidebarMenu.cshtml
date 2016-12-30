@@ -14,14 +14,21 @@
                 <a><i class="fa fa-cogs"></i> 設定 <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
                     <li><a href="@Url.Action("", "Bonus", new  { area = "System"})">紅利設定</a></li>
-                    <li><a href="form_advanced.html">房型設定</a></li>
-                    <li><a href="@Url.Action("", "BedType", new  { area = "System"})">床型設定</a></li>
+                    <li id="RoomType"><a href="@Url.Action("", "RoomType", new  { area = "System"})">房型設定</a></li>
+                    <li ><a href="@Url.Action("", "BedType", new  { area = "System"})">床型設定</a></li>
+                    <li id="Facility"><a href="@Url.Action("", "Facility", new  { area = "System"})">設施設定</a></li>
                     
                 </ul>
             </li>
-          
+            <li>
+                <a><i class="glyphicon glyphicon-user"></i> 帳號 <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li><a href="@Url.Action("ChangePassword","AccountForUser")">變更密碼</a></li>
+
+                </ul>
+            </li>
         </ul>
     </div>
     
-
+    <input type="hidden" id="current_page_title" value="@ViewBag.Title" />
 </div>

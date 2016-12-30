@@ -16,7 +16,7 @@
                 {
                     <li class="active"><a href="@Url.Action("/", new { area = "System"})" title="系統">系統管理</a></li>
                 }
-                    <li class="active"><a href="@Url.Action("LogOff","Account")" title="Sign Out">登出</a></li>
+                    <li class="active"><a href="@Url.Action("LogOff","AccountForUser")" title="Sign Out">登出</a></li>
 
                // }
 
@@ -26,8 +26,8 @@
             }
             else
             {
-                <li class="active"><a id="btnlogin" href="javascript:void(0);" title="登入">登入</a></li>
-                <li class="active"><a href="@Url.Action("Join","Account")" title="註冊">註冊</a></li>
+                <li class="active"><a id="" href="@Url.Action("Login","AccountForUser")" title="登入">登入</a></li>
+                <li class="active"><a href="@Url.Action("Register","AccountForUser")" title="註冊">註冊</a></li>
             }
         </ul>
 

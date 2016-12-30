@@ -164,11 +164,12 @@
                             }
 
                         </dd>
+                        @if (Model.Bonus > 0) { 
                         <dt>紅利</dt>
                         <dd id="currentbonus">@Model.Bonus.ToString("#.##")</dd>
                         <dt>使用紅利</dt>
                         <dd>@Html.EditorFor(m => m.Bonus)</dd>
-                        
+                        }
                        
                            
 </dl>

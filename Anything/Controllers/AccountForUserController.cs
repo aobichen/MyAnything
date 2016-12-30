@@ -79,6 +79,7 @@ namespace Anything.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            FormsAuthentication.SignOut();
             AuthenticationManager.SignOut();
             ViewBag.ReturnUrl = returnUrl;
             var model = new LoginViewModel();
@@ -95,6 +96,7 @@ namespace Anything.Controllers
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
             FormsAuthentication.SignOut();
+            AuthenticationManager.SignOut();
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -143,6 +145,37 @@ namespace Anything.Controllers
             {
                 //SignIn(user,model.RememberMe);
                 await SignInAsync(user, model.RememberMe);
+
+                CustomPrincipalSerializeModel serializeModel = new CustomPrincipalSerializeModel();
+
+                serializeModel.ID = user.Id;
+                serializeModel.Name = user.UserName;
+                serializeModel.Email = user.Email;
+                serializeModel.UserCode = user.UserCode;
+                serializeModel.UserType = user.UserType;
+                var UserRoles = (from rr in RoleManager2.Roles.ToList()
+                                 join r1 in user.Roles on rr.Id equals r1.RoleId
+                                 select rr.Name).ToList();
+
+                //var r = (from uRoles in user.Roles
+                //        join rr in RoleManager.Roles.ToList() on uRoles.RoleId == rr.RoleId).to
+
+
+                serializeModel.roles = string.Join(",", UserRoles);
+                // serializeModel.roles = "Admin";
+                var ExpireDateTime = DateTime.Now.AddDays(3);
+                if (model.RememberMe)
+                {
+                    ExpireDateTime = DateTime.Now.AddDays(15);
+                }
+
+                string userData = JsonConvert.SerializeObject(serializeModel);
+                FormsAuthenticationTicket authTicket = null;
+                authTicket = new FormsAuthenticationTicket(1, user.UserName, DateTime.Now, DateTime.Now.AddDays(15), false, userData);
+
+                string encTicket = FormsAuthentication.Encrypt(authTicket);
+                HttpCookie faCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encTicket) { Expires = authTicket.Expiration, Path = "/" };
+                System.Web.HttpContext.Current.Response.Cookies.Add(faCookie);
 
                 _db.SystemLog.Add(new SystemLog
                 {
@@ -310,67 +343,12 @@ namespace Anything.Controllers
         }
 
 
-        private string GetRecommendUserCode(string Recommend)
-        {
-            var RecommendUserCode = string.Empty;
-            var RecommendUsers = Account_db.Users.Where(o => o.Recommend == Recommend && o.UserType == "User").ToList();
-            if (RecommendUsers.Count < 6)
-            {
-                RecommendUserCode = Recommend;
-            }
-            else
-            {
-
-                var Recommends = RecommendUsers.Select(o => o.UserCode).ToList();
-                RecommendUserCode = GetRecommendForList(Recommends);
-            }
-            return RecommendUserCode;
-        }
-
-
-        private string GetRecommendForList(List<string> Recommends)
-        {
-            var RecommendUsers = new List<RecommendUsers>();
-            var RecommendList = new List<string>();
-            var OverUser = false;
-            foreach (var item in Recommends)
-            {
-                var Users = Account_db.Users.Where(o => o.Recommend == item && o.UserType == "User").ToList();
-                foreach (var sub in Users)
-                {
-                    RecommendList.Add(sub.UserCode);
-                }
-                if (OverUser == false && Users.Count < 6)
-                {
-                    OverUser = true;
-                }
-                RecommendUsers.Add(new RecommendUsers { Count = Users.Count, Recommend = item });
-            }
-
-            var R_Recommend = string.Empty;
-
-            if (OverUser)
-            {
-                var min = RecommendUsers.Min(o => o.Count);
-                R_Recommend = RecommendUsers.Where(o => o.Count == min).FirstOrDefault().Recommend;
-            }
-            else
-            {
-                R_Recommend = GetRecommendForList(RecommendList);
-            }
-            return R_Recommend;
-        }
-
-
-        public class RecommendUsers
-        {
-            public string Recommend { get; set; }
-            public int Count { get; set; }
-        }
+        
 
         [AllowAnonymous]
         public ActionResult Register()
         {
+            FormsAuthentication.SignOut();
             AuthenticationManager.SignOut();
             var Recommend = Session["RecommendCode"] == null ? string.Empty : Session["RecommendCode"].ToString();
 
@@ -418,7 +396,7 @@ namespace Anything.Controllers
                     UserManager2.AddToRole(user.Id, model.UserType);
                    
                     var code = await UserManager2.GenerateEmailConfirmationTokenAsync(user.Id);
-                    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    var callbackUrl = Url.Action("ConfirmEmail", "AccountForUser", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
 
                     var link = string.Format("信箱驗證連結網址<a href='{0}'>完成驗證</a>", callbackUrl);
 
@@ -553,6 +531,78 @@ namespace Anything.Controllers
             }
             return View();
         }
+
+         [Authorize]
+        public ActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Authorize]      
+         public async Task<ActionResult> ChangePassword(ResetPasswordViewModel model)
+         {
+
+             if (!ModelState.IsValid)
+             {
+                 TempData["ViewData"] = ViewData;
+                 if (!string.IsNullOrEmpty(model.ReturnUrl))
+                 {
+                     return Redirect(model.ReturnUrl);
+                 }
+                 return View(model);
+             }
+
+
+             var user = await UserManager2.FindByEmailAsync(model.Email);
+
+
+             if (user == null)
+             {
+                 TempData["ErrorMessage"] = "密碼變更，使用者不存在";
+                 ModelState.AddModelError("", "使用者不存在");
+                 if (!string.IsNullOrEmpty(model.ReturnUrl))
+                 {
+                     return Redirect(model.ReturnUrl);
+                 }
+                 // Don't reveal that the user does not exist
+                 FormsAuthentication.SignOut();
+                 AuthenticationManager.SignOut();
+                 return Redirect("~/Home/Account");
+             }
+             else
+             {
+                 if (CurrentUser.Id != user.Id)
+                 {
+                     TempData["ErrorMessage"] = "密碼變更，帳號不符";
+                     ModelState.AddModelError("", "帳號不符");
+                     FormsAuthentication.SignOut();
+                     AuthenticationManager.SignOut();
+                     return Redirect("~/Home/Account");
+                 }
+             }
+
+             var code = await UserManager2.GeneratePasswordResetTokenAsync(user.Id);
+
+
+             var result = await UserManager2.ResetPasswordAsync(user.Id, code, model.Password);
+             if (result.Succeeded)
+             {
+                 if (!string.IsNullOrEmpty(model.ReturnUrl))
+                 {
+                     TempData["SuccessMessage"] = "密碼已變更，下次請使用新密碼";
+                     return Redirect(model.ReturnUrl);
+                 }
+                 return RedirectToAction("ResetPasswordConfirmation", "Account");
+             }
+             AddErrors(result);
+             TempData["ViewData"] = ViewData;
+             if (!string.IsNullOrEmpty(model.ReturnUrl))
+             {
+                 return Redirect(model.ReturnUrl);
+             }
+             return View();
+         }
 
         //
         // GET: /Account/ResetPasswordConfirmation
@@ -731,8 +781,9 @@ namespace Anything.Controllers
         //[ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
-            AuthenticationManager.SignOut();
+            
             FormsAuthentication.SignOut();
+            AuthenticationManager.SignOut();
             return RedirectToAction("Index", "Home");
         }
 
@@ -752,6 +803,65 @@ namespace Anything.Controllers
 
             return File(img, "image/jpg");
         }
+
+        private string GetRecommendUserCode(string Recommend)
+        {
+            var RecommendUserCode = string.Empty;
+            var RecommendUsers = Account_db.Users.Where(o => o.Recommend == Recommend && o.UserType == "User").ToList();
+            if (RecommendUsers.Count < 6)
+            {
+                RecommendUserCode = Recommend;
+            }
+            else
+            {
+
+                var Recommends = RecommendUsers.Select(o => o.UserCode).ToList();
+                RecommendUserCode = GetRecommendForList(Recommends);
+            }
+            return RecommendUserCode;
+        }
+
+
+        private string GetRecommendForList(List<string> Recommends)
+        {
+            var RecommendUsers = new List<RecommendUsers>();
+            var RecommendList = new List<string>();
+            var OverUser = false;
+            foreach (var item in Recommends)
+            {
+                var Users = Account_db.Users.Where(o => o.Recommend == item && o.UserType == "User").ToList();
+                foreach (var sub in Users)
+                {
+                    RecommendList.Add(sub.UserCode);
+                }
+                if (OverUser == false && Users.Count < 6)
+                {
+                    OverUser = true;
+                }
+                RecommendUsers.Add(new RecommendUsers { Count = Users.Count, Recommend = item });
+            }
+
+            var R_Recommend = string.Empty;
+
+            if (OverUser)
+            {
+                var min = RecommendUsers.Min(o => o.Count);
+                R_Recommend = RecommendUsers.Where(o => o.Count == min).FirstOrDefault().Recommend;
+            }
+            else
+            {
+                R_Recommend = GetRecommendForList(RecommendList);
+            }
+            return R_Recommend;
+        }
+
+
+        public class RecommendUsers
+        {
+            public string Recommend { get; set; }
+            public int Count { get; set; }
+        }
+       
 
         #region Helpers
         // Used for XSRF protection when adding external logins

@@ -87,14 +87,10 @@ namespace Anything.Controllers
         //    get { return HttpContext.User as CustomPrincipal; }
         //}
 
-        
-        protected ApplicationUser CurrentUser
+        protected virtual new CustomPrincipal CurrentUser
         {
-            get
-            {
-
-                return Account_db.Users.Where(o => o.Id == UserId).FirstOrDefault();
-            }
+            get { return HttpContext.User as CustomPrincipal; }
         }
+       
 	}
 }

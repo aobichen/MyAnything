@@ -30,13 +30,21 @@ namespace Anything.Controllers
         [AllowAnonymous]
         public ActionResult PaySuccess()
         {
-            var str = Request["JSONData"];
-            
-            var model = JsonConvert.DeserializeObject<PayGoRespond>(str);
-            var result = JsonConvert.DeserializeObject<PayResult>(model.Result);
-            var PayModel = PayGoRespond(model, result);
+            try
+            {
+                var str = Request["JSONData"];
 
-            return View(PayModel);
+                var model = JsonConvert.DeserializeObject<PayGoRespond>(str);
+                var result = JsonConvert.DeserializeObject<PayResult>(model.Result);
+                var PayModel = PayGoRespond(model, result);
+                return View(PayModel);
+            }
+            catch(Exception ex)
+            {
+                _db.TEST.Add(new TEST { Created= DateTime.Now, Message = ex.Message.ToString() });
+                _db.SaveChanges();
+            }
+            return View();
         }
 
         [AllowAnonymous]
