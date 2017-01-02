@@ -97,6 +97,24 @@ function ExpireDate() {
     });
 }
 
+function BonusNotice() {
+    console.log("BonusNotice");
+    $.ajax({
+        type: "POST",
+        url: '/Bonus/Notice',
+        data: null,
+        dataType: "json",
+        cache: false,
+
+        success: function (xhr) {
+            console.log(xhr);
+        },
+        error: function (xhr) {
+            console.log("ERROR");
+        }
+    });
+};
+
 function QueryAllPay() {
     $.ajax({
         type: "POST",
