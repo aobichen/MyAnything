@@ -21,6 +21,15 @@
                 </ul>
             </li>
             <li>
+                <a><i class="glyphicon glyphicon-comment"></i> 通知 <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li><a href="@Url.Action("", "BonusNotice", new  { area = "System"})">紅利通知內容(25日)</a></li>
+                    <li id="BounsNotice"><a href="@Url.Action("Notice1date", "BonusNotice", new { area = "System" })">紅利通知內容(1日)</a></li>
+
+
+                </ul>
+            </li>
+            <li>
                 <a><i class="glyphicon glyphicon-user"></i> 帳號 <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
                     <li><a href="@Url.Action("ChangePassword","AccountForUser")">變更密碼</a></li>

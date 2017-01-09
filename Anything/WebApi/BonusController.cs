@@ -81,13 +81,14 @@ namespace Anything.WebApi
 
             var CurrentDate = Today.ToString("dd");
             var Date = "25";
-            if (!CurrentDate.Equals(Date))
+            var NextDate = "26";
+            if (!CurrentDate.Equals(Date) && !CurrentDate.Equals(NextDate))
             {
                 return;
             }
             var db = new MyAnythingEntities();
             var unPaid = OrderType.Unpaid.ToString();
-            var Notice = new BonusNoticeViewModel().Query();
+            var Notice = new BonusNoticeViewModel().QueryFor25Date();
             var NoticeContent = Notice.ItemDescription;
             var Notices = db.MyBonus.Where(o => o.Notified == false && o.Created.Month == Today.Month).ToList();
             var result = db.MyBonus.GroupBy(o => o.UserID)
@@ -111,11 +112,11 @@ namespace Anything.WebApi
                         }
                         if (User != null)
                         {
-                            NoticeContent.Replace("{{姓名}}", User.UserName);
-                            NoticeContent.Replace("{{當月份}}", notice.Created.Month.ToString());
-                            NoticeContent.Replace("{{使用月份}}", notice.UseMonth.Month.ToString());
-                            NoticeContent.Replace("{{總紅利}}", Sum.ToString());
-                            NoticeContent.Replace("{{紅利入帳需消費金額}}", notice.AmtMinLimit.ToString());
+                            NoticeContent = NoticeContent.Replace("{{姓名}}", User.UserName);
+                            NoticeContent = NoticeContent.Replace("{{當月份}}", notice.Created.Month.ToString());
+                            NoticeContent = NoticeContent.Replace("{{使用月份}}", notice.UseMonth.Month.ToString());
+                            NoticeContent = NoticeContent.Replace("{{總紅利}}", Sum.ToString("#.##0"));
+                            NoticeContent = NoticeContent.Replace("{{紅利入帳需消費金額}}", notice.AmtMinLimit.ToString());
                         }
 
                         var From = ConfigurationManager.AppSettings["From"];
@@ -151,8 +152,111 @@ namespace Anything.WebApi
                     db.SystemLog.Add(new SystemLog { Created = DateTime.Now,Creator="Sys", LogDescription ="紅利通知發送錯誤", LogValue = ex.Message.ToString(), LogCode = "Error", LogType = "Error", IP = string.Empty});
                     db.SaveChanges();
                 }
+                finally
+                {
+                    foreach (var item in Notices)
+                    {
+                        item.Notified = true;
+                        db.SaveChanges();
+                    }
+                }
             
                 
+            }
+            db.Dispose();
+        }
+
+        [HttpPost]
+        [Route("Bonus/BonusNoticeFor1day")]
+        public void BonusNoticeFor1day()
+        {
+            var Today = DateTime.Now;
+
+            var CurrentDate = Today.ToString("dd");
+            var Date = "01";
+            var NextDate = "1";
+            if (!CurrentDate.Equals(Date) && !CurrentDate.Equals(NextDate))
+            {
+                return;
+            }
+            var db = new MyAnythingEntities();
+            var unPaid = OrderType.Unpaid.ToString();
+            var Notice = new BonusNoticeViewModel().QueryFor1Date();
+            var NoticeContent = Notice.ItemDescription;
+            var Notices = db.MyBonus.Where(o => o.BonusStatus.Equals("CanUse") && o.UseMonth.Month == Today.Month).ToList();
+            var result = db.MyBonus.GroupBy(o => o.UserID)
+                   .Select(g => new { UserID = g.Key, total = g.Sum(i => i.Bonus) });
+
+            var Noticed = new List<int>();
+
+            foreach (var notice in Notices)
+            {
+                try
+                {
+                    if (Noticed == null || !Noticed.Any(o => o == notice.UserID))
+                    {
+
+                        var User = new ApplicationDbContext2().Users.Where(o => o.Id == notice.UserID).FirstOrDefault();
+
+                        var UserOfSum = result.Where(o => o.UserID == notice.UserID).FirstOrDefault();
+                        var Sum = 0M;
+                        if (UserOfSum != null)
+                        {
+                            Sum = UserOfSum.total;
+                        }
+                        if (User != null)
+                        {
+                            NoticeContent = NoticeContent.Replace("{{姓名}}", User.UserName);
+                            NoticeContent = NoticeContent.Replace("{{當月份}}", notice.Created.Month.ToString());
+                            NoticeContent = NoticeContent.Replace("{{使用月份}}", notice.UseMonth.Month.ToString());
+                            NoticeContent = NoticeContent.Replace("{{總紅利}}", Sum.ToString("#.##0"));
+                            NoticeContent = NoticeContent.Replace("{{紅利入帳需消費金額}}", notice.AmtMinLimit.ToString());
+                        }
+
+                        var From = ConfigurationManager.AppSettings["From"];
+                        var Password = ConfigurationManager.AppSettings["SmtpPassword"];
+                        var SmtpUserName = ConfigurationManager.AppSettings["SmtpUserName"];
+                        var Port = int.Parse(ConfigurationManager.AppSettings["SmtpPort"]);
+                        var SmtpServer = ConfigurationManager.AppSettings["SmtpServer"];
+
+                        SmtpClient smtpClient = new SmtpClient(SmtpServer, Port);
+
+
+                        smtpClient.Credentials = new System.Net.NetworkCredential(From, Password);
+                        //smtpClient.UseDefaultCredentials = true;              
+                        smtpClient.EnableSsl = true;
+
+                        MailMessage mail = new MailMessage();
+                        mail.Body = NoticeContent;
+                        mail.Subject = Notice.ItemValue;
+                        mail.IsBodyHtml = true;
+                        mail.SubjectEncoding = System.Text.Encoding.UTF8;
+                        mail.Priority = MailPriority.Normal;
+                        mail.From = new MailAddress(From, SmtpUserName);
+                        mail.To.Add(new MailAddress(User.Email));
+
+                        smtpClient.Send(mail);
+                        smtpClient = null;
+                        mail.Dispose();
+
+                        Noticed.Add(UserOfSum.UserID);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    db.SystemLog.Add(new SystemLog { Created = DateTime.Now, Creator = "Sys", LogDescription = "紅利通知發送錯誤", LogValue = ex.Message.ToString(), LogCode = "Error", LogType = "Error", IP = string.Empty });
+                    db.SaveChanges();
+                }
+                finally
+                {
+                    foreach (var item in Notices)
+                    {
+                        item.Notified = true;
+                        db.SaveChanges();
+                    }
+                }
+
+
             }
             db.Dispose();
         }

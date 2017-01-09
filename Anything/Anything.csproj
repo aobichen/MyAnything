@@ -623,6 +623,7 @@
     <Content Include="Areas\My\Views\Account\ChangePassword.cshtml" />
     <Content Include="Areas\System\Views\BonusNotice\Index.cshtml" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Areas\System\Views\BonusNotice\Notice1date.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\infobox.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -1289,7 +1290,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Hotel\Models\" />
-    <Folder Include="AuthorizeFilters\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -97,11 +97,29 @@ function ExpireDate() {
     });
 }
 
-function BonusNotice() {
+function BonusNoticeFor25date() {
     console.log("BonusNotice");
     $.ajax({
         type: "POST",
         url: '/Bonus/Notice',
+        data: null,
+        dataType: "json",
+        cache: false,
+
+        success: function (xhr) {
+            console.log(xhr);
+        },
+        error: function (xhr) {
+            console.log("ERROR");
+        }
+    });
+};
+
+function BonusNoticeFor1date() {
+   
+    $.ajax({
+        type: "POST",
+        url: '/Bonus/BonusNoticeFor1day',
         data: null,
         dataType: "json",
         cache: false,

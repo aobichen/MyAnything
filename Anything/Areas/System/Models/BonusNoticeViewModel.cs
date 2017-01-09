@@ -24,7 +24,8 @@ namespace Anything.Areas.System.Models
             var ItemType = "BonusNoticeFor25date";
             using(var db = new MyAnythingEntities()){
                 var model = db.SystemField.Where(o => o.ItemType == ItemType).Select(o => new BonusNoticeViewModel {
-                    ItemDescription = o.ItemDescription
+                    ItemDescription = o.ItemDescription,
+                    ItemValue = o.ItemValue
                 }).FirstOrDefault();
                 return model;
             }
@@ -33,12 +34,75 @@ namespace Anything.Areas.System.Models
             
         }
 
+        public BonusNoticeViewModel QueryFor25Date()
+        {
+            var ItemType = "BonusNoticeFor25date";
+            using (var db = new MyAnythingEntities())
+            {
+                var model = db.SystemField.Where(o => o.ItemType == ItemType).Select(o => new BonusNoticeViewModel
+                {
+                    ItemDescription = o.ItemDescription,
+                    ItemValue = o.ItemValue
+                }).FirstOrDefault();
+                return model;
+            }
+
+            //return string.Empty;
+
+        }
+
+        public BonusNoticeViewModel QueryFor1Date()
+        {
+            var ItemType = "BonusNoticeFor1date";
+            using (var db = new MyAnythingEntities())
+            {
+                var model = db.SystemField.Where(o => o.ItemType == ItemType).Select(o => new BonusNoticeViewModel
+                {
+                    ItemDescription = o.ItemDescription,
+                    ItemValue = o.ItemValue
+                }).FirstOrDefault();
+                return model;
+            }
+
+            //return string.Empty;
+
+        }
+
         public void Edit()
         {
             var ItemType = "BonusNoticeFor25date";
             using (var db = new MyAnythingEntities())
             {
                 var model = db.SystemField.Where(o => o.ItemType == ItemType).FirstOrDefault();
+                model.ItemValue = ItemValue;
+                model.ItemDescription = ItemDescription;
+                model.Modified = DateTime.Now;
+                model.Modify = Modify;
+                db.SaveChanges();
+            }
+        }
+
+        public void Edit25date()
+        {
+            var ItemType = "BonusNoticeFor25date";
+            using (var db = new MyAnythingEntities())
+            {
+                var model = db.SystemField.Where(o => o.ItemType == ItemType).FirstOrDefault();
+                model.ItemValue = ItemValue;
+                model.ItemDescription = ItemDescription;
+                model.Modified = DateTime.Now;
+                model.Modify = Modify;
+                db.SaveChanges();
+            }
+        }
+
+        public void Edit1date()
+        {
+            var ItemType = "BonusNoticeFor1date";
+            using (var db = new MyAnythingEntities())
+            {
+                var model = db.SystemField.Where(o => o.ItemType == ItemType).FirstOrDefault();
+                model.ItemValue = ItemValue;
                 model.ItemDescription = ItemDescription;
                 model.Modified = DateTime.Now;
                 model.Modify = Modify;

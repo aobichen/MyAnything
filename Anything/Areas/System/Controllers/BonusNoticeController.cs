@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace Anything.Areas.System.Controllers
 {
+    [Authorize(Roles="Admin,System")]
     public class BonusNoticeController : Controller
     {
         // GET: System/BonusNotice
@@ -22,6 +23,23 @@ namespace Anything.Areas.System.Controllers
         {
             model.Edit();           
             return RedirectToAction("Index");
+        }
+
+        public ActionResult Notice1date()
+        {
+           
+            var model = new BonusNoticeViewModel().QueryFor1Date();
+            ViewData.Model = model;
+            return View();
+        }
+
+
+        [HttpPost]
+        public ActionResult Notice1dateEdit(BonusNoticeViewModel model)
+        {
+
+            model.Edit1date();
+            return RedirectToAction("Notice1date");
         }
     }
 }
