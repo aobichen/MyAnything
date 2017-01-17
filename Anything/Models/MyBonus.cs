@@ -29,5 +29,6 @@ namespace Anything.Models
         public string BonusType { get; set; }
         public string BonusStatus { get; set; }
         public bool Notified { get; set; }
+        public Nullable<bool> NoticedFor1Date { get; set; }
     }
 }

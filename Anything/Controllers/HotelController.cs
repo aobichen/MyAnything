@@ -40,7 +40,7 @@ namespace Anything.Controllers
         }
         //
         // GET: /Hotel/
-        [Authorize(Roles = "Hotel,Admin")]
+        [Authorize(Roles = "Hotel,Admin,System")]
         public ActionResult Index(int Page=1)
         {
 

@@ -90,7 +90,9 @@ namespace Anything.WebApi
             var unPaid = OrderType.Unpaid.ToString();
             var Notice = new BonusNoticeViewModel().QueryFor25Date();
             var NoticeContent = Notice.ItemDescription;
-            var Notices = db.MyBonus.Where(o => o.Notified == false && o.Created.Month == Today.Month).ToList();
+            var Notices = db.MyBonus.Where(o => o.Notified == false &&
+                o.Created.Year == Today.Year &&
+                o.Created.Month == Today.Month).ToList();
             var result = db.MyBonus.GroupBy(o => o.UserID)
                    .Select(g => new { UserID = g.Key, total = g.Sum(i => i.Bonus) });
 
@@ -183,7 +185,10 @@ namespace Anything.WebApi
             var unPaid = OrderType.Unpaid.ToString();
             var Notice = new BonusNoticeViewModel().QueryFor1Date();
             var NoticeContent = Notice.ItemDescription;
-            var Notices = db.MyBonus.Where(o => o.BonusStatus.Equals("CanUse") && o.UseMonth.Month == Today.Month).ToList();
+            var Notices = db.MyBonus.Where(o => o.BonusStatus.Equals("CanUse") && 
+                o.Created.Year == Today.Year &&
+                o.UseMonth.Month == Today.Month && o.NoticedFor1Date != true).ToList();
+
             var result = db.MyBonus.GroupBy(o => o.UserID)
                    .Select(g => new { UserID = g.Key, total = g.Sum(i => i.Bonus) });
 
@@ -251,7 +256,7 @@ namespace Anything.WebApi
                 {
                     foreach (var item in Notices)
                     {
-                        item.Notified = true;
+                        item.NoticedFor1Date = true;
                         db.SaveChanges();
                     }
                 }

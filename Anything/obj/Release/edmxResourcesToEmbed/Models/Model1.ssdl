@@ -107,6 +107,7 @@
     <Property Name="BonusType" Type="nvarchar" MaxLength="20" />
     <Property Name="BonusStatus" Type="nvarchar" MaxLength="30" />
     <Property Name="Notified" Type="bit" Nullable="false" />
+    <Property Name="NoticedFor1Date" Type="bit" />
   </EntityType>
   <EntityType Name="News">
     <Key>

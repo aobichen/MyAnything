@@ -112,6 +112,7 @@
           <Property Name="BonusType" Type="nvarchar" MaxLength="20" />
           <Property Name="BonusStatus" Type="nvarchar" MaxLength="30" />
           <Property Name="Notified" Type="bit" Nullable="false" />
+          <Property Name="NoticedFor1Date" Type="bit" />
         </EntityType>
         <EntityType Name="News">
           <Key>
@@ -776,6 +777,7 @@
           <Property Name="BonusType" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="BonusStatus" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="Notified" Type="Boolean" Nullable="false" />
+          <Property Name="NoticedFor1Date" Type="Boolean" />
         </EntityType>
         <EntityType Name="Bonus">
           <Key>
@@ -1067,6 +1069,7 @@
           <EntitySetMapping Name="MyBonus">
             <EntityTypeMapping TypeName="MyAnythingModel.MyBonus">
               <MappingFragment StoreEntitySet="MyBonus">
+                <ScalarProperty Name="NoticedFor1Date" ColumnName="NoticedFor1Date" />
                 <ScalarProperty Name="Notified" ColumnName="Notified" />
                 <ScalarProperty Name="BonusStatus" ColumnName="BonusStatus" />
                 <ScalarProperty Name="BonusType" ColumnName="BonusType" />

@@ -1,0 +1,383 @@
+﻿@model Anything.ViewModels.HotelCreateViewModel
+<style type="text/css">
+    fieldset h2 {
+        color: #5fc8c2;
+    }
+
+    textarea{
+        border:1px solid #ccc;
+        width:100%;
+    }
+</style>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.ID)
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+<div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="x_panel">
+        <div class="x_title">
+            <h2>
+                旅館資訊
+               
+            </h2>
+            <ul class="nav navbar-right panel_toolbox">
+                <li>
+                    <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                </li>
+
+
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+            <br>
+           
+                
+
+                <div class="form-horizontal form-label-left">
+                   
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                            名稱
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            
+                               @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                           
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                            地區<span class="required"></span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                           
+                                @Html.Partial("_Locations")
+                                @Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })
+                           
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                            縣市<span class="required"></span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            
+                            @Html.Partial("_TaiwanSelectList")
+                            @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+                            @Html.ValidationMessageFor(model => model.Area, "", new { @class = "text-danger" })
+                            
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                            地址<span class="required"></span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                           
+                                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @placeholder = "民宿地址", @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                           
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                            連絡電話<span class="required"></span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                           
+                                @Html.EditorFor(model => model.Tel, new { htmlAttributes = new { @placeholder = "連絡電話", @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Tel, "", new { @class = "text-danger" })
+                            
+                        </div>
+                    </div>
+
+                    <div class="ln_solid"></div>
+                    
+
+                </div>
+            
+        </div>
+    </div>
+
+    <!--環境圖片-->
+    <div class="x_panel">
+        <div class="x_title">
+            <h2>
+                環境照片
+
+            </h2>
+            <ul class="nav navbar-right panel_toolbox">
+                <li>
+                    <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                </li>
+
+
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+            <br>
+
+            
+
+            <div class="form-horizontal form-label-left">
+                
+                <div class="form-group">
+                   
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        
+                            @Html.Partial("_ImageUpload")
+                       
+                    </div>
+                </div>
+
+
+               
+
+               
+            </div>
+
+        </div>
+    </div>
+
+    <!--特色介紹-->
+    <div class="x_panel">
+        <div class="x_title">
+            <h2>
+                旅館介紹
+
+            </h2>
+            <ul class="nav navbar-right panel_toolbox">
+                <li>
+                    <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                </li>
+
+
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+            <br>
+
+            <div class="form-horizontal form-label-left">
+
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                        官網連結
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                       
+                            @Html.EditorFor(model => model.WebSite, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.WebSite, "", new { @class = "text-danger" })
+                       
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                        旅館介紹<span class="required"></span>
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                       
+                        @Html.TextAreaFor(model => model.Introduce, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Introduce, "", new { @class = "text-danger" })
+                        
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                        特色推薦<span class="required"></span>
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                       
+                            @Html.TextAreaFor(model => model.Feature, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Feature, "", new { @class = "text-danger" })
+                      
+                    </div>
+                </div>
+
+
+                <div class="ln_solid"></div>
+                
+
+            </div>
+
+        </div>
+    </div>
+
+    <!--注意事項-->
+    <div class="x_panel">
+        <div class="x_title">
+            <h2>
+                注意事項
+
+            </h2>
+            <ul class="nav navbar-right panel_toolbox">
+                <li>
+                    <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                </li>
+
+
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+            <br>
+
+            <div class="form-horizontal form-label-left">
+
+                <div class="form-group">
+                    
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        
+                            @Html.TextAreaFor(model => model.Information, new { htmlAttributes = new { @class = "form-control infomation", @id = "Information" } })
+                        
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+
+    <!--服務設施-->
+    <div class="x_panel">
+        <div class="x_title">
+            <h2>
+                服務設施
+
+            </h2>
+            <ul class="nav navbar-right panel_toolbox">
+                <li>
+                    <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                </li>
+
+
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+            <br>
+
+            <div class="form-horizontal form-label-left">
+
+                <div class="form-group">
+                    
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                       
+                            @{
+                                    if (ViewBag.Facility != null)
+                                    {
+                                        <div class="full-width">
+                                            @Html.CheckBoxList("Facility", (List<SelectListItem>)ViewBag.Facility, null, Position.Vertical, 10)
+                                        </div>
+                                    }
+                            }
+
+                            @Html.ValidationMessageFor(model => model.Facility, "", new { @class = "text-danger" })
+                       
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+
+    <!--熱門景點-->
+    <div class="x_panel">
+        <div class="x_title">
+            <h2>
+                熱門景點
+
+            </h2>
+            <ul class="nav navbar-right panel_toolbox">
+                <li>
+                    <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                </li>
+
+
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+            <br>
+
+            <div class="form-horizontal form-label-left">
+
+                <div class="form-group">
+                    
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        
+                            @{
+                                if (ViewBag.Scenics != null)
+                                    {
+                                        <div class="full-width">
+                                            @Html.CheckBoxList("Scenics", (List<SelectListItem>)ViewBag.Scenics, null, Position.Vertical, 10)
+                                        </div>
+                                    }
+                            }
+                            @Html.ValidationMessageFor(model => model.Scenics, "", new { @class = "text-danger" })
+                       
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+
+    <!--上架-->
+    <div class="x_panel">
+        
+        <div class="x_content">
+           
+           
+              <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                            發布上架<span class="required"></span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+
+                            @Html.EditorFor(model => model.SaleOff)
+                            @Html.ValidationMessageFor(model => model.SaleOff, "", new { @class = "text-danger" })
+
+                        </div>
+                    </div>
+               
+          
+        </div>
+    </div>
+
+    
+
+        <div class="x_content">
+
+
+          
+                <div class="col-md-12 col-sm-12 col-xs-12">
+
+                    <button type="submit" class="btn btn-success">確定</button>
+                </div>
+           
+
+
+        </div>
+    
+
+</div>
+
+}
+
+

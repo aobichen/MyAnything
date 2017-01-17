@@ -568,7 +568,7 @@ namespace Anything.Controllers
                  // Don't reveal that the user does not exist
                  FormsAuthentication.SignOut();
                  AuthenticationManager.SignOut();
-                 return Redirect("~/Home/Account");
+                 return Redirect("~/Home/AccountForUser");
              }
              else
              {
@@ -578,7 +578,7 @@ namespace Anything.Controllers
                      ModelState.AddModelError("", "帳號不符");
                      FormsAuthentication.SignOut();
                      AuthenticationManager.SignOut();
-                     return Redirect("~/Home/Account");
+                     return Redirect("~/Home/AccountForUser");
                  }
              }
 

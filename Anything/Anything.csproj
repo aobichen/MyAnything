@@ -199,6 +199,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Hotel\Controllers\AccountController.cs" />
     <Compile Include="Areas\Hotel\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Hotel\Controllers\HotelController.cs" />
     <Compile Include="Areas\Hotel\HotelAreaRegistration.cs" />
     <Compile Include="Areas\My\Controllers\AccountController.cs" />
     <Compile Include="Areas\My\Controllers\BonusController.cs" />
@@ -341,6 +342,7 @@
     <Compile Include="WebApi\RoomController.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Hotel\Views\Hotel\InformationTemp.html" />
     <Content Include="Content\bootstrap-datetimepicker\css\bootstrap-datetimepicker.css" />
     <Content Include="Content\bootstrap-datetimepicker\css\bootstrap-datetimepicker.min.css" />
     <Content Include="Content\bootstrap-datetimepicker\js\bootstrap-datetimepicker.js" />
@@ -624,6 +626,13 @@
     <Content Include="Areas\System\Views\BonusNotice\Index.cshtml" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="Areas\System\Views\BonusNotice\Notice1date.cshtml" />
+    <Content Include="Areas\Hotel\Views\Hotel\_Create.cshtml" />
+    <Content Include="Areas\Hotel\Views\Hotel\_List.cshtml" />
+    <Content Include="Areas\Hotel\Views\Hotel\Create.cshtml" />
+    <Content Include="Areas\Hotel\Views\Hotel\Edit.cshtml" />
+    <Content Include="Areas\Hotel\Views\Hotel\Index.cshtml" />
+    <Content Include="Areas\Hotel\Views\Hotel\Login.cshtml" />
+    <Content Include="Areas\Hotel\Views\Hotel\Register.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\infobox.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

@@ -382,6 +382,7 @@
     <Property Name="BonusType" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
     <Property Name="BonusStatus" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
     <Property Name="Notified" Type="Boolean" Nullable="false" />
+    <Property Name="NoticedFor1Date" Type="Boolean" />
   </EntityType>
   <EntityType Name="Bonus">
     <Key>

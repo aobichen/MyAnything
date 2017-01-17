@@ -126,6 +126,7 @@ namespace Anything.WebApi
             var xauth = "r8rEvWpEsK7BMMH";
             var key = model[0].key;
             var Images = new List<HotelImage>();
+            var Data = new List<HotelImage>();
             IEnumerable<string> headerValues ;
             if (Request.Headers.TryGetValues("x-auth-header", out headerValues))
             {
@@ -165,14 +166,14 @@ namespace Anything.WebApi
                 byte[] bytes = Convert.FromBase64String(m.image);
                 var Extension = Path.GetExtension(m.name);
                 Images.Add(new HotelImage { Image = bytes, Name = m.name, Extension = Extension });
-                
+                Data.Add(new HotelImage {Name = m.name });
             }
 
             Current.Session[key] = Images;
             var ResposeMessage = new HttpResponseMessage(
                 HttpStatusCode.OK)
             {
-                Content = new StringContent(JsonConvert.SerializeObject(new {Success=true,Message="OK" })),
+                Content = new StringContent(JsonConvert.SerializeObject(new { Success = true, Message = "OK", data = Data })),
                 ReasonPhrase = "Success"
             };
 

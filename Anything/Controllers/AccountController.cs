@@ -341,10 +341,15 @@ namespace Anything.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            FormsAuthentication.SignOut();
             AuthenticationManager.SignOut();
             var Recommend = Session["RecommendCode"] == null ? string.Empty : Session["RecommendCode"].ToString();
-          
+
             ViewBag.Recommend = Recommend;
+
+            var model = new RegisterViewModel();
+            model.Email = Session["SingInEmail"] == null ? string.Empty : Session["SingInEmail"].ToString();
+            ViewData.Model = model;
             return View();
         }
 

@@ -17,7 +17,7 @@
     <input type="hidden" name="ImgKey" id="imgkey" value="@ViewBag.ImgKey" />
     <div class="panel panel-primary">
         <div class="panel-heading" style="background-color:#fff;border:none;">
-            <button type="button" class="btn-blue" id="btnUpload">
+            <button type="button" class="btn btn-info" id="btnUpload">
                 上傳
             </button>
             <div class="well-sm">
@@ -133,7 +133,7 @@
             for (var i = 0, max = arr.length; i < max; i++) {
                 let col = $('<div class="col-md-3 img-container"></div>');
                 let DeleteIcon = $('<i class="glyphicon glyphicon-remove remove"></i>');
-
+                
                 DeleteIcon.attr("data-name", file.name);
                 let imageTemp = $('<img/>').attr('src',arr[i].dataUrl).addClass('img-responsive');
                 col.append(imageTemp);
@@ -147,6 +147,34 @@
             FileUploadPost('/ImageUpload', model, AppendImages);            
         }
 
+        $("#image-panel").delegate(".remove", "click", function () {
+
+            var self = $(this);
+            var selfid = $(this).attr("id");
+            let name = $(this).attr("data-name");
+            let d = { name: name, key: $('#sessionkey').val() };
+            console.log(d);
+            $.ajax({
+                type: "POST",
+                url: '/HotelImageDelete',
+
+                data: { name: name, key: $('#sessionkey').val() },
+
+                dataType: "json",
+                cache: false,
+
+                success: function (xhr) {
+
+                    if (xhr.success == true) {
+
+                        self.closest('.img-container').remove();
+                    }
+                },
+                error: function (xhr) {
+                    console.log("ERROR");
+                }
+            });
+        });
        
     })
 </script>

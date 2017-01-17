@@ -163,6 +163,7 @@ var FileUploadPost = function (url, arrmodel, callback) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (xhr) {
+            console.log(xhr);
             (callback && typeof (callback) === "function") && callback();
         },
         error: function (xhr) {
@@ -171,3 +172,4 @@ var FileUploadPost = function (url, arrmodel, callback) {
         }
     });
 }
+
