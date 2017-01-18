@@ -125,6 +125,7 @@
     <Property Name="Sort" Type="Int32" Nullable="false" />
     <Property Name="Enabled" Type="Boolean" Nullable="false" />
     <NavigationProperty Name="Room" Relationship="MyAnythingModel.FK_RoomImage_Room1" FromRole="RoomImage" ToRole="Room" />
+    <Property Name="Extension" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="RoomPrice">
     <Key>

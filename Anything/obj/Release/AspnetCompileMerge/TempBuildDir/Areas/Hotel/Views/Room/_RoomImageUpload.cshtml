@@ -1,0 +1,189 @@
+﻿<script src="~/Scripts/Base.js"></script>
+<style type="text/css">
+    .remove {
+        right: 20px;
+        top: 2px;
+        z-index: 100;
+        position: absolute;
+        color: #fff;
+        cursor: pointer;
+    }
+
+        .remove:hover {
+            text-shadow: 2px 2px 2px #8E8E8E;
+        }
+</style>
+<div class="row" id="image-upload">
+    <input type="hidden" name="ImgKey" id="imgkey" value="@Model.ImgKey" />
+    <div class="panel panel-primary">
+        <div class="panel-heading" style="background-color:#fff;border:none;">
+            <button type="button" class="btn btn-info" id="btnUpload">
+                上傳
+            </button>
+            <div class="well-sm">
+                圖片大小:長:900，寬:600
+            </div>
+            <div style="width:0;height:0;overflow:hidden">
+                <input type="file" name="file[]" id="file" multiple />
+            </div>
+        </div>
+        <div class="panel-body" style="background-color:#fff;border:none;">
+            <p id="message" style="display:none;">
+
+            </p>
+            <div class="row" id="image-panel">
+                @if (Session[ViewBag.ImgKey] != null)
+                {
+                    var images = (List<Anything.Models.RoomImage>)Session[ViewBag.ImgKey];
+                    foreach (var img in images)
+                    {
+                       
+                        <div class="col-md-3 img-container">
+                            <img class="img-responsive" src="@img.Path" />
+                            <i class="glyphicon glyphicon-remove remove" data-name="@img.Name"></i>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    jQuery(function () {
+
+        let btnupload = $('#btnUpload', '#image-upload');
+        let file = $('#file');
+        let imgPanel = $('#image-panel', '#image-upload');
+        let key = $('#imgkey', '#image-upload').val();
+        console.log(key);
+        const UPLOAD_URL = "/RoomImageUpload";
+        const DELETE_URL = "/RoomImageDelete";
+
+        let maxSize = 4050000;
+        var size = 0;
+        let MaxWidth = 900;
+        let MaxHeight = 600;
+        let arr = [];
+
+        btnupload.on('click', function () {
+            size = 0;
+            file.val("");
+            file.trigger('click');
+        });
+
+        file.on('change', function (e) {
+            $('#message').html('').hide();
+            arr = [];
+            size = 0;
+            UploadBefore(this);
+        });
+
+        function UploadBefore(input) {
+            if (input.files.length > 10) {
+                $('#message').html("一次性檔案太多").show();
+                return false;
+            }
+            if (input.files && input.files[0]) {
+                var files = input.files;
+                $.each(files, function (index, file) {
+
+                    var img = document.createElement('img');
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+
+                        img.src = e.target.result;
+                        var canvas = document.createElement("canvas");
+                        var ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0);
+                        canvas.height = MaxHeight;
+                        canvas.width = MaxWidth;
+                        var ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, MaxWidth, MaxHeight);
+                        var dataUrl = canvas.toDataURL("image/jpeg");
+                        var regex = new RegExp('^data:' + 'image/jpeg' + ';base64,');
+                        var base64 = dataUrl.replace(regex, '');
+
+                        var head = 'data:image/png;base64,';
+                        size += Math.round((base64.length - head.length) * 3 / 4);
+
+                        if (size >= maxSize) {
+                            console.log('max');
+                            $('#message').html("檔案總大小超過限制").show();
+                            arr = [];
+                            size = 0;
+                            e.preventDefault();
+                            event.stopPropagation();
+                            return false;
+                        };
+
+                        arr.push({ name: file.name, image: base64, key: key, dataUrl: dataUrl });
+
+                        if (arr.length >= files.length) {
+                            UploadPost();
+                        }
+
+                    }
+                    reader.readAsDataURL(file);
+
+                });
+            }
+
+        };
+
+
+        var AppendImages = function (xhr) {
+
+            let d = xhr.data;
+            for (var i = 0, max = d.length; i < max; i++) {
+                let col = $('<div class="col-md-3 img-container"></div>');
+                let DeleteIcon = $('<i class="glyphicon glyphicon-remove remove"></i>');
+
+                DeleteIcon.attr("data-name", d[i].Name);
+                let imageTemp = $('<img/>').attr('src', arr[i].dataUrl).addClass('img-responsive');
+                col.append(imageTemp);
+                col.append(DeleteIcon);
+                imgPanel.append(col);
+            }
+        };
+
+        var UploadPost = function () {
+            let model = arr;
+            FileUploadPost(UPLOAD_URL, model, AppendImages);
+        }
+
+        $("#image-panel").delegate(".remove", "click", function () {
+
+            var self = $(this);
+            var selfid = $(this).attr("id");
+            let name = $(this).attr("data-name");
+
+            $.ajax({
+                type: "POST",
+                url: DELETE_URL,
+
+                data: { name: name, key: key },
+
+                dataType: "json",
+                cache: false,
+
+                success: function (xhr) {
+
+                    if (xhr.success == true) {
+
+                        self.closest('.img-container').remove();
+                    }
+                },
+                error: function (xhr) {
+                    console.log("ERROR");
+                }
+            });
+        });
+
+    })
+</script>
+
+@*@using (Html.BeginForm("HotelUpload", "Image", FormMethod.Post, new {id="aa", enctype = "multipart/form-data" }))
+    {
+        <input type="file" name="FileName" id="file" />
+        <button type="submit">UPLOAD</button>
+    }*@

@@ -166,7 +166,7 @@
                     </div>
                 </div>
 
-                @using (Html.BeginForm("Register", "AccountForUser", FormMethod.Post, new { @class = "" }))
+                @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "" }))
                 {
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary("", new { @class = "text-danger" })
@@ -184,12 +184,12 @@
                     </div>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-key"></i></span>
-                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Password" })
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "需包含數字和英文字" })
 
                     </div>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-key"></i></span>
-                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", @placeholder = "Confrim Password" })
+                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", @placeholder = "密碼確認" })
 
                     </div>
                     <div class="input-group">

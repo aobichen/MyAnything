@@ -12,7 +12,8 @@
     <link href="~/Content/font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet" />
    
     <link href="~/Content/custom-hotel.css" rel="stylesheet">
-    
+
+    <script src="~/Scripts/Base.js"></script>
     
 </head>
 
@@ -39,12 +40,9 @@
                             <h3></h3>
                             <ul class="nav side-menu">
                                 <li>
-                                    <a><i class="fa fa-home"></i> 管理 @*<span class="fa fa-chevron-down"></span>*@</a>
-                                    @*<ul class="nav child_menu">
-                                        <li><a href="index.html">Dashboard</a></li>
-                                        <li><a href="index2.html">Dashboard2</a></li>
-                                        <li><a href="index3.html">Dashboard3</a></li>
-                                    </ul>*@
+                                    
+                                   <a href="@Url.Action("", "Hotel", new { area = "Hotel" })"><i class="fa fa-home"></i>旅館</a>
+                                   
                                 </li>
                                
                                 <li>

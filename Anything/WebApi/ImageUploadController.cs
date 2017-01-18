@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -181,6 +182,69 @@ namespace Anything.WebApi
             return ResposeMessage;
         }
 
+
+        [HttpPost]
+        [Route("RoomImageUpload")]
+        public HttpResponseMessage RoomImageUpload(List<ImageModel> model)
+        {
+            var xauth = ConfigurationManager.AppSettings["WebAPIHashKey"];
+            var key = model[0].key;
+            var Images = new List<RoomImage>();
+            var Data = new List<RoomImage>();
+            IEnumerable<string> headerValues;
+            if (Request.Headers.TryGetValues("x-auth-header", out headerValues))
+            {
+                var Xcustomer = headerValues.FirstOrDefault();
+                if (Xcustomer == null && Xcustomer.Equals(xauth))
+                {
+                    return new HttpResponseMessage(
+                     HttpStatusCode.BadRequest)
+                    {
+                        Content = new StringContent(JsonConvert.SerializeObject(new { Success = false, Message = "未通過網站權限驗證" })),
+                        ReasonPhrase = "Error"
+                    };
+                }
+
+            }
+            else
+            {
+
+                return new HttpResponseMessage(
+                 HttpStatusCode.BadRequest)
+                {
+                    Content = new StringContent(JsonConvert.SerializeObject(new { Success = false, Message = "未通過網站權限驗證" })),
+                    ReasonPhrase = "Error"
+                };
+
+            }
+
+            var Current = HttpContext.Current;
+            if (Current.Session[key] != null)
+            {
+
+                Images = (List<RoomImage>)Current.Session[key];
+            }
+
+            foreach (var m in model)
+            {
+                byte[] bytes = Convert.FromBase64String(m.image);
+                var Extension = Path.GetExtension(m.name);
+                Images.Add(new RoomImage { Image = bytes, Name = m.name, Extension = Extension });
+                Data.Add(new RoomImage { Name = m.name });
+            }
+
+            Current.Session[key] = Images;
+            var ResposeMessage = new HttpResponseMessage(
+                HttpStatusCode.OK)
+            {
+                Content = new StringContent(JsonConvert.SerializeObject(new { Success = true, Message = "OK", data = Data })),
+                ReasonPhrase = "Success"
+            };
+
+
+            return ResposeMessage;
+        }
+
         [HttpPost]
         [Route("RoomImageDelete")]
         public object RoomImageDelete(imagedelete data)
@@ -214,52 +278,52 @@ namespace Anything.WebApi
             return Json(new { success = true });
         }
 
-        [HttpPost]
-        [Route("RoomImageUpload")]
-        public object RoomImageUpload()
-        {
-            var Current = HttpContext.Current;
-            var key = HttpContext.Current.Request["key"];
-            var FolderPath = UserFolder;
-            if (!Directory.Exists(HttpContext.Current.Server.MapPath(FolderPath)))
-            {
-                Directory.CreateDirectory(HttpContext.Current.Server.MapPath(FolderPath));
-            }
+        //[HttpPost]
+        //[Route("RoomImageUpload")]
+        //public object RoomImageUpload()
+        //{
+        //    var Current = HttpContext.Current;
+        //    var key = HttpContext.Current.Request["key"];
+        //    var FolderPath = UserFolder;
+        //    if (!Directory.Exists(HttpContext.Current.Server.MapPath(FolderPath)))
+        //    {
+        //        Directory.CreateDirectory(HttpContext.Current.Server.MapPath(FolderPath));
+        //    }
 
-            var Images = new List<RoomImage>();
+        //    var Images = new List<RoomImage>();
 
-            if (HttpContext.Current.Session[key] != null)
-            {
+        //    if (HttpContext.Current.Session[key] != null)
+        //    {
 
-                Images = (List<RoomImage>)Current.Session[key];
-                Images = Images.Select(o => { o.Room = null; return o; }).ToList();
-            }
+        //        Images = (List<RoomImage>)Current.Session[key];
+        //        Images = Images.Select(o => { o.Room = null; return o; }).ToList();
+        //    }
 
-            for (int i = 0; i < HttpContext.Current.Request.Files.Count; i++)
-            {
-                var file = HttpContext.Current.Request.Files[i];
-                var fileName = file.FileName;
-                //// var image = FileToByte(file);
-                //var subName = Path.GetExtension(file.FileName);
-                //var fileName = Guid.NewGuid().ToString();
-                //var webPath = Path.Combine(FolderPath, fileName + ".jpeg");
-                //var path = Path.Combine(HttpContext.Current.Server.MapPath(FolderPath), fileName + ".jpeg");
-                //file.SaveAs(path);
-                var image = FileToByte(file);
-                Images.Add(new RoomImage { Image = image, Name = fileName, Path = string.Empty, Sort = i + 1 });
-            }
+        //    for (int i = 0; i < HttpContext.Current.Request.Files.Count; i++)
+        //    {
+        //        var file = HttpContext.Current.Request.Files[i];
+        //        var fileName = file.FileName;
+        //        //// var image = FileToByte(file);
+        //        //var subName = Path.GetExtension(file.FileName);
+        //        //var fileName = Guid.NewGuid().ToString();
+        //        //var webPath = Path.Combine(FolderPath, fileName + ".jpeg");
+        //        //var path = Path.Combine(HttpContext.Current.Server.MapPath(FolderPath), fileName + ".jpeg");
+        //        //file.SaveAs(path);
+        //        var image = FileToByte(file);
+        //        Images.Add(new RoomImage { Image = image, Name = fileName, Path = string.Empty, Sort = i + 1 });
+        //    }
 
-            var Message = "完成上傳";
+        //    var Message = "完成上傳";
 
-            if (Images.Count >= Limit)
-            {
-                Message = string.Format("照片限制{0}張", Limit);
-                Images = Images.Take(Limit).ToList();
-            }
-            Current.Session[key] = Images;
-            var data = JsonConvert.SerializeObject(Images);
-            return Json(new { data = data, message = Message });
-        }
+        //    if (Images.Count >= Limit)
+        //    {
+        //        Message = string.Format("照片限制{0}張", Limit);
+        //        Images = Images.Take(Limit).ToList();
+        //    }
+        //    Current.Session[key] = Images;
+        //    var data = JsonConvert.SerializeObject(Images);
+        //    return Json(new { data = data, message = Message });
+        //}
 
         private byte[] FileToByte(HttpPostedFile file){
             byte[] fileData = null;

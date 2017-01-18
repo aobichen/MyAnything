@@ -1,4 +1,8 @@
-﻿.daterangepicker .ranges li {
+﻿body{
+    font-family:"微軟正黑體",sans-serif;
+}
+
+.daterangepicker .ranges li {
   color: #73879C; }
   .daterangepicker .ranges li.active, .daterangepicker .ranges li:hover {
     background: #536A7F;
@@ -91,7 +95,9 @@
 
 @charset "UTF-8";
 .left_col {
-  background: rgba(148,0,148,.5); }
+  background: transparent;
+
+}
 
 .nav-sm .container.body .col-md-3.left_col {
   min-height: 100%;
@@ -420,7 +426,7 @@ body .container.body .right_col {
 
 body {
   color: #73879C;
-  background: rgba(148,0,148,.5);;
+  background: rgba(148,0,148,.7);
   font-family: "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
   font-size: 13px;
   font-weight: 400;

@@ -88,7 +88,7 @@ namespace Anything.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
-            
+            model.Password = model.Password.ToLower();
             FormsAuthentication.SignOut();
             AuthenticationManager.SignOut();
             if (!ModelState.IsValid)
@@ -382,7 +382,7 @@ namespace Anything.Controllers
             model.UserCode = new Anything.Helpers.BaseDLL().GetUserCode(model.UserName);
             
             model.UserType = "Hotel";
-           
+            //model.Password = model.Password.ToLower();
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.UserName, Email = model.Email, UserType = model.UserType, UserCode = model.UserCode,Recommend = model.Recommend };
@@ -503,6 +503,7 @@ namespace Anything.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
         {
+            model.Password = model.Password.ToLower();
             if (!ModelState.IsValid)
             {
                 TempData["ViewData"] = ViewData;
@@ -569,6 +570,7 @@ namespace Anything.Controllers
         [Authorize]
         public async Task<ActionResult> ChangePassword(ResetPasswordViewModel model)
         {
+            model.Password = model.Password.ToLower();
             
             if (!ModelState.IsValid)
             {

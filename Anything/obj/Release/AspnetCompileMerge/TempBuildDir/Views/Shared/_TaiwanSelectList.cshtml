@@ -6,10 +6,10 @@
 </style>
 <div class="" id="TaiwanDropDownList">
     <div class="one-half">
-        @Html.DropDownList("City", null, new { id = "City" })
+        @Html.DropDownList("City", null, new { id = "City", @class = "form-control" })
     </div>
     <div class="one-half">
-       @Html.DropDownItemList("Area", (List<DropDownListItem>)ViewBag.Area, new { id = "area" })
+       @Html.DropDownItemList("Area", (List<DropDownListItem>)ViewBag.Area, new { id = "area", @class = "form-control" })
         
     </div>
     <input type="hidden" id="SelectCity" name="SelectCity" />

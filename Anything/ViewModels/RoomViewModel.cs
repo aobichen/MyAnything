@@ -179,10 +179,12 @@ namespace Anything.ViewModels
                     RoomImage[i].Enabled = true;
                     RoomImage[i].Path = WebPath;
                     RoomImage[i].Name = FileName;
+                    RoomImage[i].Extension = Extension;
                     
                 }       
             }
-                
+
+            //HttpContext.Current.Session.Remove(ImgKey);
             return RoomImage;
         }
     }

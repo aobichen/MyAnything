@@ -83,6 +83,8 @@
 <script type="text/javascript">
     $(function () {
 
+       
+
         var RenderDropdown = function (day) {
             let select = $('<select>');
             var optionText = ["平日價", "假日價", "訂價"];
@@ -167,7 +169,7 @@
             eventAfterAllRender:function(view){
                 $('select', '.fc-date').on('change', function () {
                     var val = $(this).val();
-                    
+                    $('.message').removeClass('active');
                     switch(val){
                         case "0":
                             $(this).removeClass('holiday');
@@ -242,26 +244,19 @@
         };
 
 
+        const SAVE_URL = "/RoomSave";
+
+        function SaveSuccess() {
+            saved = true;
+            $('.message').addClass('active');
+        }
+
         function post(arr) {
             
-            var json = JSON.stringify(arr);          
-            $.ajax({
-                type: "POST",
-                url: '/RoomSave',
-                data:json,
-                cache: false,
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (data) {
+            var json = JSON.stringify(arr);
 
-                    saved = true;
-                    $('.message').addClass('active');
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    console.log(jqXHR);
-                    //alert('There was an error');
-                }
-            });
+            FileUploadPost(SAVE_URL, arr, SaveSuccess);
+            
         }
         
         $('.fc-date').delegate("select", "change", function () {

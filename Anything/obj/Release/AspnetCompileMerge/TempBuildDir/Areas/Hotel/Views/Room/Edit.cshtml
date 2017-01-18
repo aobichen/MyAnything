@@ -1,0 +1,11 @@
+﻿@model Anything.ViewModels.RoomCreateViewModel
+
+
+
+
+@Scripts.Render("~/Scripts/tinymce/tinymce.min.js")
+<script type="text/javascript">
+    tinymce.init({ selector: '#Information',height:"300" });
+</script>
+
+@Html.Partial("_Create",Model)

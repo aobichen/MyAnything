@@ -79,6 +79,7 @@
     <EntitySetMapping Name="RoomImage">
       <EntityTypeMapping TypeName="MyAnythingModel.RoomImage">
         <MappingFragment StoreEntitySet="RoomImage">
+          <ScalarProperty Name="Extension" ColumnName="Extension" />
           <ScalarProperty Name="Enabled" ColumnName="Enabled" />
           <ScalarProperty Name="Sort" ColumnName="Sort" />
           <ScalarProperty Name="Deleted" ColumnName="Deleted" />

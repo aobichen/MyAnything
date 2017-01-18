@@ -22,6 +22,7 @@ namespace Anything.Models
         public bool Deleted { get; set; }
         public int Sort { get; set; }
         public bool Enabled { get; set; }
+        public string Extension { get; set; }
     
         public virtual Room Room { get; set; }
     }

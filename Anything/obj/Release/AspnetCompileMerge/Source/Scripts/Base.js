@@ -1,4 +1,7 @@
-﻿var Now = function () {
+﻿
+const HashKey = "r8rEvWpEsK7BMMHc";
+
+var Now = function () {
     
    
     let d = new Date();
@@ -98,7 +101,7 @@ function ExpireDate() {
 }
 
 function BonusNoticeFor25date() {
-    console.log("BonusNotice");
+    
     $.ajax({
         type: "POST",
         url: '/Bonus/Notice',
@@ -152,22 +155,24 @@ function QueryAllPay() {
 
 
 var FileUploadPost = function (url, arrmodel, callback) {
-    console.log('dd');
+   
     let model = arrmodel;
     $.ajax({
         type: "POST",
         url: url,
-        headers: { 'x-auth-header': 'r8rEvWpEsK7BMMHc' },
+        headers: { 'x-auth-header': HashKey },
         data: JSON.stringify(arrmodel),
         cache: false,
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (xhr) {
-            (callback && typeof (callback) === "function") && callback();
+           
+            (callback && typeof (callback) === "function") && callback(xhr);
         },
         error: function (xhr) {
-            $('#message').html('上傳資料過大').show();
+            $('#message').html(xhr.Message).show();
             
         }
     });
 }
+

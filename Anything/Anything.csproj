@@ -200,6 +200,7 @@
     <Compile Include="Areas\Hotel\Controllers\AccountController.cs" />
     <Compile Include="Areas\Hotel\Controllers\HomeController.cs" />
     <Compile Include="Areas\Hotel\Controllers\HotelController.cs" />
+    <Compile Include="Areas\Hotel\Controllers\RoomController.cs" />
     <Compile Include="Areas\Hotel\HotelAreaRegistration.cs" />
     <Compile Include="Areas\My\Controllers\AccountController.cs" />
     <Compile Include="Areas\My\Controllers\BonusController.cs" />
@@ -343,6 +344,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Hotel\Views\Hotel\InformationTemp.html" />
+    <Content Include="Areas\Hotel\Views\Room\InformationTemp.html" />
     <Content Include="Content\bootstrap-datetimepicker\css\bootstrap-datetimepicker.css" />
     <Content Include="Content\bootstrap-datetimepicker\css\bootstrap-datetimepicker.min.css" />
     <Content Include="Content\bootstrap-datetimepicker\js\bootstrap-datetimepicker.js" />
@@ -633,6 +635,16 @@
     <Content Include="Areas\Hotel\Views\Hotel\Index.cshtml" />
     <Content Include="Areas\Hotel\Views\Hotel\Login.cshtml" />
     <Content Include="Areas\Hotel\Views\Hotel\Register.cshtml" />
+    <Content Include="Areas\Hotel\Views\Room\_Create.cshtml" />
+    <Content Include="Areas\Hotel\Views\Room\_FullCalendar.cshtml" />
+    <Content Include="Areas\Hotel\Views\Room\_List.cshtml" />
+    <Content Include="Areas\Hotel\Views\Room\_RoomCalendar.cshtml" />
+    <Content Include="Areas\Hotel\Views\Room\_RoomImageUpload.cshtml" />
+    <Content Include="Areas\Hotel\Views\Room\Create.cshtml" />
+    <Content Include="Areas\Hotel\Views\Room\Edit.cshtml" />
+    <Content Include="Areas\Hotel\Views\Room\Index.cshtml" />
+    <Content Include="Areas\Hotel\Views\Room\RoomSet.cshtml" />
+    <Content Include="Areas\Hotel\Views\Room\SetPrice.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\infobox.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -1078,7 +1090,6 @@
     <Content Include="Scripts\tinymce\tinymce.js" />
     <Content Include="Scripts\tinymce\tinymce.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="SQL\SystemField.sql" />
     <Content Include="Views\Room\InformationTemp.html" />
     <Content Include="Views\Web.config">
       <SubType>Designer</SubType>

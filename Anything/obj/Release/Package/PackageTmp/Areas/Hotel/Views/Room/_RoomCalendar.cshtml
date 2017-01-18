@@ -1,0 +1,37 @@
+﻿
+<div id="calendar">
+
+</div>
+<script type="text/javascript">
+    jQuery(function () {
+
+        $('#calendar').fullCalendar({
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,basicWeek,basicDay'
+            },
+            defaultDate: '2016-09-12',
+            navLinks: true, // can click day/week names to navigate views
+            editable: true,
+            eventLimit: true, // allow "more" link when too many events
+            events: [
+				
+            ]
+        });
+
+        console.log($('#calendar').find(".fc-head-container table thead").length);
+        InputsOfHeadTr();
+        function InputsOfHeadTr() {
+            var $tr = $('<tr>');
+            console.log($tr);
+            for (var i = 0; i < 6; i++) {
+                var $td = $('<td>');
+                var amountInput = $('<input type="text"/>');
+                $td.append(amountInput);
+                $tr.append($td);
+            }
+            $('#calendar').find(".fc-head-container table thead").append($tr);
+        }
+    })
+</script>

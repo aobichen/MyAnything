@@ -1,0 +1,119 @@
+﻿@using PagedList.Mvc;
+@model PagedList.IPagedList<Anything.ViewModels.RoomModel>
+ 
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        @if (Model == null || Model.Count() <= 0)
+        {
+            <p class="col-md-12">
+                <a class="btn btn-success" href="@Url.Action("Create", "Room", new { id = ViewBag.HotelID })">
+                    <i class="glyphicon glyphicon-plus-sign" aria-hidden="true"></i>
+                    新增
+                </a>
+            </p>
+
+        }
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>
+                    紅利設定
+
+                    @if (TempData["SuccessMessage"] != null)
+                    {
+                        <small class="text-warning">
+                            @TempData["SuccessMessage"]
+                        </small>
+                    }
+                </h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+
+
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <div class="table-responsive">
+                    <table class="table table-striped jambo_table bulk_action">
+                        <tr>
+
+                            <th>
+                                房型
+                            </th>
+                            <th>
+                                定價
+                            </th>
+                            <th>
+                                平日房價
+                            </th>
+                            <th>
+                                假日房價
+                            </th>
+
+                            <th>
+                                數量
+                            </th>
+
+                            <th>
+                                狀態
+                            </th>
+                            <th></th>
+                        </tr>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+
+                                <td>
+                                    @item.Name
+                                </td>
+                                <td>
+                                    @item.FixedPrice.ToString("#.##")
+                                </td>
+                                <td>
+                                    @item.DayPrice.ToString("#.##")
+                                </td>
+                                <td>
+                                    @item.HolidayPrice.ToString("#.##")
+                                </td>
+
+                                <td>
+                                    @item.Quantity
+                                </td>
+
+                                <td>
+                                    @if (item.Enabled)
+                                    {
+                                        <i class="glyphicon glyphicon-ok-circle alert-success" title="開放"></i>
+                                    }
+                                    else
+                                    {
+                                        <i class="glyphicon glyphicon-ban-circle alert-danger" title="關閉"></i>
+
+                                    }
+
+                                </td>
+                                <td>
+                                    <div class="btn-group">
+
+                                        <a class="btn btn-primary" href="@Url.Action("Edit", "Room", new { id = item.ID })">
+                                            <i class="glyphicon glyphicon-edit" aria-hidden="true"></i>
+                                        </a>
+                                        <a class="btn btn-danger" target="_blank" href="@Url.Action("SetPrice", "Room", new { id = item.ID })">
+                                            <i class="glyphicon glyphicon-calendar" aria-hidden="true"></i>
+                                        </a>
+                                    </div>
+
+                                </td>
+                            </tr>
+                        }
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>

@@ -227,6 +227,7 @@
     <Property Name="Deleted" Type="bit" Nullable="false" />
     <Property Name="Sort" Type="int" Nullable="false" />
     <Property Name="Enabled" Type="bit" Nullable="false" />
+    <Property Name="Extension" Type="nvarchar" MaxLength="10" />
   </EntityType>
   <EntityType Name="RoomPrice">
     <Key>

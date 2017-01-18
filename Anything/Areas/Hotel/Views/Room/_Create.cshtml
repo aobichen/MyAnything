@@ -1,0 +1,306 @@
+﻿@model Anything.ViewModels.RoomCreateViewModel
+<style type="text/css">
+    fieldset h2 {
+        color: #5fc8c2;
+    }
+
+   
+    .mce-tinymce button:hover{
+        border-radius:0;
+        background: transparent;
+    }
+
+     .x_title{
+        color:rgba(148,0,148,.5);
+        font-family:'Microsoft JhengHei'
+    }
+</style>
+
+
+@Html.ValidationSummary("", new { @class = "text-danger" })
+
+@using (Html.BeginForm())
+{
+<div class="col-md-12 col-sm-12 col-xs-12">
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.HotelId)
+    @Html.HiddenFor(model => model.ImgKey)
+    @Html.HiddenFor(model => model.ID)
+    <!--房型資訊-->
+    <div class="x_panel">
+        <div class="x_title">
+            <h2>
+                房型資訊
+
+            </h2>
+            <ul class="nav navbar-right panel_toolbox">
+                <li>
+                    <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                </li>
+
+
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+            <br>
+            <div class="form-horizontal form-label-left">
+
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Name">
+                        名稱
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                          @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="RoomType">
+                        房型<span class="required"></span>
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+
+                       @Html.DropDownList("RoomType", (SelectList)ViewBag.RoomType, new {  @class = "form-control"  })
+                        @Html.ValidationMessageFor(model => model.RoomType, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="BedType">
+                        床型<span class="required"></span>
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+
+                        @Html.DropDownList("BedType", (SelectList)ViewBag.BedType, new { @class = "form-control"  })
+                        @Html.ValidationMessageFor(model => model.BedType, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="BedAmount">
+                        數量<span class="required"></span>
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+
+                       @Html.EditorFor(model => model.BedAmount, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.BedAmount, "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="MaxPerson">
+                        人數限制<span class="required"></span>
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+
+                        @Html.EditorFor(model => model.MaxPerson, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.MaxPerson, "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+
+    <!--價格設定-->
+    <div class="x_panel">
+        <div class="x_title">
+            <h2>
+                價格設定
+            </h2>
+            <ul class="nav navbar-right panel_toolbox">
+                <li>
+                    <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                </li>
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+            <br>
+            <div class="form-horizontal form-label-left">
+
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="FixedPrice">
+                        房型定價
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        @Html.EditorFor(model => model.FixedPrice, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.FixedPrice, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="HolidayPrice">
+                        假日房價<span class="required"></span>
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+
+                        @Html.EditorFor(model => model.HolidayPrice, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.HolidayPrice, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="DayPrice">
+                        平日房價<span class="required"></span>
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        @Html.EditorFor(model => model.DayPrice, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.DayPrice, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Quantity">
+                        房型間數<span class="required"></span>
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+
+                        @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                        人數限制<span class="required"></span>
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+
+                        @Html.EditorFor(model => model.MaxPerson, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.MaxPerson, "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+
+    <!--房型介紹-->
+    <div class="x_panel">
+        <div class="x_title">
+            <h2>
+                房型介紹
+            </h2>
+            <ul class="nav navbar-right panel_toolbox">
+                <li>
+                    <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                </li>
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+            <br>
+            <div class="form-horizontal form-label-left">
+
+                <div class="form-group">
+
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        @Html.ValidationMessageFor(model => model.Feature, "", new { @class = "text-danger" })
+                        @Html.TextAreaFor(model => model.Feature, new { @class = "form-control" })
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!--注意事項-->
+    <div class="x_panel">
+        <div class="x_title">
+            <h2>
+                注意事項
+            </h2>
+            <ul class="nav navbar-right panel_toolbox">
+                <li>
+                    <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                </li>
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+            <br>
+            <div class="form-horizontal form-label-left">
+           
+                <div class="form-group">
+                    
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        @Html.TextAreaFor(model => model.Notice, new { @class = "form-control", @id = "Information" })
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!--環境照片-->
+    <div class="x_panel">
+        <div class="x_title">
+            <h2>
+                環境照片
+            </h2>
+            <ul class="nav navbar-right panel_toolbox">
+                <li>
+                    <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                </li>
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+            <br>
+            <div class="form-horizontal form-label-left">
+
+                <div class="form-group">
+
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        @Html.Partial("_RoomImageUpload")
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!--啟用房型-->
+
+    <div class="x_panel">
+        <div class="x_content">
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                    啟用房型<span class="required"></span>
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+
+                    @Html.EditorFor(model => model.Enabled)
+                    @Html.ValidationMessageFor(model => model.Enabled, "", new { @class = "text-danger" })
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="x_content">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+
+            <button type="submit" class="btn btn-success">確定</button>
+        </div>
+    </div>
+</div>
+
+}
+    
+

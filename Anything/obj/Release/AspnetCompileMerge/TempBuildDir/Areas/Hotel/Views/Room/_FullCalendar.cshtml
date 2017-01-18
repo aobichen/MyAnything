@@ -1,0 +1,276 @@
+﻿
+<style type="text/css">
+  select.holiday{
+      background-color:#E8FFF5;
+  }
+      select.fixed{
+      background-color:#D2E9FF;
+  }
+
+    th.fc-sat{
+         color:#000000;
+    }
+
+    
+    th.fc-fri,td.fc-fri{
+        background-color:#FFECF5;
+    }
+    
+     th.fc-fri{
+         color:	#000000;
+     }
+       th.fc-sat,td.fc-sat{
+        background-color:#FFECF5;
+    }
+
+
+
+ 
+
+  .message{
+      display:none;
+  }
+
+  .message.active{
+      display:block;
+     
+     font-weight:bold;
+    transition: all 2s;
+    -moz-transition: all 2s; /* Firefox 4 */
+    -webkit-transition: all 2s; /* Safari 和 Chrome */
+    -o-transition: all 2s; /* Opera */
+  }
+
+ 
+  
+</style>
+@{
+    var room = (Anything.Models.Room)ViewBag.Room;
+}
+<p class="message alert alert-success">已儲存!</p>
+<div class="panel panel-default">
+   <input id="roomid" type="hidden" value="@room.ID" />
+    <div class="panel-heading">
+                    <h2 class="alert-warning">
+        <strong>
+                            @room.Name
+                        </strong>
+                    </h2>
+                   
+                </div>
+
+    <div class="panel-body">
+        <div class="col-lg-12">
+            <button type="button" class="btn btn-primary" id="save">
+                儲存
+            </button>
+        </div>
+    </div>
+
+    <div class="panel-body">
+                    <!-- Widget content -->
+                    <!-- Below line produces calendar. I am using FullCalendar plugin. -->
+                    <div class="col-lg-12">
+                        <div id="calendar"></div>
+                    </div>
+                </div>
+</div>
+
+
+
+
+
+<script type="text/javascript">
+    $(function () {
+        
+        var RenderDropdown = function (day) {
+            let select = $('<select>');
+            var optionText = ["平日價", "假日價", "訂價"];
+            for (var i = 0, max = optionText.length; i < max; i++) {
+                var option = $("<option>");
+                option.text(optionText[i]);
+                option.val(i);
+                select.append(option);
+            }
+
+            //if (day == 5 || day == 6) {
+            //    select.addClass('holiday').val('1');
+            //}
+            return select;
+        }
+
+        let id = $('#roomid').val();
+        let tridx = 0;
+        let currentMonth = "0";
+        let saved = true;
+        let roomid = $('#roomid').val();
+       
+        $('#calendar').fullCalendar({
+            //header: {
+            //    //left: 'prev,next today',
+            //    center: 'title',
+            //    //right: 'agendaWeek'
+            //},
+            buttonText: {
+                today: '今天',
+                month: '月視圖',
+                week: '週視圖',
+                day: '日視圖'
+            },
+            monthNames: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'], //默认为英文月分，这里可以改成中文
+            dayNames: ['星期天', '星期一', '星期二', '星期三','星期四', '星期五', '星期六'],
+            dayNamesShort: ['日', '一', '二', '三', '四', '五', '六'],         
+            contentHeight: '9999',                    
+            eventRender: function (event, element, view) {
+                $('.message').removeClass('active');
+                if (event.start.format("MM") != currentMonth) { return false; }
+                
+                var test_date = new Date(event.start).getDay();
+               
+                var start = moment(event.start).format('YYYY-MM-DD');
+                
+                var $div = $('<div>').addClass('form-group fc-date').attr('data-date',start);
+                var select = RenderDropdown(test_date);
+                select.val(event.daytype);
+                if ((test_date != "5" && test_date != "6") && event.daytype != "0") {
+                    if (event.daytype == "1") {
+                        select.addClass("holiday");
+                    } else {
+                        select.addClass("fixed");
+                    }
+
+                }
+                //let $labelQuantity = $('<label>').text('數量');
+                //var $inputQuantity = $('<input>').val(event.quantity).addClass('fc-input fc-quantity').appendTo($labelQuantity);
+                //let $labelPrice = $('<label>').text('房價');
+                //var $inputPrice = $('<input>').val(event.price).addClass('fc-input fc-price').appendTo($labelPrice);
+                $div.append(select);
+                //$div.append($labelPrice);
+                //$div.append(OffSwitch(event.off, 1));
+                
+                return $div;
+            },
+            viewRender: function (currentView) {
+                if (!saved) {
+                    if (!confirm("資料未儲存，確定要結束編輯嗎?")) {
+                        return false;
+                    }
+                }
+                var $fcheader = $('.fc-day-header');
+
+                var select = RenderDropdown();
+                
+                var date = $("#calendar").fullCalendar('getDate');
+                currentMonth = date.format("MM");
+               
+            },
+            eventAfterAllRender:function(view){
+                $('select', '.fc-date').on('change', function () {
+                    var val = $(this).val();
+                    
+                    switch(val){
+                        case "0":
+                            $(this).removeClass('holiday');
+                            $(this).removeClass('fixed');
+                            break;
+                        case "1":
+                            $(this).removeClass('holiday');
+                            $(this).removeClass('fixed');
+                            $(this).addClass('holiday');
+                            break;
+                        case "2":
+                            $(this).removeClass('holiday');
+                            $(this).removeClass('fixed');
+                            $(this).addClass('fixed');
+                            break;
+                    }
+                    $('.message').removeClass('active');
+                });
+            },
+            events: function (start, end, timezone, callback) {
+                tridx = 0;
+                $.ajax({
+                    type: "POST",
+                    url: '/GetRoomPrice/' + roomid,
+                    cache: false,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        var events = [];
+                        $(data).each(function () {
+                            
+                            events.push({
+                                title: this.Title,
+                                start: this.Start,
+                                end: this.End,
+                                daytype: this.DayType,
+                                daytext: this.daytext
+                             
+                            });
+                        });
+                        callback(events);
+                       
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                       // alert('There was an error');
+                    }
+                });
+            }
+        });
+
+
+        const SAVE_URL = "/RoomSave";
+
+        $('#save').on('click', function ()
+            {
+                Save();            
+            });
+
+        function Save() {
+            let elements = $('.fc-date').not('[data-date=""]');
+            let arr = [];
+            let id = roomid;
+
+            for (let i = 0, max = elements.length; i < max; i++) {
+                let date = $(elements[i]).attr('data-date');
+                let daytype = $(elements[i]).find('select').val();
+                let daytext = $(elements[i]).find('option:selected').text();
+               
+                
+                let d = { roomid: id, date: date, daytype: daytype, daytext: daytext };
+                    arr.push(d);
+                
+            }
+            post(arr);
+        };
+
+        function SaveSuccess() {
+            saved = true;
+            $('.message').addClass('active');
+        }
+
+        function post(arr) {
+
+            var json = JSON.stringify(arr);
+
+            FileUploadPost(SAVE_URL, arr, SaveSuccess);
+
+        }
+        
+        $('.fc-date').delegate("select", "change", function () {
+            
+            $('.message').removeClass('active');
+            saved = false;
+        });
+
+        $('.wclose').on("click", function () {           
+            let div = $('.fc-date');
+            for (var i = 0, max = div.length; i < max; i++) {
+                var input = $(div[i]).find('.fc-price');              
+               
+            }
+            
+        });
+    });
+</script>
+

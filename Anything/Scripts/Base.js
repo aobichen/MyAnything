@@ -1,4 +1,7 @@
-﻿var Now = function () {
+﻿
+const HashKey = "r8rEvWpEsK7BMMHc";
+
+var Now = function () {
     
    
     let d = new Date();
@@ -98,7 +101,7 @@ function ExpireDate() {
 }
 
 function BonusNoticeFor25date() {
-    console.log("BonusNotice");
+    
     $.ajax({
         type: "POST",
         url: '/Bonus/Notice',
@@ -157,7 +160,7 @@ var FileUploadPost = function (url, arrmodel, callback) {
     $.ajax({
         type: "POST",
         url: url,
-        headers: { 'x-auth-header': 'r8rEvWpEsK7BMMHc' },
+        headers: { 'x-auth-header': HashKey },
         data: JSON.stringify(arrmodel),
         cache: false,
         contentType: "application/json; charset=utf-8",
