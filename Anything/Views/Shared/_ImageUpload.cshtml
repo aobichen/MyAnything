@@ -129,12 +129,14 @@
         };
 
       
-        var AppendImages = function () {
-            for (var i = 0, max = arr.length; i < max; i++) {
+        var AppendImages = function (xhr) {
+            console.log(xhr.data);
+            let d = xhr.data;
+            for (var i = 0, max = d.length; i < max; i++) {
                 let col = $('<div class="col-md-3 img-container"></div>');
                 let DeleteIcon = $('<i class="glyphicon glyphicon-remove remove"></i>');
                 
-                DeleteIcon.attr("data-name", file.name);
+                DeleteIcon.attr("data-name", d[i].Name);
                 let imageTemp = $('<img/>').attr('src',arr[i].dataUrl).addClass('img-responsive');
                 col.append(imageTemp);
                 col.append(DeleteIcon);
@@ -152,13 +154,12 @@
             var self = $(this);
             var selfid = $(this).attr("id");
             let name = $(this).attr("data-name");
-            let d = { name: name, key: $('#sessionkey').val() };
-            console.log(d);
+           
             $.ajax({
                 type: "POST",
                 url: '/HotelImageDelete',
 
-                data: { name: name, key: $('#sessionkey').val() },
+                data: { name: name, key: key },
 
                 dataType: "json",
                 cache: false,

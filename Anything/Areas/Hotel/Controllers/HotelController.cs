@@ -60,7 +60,7 @@ namespace Anything.Areas.Hotel.Controllers
             return View();
         }
 
-        [Authorize(Roles = "Hotel,Admin")]
+        [Authorize(Roles = "Hotel,Admin,System")]
         public ActionResult Create()
         {
             var model = new HotelCreateViewModel();
@@ -75,7 +75,7 @@ namespace Anything.Areas.Hotel.Controllers
 
 
 
-        [Authorize(Roles = "Hotel,Admin")]
+        [Authorize(Roles = "Hotel,Admin,System")]
         public ActionResult Edit(int? id = null)
         {
 
@@ -145,7 +145,25 @@ namespace Anything.Areas.Hotel.Controllers
             Session[SessionKey] = HotelImages;
             ViewBag.HotelImg = HotelImages;
 
+            var City = new Caches().TWCity;
+            SelectList selectList = new SelectList(City, "ID", "Name", model.City);
+            ViewBag.City = selectList;
 
+            var Areas = new Caches().TWArea;
+
+            //SelectList Areas = new SelectList(City, "ID", "Name", 0);
+            var AreaList = Areas.Select(o => new DropDownListItem
+            {
+                DataAttr = o.CID.ToString(),
+                Selected = model.Area <= 0 ? false : o.ID == model.Area,
+                Text = o.Name,
+                Value = o.ID.ToString()
+            }).ToList();
+            ViewBag.Area = AreaList;
+
+            var Location = new Caches().TWLocation;
+            SelectList Locations = new SelectList(Location, "Location", "Location", model.Location);
+            ViewBag.Location = Locations;
 
             return View(result);
         }

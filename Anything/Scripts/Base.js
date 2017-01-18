@@ -152,7 +152,7 @@ function QueryAllPay() {
 
 
 var FileUploadPost = function (url, arrmodel, callback) {
-    console.log('dd');
+   
     let model = arrmodel;
     $.ajax({
         type: "POST",
@@ -163,11 +163,11 @@ var FileUploadPost = function (url, arrmodel, callback) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (xhr) {
-            console.log(xhr);
-            (callback && typeof (callback) === "function") && callback();
+           
+            (callback && typeof (callback) === "function") && callback(xhr);
         },
         error: function (xhr) {
-            $('#message').html('上傳資料過大').show();
+            $('#message').html(xhr.Message).show();
             
         }
     });
