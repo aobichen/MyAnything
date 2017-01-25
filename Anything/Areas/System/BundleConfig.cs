@@ -10,10 +10,10 @@ namespace Anything.Areas.System
     {
         internal static void RegisterBundles(BundleCollection bundles)
         {
-            //bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-            //            "~/Scripts/jquery-{version}.js",
-            //            "~/Content/jquery-localize/dist/jquery.localize.js",
-            //            "~/Scripts/jquery.cookie.js"));
+            bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
+                        "~/Scripts/jquery-{version}.js",
+                        "~/Content/jquery-localize/dist/jquery.localize.js",
+                        "~/Scripts/jquery.cookie.js"));
 
             //bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
             //            "~/Scripts/jquery.validate*"));

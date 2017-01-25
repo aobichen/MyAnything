@@ -64,6 +64,8 @@
 				buttonImage: 'images/ico/calendar.png',
 				buttonImageOnly: true
 			});
+
+			
 			
 			$( '#slider' ).slider({
 				range: "min",

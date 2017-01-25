@@ -34,8 +34,9 @@ namespace Anything.Areas.System.Models
 
         public List<AccountingViewModel> Query(AccountingSearchModel search = null)
         {
-            var BeginDate = (search == null || search.BeginDate <= DateTime.MinValue) ? DateTime.Now : search.BeginDate;
-            var EndDate = (search==null || search.EndDate <= DateTime.MinValue) ? DateTime.Now : search.EndDate;
+            var Today = DateTime.Now;
+            var BeginDate = (search == null || search.BeginDate <= DateTime.MinValue) ? DateTime.Parse(Today.ToString("yyyy-MM-01")) : search.BeginDate;
+            var EndDate = (search == null || search.EndDate <= DateTime.MinValue) ? DateTime.Parse(Today.ToString("yyyy-MM") +"-"+DateTime.DaysInMonth(Today.Year,Today.Month).ToString()).AddSeconds(-1) : search.EndDate;
 
             using (var db = new MyAnythingEntities())
             {
@@ -45,6 +46,7 @@ namespace Anything.Areas.System.Models
                                  on hotel.ID equals room.HotelId
                              join order in db.OrderMaster
                              on room.ID equals order.ProductId
+                             where order.Created >= BeginDate && order.Created <= EndDate
                              select new AccountingViewModel
                              {
                                  ID = order.ID,

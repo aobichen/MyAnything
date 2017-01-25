@@ -12,9 +12,9 @@ namespace Anything.Areas.System.Controllers
     public class AccountingController : BaseController
     {
         // GET: System/Accounting
-        public ActionResult Index(int Page =1)
+        public ActionResult Index(AccountingSearchModel Search = null,int Page = 1)
         {
-            var model = new AccountingViewModel().Query();
+            var model = new AccountingViewModel().Query(Search);
             var currentPage = Page < 1 ? 1 : Page;
             var PageSize = 10;
 
@@ -39,8 +39,6 @@ namespace Anything.Areas.System.Controllers
            
             var SelectListItems = new List<SelectListItem>();
             
-            //var SelectList = new List<SelectListItem>();
-            //var SelectedItems = SelectedItems;
             foreach (var item in Items)
             {
                 SelectListItems.Add(new SelectListItem
