@@ -1,0 +1,148 @@
+﻿@using PagedList.Mvc;
+@model PagedList.IPagedList<Anything.Areas.System.Models.AccountingViewModel>
+
+<div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="col-md-12 form-group">
+        <div class="col-md-6">
+            @Html.DropDownList("Hotels", null, "--請選擇--", new { @class = "form-control" })
+        </div>
+        <div class="col-md-6">
+            @Html.DropDownList("PayStatus", null, null, new { @class = "form-control" })
+            
+        </div>
+    </div>
+
+        <div class="col-md-12 form-group">
+            
+            <div class="col-md-3">
+                <input type="text" class="form-control" placeholder="旅館，房型" />
+
+            </div>
+
+            <div class="col-lg-3">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <i class="glyphicon glyphicon-calendar"></i>
+                    </span>
+                    <input type="text" id="BeginDate" class="form-control">
+                </div><!-- /input-group -->
+            </div>
+            <div class="col-lg-3">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <i class="glyphicon glyphicon-calendar"></i>
+                    </span>
+                    <input type="text" id="EndDate" class="form-control">
+                </div>
+            </div>
+
+
+            <div class="col-lg-3">
+                <button type="button" class="btn btn-primary">
+                    <i class="glyphicon glyphicon-search"></i>
+                </button>
+            </div>
+        </div>
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>帳務</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+
+            <div class="x_content">
+
+
+                <div class="table-responsive">
+                    @if (Model != null)
+                    {
+
+                        <table class="table table-striped jambo_table bulk_action">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        訂單編號
+                                    </th>
+                                    <th>
+                                        訂單日期
+                                    </th>
+                                    <th>
+                                        飯店
+                                    </th>
+                                    <th>
+                                        房型
+                                    </th>
+
+                                    <th>
+                                        訂單金額
+                                    </th>
+                                    <th>
+                                        消費實付金額
+                                    </th>
+                                    <th>
+                                        扣除紅利金額
+                                    </th>
+                                    <th>
+                                        收入
+                                    </th>
+                                    <th>
+                                        狀態
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @item.OrderDate.ToString("yyyy-MM-dd")
+                                        </td>
+                                        <td>
+                                            @item.OrderId
+                                        </td>
+                                        <td>
+                                            @item.HotelName
+                                        </td>
+
+                                        <td>
+                                            @item.RoomName
+                                        </td>
+                                        <td>
+                                            @item.Amount.ToString("#.##")
+                                        </td>
+                                        <td>
+                                            @item.Paid.ToString("#.##")
+                                        </td>
+                                        <td>
+                                            @item.Bonus.ToString("#.##")
+                                        </td>
+                                        <td>
+                                            @item.Income.ToString("#.##")
+                                        </td>
+                                        <td>
+                                            @item.Status
+                                        </td>
+
+                                    </tr>
+                                }
+
+                            </tbody>
+
+                        </table>
+                        <div class="col-md-12">
+                            @if (Model != null && Model.Count > 0)
+                            {
+                                @Html.PagedListPager(Model, Page => Url.Action("Index", new { Page }))
+                            }
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>

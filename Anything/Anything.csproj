@@ -210,12 +210,14 @@
     <Compile Include="Areas\My\Models\MyOrderModel.cs" />
     <Compile Include="Areas\My\MyAreaRegistration.cs" />
     <Compile Include="Areas\System\BundleConfig.cs" />
+    <Compile Include="Areas\System\Controllers\AccountingController.cs" />
     <Compile Include="Areas\System\Controllers\BedTypeController.cs" />
     <Compile Include="Areas\System\Controllers\BonusController.cs" />
     <Compile Include="Areas\System\Controllers\BonusNoticeController.cs" />
     <Compile Include="Areas\System\Controllers\FacilityController.cs" />
     <Compile Include="Areas\System\Controllers\HomeController.cs" />
     <Compile Include="Areas\System\Controllers\RoomTypeController.cs" />
+    <Compile Include="Areas\System\Models\AccountingViewModel.cs" />
     <Compile Include="Areas\System\Models\BonusNoticeViewModel.cs" />
     <Compile Include="Areas\System\Models\FacilityViewModel.cs" />
     <Compile Include="Areas\System\Models\RoomTypeViewModel.cs" />
@@ -645,6 +647,8 @@
     <Content Include="Areas\Hotel\Views\Room\Index.cshtml" />
     <Content Include="Areas\Hotel\Views\Room\RoomSet.cshtml" />
     <Content Include="Areas\Hotel\Views\Room\SetPrice.cshtml" />
+    <Content Include="Areas\System\Views\Accounting\Index.cshtml" />
+    <Content Include="Areas\System\Views\Accounting\_List.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\infobox.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

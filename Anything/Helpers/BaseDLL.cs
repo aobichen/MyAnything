@@ -29,7 +29,29 @@ namespace Anything.Helpers
             return result;
         }
 
+        public string ParsePayStatusType(string status)
+        {
+            //var StatusEnum = BonusStatusEnum.
+            var value = string.Empty;
+            switch (status)
+            {
+                case "None":
+                    value = "--請選擇--";
+                    break;
+                case "Paid":
+                    value = "已付款";
+                    break;
+                case "Expired":
+                    value = "付款期限已過";
+                    break;
+                case "Unpaid":
+                    value = "未付款";
+                    break;
 
+            }
+
+            return value;
+        }
         
     }
 

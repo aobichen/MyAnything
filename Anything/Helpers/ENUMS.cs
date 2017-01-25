@@ -72,9 +72,8 @@ namespace Anything.Helpers
                   value = "付款期限已過";
                   break;
               case "Unpaid":
-                  value = "位付款";
+                  value = "未付款";
                   break;
-
              
           }
           
