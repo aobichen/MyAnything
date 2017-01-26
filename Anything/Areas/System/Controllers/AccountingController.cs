@@ -51,6 +51,9 @@ namespace Anything.Areas.System.Controllers
 
             ViewBag.Hotels = SelectListItems; 
             ViewData.Model = result;
+            var Today = DateTime.Now;
+            ViewBag.BeginDate = (Search == null || Search.BeginDate <= DateTime.MinValue) ? DateTime.Parse(Today.ToString("yyyy-MM-01")) : Search.BeginDate;
+            ViewBag.EndDate = (Search == null || Search.EndDate <= DateTime.MinValue) ? DateTime.Parse(Today.ToString("yyyy-MM") + "-" + DateTime.DaysInMonth(Today.Year, Today.Month).ToString()).AddSeconds(-1) : Search.EndDate;
             return View();
           
         }
