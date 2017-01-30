@@ -63,15 +63,16 @@ namespace Anything.Helpers
       {
           //var StatusEnum = BonusStatusEnum.
           var value = string.Empty;
+          status = status.ToLower();
           switch (status)
           {
-              case "Paid":
+              case "paid":
                   value = "已付款";
                   break;
-              case "Expired":
+              case "expired":
                   value = "付款期限已過";
                   break;
-              case "Unpaid":
+              case "unpaid":
                   value = "未付款";
                   break;
              

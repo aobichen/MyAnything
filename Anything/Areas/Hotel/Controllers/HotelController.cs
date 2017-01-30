@@ -205,40 +205,6 @@ namespace Anything.Areas.Hotel.Controllers
             return File(Image.Image, "image/jpg");
         }
 
-        //[AllowAnonymous]
-        //public ActionResult Register()
-        //{
-        //    RegisterViewModel model = new RegisterViewModel();
-        //    model.UserType = "User";
-        //    return View(model);
-
-        //}
-
-        //[HttpPost]
-        //[AllowAnonymous]
-        //[ValidateAntiForgeryToken]
-        //public async Task<ActionResult> Register(RegisterViewModel model)
-        //{
-        //    model.UserCode = new Anything.Helper.Base().GetUserCode(model.UserName);
-        //    if (ModelState.IsValid)
-        //    {
-        //        var user = new ApplicationUser { UserName = model.UserName, Email = model.Email, UserType = model.UserType, UserCode = model.UserCode };
-        //        var result = await UserManager.CreateAsync(user, model.Password);
-
-        //        if (result.Succeeded)
-        //        {
-
-        //            var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-        //            var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-        //            await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
-        //            ViewBag.Link = callbackUrl;
-        //            return View("DisplayEmail");
-        //        }
-        //        AddErrors(result);
-        //    }
-
-        //    // If we got this far, something failed, redisplay form
-        //    return View(model);
-        //}
+        
     }
 }

@@ -39,12 +39,12 @@
                             <h3></h3>
                             <ul class="nav side-menu">
                                 <li>
-                                    <a><i class="fa fa-home"></i> 訂單 @*<span class="fa fa-chevron-down"></span>*@</a>
-                                    @*<ul class="nav child_menu">
-                                        <li><a href="index.html">Dashboard</a></li>
-                                        <li><a href="index2.html">Dashboard2</a></li>
-                                        <li><a href="index3.html">Dashboard3</a></li>
-                                    </ul>*@
+                                    <a href="@Url.Action("", "Home", new {area = "My" })"><i class="glyphicon glyphicon-th"></i> 訂單 @*<span class="fa fa-chevron-down"></span>*@</a>
+                                   
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("", "Bonus", new {area = "My" })"><i class="glyphicon glyphicon-th"></i> 積點紅利 </a>
+
                                 </li>
                                 <li>
                                     <a><i class="glyphicon glyphicon-user"></i> 帳號 <span class="fa fa-chevron-down"></span></a>
@@ -90,70 +90,7 @@
                     </ul>*@
             </li>
 
-            @*<li role="presentation" class="dropdown">
-                    <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
-                        <i class="fa fa-envelope-o"></i>
-                        <span class="badge bg-green">6</span>
-                    </a>
-                    <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
-                        <li>
-                            <a>
-                                <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                                <span>
-                                    <span>John Smith</span>
-                                    <span class="time">3 mins ago</span>
-                                </span>
-                                <span class="message">
-                                    Film festivals used to be do-or-die moments for movie makers. They were where...
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a>
-                                <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                                <span>
-                                    <span>John Smith</span>
-                                    <span class="time">3 mins ago</span>
-                                </span>
-                                <span class="message">
-                                    Film festivals used to be do-or-die moments for movie makers. They were where...
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a>
-                                <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                                <span>
-                                    <span>John Smith</span>
-                                    <span class="time">3 mins ago</span>
-                                </span>
-                                <span class="message">
-                                    Film festivals used to be do-or-die moments for movie makers. They were where...
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a>
-                                <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                                <span>
-                                    <span>John Smith</span>
-                                    <span class="time">3 mins ago</span>
-                                </span>
-                                <span class="message">
-                                    Film festivals used to be do-or-die moments for movie makers. They were where...
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <div class="text-center">
-                                <a>
-                                    <strong>See All Alerts</strong>
-                                    <i class="fa fa-angle-right"></i>
-                                </a>
-                            </div>
-                        </li>
-                    </ul>
-                </li>*@
+           
         </ul>
 }
 else

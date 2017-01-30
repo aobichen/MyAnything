@@ -88,7 +88,21 @@
                     //$('.f-item:nth-child(1) span').addClass('checked');
 
                   
-               
+                    $('#hero-gallery').lightSlider({
+                        gallery: true,
+                        item: 1,
+                        pager: false,
+                        gallery: false,
+                        slideMargin: 0,
+                        speed: 2000,
+                        pause: 6000,
+                        mode: 'fade',
+                        auto: true,
+                        loop: true,
+                        onSliderLoad: function () {
+                            $('#hero-gallery').removeClass('cS-hidden');
+                        }
+                    });
             });
         </script>
 @Scripts.Render("~/Scripts/lightslider.min.js")

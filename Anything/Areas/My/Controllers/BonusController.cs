@@ -9,6 +9,7 @@ using PagedList;
 using Anything.ViewModels;
 namespace Anything.Areas.My.Controllers
 {
+    [Authorize]
     public class BonusController : BaseController
     {
         // GET: My/Bonus

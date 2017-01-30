@@ -445,3 +445,6 @@ C:\Users\aobi\Documents\SOHOProjects\MyAnything\Anything\bin\Facebook.xml
 C:\Users\Aobi\Documents\SOHOProject\MYAnything\Anything\bin\Facebook.dll
 C:\Users\Aobi\Documents\SOHOProject\MYAnything\Anything\bin\Facebook.xml
 C:\Users\aobi\Documents\SOHOProjects\MyAnything\Anything\bin\Anything.dll.config
+C:\Users\aobi\Documents\SOHOProjects\MyAnything\Anything\bin\ClosedXML.dll
+C:\Users\aobi\Documents\SOHOProjects\MyAnything\Anything\bin\DocumentFormat.OpenXml.dll
+C:\Users\aobi\Documents\SOHOProjects\MyAnything\Anything\bin\ClosedXML.xml

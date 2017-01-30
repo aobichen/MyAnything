@@ -4,6 +4,10 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="MyAnything住宿訂房館">
+    <meta name="description" content="MyAnything住宿訂房館,優質民宿,宿配網,旅館住宿,飯店推薦">
+    <meta name="author" content="myanything.tw">
+    <meta name="og:title" content="MyAnything│住宿訂房館│飯店住宿│優質民宿">
     <title>MyAnything</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
@@ -71,35 +75,21 @@
 
        
         <script type="text/javascript">
-            (function ($) {
-                $(document).ready(function () {
+            jQuery(function(){
+              
 
                     BonusUpdate();
                     ExpireDate();
                     BonusNoticeFor25date();
                     BonusNoticeFor1date();
-                    $('.form').hide();
-                    $('#form1').show();
+                    //$('.form').hide();
+                    //$('#form1').show();
                     //$('.f-item:nth-child(1)').addClass('active');
                     //$('.f-item:nth-child(1) span').addClass('checked');
 
-                    $('#hero-gallery').lightSlider({
-                        gallery: true,
-                        item: 1,
-                        pager: false,
-                        gallery: false,
-                        slideMargin: 0,
-                        speed: 2000,
-                        pause: 6000,
-                        mode: 'fade',
-                        auto: true,
-                        loop: true,
-                        onSliderLoad: function () {
-                            $('#hero-gallery').removeClass('cS-hidden');
-                        }
-                    });
-                });
-            })(jQuery);
+                  
+               
+            });
         </script>
 @Scripts.Render("~/Scripts/lightslider.min.js")
 

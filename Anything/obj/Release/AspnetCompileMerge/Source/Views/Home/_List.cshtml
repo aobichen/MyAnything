@@ -31,7 +31,7 @@
                                 <a href="@Url.Action("Detail", new { id= item.ID })" title="">
                                 @if (item.Images.Count > 0)
                                 {
-                                    <img src="@Url.Action("Image","Hotel",new {id=item.Images[0].ID})" alt="" />
+                                    <img src="@Url.Action("Image","Hotel",new {area = "Hotel",id=item.Images[0].ID})" alt="" />
                                 }
                                 else
                                 {

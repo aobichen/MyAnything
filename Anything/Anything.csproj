@@ -44,6 +44,9 @@
     <Reference Include="AllPay.Payment.Integration">
       <HintPath>..\..\..\AllPay.Payment.Integration.dll</HintPath>
     </Reference>
+    <Reference Include="ClosedXML">
+      <HintPath>..\..\WGHotel.com\WGHotel\bin\ClosedXML.dll</HintPath>
+    </Reference>
     <Reference Include="Facebook, Version=6.0.10.0, Culture=neutral, PublicKeyToken=58cb4f2111d1e6de, processorArchitecture=MSIL">
       <HintPath>..\packages\Facebook.7.0.6\lib\net45\Facebook.dll</HintPath>
       <Private>True</Private>
@@ -198,6 +201,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Hotel\Controllers\AccountController.cs" />
+    <Compile Include="Areas\Hotel\Controllers\AccountingController.cs" />
     <Compile Include="Areas\Hotel\Controllers\HomeController.cs" />
     <Compile Include="Areas\Hotel\Controllers\HotelController.cs" />
     <Compile Include="Areas\Hotel\Controllers\RoomController.cs" />
@@ -230,7 +234,6 @@
     <Compile Include="Controllers\CityAreaController.cs" />
     <Compile Include="Controllers\CodeFileController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\HotelController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\RolesAdminController.cs" />
     <Compile Include="Controllers\RoomController.cs" />
@@ -738,6 +741,8 @@
     <Content Include="Content\bootstrap-datepicker\css\bootstrap-datepicker.standalone.css.map" />
     <Content Include="Content\bootstrap-datepicker\css\bootstrap-datepicker3.css.map" />
     <Content Include="Content\bootstrap-datepicker\css\bootstrap-datepicker3.standalone.css.map" />
+    <Content Include="Areas\Hotel\Views\Accounting\Index.cshtml" />
+    <Content Include="Areas\Hotel\Views\Accounting\_List.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\infobox.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -1225,8 +1230,6 @@
     <Content Include="Views\RolesAdmin\Delete.cshtml" />
     <Content Include="Views\RolesAdmin\Create.cshtml" />
     <Content Include="Views\Account\DisplayEmail.cshtml" />
-    <Content Include="Views\Hotel\Login.cshtml" />
-    <Content Include="Views\Hotel\Register.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\SystemAdmin\ServiceOption.cshtml" />
     <Content Include="Views\SystemAdmin\ServiceOptionTable.cshtml" />
@@ -1238,8 +1241,6 @@
     <Content Include="Views\Scenic\Index.cshtml" />
     <Content Include="Views\Scenic\Create.cshtml" />
     <Content Include="Views\Scenic\Edit.cshtml" />
-    <Content Include="Views\Hotel\Index.cshtml" />
-    <Content Include="Views\Hotel\Create.cshtml" />
     <Content Include="Views\Shared\_TaiwanSelectList.cshtml" />
     <Content Include="Views\Shared\_Locations.cshtml" />
     <Content Include="Scripts\tinymce\langs\readme.md" />
@@ -1308,8 +1309,6 @@
     <Content Include="Scripts\tinymce\skins\lightgray\Variables.less" />
     <Content Include="Scripts\tinymce\skins\lightgray\Window.less" />
     <Content Include="Scripts\tinymce\themes\inlite\src\test\.eslintrc" />
-    <Content Include="Views\Hotel\InformationTemp.html" />
-    <Content Include="Views\Hotel\Edit.cshtml" />
     <Content Include="Views\Shared\_ImageUpload.cshtml" />
     <Content Include="Views\Room\Index.cshtml" />
     <Content Include="Views\Room\Create.cshtml" />
@@ -1343,9 +1342,7 @@
     <Content Include="Views\VIPStore\Index.cshtml" />
     <Content Include="Views\VIPStore\Order.cshtml" />
     <Content Include="Views\VIPStore\_VIPOrder.cshtml" />
-    <Content Include="Views\Hotel\_List.cshtml" />
     <Content Include="Views\Shared\_Copyright.cshtml" />
-    <Content Include="Views\Hotel\_Create.cshtml" />
     <Content Include="Views\News\Index.cshtml" />
     <Content Include="Views\Shared\_Credit.cshtml" />
     <Content Include="Views\SystemAdmin\_HotelTable.cshtml" />

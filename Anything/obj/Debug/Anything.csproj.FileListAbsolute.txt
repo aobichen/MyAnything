@@ -879,3 +879,6 @@ C:\Users\Aobi\Documents\SOHOProject\MYAnything\Anything\obj\Debug\Anything.dll
 C:\Users\Aobi\Documents\SOHOProject\MYAnything\Anything\obj\Debug\Anything.pdb
 C:\Users\Aobi\Documents\SOHOProject\MYAnything\Anything\obj\Debug\Anything.csprojResolveAssemblyReference.cache
 C:\Users\aobi\Documents\SOHOProjects\MyAnything\Anything\obj\Debug\Anything.csprojResolveAssemblyReference.cache
+C:\Users\aobi\Documents\SOHOProjects\MyAnything\Anything\bin\ClosedXML.dll
+C:\Users\aobi\Documents\SOHOProjects\MyAnything\Anything\bin\DocumentFormat.OpenXml.dll
+C:\Users\aobi\Documents\SOHOProjects\MyAnything\Anything\bin\ClosedXML.xml
